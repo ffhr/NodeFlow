@@ -28,15 +28,13 @@ class LinePainter extends CustomPainter {
 
     // Define the "S" shape using cubic Bézier curves
     path.moveTo(start.dx, start.dy); // Start point
+
+    // More information:
+    // https://flutter.github.io/assets-for-api-docs/assets/dart-ui/path_cubic_to.png#gh-light-mode-only
     path.cubicTo(
-      size.width * 0.1, size.height * 0.2, // Control point 1
-      size.width * 0.1, size.height * 0.5, // Control point 2
-      size.width * 0.2, size.height * 0.5, // End point for the first curve
-    );
-    path.cubicTo(
-      size.width * 0.3, size.height * 0.5, // Control point 1
-      size.width * 0.3, size.height * 0.8, // Control point 2
-      size.width * 0.2, size.height * 0.8, // End point for the second curve
+      start.dx + 20, start.dy - 30, // Control point 1
+      end.dx - 20, end.dy + 30, // Control point 2
+      end.dx, end.dy, // End point
     );
 
     // Draw the path on the canvas
