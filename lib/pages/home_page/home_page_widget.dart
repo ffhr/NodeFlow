@@ -79,6 +79,18 @@ class _HomePageWidgetState extends State<HomePageWidget> {
               ),
               child: Stack(
                 children: [
+                  Stack(
+                    children: [
+                      Container(
+                        width: double.infinity,
+                        height: double.infinity,
+                        child: custom_widgets.Line(
+                          width: double.infinity,
+                          height: double.infinity,
+                        ),
+                      ),
+                    ],
+                  ),
                   Builder(
                     builder: (context) {
                       final nodesList = _model.nodes.toList();
@@ -189,14 +201,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         ),
                       );
                     },
-                  ),
-                  Container(
-                    width: double.infinity,
-                    height: double.infinity,
-                    child: custom_widgets.Line(
-                      width: double.infinity,
-                      height: double.infinity,
-                    ),
                   ),
                 ],
               ),
