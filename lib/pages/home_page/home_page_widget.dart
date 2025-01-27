@@ -82,21 +82,21 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                   GestureDetector(
                     onPanDown: (details) async {
                       // Set drawing start point; isDrawingActive = true
-                      _model.drawingStartPoint = NFPointStruct(
+                      FFAppState().IsDrawingActive = true;
+                      FFAppState().DrawingStartPoint = NFPointStruct(
                         positionX: details.localPosition.dx,
                         positionY: details.localPosition.dy,
                       );
-                      _model.isDrawingActive = true;
                       safeSetState(() {});
                     },
                     onPanEnd: (details) async {
                       // Set isDrawingActive = false
-                      _model.isDrawingActive = false;
+                      FFAppState().IsDrawingActive = false;
                       safeSetState(() {});
                     },
                     onPanUpdate: (details) async {
                       // Set drawing endpoint
-                      _model.drawingEndPoint = NFPointStruct(
+                      FFAppState().DrawingEndPoint = NFPointStruct(
                         positionX: details.localPosition.dx,
                         positionY: details.localPosition.dy,
                       );

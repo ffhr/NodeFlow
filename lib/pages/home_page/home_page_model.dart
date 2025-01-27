@@ -26,18 +26,6 @@ class HomePageModel extends FlutterFlowModel<HomePageWidget> {
 
   int selectedIndex = -1;
 
-  NFPointStruct? drawingStartPoint;
-  void updateDrawingStartPointStruct(Function(NFPointStruct) updateFn) {
-    updateFn(drawingStartPoint ??= NFPointStruct());
-  }
-
-  NFPointStruct? drawingEndPoint;
-  void updateDrawingEndPointStruct(Function(NFPointStruct) updateFn) {
-    updateFn(drawingEndPoint ??= NFPointStruct());
-  }
-
-  bool isDrawingActive = false;
-
   ///  State fields for stateful widgets in this page.
 
   // Stores action output result for [Custom Action - sortByIsSelected] action in NodeComponent widget.
