@@ -1,28 +1,29 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'playground_m_s_model.dart';
-export 'playground_m_s_model.dart';
+import 'playground_i_s_model.dart';
+export 'playground_i_s_model.dart';
 
-class PlaygroundMSWidget extends StatefulWidget {
-  const PlaygroundMSWidget({super.key});
+class PlaygroundISWidget extends StatefulWidget {
+  const PlaygroundISWidget({super.key});
 
   @override
-  State<PlaygroundMSWidget> createState() => _PlaygroundMSWidgetState();
+  State<PlaygroundISWidget> createState() => _PlaygroundISWidgetState();
 }
 
-class _PlaygroundMSWidgetState extends State<PlaygroundMSWidget> {
-  late PlaygroundMSModel _model;
+class _PlaygroundISWidgetState extends State<PlaygroundISWidget> {
+  late PlaygroundISModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => PlaygroundMSModel());
+    _model = createModel(context, () => PlaygroundISModel());
 
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
@@ -49,7 +50,17 @@ class _PlaygroundMSWidgetState extends State<PlaygroundMSWidget> {
           child: Stack(
             children: [
               Align(
-                alignment: AlignmentDirectional(1.0, 1.0),
+                alignment: AlignmentDirectional(
+                    valueOrDefault<double>(
+                      functions.absoluteToRelativeX(
+                          100.0, MediaQuery.sizeOf(context).width, 100.0),
+                      0.0,
+                    ),
+                    valueOrDefault<double>(
+                      functions.absoluteToRelativeY(
+                          200.0, MediaQuery.sizeOf(context).height, 100.0),
+                      0.0,
+                    )),
                 child: Container(
                   width: 100.0,
                   height: 100.0,

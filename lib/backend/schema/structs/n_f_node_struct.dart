@@ -10,16 +10,20 @@ class NFNodeStruct extends BaseStruct {
   NFNodeStruct({
     NFNodeIdStruct? nodeId,
     NFFrameStruct? virtualFrame,
-    NFFrameStruct? viewportFrame,
     List<NFInputSocketStruct>? inputSockets,
     List<NFOutputSocketStruct>? outputSockets,
-    String? childDiagramId,
+    NFDiagramIdStruct? childDiagramId,
+    NFFrameStruct? viewportFrame,
+    NFNodeCapabilitiesStruct? nodeCapabilities,
+    NFNodeInteractionStateStruct? nodeInteractionState,
   })  : _nodeId = nodeId,
         _virtualFrame = virtualFrame,
-        _viewportFrame = viewportFrame,
         _inputSockets = inputSockets,
         _outputSockets = outputSockets,
-        _childDiagramId = childDiagramId;
+        _childDiagramId = childDiagramId,
+        _viewportFrame = viewportFrame,
+        _nodeCapabilities = nodeCapabilities,
+        _nodeInteractionState = nodeInteractionState;
 
   // "node_id" field.
   NFNodeIdStruct? _nodeId;
@@ -42,17 +46,6 @@ class NFNodeStruct extends BaseStruct {
   }
 
   bool hasVirtualFrame() => _virtualFrame != null;
-
-  // "viewport_frame" field.
-  NFFrameStruct? _viewportFrame;
-  NFFrameStruct get viewportFrame => _viewportFrame ?? NFFrameStruct();
-  set viewportFrame(NFFrameStruct? val) => _viewportFrame = val;
-
-  void updateViewportFrame(Function(NFFrameStruct) updateFn) {
-    updateFn(_viewportFrame ??= NFFrameStruct());
-  }
-
-  bool hasViewportFrame() => _viewportFrame != null;
 
   // "input_sockets" field.
   List<NFInputSocketStruct>? _inputSockets;
@@ -77,11 +70,54 @@ class NFNodeStruct extends BaseStruct {
   bool hasOutputSockets() => _outputSockets != null;
 
   // "child_diagram_id" field.
-  String? _childDiagramId;
-  String get childDiagramId => _childDiagramId ?? '';
-  set childDiagramId(String? val) => _childDiagramId = val;
+  NFDiagramIdStruct? _childDiagramId;
+  NFDiagramIdStruct get childDiagramId =>
+      _childDiagramId ?? NFDiagramIdStruct();
+  set childDiagramId(NFDiagramIdStruct? val) => _childDiagramId = val;
+
+  void updateChildDiagramId(Function(NFDiagramIdStruct) updateFn) {
+    updateFn(_childDiagramId ??= NFDiagramIdStruct());
+  }
 
   bool hasChildDiagramId() => _childDiagramId != null;
+
+  // "viewport_frame" field.
+  NFFrameStruct? _viewportFrame;
+  NFFrameStruct get viewportFrame => _viewportFrame ?? NFFrameStruct();
+  set viewportFrame(NFFrameStruct? val) => _viewportFrame = val;
+
+  void updateViewportFrame(Function(NFFrameStruct) updateFn) {
+    updateFn(_viewportFrame ??= NFFrameStruct());
+  }
+
+  bool hasViewportFrame() => _viewportFrame != null;
+
+  // "node_capabilities" field.
+  NFNodeCapabilitiesStruct? _nodeCapabilities;
+  NFNodeCapabilitiesStruct get nodeCapabilities =>
+      _nodeCapabilities ?? NFNodeCapabilitiesStruct();
+  set nodeCapabilities(NFNodeCapabilitiesStruct? val) =>
+      _nodeCapabilities = val;
+
+  void updateNodeCapabilities(Function(NFNodeCapabilitiesStruct) updateFn) {
+    updateFn(_nodeCapabilities ??= NFNodeCapabilitiesStruct());
+  }
+
+  bool hasNodeCapabilities() => _nodeCapabilities != null;
+
+  // "node_interaction_state" field.
+  NFNodeInteractionStateStruct? _nodeInteractionState;
+  NFNodeInteractionStateStruct get nodeInteractionState =>
+      _nodeInteractionState ?? NFNodeInteractionStateStruct();
+  set nodeInteractionState(NFNodeInteractionStateStruct? val) =>
+      _nodeInteractionState = val;
+
+  void updateNodeInteractionState(
+      Function(NFNodeInteractionStateStruct) updateFn) {
+    updateFn(_nodeInteractionState ??= NFNodeInteractionStateStruct());
+  }
+
+  bool hasNodeInteractionState() => _nodeInteractionState != null;
 
   static NFNodeStruct fromMap(Map<String, dynamic> data) => NFNodeStruct(
         nodeId: data['node_id'] is NFNodeIdStruct
@@ -90,9 +126,6 @@ class NFNodeStruct extends BaseStruct {
         virtualFrame: data['virtual_frame'] is NFFrameStruct
             ? data['virtual_frame']
             : NFFrameStruct.maybeFromMap(data['virtual_frame']),
-        viewportFrame: data['viewport_frame'] is NFFrameStruct
-            ? data['viewport_frame']
-            : NFFrameStruct.maybeFromMap(data['viewport_frame']),
         inputSockets: getStructList(
           data['input_sockets'],
           NFInputSocketStruct.fromMap,
@@ -101,7 +134,20 @@ class NFNodeStruct extends BaseStruct {
           data['output_sockets'],
           NFOutputSocketStruct.fromMap,
         ),
-        childDiagramId: data['child_diagram_id'] as String?,
+        childDiagramId: data['child_diagram_id'] is NFDiagramIdStruct
+            ? data['child_diagram_id']
+            : NFDiagramIdStruct.maybeFromMap(data['child_diagram_id']),
+        viewportFrame: data['viewport_frame'] is NFFrameStruct
+            ? data['viewport_frame']
+            : NFFrameStruct.maybeFromMap(data['viewport_frame']),
+        nodeCapabilities: data['node_capabilities'] is NFNodeCapabilitiesStruct
+            ? data['node_capabilities']
+            : NFNodeCapabilitiesStruct.maybeFromMap(data['node_capabilities']),
+        nodeInteractionState:
+            data['node_interaction_state'] is NFNodeInteractionStateStruct
+                ? data['node_interaction_state']
+                : NFNodeInteractionStateStruct.maybeFromMap(
+                    data['node_interaction_state']),
       );
 
   static NFNodeStruct? maybeFromMap(dynamic data) =>
@@ -110,10 +156,12 @@ class NFNodeStruct extends BaseStruct {
   Map<String, dynamic> toMap() => {
         'node_id': _nodeId?.toMap(),
         'virtual_frame': _virtualFrame?.toMap(),
-        'viewport_frame': _viewportFrame?.toMap(),
         'input_sockets': _inputSockets?.map((e) => e.toMap()).toList(),
         'output_sockets': _outputSockets?.map((e) => e.toMap()).toList(),
-        'child_diagram_id': _childDiagramId,
+        'child_diagram_id': _childDiagramId?.toMap(),
+        'viewport_frame': _viewportFrame?.toMap(),
+        'node_capabilities': _nodeCapabilities?.toMap(),
+        'node_interaction_state': _nodeInteractionState?.toMap(),
       }.withoutNulls;
 
   @override
@@ -124,10 +172,6 @@ class NFNodeStruct extends BaseStruct {
         ),
         'virtual_frame': serializeParam(
           _virtualFrame,
-          ParamType.DataStruct,
-        ),
-        'viewport_frame': serializeParam(
-          _viewportFrame,
           ParamType.DataStruct,
         ),
         'input_sockets': serializeParam(
@@ -142,7 +186,19 @@ class NFNodeStruct extends BaseStruct {
         ),
         'child_diagram_id': serializeParam(
           _childDiagramId,
-          ParamType.String,
+          ParamType.DataStruct,
+        ),
+        'viewport_frame': serializeParam(
+          _viewportFrame,
+          ParamType.DataStruct,
+        ),
+        'node_capabilities': serializeParam(
+          _nodeCapabilities,
+          ParamType.DataStruct,
+        ),
+        'node_interaction_state': serializeParam(
+          _nodeInteractionState,
+          ParamType.DataStruct,
         ),
       }.withoutNulls;
 
@@ -160,12 +216,6 @@ class NFNodeStruct extends BaseStruct {
           false,
           structBuilder: NFFrameStruct.fromSerializableMap,
         ),
-        viewportFrame: deserializeStructParam(
-          data['viewport_frame'],
-          ParamType.DataStruct,
-          false,
-          structBuilder: NFFrameStruct.fromSerializableMap,
-        ),
         inputSockets: deserializeStructParam<NFInputSocketStruct>(
           data['input_sockets'],
           ParamType.DataStruct,
@@ -178,10 +228,29 @@ class NFNodeStruct extends BaseStruct {
           true,
           structBuilder: NFOutputSocketStruct.fromSerializableMap,
         ),
-        childDiagramId: deserializeParam(
+        childDiagramId: deserializeStructParam(
           data['child_diagram_id'],
-          ParamType.String,
+          ParamType.DataStruct,
           false,
+          structBuilder: NFDiagramIdStruct.fromSerializableMap,
+        ),
+        viewportFrame: deserializeStructParam(
+          data['viewport_frame'],
+          ParamType.DataStruct,
+          false,
+          structBuilder: NFFrameStruct.fromSerializableMap,
+        ),
+        nodeCapabilities: deserializeStructParam(
+          data['node_capabilities'],
+          ParamType.DataStruct,
+          false,
+          structBuilder: NFNodeCapabilitiesStruct.fromSerializableMap,
+        ),
+        nodeInteractionState: deserializeStructParam(
+          data['node_interaction_state'],
+          ParamType.DataStruct,
+          false,
+          structBuilder: NFNodeInteractionStateStruct.fromSerializableMap,
         ),
       );
 
@@ -194,32 +263,41 @@ class NFNodeStruct extends BaseStruct {
     return other is NFNodeStruct &&
         nodeId == other.nodeId &&
         virtualFrame == other.virtualFrame &&
-        viewportFrame == other.viewportFrame &&
         listEquality.equals(inputSockets, other.inputSockets) &&
         listEquality.equals(outputSockets, other.outputSockets) &&
-        childDiagramId == other.childDiagramId;
+        childDiagramId == other.childDiagramId &&
+        viewportFrame == other.viewportFrame &&
+        nodeCapabilities == other.nodeCapabilities &&
+        nodeInteractionState == other.nodeInteractionState;
   }
 
   @override
   int get hashCode => const ListEquality().hash([
         nodeId,
         virtualFrame,
-        viewportFrame,
         inputSockets,
         outputSockets,
-        childDiagramId
+        childDiagramId,
+        viewportFrame,
+        nodeCapabilities,
+        nodeInteractionState
       ]);
 }
 
 NFNodeStruct createNFNodeStruct({
   NFNodeIdStruct? nodeId,
   NFFrameStruct? virtualFrame,
+  NFDiagramIdStruct? childDiagramId,
   NFFrameStruct? viewportFrame,
-  String? childDiagramId,
+  NFNodeCapabilitiesStruct? nodeCapabilities,
+  NFNodeInteractionStateStruct? nodeInteractionState,
 }) =>
     NFNodeStruct(
       nodeId: nodeId ?? NFNodeIdStruct(),
       virtualFrame: virtualFrame ?? NFFrameStruct(),
+      childDiagramId: childDiagramId ?? NFDiagramIdStruct(),
       viewportFrame: viewportFrame ?? NFFrameStruct(),
-      childDiagramId: childDiagramId,
+      nodeCapabilities: nodeCapabilities ?? NFNodeCapabilitiesStruct(),
+      nodeInteractionState:
+          nodeInteractionState ?? NFNodeInteractionStateStruct(),
     );

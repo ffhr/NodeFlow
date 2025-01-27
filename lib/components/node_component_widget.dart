@@ -173,7 +173,7 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
           ),
         ),
         Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(5.0, 36.0, 0.0, 0.0),
+          padding: EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 0.0, 0.0),
           child: Builder(
             builder: (context) {
               final inputsList =
@@ -181,6 +181,7 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
 
               return Column(
                 mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: List.generate(inputsList.length, (inputsListIndex) {
                   final inputsListItem = inputsList[inputsListIndex];
                   return Container(
@@ -191,10 +192,7 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                       shape: BoxShape.circle,
                     ),
                   );
-                })
-                    .divide(SizedBox(height: 10.0))
-                    .addToStart(SizedBox(height: 15.0))
-                    .addToEnd(SizedBox(height: 15.0)),
+                }).divide(SizedBox(height: 10.0)),
               );
             },
           ),
@@ -202,7 +200,7 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
         Align(
           alignment: AlignmentDirectional(1.0, 0.0),
           child: Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(0.0, 36.0, 5.0, 0.0),
+            padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 5.0, 0.0),
             child: Builder(
               builder: (context) {
                 final outputsList =
@@ -210,6 +208,7 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
 
                 return Column(
                   mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children:
                       List.generate(outputsList.length, (outputsListIndex) {
                     final outputsListItem = outputsList[outputsListIndex];
@@ -221,10 +220,7 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                         shape: BoxShape.circle,
                       ),
                     );
-                  })
-                          .divide(SizedBox(height: 10.0))
-                          .addToStart(SizedBox(height: 15.0))
-                          .addToEnd(SizedBox(height: 15.0)),
+                  }).divide(SizedBox(height: 10.0)),
                 );
               },
             ),

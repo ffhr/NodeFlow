@@ -58,6 +58,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'PlaygroundMS',
           path: '/playgroundMS',
           builder: (context, params) => PlaygroundMSWidget(),
+        ),
+        FFRoute(
+          name: 'PlaygroundIS',
+          path: '/playgroundIS',
+          builder: (context, params) => PlaygroundISWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

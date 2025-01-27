@@ -122,3 +122,21 @@ List<NodeStruct> initNodes() {
 
   return [item1, item2, item3];
 }
+
+double absoluteToRelativeX(
+  double alignmentX,
+  double parentWidth,
+  double childWidth,
+) {
+  double x = (alignmentX * parentWidth + parentWidth) / 2 - childWidth / 2;
+  return x;
+}
+
+double absoluteToRelativeY(
+  double alignmentY,
+  double parentHeight,
+  double childHeight,
+) {
+  double y = (alignmentY * parentHeight + parentHeight) / 2 - childHeight / 2;
+  return y;
+}
