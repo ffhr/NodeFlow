@@ -70,14 +70,14 @@ class _PlaygroundISWidgetState extends State<PlaygroundISWidget> {
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Text(
-                        'Absolute x${functions.relativeToAbsoluteX(0.0, MediaQuery.sizeOf(context).width, 100.0).toString()}',
+                        'Absolute x: ${functions.relativeToAbsoluteX(_model.relativeX!, MediaQuery.sizeOf(context).width, 100.0).toString()}',
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Inter',
                               letterSpacing: 0.0,
                             ),
                       ),
                       Text(
-                        'Absolute y${functions.relativeToAbsoluteY(0.0, MediaQuery.sizeOf(context).height, 100.0).toString()}',
+                        'Absolute y: ${functions.relativeToAbsoluteY(_model.relativeY!, MediaQuery.sizeOf(context).height, 100.0).toString()}',
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Inter',
                               letterSpacing: 0.0,
