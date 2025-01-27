@@ -101,10 +101,10 @@ class LinePainter extends CustomPainter {
   @override
   bool shouldRepaint(covariant LinePainter oldDelegate) {
     if (oldDelegate.start == start && oldDelegate.end == end) {
-      print("shouldRepaint: false");
+      //print("shouldRepaint: false");
       return false;
     }
-    print("shouldRepaint: true");
+    //print("shouldRepaint: true");
     return true;
   }
 

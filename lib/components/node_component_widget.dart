@@ -12,13 +12,19 @@ class NodeComponentWidget extends StatefulWidget {
   const NodeComponentWidget({
     super.key,
     required this.node,
-    required this.onTapDown,
-    required this.onTapUp,
+    this.onTapDown,
+    this.onTapUp,
+    this.onPanDown,
+    this.onPanEnd,
+    this.onPanUpdate,
   });
 
   final NodeStruct? node;
   final Future Function()? onTapDown;
   final Future Function()? onTapUp;
+  final Future Function()? onPanDown;
+  final Future Function()? onPanEnd;
+  final Future Function(NFPointStruct deltaPoint)? onPanUpdate;
 
   @override
   State<NodeComponentWidget> createState() => _NodeComponentWidgetState();
@@ -59,6 +65,23 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
           child: Padding(
             padding: EdgeInsetsDirectional.fromSTEB(15.0, 0.0, 15.0, 0.0),
             child: GestureDetector(
+              onPanDown: (details) async {
+                // On pan down
+                await widget.onPanDown?.call();
+              },
+              onPanEnd: (details) async {
+                // On pan end
+                await widget.onPanEnd?.call();
+              },
+              onPanUpdate: (details) async {
+                // On pan update
+                await widget.onPanUpdate?.call(
+                  NFPointStruct(
+                    positionX: details.delta.dx,
+                    positionY: details.delta.dy,
+                  ),
+                );
+              },
               onTapDown: (details) async {
                 // On tap down
                 await widget.onTapDown?.call();

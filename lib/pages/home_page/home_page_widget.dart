@@ -103,107 +103,102 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                     builder: (context) {
                       final nodesList = _model.nodes.toList();
 
-                      return GestureDetector(
-                        onPanUpdate: (details) async {
-                          // Render node movement
-                          _model.updateNodesAtIndex(
-                            _model.selectedIndex,
-                            (e) => e
-                              ..alignmentX = (nodesList
-                                          .elementAtOrNull(
-                                              _model.selectedIndex)!
-                                          .alignmentX +
-                                      (details.delta.dx * 2) /
-                                          MediaQuery.sizeOf(context).width)
-                                  .clamp(-1.0, 1.0)
-                              ..alignmentY = (nodesList
-                                          .elementAtOrNull(
-                                              _model.selectedIndex)!
-                                          .alignmentY +
-                                      (details.delta.dy * 2) /
-                                          MediaQuery.sizeOf(context).height)
-                                  .clamp(-1.0, 1.0),
-                          );
-                          safeSetState(() {});
-                        },
-                        child: Stack(
-                          children:
-                              List.generate(nodesList.length, (nodesListIndex) {
-                            final nodesListItem = nodesList[nodesListIndex];
-                            return Align(
-                              alignment: AlignmentDirectional(
-                                  valueOrDefault<double>(
-                                    nodesListItem.alignmentX,
-                                    0.0,
-                                  ),
-                                  valueOrDefault<double>(
-                                    nodesListItem.alignmentY,
-                                    0.0,
-                                  )),
-                              child: Container(
-                                width: 180.0,
-                                height: 150.0,
-                                decoration: BoxDecoration(),
-                                child: NodeComponentWidget(
-                                  key: Key(
-                                      'Keyr1c_${nodesListIndex}_of_${nodesList.length}'),
-                                  node: nodesListItem,
-                                  onTapDown: () async {
-                                    // Reset all isMoveable
-                                    await actions.resetMoveables(
-                                      _model.nodes.toList(),
-                                    );
-                                    // Is moveable true
-                                    _model.updateNodesAtIndex(
-                                      nodesListIndex,
-                                      (e) => e..isMoveable = true,
-                                    );
-                                    safeSetState(() {});
-                                    // Reset selections
-                                    await actions.resetSelections(
-                                      _model.nodes.toList(),
-                                    );
-                                    // Toggle selected item
-                                    _model.updateNodesAtIndex(
-                                      nodesListIndex,
-                                      (e) => e
-                                        ..isSelected =
-                                            !nodesListItem.isSelected,
-                                    );
-                                    safeSetState(() {});
-                                    // Bring to front selected item
-                                    _model.sortedNodes =
-                                        await actions.sortByIsSelected(
-                                      _model.nodes.toList(),
-                                    );
-                                    // Bring to front selected item
-                                    _model.nodes = _model.sortedNodes!
-                                        .toList()
-                                        .cast<NodeStruct>();
-                                    safeSetState(() {});
-                                    // Set selected index
-                                    _model.selectedIndex =
-                                        _model.nodes.length - 1;
-
-                                    safeSetState(() {});
-                                  },
-                                  onTapUp: () async {
-                                    // Reset all isMoveable
-                                    await actions.resetMoveables(
-                                      _model.nodes.toList(),
-                                    );
-                                    // Is moveable false
-                                    _model.updateNodesAtIndex(
-                                      nodesListIndex,
-                                      (e) => e..isMoveable = false,
-                                    );
-                                    safeSetState(() {});
-                                  },
+                      return Stack(
+                        children:
+                            List.generate(nodesList.length, (nodesListIndex) {
+                          final nodesListItem = nodesList[nodesListIndex];
+                          return Align(
+                            alignment: AlignmentDirectional(
+                                valueOrDefault<double>(
+                                  nodesListItem.alignmentX,
+                                  0.0,
                                 ),
+                                valueOrDefault<double>(
+                                  nodesListItem.alignmentY,
+                                  0.0,
+                                )),
+                            child: Container(
+                              width: 180.0,
+                              height: 150.0,
+                              decoration: BoxDecoration(),
+                              child: NodeComponentWidget(
+                                key: Key(
+                                    'Keyr1c_${nodesListIndex}_of_${nodesList.length}'),
+                                node: nodesListItem,
+                                onTapDown: () async {},
+                                onTapUp: () async {},
+                                onPanDown: () async {
+                                  // Reset all isMoveable
+                                  await actions.resetMoveables(
+                                    _model.nodes.toList(),
+                                  );
+                                  // Is moveable true
+                                  _model.updateNodesAtIndex(
+                                    nodesListIndex,
+                                    (e) => e..isMoveable = true,
+                                  );
+                                  safeSetState(() {});
+                                  // Reset selections
+                                  await actions.resetSelections(
+                                    _model.nodes.toList(),
+                                  );
+                                  // Toggle selected item
+                                  _model.updateNodesAtIndex(
+                                    nodesListIndex,
+                                    (e) => e
+                                      ..isSelected = !nodesListItem.isSelected,
+                                  );
+                                  safeSetState(() {});
+                                  // Bring to front selected item
+                                  _model.sortedNodes =
+                                      await actions.sortByIsSelected(
+                                    _model.nodes.toList(),
+                                  );
+                                  // Bring to front selected item
+                                  _model.nodes = _model.sortedNodes!
+                                      .toList()
+                                      .cast<NodeStruct>();
+                                  safeSetState(() {});
+                                  // Set selected index
+                                  _model.selectedIndex =
+                                      _model.nodes.length - 1;
+
+                                  safeSetState(() {});
+                                },
+                                onPanEnd: () async {
+                                  // Reset all isMoveable
+                                  await actions.resetMoveables(
+                                    _model.nodes.toList(),
+                                  );
+                                  // Is moveable false
+                                  _model.updateNodesAtIndex(
+                                    nodesListIndex,
+                                    (e) => e..isMoveable = false,
+                                  );
+                                  safeSetState(() {});
+                                },
+                                onPanUpdate: (deltaPoint) async {
+                                  // Render node movement
+                                  _model.updateNodesAtIndex(
+                                    _model.selectedIndex,
+                                    (e) => e
+                                      ..alignmentX = (nodesListItem.alignmentX +
+                                              (deltaPoint.positionX * 2) /
+                                                  MediaQuery.sizeOf(context)
+                                                      .width)
+                                          .clamp(-1.0, 1.0)
+                                      ..alignmentY = (nodesListItem.alignmentY +
+                                              (deltaPoint.positionY * 2) /
+                                                  MediaQuery.sizeOf(context)
+                                                      .height)
+                                          .clamp(-1.0, 1.0),
+                                  );
+                                  safeSetState(() {});
+                                },
                               ),
-                            );
-                          }),
-                        ),
+                            ),
+                          );
+                        }),
                       );
                     },
                   ),
