@@ -9,13 +9,17 @@ import '/flutter_flow/flutter_flow_util.dart';
 class NFDiagramStruct extends BaseStruct {
   NFDiagramStruct({
     NFDiagramIdStruct? diagramId,
+    String? label,
     NFPosition? inputSocketsPosition,
     NFPosition? outputSocketsPosition,
     NFViewportStruct? viewport,
+    NFDiagramThemeStruct? diagramTheme,
   })  : _diagramId = diagramId,
+        _label = label,
         _inputSocketsPosition = inputSocketsPosition,
         _outputSocketsPosition = outputSocketsPosition,
-        _viewport = viewport;
+        _viewport = viewport,
+        _diagramTheme = diagramTheme;
 
   // "diagram_id" field.
   NFDiagramIdStruct? _diagramId;
@@ -27,6 +31,13 @@ class NFDiagramStruct extends BaseStruct {
   }
 
   bool hasDiagramId() => _diagramId != null;
+
+  // "label" field.
+  String? _label;
+  String get label => _label ?? '<DIAGRAM>';
+  set label(String? val) => _label = val;
+
+  bool hasLabel() => _label != null;
 
   // "input_sockets_position" field.
   NFPosition? _inputSocketsPosition;
@@ -55,10 +66,23 @@ class NFDiagramStruct extends BaseStruct {
 
   bool hasViewport() => _viewport != null;
 
+  // "diagram_theme" field.
+  NFDiagramThemeStruct? _diagramTheme;
+  NFDiagramThemeStruct get diagramTheme =>
+      _diagramTheme ?? NFDiagramThemeStruct();
+  set diagramTheme(NFDiagramThemeStruct? val) => _diagramTheme = val;
+
+  void updateDiagramTheme(Function(NFDiagramThemeStruct) updateFn) {
+    updateFn(_diagramTheme ??= NFDiagramThemeStruct());
+  }
+
+  bool hasDiagramTheme() => _diagramTheme != null;
+
   static NFDiagramStruct fromMap(Map<String, dynamic> data) => NFDiagramStruct(
         diagramId: data['diagram_id'] is NFDiagramIdStruct
             ? data['diagram_id']
             : NFDiagramIdStruct.maybeFromMap(data['diagram_id']),
+        label: data['label'] as String?,
         inputSocketsPosition: data['input_sockets_position'] is NFPosition
             ? data['input_sockets_position']
             : deserializeEnum<NFPosition>(data['input_sockets_position']),
@@ -68,6 +92,9 @@ class NFDiagramStruct extends BaseStruct {
         viewport: data['viewport'] is NFViewportStruct
             ? data['viewport']
             : NFViewportStruct.maybeFromMap(data['viewport']),
+        diagramTheme: data['diagram_theme'] is NFDiagramThemeStruct
+            ? data['diagram_theme']
+            : NFDiagramThemeStruct.maybeFromMap(data['diagram_theme']),
       );
 
   static NFDiagramStruct? maybeFromMap(dynamic data) => data is Map
@@ -76,9 +103,11 @@ class NFDiagramStruct extends BaseStruct {
 
   Map<String, dynamic> toMap() => {
         'diagram_id': _diagramId?.toMap(),
+        'label': _label,
         'input_sockets_position': _inputSocketsPosition?.serialize(),
         'output_sockets_position': _outputSocketsPosition?.serialize(),
         'viewport': _viewport?.toMap(),
+        'diagram_theme': _diagramTheme?.toMap(),
       }.withoutNulls;
 
   @override
@@ -86,6 +115,10 @@ class NFDiagramStruct extends BaseStruct {
         'diagram_id': serializeParam(
           _diagramId,
           ParamType.DataStruct,
+        ),
+        'label': serializeParam(
+          _label,
+          ParamType.String,
         ),
         'input_sockets_position': serializeParam(
           _inputSocketsPosition,
@@ -99,6 +132,10 @@ class NFDiagramStruct extends BaseStruct {
           _viewport,
           ParamType.DataStruct,
         ),
+        'diagram_theme': serializeParam(
+          _diagramTheme,
+          ParamType.DataStruct,
+        ),
       }.withoutNulls;
 
   static NFDiagramStruct fromSerializableMap(Map<String, dynamic> data) =>
@@ -108,6 +145,11 @@ class NFDiagramStruct extends BaseStruct {
           ParamType.DataStruct,
           false,
           structBuilder: NFDiagramIdStruct.fromSerializableMap,
+        ),
+        label: deserializeParam(
+          data['label'],
+          ParamType.String,
+          false,
         ),
         inputSocketsPosition: deserializeParam<NFPosition>(
           data['input_sockets_position'],
@@ -125,6 +167,12 @@ class NFDiagramStruct extends BaseStruct {
           false,
           structBuilder: NFViewportStruct.fromSerializableMap,
         ),
+        diagramTheme: deserializeStructParam(
+          data['diagram_theme'],
+          ParamType.DataStruct,
+          false,
+          structBuilder: NFDiagramThemeStruct.fromSerializableMap,
+        ),
       );
 
   @override
@@ -134,25 +182,37 @@ class NFDiagramStruct extends BaseStruct {
   bool operator ==(Object other) {
     return other is NFDiagramStruct &&
         diagramId == other.diagramId &&
+        label == other.label &&
         inputSocketsPosition == other.inputSocketsPosition &&
         outputSocketsPosition == other.outputSocketsPosition &&
-        viewport == other.viewport;
+        viewport == other.viewport &&
+        diagramTheme == other.diagramTheme;
   }
 
   @override
-  int get hashCode => const ListEquality()
-      .hash([diagramId, inputSocketsPosition, outputSocketsPosition, viewport]);
+  int get hashCode => const ListEquality().hash([
+        diagramId,
+        label,
+        inputSocketsPosition,
+        outputSocketsPosition,
+        viewport,
+        diagramTheme
+      ]);
 }
 
 NFDiagramStruct createNFDiagramStruct({
   NFDiagramIdStruct? diagramId,
+  String? label,
   NFPosition? inputSocketsPosition,
   NFPosition? outputSocketsPosition,
   NFViewportStruct? viewport,
+  NFDiagramThemeStruct? diagramTheme,
 }) =>
     NFDiagramStruct(
       diagramId: diagramId ?? NFDiagramIdStruct(),
+      label: label,
       inputSocketsPosition: inputSocketsPosition,
       outputSocketsPosition: outputSocketsPosition,
       viewport: viewport ?? NFViewportStruct(),
+      diagramTheme: diagramTheme ?? NFDiagramThemeStruct(),
     );

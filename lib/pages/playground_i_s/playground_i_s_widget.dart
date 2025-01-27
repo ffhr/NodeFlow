@@ -68,6 +68,7 @@ class _PlaygroundISWidgetState extends State<PlaygroundISWidget> {
                   ),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
                         'Absolute x: ${functions.relativeToAbsoluteX(_model.relativeX!, MediaQuery.sizeOf(context).width, 100.0).toString()}',

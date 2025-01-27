@@ -10,12 +10,10 @@ class NFEdgeIdStruct extends BaseStruct {
   NFEdgeIdStruct({
     NFEntityTypeShort? entityTypeShort,
     String? separator,
-    int? sequential,
-    String? custom,
+    String? id,
   })  : _entityTypeShort = entityTypeShort,
         _separator = separator,
-        _sequential = sequential,
-        _custom = custom;
+        _id = id;
 
   // "entity_type_short" field.
   NFEntityTypeShort? _entityTypeShort;
@@ -32,29 +30,19 @@ class NFEdgeIdStruct extends BaseStruct {
 
   bool hasSeparator() => _separator != null;
 
-  // "sequential" field.
-  int? _sequential;
-  int get sequential => _sequential ?? 0;
-  set sequential(int? val) => _sequential = val;
+  // "id" field.
+  String? _id;
+  String get id => _id ?? '300001';
+  set id(String? val) => _id = val;
 
-  void incrementSequential(int amount) => sequential = sequential + amount;
-
-  bool hasSequential() => _sequential != null;
-
-  // "custom" field.
-  String? _custom;
-  String get custom => _custom ?? '300001';
-  set custom(String? val) => _custom = val;
-
-  bool hasCustom() => _custom != null;
+  bool hasId() => _id != null;
 
   static NFEdgeIdStruct fromMap(Map<String, dynamic> data) => NFEdgeIdStruct(
         entityTypeShort: data['entity_type_short'] is NFEntityTypeShort
             ? data['entity_type_short']
             : deserializeEnum<NFEntityTypeShort>(data['entity_type_short']),
         separator: data['separator'] as String?,
-        sequential: castToType<int>(data['sequential']),
-        custom: data['custom'] as String?,
+        id: data['id'] as String?,
       );
 
   static NFEdgeIdStruct? maybeFromMap(dynamic data) =>
@@ -63,8 +51,7 @@ class NFEdgeIdStruct extends BaseStruct {
   Map<String, dynamic> toMap() => {
         'entity_type_short': _entityTypeShort?.serialize(),
         'separator': _separator,
-        'sequential': _sequential,
-        'custom': _custom,
+        'id': _id,
       }.withoutNulls;
 
   @override
@@ -77,12 +64,8 @@ class NFEdgeIdStruct extends BaseStruct {
           _separator,
           ParamType.String,
         ),
-        'sequential': serializeParam(
-          _sequential,
-          ParamType.int,
-        ),
-        'custom': serializeParam(
-          _custom,
+        'id': serializeParam(
+          _id,
           ParamType.String,
         ),
       }.withoutNulls;
@@ -99,13 +82,8 @@ class NFEdgeIdStruct extends BaseStruct {
           ParamType.String,
           false,
         ),
-        sequential: deserializeParam(
-          data['sequential'],
-          ParamType.int,
-          false,
-        ),
-        custom: deserializeParam(
-          data['custom'],
+        id: deserializeParam(
+          data['id'],
           ParamType.String,
           false,
         ),
@@ -119,24 +97,21 @@ class NFEdgeIdStruct extends BaseStruct {
     return other is NFEdgeIdStruct &&
         entityTypeShort == other.entityTypeShort &&
         separator == other.separator &&
-        sequential == other.sequential &&
-        custom == other.custom;
+        id == other.id;
   }
 
   @override
-  int get hashCode => const ListEquality()
-      .hash([entityTypeShort, separator, sequential, custom]);
+  int get hashCode =>
+      const ListEquality().hash([entityTypeShort, separator, id]);
 }
 
 NFEdgeIdStruct createNFEdgeIdStruct({
   NFEntityTypeShort? entityTypeShort,
   String? separator,
-  int? sequential,
-  String? custom,
+  String? id,
 }) =>
     NFEdgeIdStruct(
       entityTypeShort: entityTypeShort,
       separator: separator,
-      sequential: sequential,
-      custom: custom,
+      id: id,
     );

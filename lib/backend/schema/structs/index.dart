@@ -1,7 +1,9 @@
 export '/backend/schema/util/schema_util.dart';
 
+export 'n_f_color_struct.dart';
 export 'n_f_diagram_struct.dart';
 export 'n_f_diagram_id_struct.dart';
+export 'n_f_diagram_theme_struct.dart';
 export 'n_f_edge_struct.dart';
 export 'n_f_edge_capabilities_struct.dart';
 export 'n_f_edge_id_struct.dart';
