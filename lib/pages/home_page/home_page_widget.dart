@@ -3,6 +3,7 @@ import '/components/node_component_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:ui';
 import '/custom_code/actions/index.dart' as actions;
 import '/custom_code/widgets/index.dart' as custom_widgets;
 import '/flutter_flow/custom_functions.dart' as functions;
@@ -49,6 +50,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -130,79 +133,92 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           children:
                               List.generate(nodesList.length, (nodesListIndex) {
                             final nodesListItem = nodesList[nodesListIndex];
-                            return Align(
-                              alignment: AlignmentDirectional(
-                                  valueOrDefault<double>(
-                                    nodesListItem.alignmentX,
-                                    0.0,
-                                  ),
-                                  valueOrDefault<double>(
-                                    nodesListItem.alignmentY,
-                                    0.0,
-                                  )),
-                              child: GestureDetector(
-                                onTapDown: (details) async {
-                                  // Reset all isMoveable
-                                  await actions.resetMoveables(
-                                    _model.nodes.toList(),
-                                  );
-                                  // Is moveable true
-                                  _model.updateNodesAtIndex(
-                                    nodesListIndex,
-                                    (e) => e..isMoveable = true,
-                                  );
-                                  safeSetState(() {});
-                                  // Set selected index
-                                  _model.selectedIndex = nodesListIndex;
-                                  // Reset selections
-                                  await actions.resetSelections(
-                                    _model.nodes.toList(),
-                                  );
-                                  // Toggle selected item
-                                  _model.updateNodesAtIndex(
-                                    nodesListIndex,
-                                    (e) => e
-                                      ..isSelected = !nodesListItem.isSelected,
-                                  );
-                                  safeSetState(() {});
-                                  // HACK: Bring to front selected item
-                                  _model.sortedNodes =
-                                      await actions.sortByIsSelected(
-                                    _model.nodes.toList(),
-                                  );
-                                  // HACK: Bring to front selected item
-                                  _model.nodes = _model.sortedNodes!
-                                      .toList()
-                                      .cast<NodeStruct>();
-                                  safeSetState(() {});
-                                  // HACK: Set selected index
-                                  _model.selectedIndex =
-                                      _model.nodes.length - 1;
+                            return Container(
+                              width: FFAppState().NodeWidth,
+                              height: FFAppState().NodeHeight,
+                              child: Stack(
+                                children: [
+                                  Align(
+                                    alignment: AlignmentDirectional(
+                                        valueOrDefault<double>(
+                                          nodesListItem.alignmentX,
+                                          0.0,
+                                        ),
+                                        valueOrDefault<double>(
+                                          nodesListItem.alignmentY,
+                                          0.0,
+                                        )),
+                                    child: GestureDetector(
+                                      onTapDown: (details) async {
+                                        // Reset all isMoveable
+                                        await actions.resetMoveables(
+                                          _model.nodes.toList(),
+                                        );
+                                        // Is moveable true
+                                        _model.updateNodesAtIndex(
+                                          nodesListIndex,
+                                          (e) => e..isMoveable = true,
+                                        );
+                                        safeSetState(() {});
+                                        // Set selected index
+                                        _model.selectedIndex = nodesListIndex;
+                                        // Reset selections
+                                        await actions.resetSelections(
+                                          _model.nodes.toList(),
+                                        );
+                                        // Toggle selected item
+                                        _model.updateNodesAtIndex(
+                                          nodesListIndex,
+                                          (e) => e
+                                            ..isSelected =
+                                                !nodesListItem.isSelected,
+                                        );
+                                        safeSetState(() {});
+                                        // Bring to front selected item
+                                        _model.sortedNodes =
+                                            await actions.sortByIsSelected(
+                                          _model.nodes.toList(),
+                                        );
+                                        // Bring to front selected item
+                                        _model.nodes = _model.sortedNodes!
+                                            .toList()
+                                            .cast<NodeStruct>();
+                                        safeSetState(() {});
+                                        // Set selected index
+                                        _model.selectedIndex =
+                                            _model.nodes.length - 1;
 
-                                  safeSetState(() {});
-                                },
-                                onTapUp: (details) async {
-                                  // Reset all isMoveable
-                                  await actions.resetMoveables(
-                                    _model.nodes.toList(),
-                                  );
-                                  // Is moveable false
-                                  _model.updateNodesAtIndex(
-                                    nodesListIndex,
-                                    (e) => e..isMoveable = false,
-                                  );
-                                  safeSetState(() {});
-                                },
-                                child: Container(
-                                  width: 180.0,
-                                  height: 150.0,
-                                  decoration: BoxDecoration(),
-                                  child: NodeComponentWidget(
-                                    key: Key(
-                                        'Keyr1c_${nodesListIndex}_of_${nodesList.length}'),
-                                    node: nodesListItem,
+                                        safeSetState(() {});
+                                      },
+                                      onTapUp: (details) async {
+                                        // Reset all isMoveable
+                                        await actions.resetMoveables(
+                                          _model.nodes.toList(),
+                                        );
+                                        // Is moveable false
+                                        _model.updateNodesAtIndex(
+                                          nodesListIndex,
+                                          (e) => e..isMoveable = false,
+                                        );
+                                        safeSetState(() {});
+                                      },
+                                      child: Container(
+                                        width: 180.0,
+                                        height: 150.0,
+                                        decoration: BoxDecoration(),
+                                        child: NodeComponentWidget(
+                                          key: Key(
+                                              'Keyr1c_${nodesListIndex}_of_${nodesList.length}'),
+                                          node: nodesListItem,
+                                        ),
+                                      ),
+                                    ),
                                   ),
-                                ),
+                                  Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [],
+                                  ),
+                                ],
                               ),
                             );
                           }),
