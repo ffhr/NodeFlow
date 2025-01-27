@@ -53,13 +53,11 @@ class _PlaygroundISWidgetState extends State<PlaygroundISWidget> {
               Align(
                 alignment: AlignmentDirectional(
                     valueOrDefault<double>(
-                      functions.relativeToAbsoluteX(_model.relativeX!,
-                          MediaQuery.sizeOf(context).width, 100.0),
+                      _model.relativeX,
                       0.0,
                     ),
                     valueOrDefault<double>(
-                      functions.relativeToAbsoluteY(_model.relativeY!,
-                          MediaQuery.sizeOf(context).height, 100.0),
+                      _model.relativeY,
                       0.0,
                     )),
                 child: Container(
