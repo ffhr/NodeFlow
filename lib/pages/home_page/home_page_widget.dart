@@ -79,25 +79,31 @@ class _HomePageWidgetState extends State<HomePageWidget> {
               ),
               child: Stack(
                 children: [
-                  Stack(
-                    children: [
-                      Container(
-                        width: double.infinity,
-                        height: double.infinity,
-                        child: custom_widgets.Line(
+                  GestureDetector(
+                    onPanUpdate: (details) async {
+                      _model.selectedIndex = _model.selectedIndex;
+                      safeSetState(() {});
+                    },
+                    child: Stack(
+                      children: [
+                        Container(
                           width: double.infinity,
                           height: double.infinity,
-                          start: NFPointStruct(
-                            positionX: 100.0,
-                            positionY: 120.0,
-                          ),
-                          end: NFPointStruct(
-                            positionX: 200.0,
-                            positionY: 220.0,
+                          child: custom_widgets.Line(
+                            width: double.infinity,
+                            height: double.infinity,
+                            start: NFPointStruct(
+                              positionX: 100.0,
+                              positionY: 120.0,
+                            ),
+                            end: NFPointStruct(
+                              positionX: 200.0,
+                              positionY: 220.0,
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                   Builder(
                     builder: (context) {

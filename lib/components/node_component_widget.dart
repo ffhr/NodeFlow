@@ -112,7 +112,7 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           Padding(
-                            padding: EdgeInsets.all(10.0),
+                            padding: EdgeInsets.all(15.0),
                             child: Text(
                               valueOrDefault<String>(
                                 widget!.node?.title,
@@ -146,7 +146,7 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                             mainAxisSize: MainAxisSize.max,
                             children: [
                               Padding(
-                                padding: EdgeInsets.all(10.0),
+                                padding: EdgeInsets.all(15.0),
                                 child: Text(
                                   valueOrDefault<String>(
                                     widget!.node?.description,
