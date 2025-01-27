@@ -9,11 +9,9 @@ import '/flutter_flow/flutter_flow_util.dart';
 class NFViewportStruct extends BaseStruct {
   NFViewportStruct({
     double? zoomFactor,
-    double? virtualPositionX,
-    double? virtualPositionY,
+    NFPointStruct? virtualCenter,
   })  : _zoomFactor = zoomFactor,
-        _virtualPositionX = virtualPositionX,
-        _virtualPositionY = virtualPositionY;
+        _virtualCenter = virtualCenter;
 
   // "zoom_factor" field.
   double? _zoomFactor;
@@ -24,31 +22,23 @@ class NFViewportStruct extends BaseStruct {
 
   bool hasZoomFactor() => _zoomFactor != null;
 
-  // "virtual_position_x" field.
-  double? _virtualPositionX;
-  double get virtualPositionX => _virtualPositionX ?? 0.0;
-  set virtualPositionX(double? val) => _virtualPositionX = val;
+  // "virtual_center" field.
+  NFPointStruct? _virtualCenter;
+  NFPointStruct get virtualCenter => _virtualCenter ?? NFPointStruct();
+  set virtualCenter(NFPointStruct? val) => _virtualCenter = val;
 
-  void incrementVirtualPositionX(double amount) =>
-      virtualPositionX = virtualPositionX + amount;
+  void updateVirtualCenter(Function(NFPointStruct) updateFn) {
+    updateFn(_virtualCenter ??= NFPointStruct());
+  }
 
-  bool hasVirtualPositionX() => _virtualPositionX != null;
-
-  // "virtual_position_y" field.
-  double? _virtualPositionY;
-  double get virtualPositionY => _virtualPositionY ?? 0.0;
-  set virtualPositionY(double? val) => _virtualPositionY = val;
-
-  void incrementVirtualPositionY(double amount) =>
-      virtualPositionY = virtualPositionY + amount;
-
-  bool hasVirtualPositionY() => _virtualPositionY != null;
+  bool hasVirtualCenter() => _virtualCenter != null;
 
   static NFViewportStruct fromMap(Map<String, dynamic> data) =>
       NFViewportStruct(
         zoomFactor: castToType<double>(data['zoom_factor']),
-        virtualPositionX: castToType<double>(data['virtual_position_x']),
-        virtualPositionY: castToType<double>(data['virtual_position_y']),
+        virtualCenter: data['virtual_center'] is NFPointStruct
+            ? data['virtual_center']
+            : NFPointStruct.maybeFromMap(data['virtual_center']),
       );
 
   static NFViewportStruct? maybeFromMap(dynamic data) => data is Map
@@ -57,8 +47,7 @@ class NFViewportStruct extends BaseStruct {
 
   Map<String, dynamic> toMap() => {
         'zoom_factor': _zoomFactor,
-        'virtual_position_x': _virtualPositionX,
-        'virtual_position_y': _virtualPositionY,
+        'virtual_center': _virtualCenter?.toMap(),
       }.withoutNulls;
 
   @override
@@ -67,13 +56,9 @@ class NFViewportStruct extends BaseStruct {
           _zoomFactor,
           ParamType.double,
         ),
-        'virtual_position_x': serializeParam(
-          _virtualPositionX,
-          ParamType.double,
-        ),
-        'virtual_position_y': serializeParam(
-          _virtualPositionY,
-          ParamType.double,
+        'virtual_center': serializeParam(
+          _virtualCenter,
+          ParamType.DataStruct,
         ),
       }.withoutNulls;
 
@@ -84,15 +69,11 @@ class NFViewportStruct extends BaseStruct {
           ParamType.double,
           false,
         ),
-        virtualPositionX: deserializeParam(
-          data['virtual_position_x'],
-          ParamType.double,
+        virtualCenter: deserializeStructParam(
+          data['virtual_center'],
+          ParamType.DataStruct,
           false,
-        ),
-        virtualPositionY: deserializeParam(
-          data['virtual_position_y'],
-          ParamType.double,
-          false,
+          structBuilder: NFPointStruct.fromSerializableMap,
         ),
       );
 
@@ -103,22 +84,18 @@ class NFViewportStruct extends BaseStruct {
   bool operator ==(Object other) {
     return other is NFViewportStruct &&
         zoomFactor == other.zoomFactor &&
-        virtualPositionX == other.virtualPositionX &&
-        virtualPositionY == other.virtualPositionY;
+        virtualCenter == other.virtualCenter;
   }
 
   @override
-  int get hashCode => const ListEquality()
-      .hash([zoomFactor, virtualPositionX, virtualPositionY]);
+  int get hashCode => const ListEquality().hash([zoomFactor, virtualCenter]);
 }
 
 NFViewportStruct createNFViewportStruct({
   double? zoomFactor,
-  double? virtualPositionX,
-  double? virtualPositionY,
+  NFPointStruct? virtualCenter,
 }) =>
     NFViewportStruct(
       zoomFactor: zoomFactor,
-      virtualPositionX: virtualPositionX,
-      virtualPositionY: virtualPositionY,
+      virtualCenter: virtualCenter ?? NFPointStruct(),
     );

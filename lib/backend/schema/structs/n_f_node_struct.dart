@@ -9,114 +9,44 @@ import '/flutter_flow/flutter_flow_util.dart';
 class NFNodeStruct extends BaseStruct {
   NFNodeStruct({
     String? id,
-    double? virtualPositionX,
-    double? relativePositionX,
-    double? virtualPositionY,
-    double? relativePositionY,
-    double? virtualWidth,
-    double? relativeWidth,
-    double? virtualHeight,
-    double? relativeHeight,
+    NFFrameStruct? virtualFrame,
+    NFFrameStruct? viewportFrame,
     List<NFInputSocketStruct>? inputSockets,
     List<NFOutputSocketStruct>? outputSockets,
   })  : _id = id,
-        _virtualPositionX = virtualPositionX,
-        _relativePositionX = relativePositionX,
-        _virtualPositionY = virtualPositionY,
-        _relativePositionY = relativePositionY,
-        _virtualWidth = virtualWidth,
-        _relativeWidth = relativeWidth,
-        _virtualHeight = virtualHeight,
-        _relativeHeight = relativeHeight,
+        _virtualFrame = virtualFrame,
+        _viewportFrame = viewportFrame,
         _inputSockets = inputSockets,
         _outputSockets = outputSockets;
 
   // "id" field.
   String? _id;
-  String get id => _id ?? '-1';
+  String get id => _id ?? 'nd_000001';
   set id(String? val) => _id = val;
 
   bool hasId() => _id != null;
 
-  // "virtual_position_x" field.
-  double? _virtualPositionX;
-  double get virtualPositionX => _virtualPositionX ?? 0.0;
-  set virtualPositionX(double? val) => _virtualPositionX = val;
+  // "virtual_frame" field.
+  NFFrameStruct? _virtualFrame;
+  NFFrameStruct get virtualFrame => _virtualFrame ?? NFFrameStruct();
+  set virtualFrame(NFFrameStruct? val) => _virtualFrame = val;
 
-  void incrementVirtualPositionX(double amount) =>
-      virtualPositionX = virtualPositionX + amount;
+  void updateVirtualFrame(Function(NFFrameStruct) updateFn) {
+    updateFn(_virtualFrame ??= NFFrameStruct());
+  }
 
-  bool hasVirtualPositionX() => _virtualPositionX != null;
+  bool hasVirtualFrame() => _virtualFrame != null;
 
-  // "relative_position_x" field.
-  double? _relativePositionX;
-  double get relativePositionX => _relativePositionX ?? 0.0;
-  set relativePositionX(double? val) => _relativePositionX = val;
+  // "viewport_frame" field.
+  NFFrameStruct? _viewportFrame;
+  NFFrameStruct get viewportFrame => _viewportFrame ?? NFFrameStruct();
+  set viewportFrame(NFFrameStruct? val) => _viewportFrame = val;
 
-  void incrementRelativePositionX(double amount) =>
-      relativePositionX = relativePositionX + amount;
+  void updateViewportFrame(Function(NFFrameStruct) updateFn) {
+    updateFn(_viewportFrame ??= NFFrameStruct());
+  }
 
-  bool hasRelativePositionX() => _relativePositionX != null;
-
-  // "virtual_position_y" field.
-  double? _virtualPositionY;
-  double get virtualPositionY => _virtualPositionY ?? 0.0;
-  set virtualPositionY(double? val) => _virtualPositionY = val;
-
-  void incrementVirtualPositionY(double amount) =>
-      virtualPositionY = virtualPositionY + amount;
-
-  bool hasVirtualPositionY() => _virtualPositionY != null;
-
-  // "relative_position_y" field.
-  double? _relativePositionY;
-  double get relativePositionY => _relativePositionY ?? 0.0;
-  set relativePositionY(double? val) => _relativePositionY = val;
-
-  void incrementRelativePositionY(double amount) =>
-      relativePositionY = relativePositionY + amount;
-
-  bool hasRelativePositionY() => _relativePositionY != null;
-
-  // "virtual_width" field.
-  double? _virtualWidth;
-  double get virtualWidth => _virtualWidth ?? 256.0;
-  set virtualWidth(double? val) => _virtualWidth = val;
-
-  void incrementVirtualWidth(double amount) =>
-      virtualWidth = virtualWidth + amount;
-
-  bool hasVirtualWidth() => _virtualWidth != null;
-
-  // "relative_width" field.
-  double? _relativeWidth;
-  double get relativeWidth => _relativeWidth ?? 256.0;
-  set relativeWidth(double? val) => _relativeWidth = val;
-
-  void incrementRelativeWidth(double amount) =>
-      relativeWidth = relativeWidth + amount;
-
-  bool hasRelativeWidth() => _relativeWidth != null;
-
-  // "virtual_height" field.
-  double? _virtualHeight;
-  double get virtualHeight => _virtualHeight ?? 128.0;
-  set virtualHeight(double? val) => _virtualHeight = val;
-
-  void incrementVirtualHeight(double amount) =>
-      virtualHeight = virtualHeight + amount;
-
-  bool hasVirtualHeight() => _virtualHeight != null;
-
-  // "relative_height" field.
-  double? _relativeHeight;
-  double get relativeHeight => _relativeHeight ?? 128.0;
-  set relativeHeight(double? val) => _relativeHeight = val;
-
-  void incrementRelativeHeight(double amount) =>
-      relativeHeight = relativeHeight + amount;
-
-  bool hasRelativeHeight() => _relativeHeight != null;
+  bool hasViewportFrame() => _viewportFrame != null;
 
   // "input_sockets" field.
   List<NFInputSocketStruct>? _inputSockets;
@@ -142,14 +72,12 @@ class NFNodeStruct extends BaseStruct {
 
   static NFNodeStruct fromMap(Map<String, dynamic> data) => NFNodeStruct(
         id: data['id'] as String?,
-        virtualPositionX: castToType<double>(data['virtual_position_x']),
-        relativePositionX: castToType<double>(data['relative_position_x']),
-        virtualPositionY: castToType<double>(data['virtual_position_y']),
-        relativePositionY: castToType<double>(data['relative_position_y']),
-        virtualWidth: castToType<double>(data['virtual_width']),
-        relativeWidth: castToType<double>(data['relative_width']),
-        virtualHeight: castToType<double>(data['virtual_height']),
-        relativeHeight: castToType<double>(data['relative_height']),
+        virtualFrame: data['virtual_frame'] is NFFrameStruct
+            ? data['virtual_frame']
+            : NFFrameStruct.maybeFromMap(data['virtual_frame']),
+        viewportFrame: data['viewport_frame'] is NFFrameStruct
+            ? data['viewport_frame']
+            : NFFrameStruct.maybeFromMap(data['viewport_frame']),
         inputSockets: getStructList(
           data['input_sockets'],
           NFInputSocketStruct.fromMap,
@@ -165,14 +93,8 @@ class NFNodeStruct extends BaseStruct {
 
   Map<String, dynamic> toMap() => {
         'id': _id,
-        'virtual_position_x': _virtualPositionX,
-        'relative_position_x': _relativePositionX,
-        'virtual_position_y': _virtualPositionY,
-        'relative_position_y': _relativePositionY,
-        'virtual_width': _virtualWidth,
-        'relative_width': _relativeWidth,
-        'virtual_height': _virtualHeight,
-        'relative_height': _relativeHeight,
+        'virtual_frame': _virtualFrame?.toMap(),
+        'viewport_frame': _viewportFrame?.toMap(),
         'input_sockets': _inputSockets?.map((e) => e.toMap()).toList(),
         'output_sockets': _outputSockets?.map((e) => e.toMap()).toList(),
       }.withoutNulls;
@@ -183,37 +105,13 @@ class NFNodeStruct extends BaseStruct {
           _id,
           ParamType.String,
         ),
-        'virtual_position_x': serializeParam(
-          _virtualPositionX,
-          ParamType.double,
+        'virtual_frame': serializeParam(
+          _virtualFrame,
+          ParamType.DataStruct,
         ),
-        'relative_position_x': serializeParam(
-          _relativePositionX,
-          ParamType.double,
-        ),
-        'virtual_position_y': serializeParam(
-          _virtualPositionY,
-          ParamType.double,
-        ),
-        'relative_position_y': serializeParam(
-          _relativePositionY,
-          ParamType.double,
-        ),
-        'virtual_width': serializeParam(
-          _virtualWidth,
-          ParamType.double,
-        ),
-        'relative_width': serializeParam(
-          _relativeWidth,
-          ParamType.double,
-        ),
-        'virtual_height': serializeParam(
-          _virtualHeight,
-          ParamType.double,
-        ),
-        'relative_height': serializeParam(
-          _relativeHeight,
-          ParamType.double,
+        'viewport_frame': serializeParam(
+          _viewportFrame,
+          ParamType.DataStruct,
         ),
         'input_sockets': serializeParam(
           _inputSockets,
@@ -234,45 +132,17 @@ class NFNodeStruct extends BaseStruct {
           ParamType.String,
           false,
         ),
-        virtualPositionX: deserializeParam(
-          data['virtual_position_x'],
-          ParamType.double,
+        virtualFrame: deserializeStructParam(
+          data['virtual_frame'],
+          ParamType.DataStruct,
           false,
+          structBuilder: NFFrameStruct.fromSerializableMap,
         ),
-        relativePositionX: deserializeParam(
-          data['relative_position_x'],
-          ParamType.double,
+        viewportFrame: deserializeStructParam(
+          data['viewport_frame'],
+          ParamType.DataStruct,
           false,
-        ),
-        virtualPositionY: deserializeParam(
-          data['virtual_position_y'],
-          ParamType.double,
-          false,
-        ),
-        relativePositionY: deserializeParam(
-          data['relative_position_y'],
-          ParamType.double,
-          false,
-        ),
-        virtualWidth: deserializeParam(
-          data['virtual_width'],
-          ParamType.double,
-          false,
-        ),
-        relativeWidth: deserializeParam(
-          data['relative_width'],
-          ParamType.double,
-          false,
-        ),
-        virtualHeight: deserializeParam(
-          data['virtual_height'],
-          ParamType.double,
-          false,
-        ),
-        relativeHeight: deserializeParam(
-          data['relative_height'],
-          ParamType.double,
-          false,
+          structBuilder: NFFrameStruct.fromSerializableMap,
         ),
         inputSockets: deserializeStructParam<NFInputSocketStruct>(
           data['input_sockets'],
@@ -296,53 +166,24 @@ class NFNodeStruct extends BaseStruct {
     const listEquality = ListEquality();
     return other is NFNodeStruct &&
         id == other.id &&
-        virtualPositionX == other.virtualPositionX &&
-        relativePositionX == other.relativePositionX &&
-        virtualPositionY == other.virtualPositionY &&
-        relativePositionY == other.relativePositionY &&
-        virtualWidth == other.virtualWidth &&
-        relativeWidth == other.relativeWidth &&
-        virtualHeight == other.virtualHeight &&
-        relativeHeight == other.relativeHeight &&
+        virtualFrame == other.virtualFrame &&
+        viewportFrame == other.viewportFrame &&
         listEquality.equals(inputSockets, other.inputSockets) &&
         listEquality.equals(outputSockets, other.outputSockets);
   }
 
   @override
-  int get hashCode => const ListEquality().hash([
-        id,
-        virtualPositionX,
-        relativePositionX,
-        virtualPositionY,
-        relativePositionY,
-        virtualWidth,
-        relativeWidth,
-        virtualHeight,
-        relativeHeight,
-        inputSockets,
-        outputSockets
-      ]);
+  int get hashCode => const ListEquality()
+      .hash([id, virtualFrame, viewportFrame, inputSockets, outputSockets]);
 }
 
 NFNodeStruct createNFNodeStruct({
   String? id,
-  double? virtualPositionX,
-  double? relativePositionX,
-  double? virtualPositionY,
-  double? relativePositionY,
-  double? virtualWidth,
-  double? relativeWidth,
-  double? virtualHeight,
-  double? relativeHeight,
+  NFFrameStruct? virtualFrame,
+  NFFrameStruct? viewportFrame,
 }) =>
     NFNodeStruct(
       id: id,
-      virtualPositionX: virtualPositionX,
-      relativePositionX: relativePositionX,
-      virtualPositionY: virtualPositionY,
-      relativePositionY: relativePositionY,
-      virtualWidth: virtualWidth,
-      relativeWidth: relativeWidth,
-      virtualHeight: virtualHeight,
-      relativeHeight: relativeHeight,
+      virtualFrame: virtualFrame ?? NFFrameStruct(),
+      viewportFrame: viewportFrame ?? NFFrameStruct(),
     );

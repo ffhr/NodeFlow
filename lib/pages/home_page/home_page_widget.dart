@@ -87,13 +87,13 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         child: custom_widgets.Line(
                           width: double.infinity,
                           height: double.infinity,
-                          start: PointStruct(
-                            xCoordinate: 100.0,
-                            yCoordinate: 100.0,
+                          start: NFPointStruct(
+                            positionX: 100.0,
+                            positionY: 120.0,
                           ),
-                          end: PointStruct(
-                            xCoordinate: 200.0,
-                            yCoordinate: 200.0,
+                          end: NFPointStruct(
+                            positionX: 200.0,
+                            positionY: 220.0,
                           ),
                         ),
                       ),

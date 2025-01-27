@@ -11,9 +11,11 @@ class NFDiagramStruct extends BaseStruct {
     String? id,
     NFPosition? inputsPosition,
     NFPosition? outputsPosition,
+    NFViewportStruct? viewport,
   })  : _id = id,
         _inputsPosition = inputsPosition,
-        _outputsPosition = outputsPosition;
+        _outputsPosition = outputsPosition,
+        _viewport = viewport;
 
   // "id" field.
   String? _id;
@@ -36,6 +38,17 @@ class NFDiagramStruct extends BaseStruct {
 
   bool hasOutputsPosition() => _outputsPosition != null;
 
+  // "viewport" field.
+  NFViewportStruct? _viewport;
+  NFViewportStruct get viewport => _viewport ?? NFViewportStruct();
+  set viewport(NFViewportStruct? val) => _viewport = val;
+
+  void updateViewport(Function(NFViewportStruct) updateFn) {
+    updateFn(_viewport ??= NFViewportStruct());
+  }
+
+  bool hasViewport() => _viewport != null;
+
   static NFDiagramStruct fromMap(Map<String, dynamic> data) => NFDiagramStruct(
         id: data['id'] as String?,
         inputsPosition: data['inputs_position'] is NFPosition
@@ -44,6 +57,9 @@ class NFDiagramStruct extends BaseStruct {
         outputsPosition: data['outputs_position'] is NFPosition
             ? data['outputs_position']
             : deserializeEnum<NFPosition>(data['outputs_position']),
+        viewport: data['viewport'] is NFViewportStruct
+            ? data['viewport']
+            : NFViewportStruct.maybeFromMap(data['viewport']),
       );
 
   static NFDiagramStruct? maybeFromMap(dynamic data) => data is Map
@@ -54,6 +70,7 @@ class NFDiagramStruct extends BaseStruct {
         'id': _id,
         'inputs_position': _inputsPosition?.serialize(),
         'outputs_position': _outputsPosition?.serialize(),
+        'viewport': _viewport?.toMap(),
       }.withoutNulls;
 
   @override
@@ -69,6 +86,10 @@ class NFDiagramStruct extends BaseStruct {
         'outputs_position': serializeParam(
           _outputsPosition,
           ParamType.Enum,
+        ),
+        'viewport': serializeParam(
+          _viewport,
+          ParamType.DataStruct,
         ),
       }.withoutNulls;
 
@@ -89,6 +110,12 @@ class NFDiagramStruct extends BaseStruct {
           ParamType.Enum,
           false,
         ),
+        viewport: deserializeStructParam(
+          data['viewport'],
+          ParamType.DataStruct,
+          false,
+          structBuilder: NFViewportStruct.fromSerializableMap,
+        ),
       );
 
   @override
@@ -99,21 +126,24 @@ class NFDiagramStruct extends BaseStruct {
     return other is NFDiagramStruct &&
         id == other.id &&
         inputsPosition == other.inputsPosition &&
-        outputsPosition == other.outputsPosition;
+        outputsPosition == other.outputsPosition &&
+        viewport == other.viewport;
   }
 
   @override
-  int get hashCode =>
-      const ListEquality().hash([id, inputsPosition, outputsPosition]);
+  int get hashCode => const ListEquality()
+      .hash([id, inputsPosition, outputsPosition, viewport]);
 }
 
 NFDiagramStruct createNFDiagramStruct({
   String? id,
   NFPosition? inputsPosition,
   NFPosition? outputsPosition,
+  NFViewportStruct? viewport,
 }) =>
     NFDiagramStruct(
       id: id,
       inputsPosition: inputsPosition,
       outputsPosition: outputsPosition,
+      viewport: viewport ?? NFViewportStruct(),
     );

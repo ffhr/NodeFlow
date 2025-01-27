@@ -132,8 +132,8 @@ class Line extends StatefulWidget {
 
   final double? width;
   final double? height;
-  final PointStruct start;
-  final PointStruct end;
+  final NFPointStruct start;
+  final NFPointStruct end;
 
   @override
   State<Line> createState() => _LineState();
@@ -144,6 +144,8 @@ class _LineState extends State<Line> {
   Widget build(BuildContext context) {
     return CustomPaint(
         size: MediaQuery.of(context).size,
-        painter: LinePainter(Offset(100, 100), Offset(200, 200)));
+        painter: LinePainter(
+            Offset(widget.start.positionX, widget.start.positionY),
+            Offset(widget.end.positionX, widget.end.positionY)));
   }
 }
