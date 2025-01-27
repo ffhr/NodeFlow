@@ -182,12 +182,18 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                   _model.updateNodesAtIndex(
                                     _model.selectedIndex,
                                     (e) => e
-                                      ..alignmentX = (nodesListItem.alignmentX +
+                                      ..alignmentX = (_model.nodes
+                                                  .elementAtOrNull(
+                                                      _model.selectedIndex)!
+                                                  .alignmentX +
                                               (deltaPoint.positionX * 2) /
                                                   MediaQuery.sizeOf(context)
                                                       .width)
                                           .clamp(-1.0, 1.0)
-                                      ..alignmentY = (nodesListItem.alignmentY +
+                                      ..alignmentY = (_model.nodes
+                                                  .elementAtOrNull(
+                                                      _model.selectedIndex)!
+                                                  .alignmentY +
                                               (deltaPoint.positionY * 2) /
                                                   MediaQuery.sizeOf(context)
                                                       .height)
