@@ -214,6 +214,15 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       );
                     },
                   ),
+                  GestureDetector(
+                    onPanUpdate: (details) async {
+                      _model.selectedIndex = _model.selectedIndex;
+                      safeSetState(() {});
+                    },
+                    child: Stack(
+                      children: [],
+                    ),
+                  ),
                 ],
               ),
             ),
