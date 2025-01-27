@@ -80,8 +80,26 @@ class _HomePageWidgetState extends State<HomePageWidget> {
               child: Stack(
                 children: [
                   GestureDetector(
+                    onPanDown: (details) async {
+                      // Set drawing start point; isDrawingActive = true
+                      _model.drawingStartPoint = NFPointStruct(
+                        positionX: details.localPosition.dx,
+                        positionY: details.localPosition.dy,
+                      );
+                      _model.isDrawingActive = true;
+                      safeSetState(() {});
+                    },
+                    onPanEnd: (details) async {
+                      // Set isDrawingActive = false
+                      _model.isDrawingActive = false;
+                      safeSetState(() {});
+                    },
                     onPanUpdate: (details) async {
-                      _model.selectedIndex = _model.selectedIndex;
+                      // Set drawing endpoint
+                      _model.drawingEndPoint = NFPointStruct(
+                        positionX: details.localPosition.dx,
+                        positionY: details.localPosition.dy,
+                      );
                       safeSetState(() {});
                     },
                     child: Stack(
@@ -213,15 +231,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         }),
                       );
                     },
-                  ),
-                  GestureDetector(
-                    onPanUpdate: (details) async {
-                      _model.selectedIndex = _model.selectedIndex;
-                      safeSetState(() {});
-                    },
-                    child: Stack(
-                      children: [],
-                    ),
                   ),
                 ],
               ),
