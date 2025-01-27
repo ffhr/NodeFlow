@@ -98,7 +98,7 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                   borderRadius: BorderRadius.circular(10.0),
                   border: Border.all(
                     color: widget!.node!.isSelected
-                        ? FlutterFlowTheme.of(context).primary
+                        ? Colors.white
                         : Color(0x00000000),
                     width: 2.0,
                   ),
