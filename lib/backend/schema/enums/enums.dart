@@ -7,6 +7,18 @@ enum NFPosition {
   left,
 }
 
+enum NFEntityTypeShort {
+  dg,
+  nd,
+  ed,
+}
+
+enum NFEntityTypeLong {
+  diagram,
+  node,
+  edge,
+}
+
 extension FFEnumExtensions<T extends Enum> on T {
   String serialize() => name;
 }
@@ -20,6 +32,10 @@ T? deserializeEnum<T>(String? value) {
   switch (T) {
     case (NFPosition):
       return NFPosition.values.deserialize(value) as T?;
+    case (NFEntityTypeShort):
+      return NFEntityTypeShort.values.deserialize(value) as T?;
+    case (NFEntityTypeLong):
+      return NFEntityTypeLong.values.deserialize(value) as T?;
     default:
       return null;
   }

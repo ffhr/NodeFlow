@@ -14,12 +14,16 @@ class NodeStruct extends BaseStruct {
     double? alignmentY,
     bool? isSelected,
     bool? isMoveable,
+    List<NodeInputSocketStruct>? inputs,
+    List<NodeOutputSocketStruct>? outputs,
   })  : _title = title,
         _description = description,
         _alignmentX = alignmentX,
         _alignmentY = alignmentY,
         _isSelected = isSelected,
-        _isMoveable = isMoveable;
+        _isMoveable = isMoveable,
+        _inputs = inputs,
+        _outputs = outputs;
 
   // "title" field.
   String? _title;
@@ -67,6 +71,28 @@ class NodeStruct extends BaseStruct {
 
   bool hasIsMoveable() => _isMoveable != null;
 
+  // "inputs" field.
+  List<NodeInputSocketStruct>? _inputs;
+  List<NodeInputSocketStruct> get inputs => _inputs ?? const [];
+  set inputs(List<NodeInputSocketStruct>? val) => _inputs = val;
+
+  void updateInputs(Function(List<NodeInputSocketStruct>) updateFn) {
+    updateFn(_inputs ??= []);
+  }
+
+  bool hasInputs() => _inputs != null;
+
+  // "outputs" field.
+  List<NodeOutputSocketStruct>? _outputs;
+  List<NodeOutputSocketStruct> get outputs => _outputs ?? const [];
+  set outputs(List<NodeOutputSocketStruct>? val) => _outputs = val;
+
+  void updateOutputs(Function(List<NodeOutputSocketStruct>) updateFn) {
+    updateFn(_outputs ??= []);
+  }
+
+  bool hasOutputs() => _outputs != null;
+
   static NodeStruct fromMap(Map<String, dynamic> data) => NodeStruct(
         title: data['title'] as String?,
         description: data['description'] as String?,
@@ -74,6 +100,14 @@ class NodeStruct extends BaseStruct {
         alignmentY: castToType<double>(data['alignmentY']),
         isSelected: data['isSelected'] as bool?,
         isMoveable: data['isMoveable'] as bool?,
+        inputs: getStructList(
+          data['inputs'],
+          NodeInputSocketStruct.fromMap,
+        ),
+        outputs: getStructList(
+          data['outputs'],
+          NodeOutputSocketStruct.fromMap,
+        ),
       );
 
   static NodeStruct? maybeFromMap(dynamic data) =>
@@ -86,6 +120,8 @@ class NodeStruct extends BaseStruct {
         'alignmentY': _alignmentY,
         'isSelected': _isSelected,
         'isMoveable': _isMoveable,
+        'inputs': _inputs?.map((e) => e.toMap()).toList(),
+        'outputs': _outputs?.map((e) => e.toMap()).toList(),
       }.withoutNulls;
 
   @override
@@ -113,6 +149,16 @@ class NodeStruct extends BaseStruct {
         'isMoveable': serializeParam(
           _isMoveable,
           ParamType.bool,
+        ),
+        'inputs': serializeParam(
+          _inputs,
+          ParamType.DataStruct,
+          isList: true,
+        ),
+        'outputs': serializeParam(
+          _outputs,
+          ParamType.DataStruct,
+          isList: true,
         ),
       }.withoutNulls;
 
@@ -148,6 +194,18 @@ class NodeStruct extends BaseStruct {
           ParamType.bool,
           false,
         ),
+        inputs: deserializeStructParam<NodeInputSocketStruct>(
+          data['inputs'],
+          ParamType.DataStruct,
+          true,
+          structBuilder: NodeInputSocketStruct.fromSerializableMap,
+        ),
+        outputs: deserializeStructParam<NodeOutputSocketStruct>(
+          data['outputs'],
+          ParamType.DataStruct,
+          true,
+          structBuilder: NodeOutputSocketStruct.fromSerializableMap,
+        ),
       );
 
   @override
@@ -155,18 +213,29 @@ class NodeStruct extends BaseStruct {
 
   @override
   bool operator ==(Object other) {
+    const listEquality = ListEquality();
     return other is NodeStruct &&
         title == other.title &&
         description == other.description &&
         alignmentX == other.alignmentX &&
         alignmentY == other.alignmentY &&
         isSelected == other.isSelected &&
-        isMoveable == other.isMoveable;
+        isMoveable == other.isMoveable &&
+        listEquality.equals(inputs, other.inputs) &&
+        listEquality.equals(outputs, other.outputs);
   }
 
   @override
-  int get hashCode => const ListEquality().hash(
-      [title, description, alignmentX, alignmentY, isSelected, isMoveable]);
+  int get hashCode => const ListEquality().hash([
+        title,
+        description,
+        alignmentX,
+        alignmentY,
+        isSelected,
+        isMoveable,
+        inputs,
+        outputs
+      ]);
 }
 
 NodeStruct createNodeStruct({

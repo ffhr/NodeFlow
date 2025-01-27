@@ -8,23 +8,29 @@ import '/flutter_flow/flutter_flow_util.dart';
 
 class NFNodeStruct extends BaseStruct {
   NFNodeStruct({
-    String? id,
+    NFNodeIdStruct? nodeId,
     NFFrameStruct? virtualFrame,
     NFFrameStruct? viewportFrame,
     List<NFInputSocketStruct>? inputSockets,
     List<NFOutputSocketStruct>? outputSockets,
-  })  : _id = id,
+    String? childDiagramId,
+  })  : _nodeId = nodeId,
         _virtualFrame = virtualFrame,
         _viewportFrame = viewportFrame,
         _inputSockets = inputSockets,
-        _outputSockets = outputSockets;
+        _outputSockets = outputSockets,
+        _childDiagramId = childDiagramId;
 
-  // "id" field.
-  String? _id;
-  String get id => _id ?? 'nd_000001';
-  set id(String? val) => _id = val;
+  // "node_id" field.
+  NFNodeIdStruct? _nodeId;
+  NFNodeIdStruct get nodeId => _nodeId ?? NFNodeIdStruct();
+  set nodeId(NFNodeIdStruct? val) => _nodeId = val;
 
-  bool hasId() => _id != null;
+  void updateNodeId(Function(NFNodeIdStruct) updateFn) {
+    updateFn(_nodeId ??= NFNodeIdStruct());
+  }
+
+  bool hasNodeId() => _nodeId != null;
 
   // "virtual_frame" field.
   NFFrameStruct? _virtualFrame;
@@ -70,8 +76,17 @@ class NFNodeStruct extends BaseStruct {
 
   bool hasOutputSockets() => _outputSockets != null;
 
+  // "child_diagram_id" field.
+  String? _childDiagramId;
+  String get childDiagramId => _childDiagramId ?? '';
+  set childDiagramId(String? val) => _childDiagramId = val;
+
+  bool hasChildDiagramId() => _childDiagramId != null;
+
   static NFNodeStruct fromMap(Map<String, dynamic> data) => NFNodeStruct(
-        id: data['id'] as String?,
+        nodeId: data['node_id'] is NFNodeIdStruct
+            ? data['node_id']
+            : NFNodeIdStruct.maybeFromMap(data['node_id']),
         virtualFrame: data['virtual_frame'] is NFFrameStruct
             ? data['virtual_frame']
             : NFFrameStruct.maybeFromMap(data['virtual_frame']),
@@ -86,24 +101,26 @@ class NFNodeStruct extends BaseStruct {
           data['output_sockets'],
           NFOutputSocketStruct.fromMap,
         ),
+        childDiagramId: data['child_diagram_id'] as String?,
       );
 
   static NFNodeStruct? maybeFromMap(dynamic data) =>
       data is Map ? NFNodeStruct.fromMap(data.cast<String, dynamic>()) : null;
 
   Map<String, dynamic> toMap() => {
-        'id': _id,
+        'node_id': _nodeId?.toMap(),
         'virtual_frame': _virtualFrame?.toMap(),
         'viewport_frame': _viewportFrame?.toMap(),
         'input_sockets': _inputSockets?.map((e) => e.toMap()).toList(),
         'output_sockets': _outputSockets?.map((e) => e.toMap()).toList(),
+        'child_diagram_id': _childDiagramId,
       }.withoutNulls;
 
   @override
   Map<String, dynamic> toSerializableMap() => {
-        'id': serializeParam(
-          _id,
-          ParamType.String,
+        'node_id': serializeParam(
+          _nodeId,
+          ParamType.DataStruct,
         ),
         'virtual_frame': serializeParam(
           _virtualFrame,
@@ -123,14 +140,19 @@ class NFNodeStruct extends BaseStruct {
           ParamType.DataStruct,
           isList: true,
         ),
+        'child_diagram_id': serializeParam(
+          _childDiagramId,
+          ParamType.String,
+        ),
       }.withoutNulls;
 
   static NFNodeStruct fromSerializableMap(Map<String, dynamic> data) =>
       NFNodeStruct(
-        id: deserializeParam(
-          data['id'],
-          ParamType.String,
+        nodeId: deserializeStructParam(
+          data['node_id'],
+          ParamType.DataStruct,
           false,
+          structBuilder: NFNodeIdStruct.fromSerializableMap,
         ),
         virtualFrame: deserializeStructParam(
           data['virtual_frame'],
@@ -156,6 +178,11 @@ class NFNodeStruct extends BaseStruct {
           true,
           structBuilder: NFOutputSocketStruct.fromSerializableMap,
         ),
+        childDiagramId: deserializeParam(
+          data['child_diagram_id'],
+          ParamType.String,
+          false,
+        ),
       );
 
   @override
@@ -165,25 +192,34 @@ class NFNodeStruct extends BaseStruct {
   bool operator ==(Object other) {
     const listEquality = ListEquality();
     return other is NFNodeStruct &&
-        id == other.id &&
+        nodeId == other.nodeId &&
         virtualFrame == other.virtualFrame &&
         viewportFrame == other.viewportFrame &&
         listEquality.equals(inputSockets, other.inputSockets) &&
-        listEquality.equals(outputSockets, other.outputSockets);
+        listEquality.equals(outputSockets, other.outputSockets) &&
+        childDiagramId == other.childDiagramId;
   }
 
   @override
-  int get hashCode => const ListEquality()
-      .hash([id, virtualFrame, viewportFrame, inputSockets, outputSockets]);
+  int get hashCode => const ListEquality().hash([
+        nodeId,
+        virtualFrame,
+        viewportFrame,
+        inputSockets,
+        outputSockets,
+        childDiagramId
+      ]);
 }
 
 NFNodeStruct createNFNodeStruct({
-  String? id,
+  NFNodeIdStruct? nodeId,
   NFFrameStruct? virtualFrame,
   NFFrameStruct? viewportFrame,
+  String? childDiagramId,
 }) =>
     NFNodeStruct(
-      id: id,
+      nodeId: nodeId ?? NFNodeIdStruct(),
       virtualFrame: virtualFrame ?? NFFrameStruct(),
       viewportFrame: viewportFrame ?? NFFrameStruct(),
+      childDiagramId: childDiagramId,
     );

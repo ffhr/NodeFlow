@@ -30,7 +30,7 @@ class FFAppState extends ChangeNotifier {
     _NodeWidth = value;
   }
 
-  double _NodeHeight = 100.0;
+  double _NodeHeight = 150.0;
   double get NodeHeight => _NodeHeight;
   set NodeHeight(double value) {
     _NodeHeight = value;

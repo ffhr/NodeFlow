@@ -8,21 +8,25 @@ import '/flutter_flow/flutter_flow_util.dart';
 
 class NFDiagramStruct extends BaseStruct {
   NFDiagramStruct({
-    String? id,
+    NFDiagramIdStruct? diagramId,
     NFPosition? inputsPosition,
     NFPosition? outputsPosition,
     NFViewportStruct? viewport,
-  })  : _id = id,
+  })  : _diagramId = diagramId,
         _inputsPosition = inputsPosition,
         _outputsPosition = outputsPosition,
         _viewport = viewport;
 
-  // "id" field.
-  String? _id;
-  String get id => _id ?? '';
-  set id(String? val) => _id = val;
+  // "diagram_id" field.
+  NFDiagramIdStruct? _diagramId;
+  NFDiagramIdStruct get diagramId => _diagramId ?? NFDiagramIdStruct();
+  set diagramId(NFDiagramIdStruct? val) => _diagramId = val;
 
-  bool hasId() => _id != null;
+  void updateDiagramId(Function(NFDiagramIdStruct) updateFn) {
+    updateFn(_diagramId ??= NFDiagramIdStruct());
+  }
+
+  bool hasDiagramId() => _diagramId != null;
 
   // "inputs_position" field.
   NFPosition? _inputsPosition;
@@ -50,7 +54,9 @@ class NFDiagramStruct extends BaseStruct {
   bool hasViewport() => _viewport != null;
 
   static NFDiagramStruct fromMap(Map<String, dynamic> data) => NFDiagramStruct(
-        id: data['id'] as String?,
+        diagramId: data['diagram_id'] is NFDiagramIdStruct
+            ? data['diagram_id']
+            : NFDiagramIdStruct.maybeFromMap(data['diagram_id']),
         inputsPosition: data['inputs_position'] is NFPosition
             ? data['inputs_position']
             : deserializeEnum<NFPosition>(data['inputs_position']),
@@ -67,7 +73,7 @@ class NFDiagramStruct extends BaseStruct {
       : null;
 
   Map<String, dynamic> toMap() => {
-        'id': _id,
+        'diagram_id': _diagramId?.toMap(),
         'inputs_position': _inputsPosition?.serialize(),
         'outputs_position': _outputsPosition?.serialize(),
         'viewport': _viewport?.toMap(),
@@ -75,9 +81,9 @@ class NFDiagramStruct extends BaseStruct {
 
   @override
   Map<String, dynamic> toSerializableMap() => {
-        'id': serializeParam(
-          _id,
-          ParamType.String,
+        'diagram_id': serializeParam(
+          _diagramId,
+          ParamType.DataStruct,
         ),
         'inputs_position': serializeParam(
           _inputsPosition,
@@ -95,10 +101,11 @@ class NFDiagramStruct extends BaseStruct {
 
   static NFDiagramStruct fromSerializableMap(Map<String, dynamic> data) =>
       NFDiagramStruct(
-        id: deserializeParam(
-          data['id'],
-          ParamType.String,
+        diagramId: deserializeStructParam(
+          data['diagram_id'],
+          ParamType.DataStruct,
           false,
+          structBuilder: NFDiagramIdStruct.fromSerializableMap,
         ),
         inputsPosition: deserializeParam<NFPosition>(
           data['inputs_position'],
@@ -124,7 +131,7 @@ class NFDiagramStruct extends BaseStruct {
   @override
   bool operator ==(Object other) {
     return other is NFDiagramStruct &&
-        id == other.id &&
+        diagramId == other.diagramId &&
         inputsPosition == other.inputsPosition &&
         outputsPosition == other.outputsPosition &&
         viewport == other.viewport;
@@ -132,17 +139,17 @@ class NFDiagramStruct extends BaseStruct {
 
   @override
   int get hashCode => const ListEquality()
-      .hash([id, inputsPosition, outputsPosition, viewport]);
+      .hash([diagramId, inputsPosition, outputsPosition, viewport]);
 }
 
 NFDiagramStruct createNFDiagramStruct({
-  String? id,
+  NFDiagramIdStruct? diagramId,
   NFPosition? inputsPosition,
   NFPosition? outputsPosition,
   NFViewportStruct? viewport,
 }) =>
     NFDiagramStruct(
-      id: id,
+      diagramId: diagramId ?? NFDiagramIdStruct(),
       inputsPosition: inputsPosition,
       outputsPosition: outputsPosition,
       viewport: viewport ?? NFViewportStruct(),

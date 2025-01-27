@@ -8,41 +8,48 @@ import '/flutter_flow/flutter_flow_util.dart';
 
 class NFEdgeStruct extends BaseStruct {
   NFEdgeStruct({
-    String? id,
-  }) : _id = id;
+    NFEdgeIdStruct? edgeId,
+  }) : _edgeId = edgeId;
 
-  // "id" field.
-  String? _id;
-  String get id => _id ?? '';
-  set id(String? val) => _id = val;
+  // "edge_id" field.
+  NFEdgeIdStruct? _edgeId;
+  NFEdgeIdStruct get edgeId => _edgeId ?? NFEdgeIdStruct();
+  set edgeId(NFEdgeIdStruct? val) => _edgeId = val;
 
-  bool hasId() => _id != null;
+  void updateEdgeId(Function(NFEdgeIdStruct) updateFn) {
+    updateFn(_edgeId ??= NFEdgeIdStruct());
+  }
+
+  bool hasEdgeId() => _edgeId != null;
 
   static NFEdgeStruct fromMap(Map<String, dynamic> data) => NFEdgeStruct(
-        id: data['id'] as String?,
+        edgeId: data['edge_id'] is NFEdgeIdStruct
+            ? data['edge_id']
+            : NFEdgeIdStruct.maybeFromMap(data['edge_id']),
       );
 
   static NFEdgeStruct? maybeFromMap(dynamic data) =>
       data is Map ? NFEdgeStruct.fromMap(data.cast<String, dynamic>()) : null;
 
   Map<String, dynamic> toMap() => {
-        'id': _id,
+        'edge_id': _edgeId?.toMap(),
       }.withoutNulls;
 
   @override
   Map<String, dynamic> toSerializableMap() => {
-        'id': serializeParam(
-          _id,
-          ParamType.String,
+        'edge_id': serializeParam(
+          _edgeId,
+          ParamType.DataStruct,
         ),
       }.withoutNulls;
 
   static NFEdgeStruct fromSerializableMap(Map<String, dynamic> data) =>
       NFEdgeStruct(
-        id: deserializeParam(
-          data['id'],
-          ParamType.String,
+        edgeId: deserializeStructParam(
+          data['edge_id'],
+          ParamType.DataStruct,
           false,
+          structBuilder: NFEdgeIdStruct.fromSerializableMap,
         ),
       );
 
@@ -51,16 +58,16 @@ class NFEdgeStruct extends BaseStruct {
 
   @override
   bool operator ==(Object other) {
-    return other is NFEdgeStruct && id == other.id;
+    return other is NFEdgeStruct && edgeId == other.edgeId;
   }
 
   @override
-  int get hashCode => const ListEquality().hash([id]);
+  int get hashCode => const ListEquality().hash([edgeId]);
 }
 
 NFEdgeStruct createNFEdgeStruct({
-  String? id,
+  NFEdgeIdStruct? edgeId,
 }) =>
     NFEdgeStruct(
-      id: id,
+      edgeId: edgeId ?? NFEdgeIdStruct(),
     );

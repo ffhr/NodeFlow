@@ -12,6 +12,8 @@ import 'package:flutter/material.dart';
 
 import 'index.dart'; // Imports other custom widgets
 
+import 'index.dart'; // Imports other custom widgets
+
 enum LineDirection {
   topLeftToBottomRight,
   topRightToBottomLeft,
@@ -32,7 +34,7 @@ class LinePainter extends CustomPainter {
       ..strokeWidth = 2
       ..style = PaintingStyle.stroke;
 
-    //canvas.drawLine(start, end, paint);
+    // canvas.drawLine(start, end, paint);
 
     final path = Path();
     final width = end.dx - start.dx;
@@ -92,12 +94,17 @@ class LinePainter extends CustomPainter {
         break;
     }
 
-    // Draw the path on the canvas
+    // // Draw the path on the canvas
     canvas.drawPath(path, paint);
   }
 
   @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+  bool shouldRepaint(covariant LinePainter oldDelegate) {
+    if (oldDelegate.start == start && oldDelegate.end == end) {
+      print("shouldRepaint: false");
+      return false;
+    }
+    print("shouldRepaint: true");
     return true;
   }
 
@@ -142,10 +149,12 @@ class Line extends StatefulWidget {
 class _LineState extends State<Line> {
   @override
   Widget build(BuildContext context) {
-    return CustomPaint(
-        size: MediaQuery.of(context).size,
-        painter: LinePainter(
-            Offset(widget.start.positionX, widget.start.positionY),
-            Offset(widget.end.positionX, widget.end.positionY)));
+    return RepaintBoundary(
+      child: CustomPaint(
+          size: MediaQuery.of(context).size,
+          painter: LinePainter(
+              Offset(widget.start.positionX, widget.start.positionY),
+              Offset(widget.end.positionX, widget.end.positionY))),
+    );
   }
 }
