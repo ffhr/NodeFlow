@@ -11,9 +11,11 @@ class NFEdgeStruct extends BaseStruct {
     NFEdgeIdStruct? edgeId,
     NFNodeReferenceStruct? sourceNodeReference,
     NFNodeReferenceStruct? targetNodeReference,
+    NFEdgeCapabilitiesStruct? edgeCapabilities,
   })  : _edgeId = edgeId,
         _sourceNodeReference = sourceNodeReference,
-        _targetNodeReference = targetNodeReference;
+        _targetNodeReference = targetNodeReference,
+        _edgeCapabilities = edgeCapabilities;
 
   // "edge_id" field.
   NFEdgeIdStruct? _edgeId;
@@ -52,6 +54,19 @@ class NFEdgeStruct extends BaseStruct {
 
   bool hasTargetNodeReference() => _targetNodeReference != null;
 
+  // "edge_capabilities" field.
+  NFEdgeCapabilitiesStruct? _edgeCapabilities;
+  NFEdgeCapabilitiesStruct get edgeCapabilities =>
+      _edgeCapabilities ?? NFEdgeCapabilitiesStruct();
+  set edgeCapabilities(NFEdgeCapabilitiesStruct? val) =>
+      _edgeCapabilities = val;
+
+  void updateEdgeCapabilities(Function(NFEdgeCapabilitiesStruct) updateFn) {
+    updateFn(_edgeCapabilities ??= NFEdgeCapabilitiesStruct());
+  }
+
+  bool hasEdgeCapabilities() => _edgeCapabilities != null;
+
   static NFEdgeStruct fromMap(Map<String, dynamic> data) => NFEdgeStruct(
         edgeId: data['edge_id'] is NFEdgeIdStruct
             ? data['edge_id']
@@ -64,6 +79,9 @@ class NFEdgeStruct extends BaseStruct {
                 is NFNodeReferenceStruct
             ? data['target_node_reference']
             : NFNodeReferenceStruct.maybeFromMap(data['target_node_reference']),
+        edgeCapabilities: data['edge_capabilities'] is NFEdgeCapabilitiesStruct
+            ? data['edge_capabilities']
+            : NFEdgeCapabilitiesStruct.maybeFromMap(data['edge_capabilities']),
       );
 
   static NFEdgeStruct? maybeFromMap(dynamic data) =>
@@ -73,6 +91,7 @@ class NFEdgeStruct extends BaseStruct {
         'edge_id': _edgeId?.toMap(),
         'source_node_reference': _sourceNodeReference?.toMap(),
         'target_node_reference': _targetNodeReference?.toMap(),
+        'edge_capabilities': _edgeCapabilities?.toMap(),
       }.withoutNulls;
 
   @override
@@ -87,6 +106,10 @@ class NFEdgeStruct extends BaseStruct {
         ),
         'target_node_reference': serializeParam(
           _targetNodeReference,
+          ParamType.DataStruct,
+        ),
+        'edge_capabilities': serializeParam(
+          _edgeCapabilities,
           ParamType.DataStruct,
         ),
       }.withoutNulls;
@@ -111,6 +134,12 @@ class NFEdgeStruct extends BaseStruct {
           false,
           structBuilder: NFNodeReferenceStruct.fromSerializableMap,
         ),
+        edgeCapabilities: deserializeStructParam(
+          data['edge_capabilities'],
+          ParamType.DataStruct,
+          false,
+          structBuilder: NFEdgeCapabilitiesStruct.fromSerializableMap,
+        ),
       );
 
   @override
@@ -121,21 +150,24 @@ class NFEdgeStruct extends BaseStruct {
     return other is NFEdgeStruct &&
         edgeId == other.edgeId &&
         sourceNodeReference == other.sourceNodeReference &&
-        targetNodeReference == other.targetNodeReference;
+        targetNodeReference == other.targetNodeReference &&
+        edgeCapabilities == other.edgeCapabilities;
   }
 
   @override
-  int get hashCode => const ListEquality()
-      .hash([edgeId, sourceNodeReference, targetNodeReference]);
+  int get hashCode => const ListEquality().hash(
+      [edgeId, sourceNodeReference, targetNodeReference, edgeCapabilities]);
 }
 
 NFEdgeStruct createNFEdgeStruct({
   NFEdgeIdStruct? edgeId,
   NFNodeReferenceStruct? sourceNodeReference,
   NFNodeReferenceStruct? targetNodeReference,
+  NFEdgeCapabilitiesStruct? edgeCapabilities,
 }) =>
     NFEdgeStruct(
       edgeId: edgeId ?? NFEdgeIdStruct(),
       sourceNodeReference: sourceNodeReference ?? NFNodeReferenceStruct(),
       targetNodeReference: targetNodeReference ?? NFNodeReferenceStruct(),
+      edgeCapabilities: edgeCapabilities ?? NFEdgeCapabilitiesStruct(),
     );

@@ -1,6 +1,7 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:ui';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -52,13 +53,13 @@ class _PlaygroundISWidgetState extends State<PlaygroundISWidget> {
               Align(
                 alignment: AlignmentDirectional(
                     valueOrDefault<double>(
-                      functions.absoluteToRelativeX(
-                          100.0, MediaQuery.sizeOf(context).width, 100.0),
+                      functions.relativeToAbsoluteX(_model.relativeX!,
+                          MediaQuery.sizeOf(context).width, 100.0),
                       0.0,
                     ),
                     valueOrDefault<double>(
-                      functions.absoluteToRelativeY(
-                          200.0, MediaQuery.sizeOf(context).height, 100.0),
+                      functions.relativeToAbsoluteY(_model.relativeY!,
+                          MediaQuery.sizeOf(context).height, 100.0),
                       0.0,
                     )),
                 child: Container(
@@ -66,6 +67,25 @@ class _PlaygroundISWidgetState extends State<PlaygroundISWidget> {
                   height: 100.0,
                   decoration: BoxDecoration(
                     color: FlutterFlowTheme.of(context).primary,
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Text(
+                        'Absolute x${functions.relativeToAbsoluteX(0.0, MediaQuery.sizeOf(context).width, 100.0).toString()}',
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'Inter',
+                              letterSpacing: 0.0,
+                            ),
+                      ),
+                      Text(
+                        'Absolute y${functions.relativeToAbsoluteY(0.0, MediaQuery.sizeOf(context).height, 100.0).toString()}',
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'Inter',
+                              letterSpacing: 0.0,
+                            ),
+                      ),
+                    ],
                   ),
                 ),
               ),

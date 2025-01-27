@@ -123,7 +123,7 @@ List<NodeStruct> initNodes() {
   return [item1, item2, item3];
 }
 
-double absoluteToRelativeX(
+double relativeToAbsoluteX(
   double alignmentX,
   double parentWidth,
   double childWidth,
@@ -132,7 +132,7 @@ double absoluteToRelativeX(
   return x;
 }
 
-double absoluteToRelativeY(
+double relativeToAbsoluteY(
   double alignmentY,
   double parentHeight,
   double childHeight,

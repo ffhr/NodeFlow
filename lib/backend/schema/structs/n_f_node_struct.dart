@@ -16,6 +16,7 @@ class NFNodeStruct extends BaseStruct {
     NFFrameStruct? viewportFrame,
     NFNodeCapabilitiesStruct? nodeCapabilities,
     NFNodeInteractionStateStruct? nodeInteractionState,
+    NFVisibilityStruct? nodeVisibility,
   })  : _nodeId = nodeId,
         _virtualFrame = virtualFrame,
         _inputSockets = inputSockets,
@@ -23,7 +24,8 @@ class NFNodeStruct extends BaseStruct {
         _childDiagramId = childDiagramId,
         _viewportFrame = viewportFrame,
         _nodeCapabilities = nodeCapabilities,
-        _nodeInteractionState = nodeInteractionState;
+        _nodeInteractionState = nodeInteractionState,
+        _nodeVisibility = nodeVisibility;
 
   // "node_id" field.
   NFNodeIdStruct? _nodeId;
@@ -119,6 +121,18 @@ class NFNodeStruct extends BaseStruct {
 
   bool hasNodeInteractionState() => _nodeInteractionState != null;
 
+  // "node_visibility" field.
+  NFVisibilityStruct? _nodeVisibility;
+  NFVisibilityStruct get nodeVisibility =>
+      _nodeVisibility ?? NFVisibilityStruct();
+  set nodeVisibility(NFVisibilityStruct? val) => _nodeVisibility = val;
+
+  void updateNodeVisibility(Function(NFVisibilityStruct) updateFn) {
+    updateFn(_nodeVisibility ??= NFVisibilityStruct());
+  }
+
+  bool hasNodeVisibility() => _nodeVisibility != null;
+
   static NFNodeStruct fromMap(Map<String, dynamic> data) => NFNodeStruct(
         nodeId: data['node_id'] is NFNodeIdStruct
             ? data['node_id']
@@ -148,6 +162,9 @@ class NFNodeStruct extends BaseStruct {
                 ? data['node_interaction_state']
                 : NFNodeInteractionStateStruct.maybeFromMap(
                     data['node_interaction_state']),
+        nodeVisibility: data['node_visibility'] is NFVisibilityStruct
+            ? data['node_visibility']
+            : NFVisibilityStruct.maybeFromMap(data['node_visibility']),
       );
 
   static NFNodeStruct? maybeFromMap(dynamic data) =>
@@ -162,6 +179,7 @@ class NFNodeStruct extends BaseStruct {
         'viewport_frame': _viewportFrame?.toMap(),
         'node_capabilities': _nodeCapabilities?.toMap(),
         'node_interaction_state': _nodeInteractionState?.toMap(),
+        'node_visibility': _nodeVisibility?.toMap(),
       }.withoutNulls;
 
   @override
@@ -198,6 +216,10 @@ class NFNodeStruct extends BaseStruct {
         ),
         'node_interaction_state': serializeParam(
           _nodeInteractionState,
+          ParamType.DataStruct,
+        ),
+        'node_visibility': serializeParam(
+          _nodeVisibility,
           ParamType.DataStruct,
         ),
       }.withoutNulls;
@@ -252,6 +274,12 @@ class NFNodeStruct extends BaseStruct {
           false,
           structBuilder: NFNodeInteractionStateStruct.fromSerializableMap,
         ),
+        nodeVisibility: deserializeStructParam(
+          data['node_visibility'],
+          ParamType.DataStruct,
+          false,
+          structBuilder: NFVisibilityStruct.fromSerializableMap,
+        ),
       );
 
   @override
@@ -268,7 +296,8 @@ class NFNodeStruct extends BaseStruct {
         childDiagramId == other.childDiagramId &&
         viewportFrame == other.viewportFrame &&
         nodeCapabilities == other.nodeCapabilities &&
-        nodeInteractionState == other.nodeInteractionState;
+        nodeInteractionState == other.nodeInteractionState &&
+        nodeVisibility == other.nodeVisibility;
   }
 
   @override
@@ -280,7 +309,8 @@ class NFNodeStruct extends BaseStruct {
         childDiagramId,
         viewportFrame,
         nodeCapabilities,
-        nodeInteractionState
+        nodeInteractionState,
+        nodeVisibility
       ]);
 }
 
@@ -291,6 +321,7 @@ NFNodeStruct createNFNodeStruct({
   NFFrameStruct? viewportFrame,
   NFNodeCapabilitiesStruct? nodeCapabilities,
   NFNodeInteractionStateStruct? nodeInteractionState,
+  NFVisibilityStruct? nodeVisibility,
 }) =>
     NFNodeStruct(
       nodeId: nodeId ?? NFNodeIdStruct(),
@@ -300,4 +331,5 @@ NFNodeStruct createNFNodeStruct({
       nodeCapabilities: nodeCapabilities ?? NFNodeCapabilitiesStruct(),
       nodeInteractionState:
           nodeInteractionState ?? NFNodeInteractionStateStruct(),
+      nodeVisibility: nodeVisibility ?? NFVisibilityStruct(),
     );
