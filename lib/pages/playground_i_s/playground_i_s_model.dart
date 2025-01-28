@@ -12,13 +12,13 @@ import 'package:provider/provider.dart';
 class PlaygroundISModel extends FlutterFlowModel<PlaygroundISWidget> {
   ///  Local state fields for this page.
 
-  double? relativeX = 0.0;
-
-  double? relativeY = 0.0;
-
   double virtualX = 0.0;
 
   double virtualY = 0.0;
+
+  double containerWidth = 200.0;
+
+  double containerHeight = 200.0;
 
   @override
   void initState(BuildContext context) {}
