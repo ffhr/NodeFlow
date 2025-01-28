@@ -61,8 +61,8 @@ class _PlaygroundISWidgetState extends State<PlaygroundISWidget> {
                       0.0,
                     )),
                 child: Container(
-                  width: 100.0,
-                  height: 100.0,
+                  width: 200.0,
+                  height: 200.0,
                   decoration: BoxDecoration(
                     color: FlutterFlowTheme.of(context).primary,
                   ),
@@ -71,14 +71,14 @@ class _PlaygroundISWidgetState extends State<PlaygroundISWidget> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'Absolute x: ${functions.relativeToAbsoluteX(_model.relativeX!, MediaQuery.sizeOf(context).width, 100.0).toString()}',
+                        'Virtual (x, y): ${_model.virtualX.toString()}, ${_model.virtualY.toString()}',
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Inter',
                               letterSpacing: 0.0,
                             ),
                       ),
                       Text(
-                        'Absolute y: ${functions.relativeToAbsoluteY(_model.relativeY!, MediaQuery.sizeOf(context).height, 100.0).toString()}',
+                        'Absolute (x, y):  ${functions.relativeToAbsoluteX(_model.relativeX!, MediaQuery.sizeOf(context).width, 200.0).toString()}',
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Inter',
                               letterSpacing: 0.0,
