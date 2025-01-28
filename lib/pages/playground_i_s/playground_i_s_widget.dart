@@ -72,7 +72,53 @@ class _PlaygroundISWidgetState extends State<PlaygroundISWidget> {
                 ),
               ),
               Align(
-                alignment: AlignmentDirectional(0.0, 0.0),
+                alignment: AlignmentDirectional(
+                    valueOrDefault<double>(
+                      functions
+                          .virtualToRelative(
+                              NFOffsetStruct(
+                                offsetX: _model.virtualX,
+                                offsetY: _model.virtualY,
+                              ),
+                              NFSizeStruct(
+                                width: _model.containerWidth,
+                                height: _model.containerHeight,
+                              ),
+                              NFOffsetStruct(
+                                offsetX: 0.0,
+                                offsetY: 0.0,
+                              ),
+                              1.0,
+                              NFSizeStruct(
+                                width: MediaQuery.sizeOf(context).width,
+                                height: MediaQuery.sizeOf(context).height,
+                              ))
+                          .offsetX,
+                      0.0,
+                    ),
+                    valueOrDefault<double>(
+                      functions
+                          .virtualToRelative(
+                              NFOffsetStruct(
+                                offsetX: _model.virtualX,
+                                offsetY: _model.virtualY,
+                              ),
+                              NFSizeStruct(
+                                width: _model.containerWidth,
+                                height: _model.containerHeight,
+                              ),
+                              NFOffsetStruct(
+                                offsetX: 0.0,
+                                offsetY: 0.0,
+                              ),
+                              1.0,
+                              NFSizeStruct(
+                                width: MediaQuery.sizeOf(context).width,
+                                height: MediaQuery.sizeOf(context).height,
+                              ))
+                          .offsetY,
+                      0.0,
+                    )),
                 child: Container(
                   width: _model.containerWidth,
                   height: _model.containerHeight,
@@ -83,9 +129,50 @@ class _PlaygroundISWidgetState extends State<PlaygroundISWidget> {
                   decoration: BoxDecoration(
                     color: FlutterFlowTheme.of(context).primary,
                   ),
-                  child: Align(
-                    alignment: AlignmentDirectional(
-                        valueOrDefault<double>(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Virtual (x, y): ${_model.virtualX.toString()}, ${_model.virtualY.toString()}',
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'Inter',
+                              letterSpacing: 0.0,
+                            ),
+                      ),
+                      Text(
+                        'Absolute (x, y):  ${functions.virtualToAbsolute(NFOffsetStruct(
+                              offsetX: _model.virtualX,
+                              offsetY: _model.virtualY,
+                            ), NFSizeStruct(
+                              width: _model.containerWidth,
+                              height: _model.containerHeight,
+                            ), NFOffsetStruct(
+                              offsetX: 0.0,
+                              offsetY: 0.0,
+                            ), 1.0, NFSizeStruct(
+                              width: MediaQuery.sizeOf(context).width,
+                              height: MediaQuery.sizeOf(context).height,
+                            )).offsetX.toString()}, ${functions.virtualToAbsolute(NFOffsetStruct(
+                              offsetX: _model.virtualX,
+                              offsetY: _model.virtualY,
+                            ), NFSizeStruct(
+                              width: _model.containerWidth,
+                              height: _model.containerHeight,
+                            ), NFOffsetStruct(
+                              offsetX: 0.0,
+                              offsetY: 0.0,
+                            ), 1.0, NFSizeStruct(
+                              width: MediaQuery.sizeOf(context).width,
+                              height: MediaQuery.sizeOf(context).height,
+                            )).offsetY.toString()}',
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'Inter',
+                              letterSpacing: 0.0,
+                            ),
+                      ),
+                      Text(
+                        'Relative (x, y): ${formatNumber(
                           functions
                               .virtualToRelative(
                                   NFOffsetStruct(
@@ -93,8 +180,8 @@ class _PlaygroundISWidgetState extends State<PlaygroundISWidget> {
                                     offsetY: _model.virtualY,
                                   ),
                                   NFSizeStruct(
-                                    width: 200.0,
-                                    height: 200.0,
+                                    width: _model.containerWidth,
+                                    height: _model.containerHeight,
                                   ),
                                   NFOffsetStruct(
                                     offsetX: 0.0,
@@ -106,9 +193,10 @@ class _PlaygroundISWidgetState extends State<PlaygroundISWidget> {
                                     height: MediaQuery.sizeOf(context).height,
                                   ))
                               .offsetX,
-                          0.0,
-                        ),
-                        valueOrDefault<double>(
+                          formatType: FormatType.custom,
+                          format: '##.####',
+                          locale: '',
+                        )}, ${formatNumber(
                           functions
                               .virtualToRelative(
                                   NFOffsetStruct(
@@ -116,8 +204,8 @@ class _PlaygroundISWidgetState extends State<PlaygroundISWidget> {
                                     offsetY: _model.virtualY,
                                   ),
                                   NFSizeStruct(
-                                    width: 200.0,
-                                    height: 200.0,
+                                    width: _model.containerWidth,
+                                    height: _model.containerHeight,
                                   ),
                                   NFOffsetStruct(
                                     offsetX: 0.0,
@@ -129,110 +217,16 @@ class _PlaygroundISWidgetState extends State<PlaygroundISWidget> {
                                     height: MediaQuery.sizeOf(context).height,
                                   ))
                               .offsetY,
-                          0.0,
-                        )),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Virtual (x, y): ${_model.virtualX.toString()}, ${_model.virtualY.toString()}',
-                          style:
-                              FlutterFlowTheme.of(context).bodyMedium.override(
-                                    fontFamily: 'Inter',
-                                    letterSpacing: 0.0,
-                                  ),
-                        ),
-                        Text(
-                          'Absolute (x, y):  ${functions.virtualToAbsolute(NFOffsetStruct(
-                                offsetX: _model.virtualX,
-                                offsetY: _model.virtualY,
-                              ), NFSizeStruct(
-                                width: _model.containerWidth,
-                                height: _model.containerHeight,
-                              ), NFOffsetStruct(
-                                offsetX: 0.0,
-                                offsetY: 0.0,
-                              ), 1.0, NFSizeStruct(
-                                width: MediaQuery.sizeOf(context).width,
-                                height: MediaQuery.sizeOf(context).height,
-                              )).offsetX.toString()}, ${functions.virtualToAbsolute(NFOffsetStruct(
-                                offsetX: _model.virtualX,
-                                offsetY: _model.virtualY,
-                              ), NFSizeStruct(
-                                width: _model.containerWidth,
-                                height: _model.containerHeight,
-                              ), NFOffsetStruct(
-                                offsetX: 0.0,
-                                offsetY: 0.0,
-                              ), 1.0, NFSizeStruct(
-                                width: MediaQuery.sizeOf(context).width,
-                                height: MediaQuery.sizeOf(context).height,
-                              )).offsetY.toString()}',
-                          style:
-                              FlutterFlowTheme.of(context).bodyMedium.override(
-                                    fontFamily: 'Inter',
-                                    letterSpacing: 0.0,
-                                  ),
-                        ),
-                        Text(
-                          'Relative (x, y): ${formatNumber(
-                            functions
-                                .virtualToRelative(
-                                    NFOffsetStruct(
-                                      offsetX: _model.virtualX,
-                                      offsetY: _model.virtualY,
-                                    ),
-                                    NFSizeStruct(
-                                      width: _model.containerWidth,
-                                      height: _model.containerHeight,
-                                    ),
-                                    NFOffsetStruct(
-                                      offsetX: 0.0,
-                                      offsetY: 0.0,
-                                    ),
-                                    1.0,
-                                    NFSizeStruct(
-                                      width: MediaQuery.sizeOf(context).width,
-                                      height: MediaQuery.sizeOf(context).height,
-                                    ))
-                                .offsetX,
-                            formatType: FormatType.custom,
-                            format: '##.####',
-                            locale: '',
-                          )}, ${formatNumber(
-                            functions
-                                .virtualToRelative(
-                                    NFOffsetStruct(
-                                      offsetX: _model.virtualX,
-                                      offsetY: _model.virtualY,
-                                    ),
-                                    NFSizeStruct(
-                                      width: _model.containerWidth,
-                                      height: _model.containerHeight,
-                                    ),
-                                    NFOffsetStruct(
-                                      offsetX: 0.0,
-                                      offsetY: 0.0,
-                                    ),
-                                    1.0,
-                                    NFSizeStruct(
-                                      width: MediaQuery.sizeOf(context).width,
-                                      height: MediaQuery.sizeOf(context).height,
-                                    ))
-                                .offsetY,
-                            formatType: FormatType.custom,
-                            format: '##.####',
-                            locale: '',
-                          )}',
-                          style:
-                              FlutterFlowTheme.of(context).bodyMedium.override(
-                                    fontFamily: 'Inter',
-                                    letterSpacing: 0.0,
-                                  ),
-                        ),
-                      ],
-                    ),
+                          formatType: FormatType.custom,
+                          format: '##.####',
+                          locale: '',
+                        )}',
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'Inter',
+                              letterSpacing: 0.0,
+                            ),
+                      ),
+                    ],
                   ),
                 ),
               ),
