@@ -176,31 +176,55 @@ class _PlaygroundISWidgetState extends State<PlaygroundISWidget> {
                                   ),
                         ),
                         Text(
-                          'Relative (x, y): ${functions.virtualToRelative(NFOffsetStruct(
-                                offsetX: _model.virtualX,
-                                offsetY: _model.virtualY,
-                              ), NFSizeStruct(
-                                width: _model.containerWidth,
-                                height: _model.containerHeight,
-                              ), NFOffsetStruct(
-                                offsetX: 0.0,
-                                offsetY: 0.0,
-                              ), 1.0, NFSizeStruct(
-                                width: MediaQuery.sizeOf(context).width,
-                                height: MediaQuery.sizeOf(context).height,
-                              )).offsetX.toString()}, ${functions.virtualToRelative(NFOffsetStruct(
-                                offsetX: _model.virtualX,
-                                offsetY: _model.virtualY,
-                              ), NFSizeStruct(
-                                width: _model.containerWidth,
-                                height: _model.containerHeight,
-                              ), NFOffsetStruct(
-                                offsetX: 0.0,
-                                offsetY: 0.0,
-                              ), 1.0, NFSizeStruct(
-                                width: MediaQuery.sizeOf(context).width,
-                                height: MediaQuery.sizeOf(context).height,
-                              )).offsetY.toString()}',
+                          'Relative (x, y): ${formatNumber(
+                            functions
+                                .virtualToRelative(
+                                    NFOffsetStruct(
+                                      offsetX: _model.virtualX,
+                                      offsetY: _model.virtualY,
+                                    ),
+                                    NFSizeStruct(
+                                      width: _model.containerWidth,
+                                      height: _model.containerHeight,
+                                    ),
+                                    NFOffsetStruct(
+                                      offsetX: 0.0,
+                                      offsetY: 0.0,
+                                    ),
+                                    1.0,
+                                    NFSizeStruct(
+                                      width: MediaQuery.sizeOf(context).width,
+                                      height: MediaQuery.sizeOf(context).height,
+                                    ))
+                                .offsetX,
+                            formatType: FormatType.custom,
+                            format: '##.####',
+                            locale: '',
+                          )}, ${formatNumber(
+                            functions
+                                .virtualToRelative(
+                                    NFOffsetStruct(
+                                      offsetX: _model.virtualX,
+                                      offsetY: _model.virtualY,
+                                    ),
+                                    NFSizeStruct(
+                                      width: _model.containerWidth,
+                                      height: _model.containerHeight,
+                                    ),
+                                    NFOffsetStruct(
+                                      offsetX: 0.0,
+                                      offsetY: 0.0,
+                                    ),
+                                    1.0,
+                                    NFSizeStruct(
+                                      width: MediaQuery.sizeOf(context).width,
+                                      height: MediaQuery.sizeOf(context).height,
+                                    ))
+                                .offsetY,
+                            formatType: FormatType.custom,
+                            format: '##.####',
+                            locale: '',
+                          )}',
                           style:
                               FlutterFlowTheme.of(context).bodyMedium.override(
                                     fontFamily: 'Inter',
