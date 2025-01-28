@@ -130,7 +130,31 @@ class _PlaygroundISWidgetState extends State<PlaygroundISWidget> {
                             ),
                       ),
                       Text(
-                        'Relative (x, y): ',
+                        'Relative (x, y): ${functions.virtualToRelative(NFOffsetStruct(
+                              offsetX: _model.virtualX,
+                              offsetY: _model.virtualY,
+                            ), NFSizeStruct(
+                              width: 200.0,
+                              height: 200.0,
+                            ), NFOffsetStruct(
+                              offsetX: 0.0,
+                              offsetY: 0.0,
+                            ), 1.0, NFSizeStruct(
+                              width: MediaQuery.sizeOf(context).width,
+                              height: MediaQuery.sizeOf(context).height,
+                            )).offsetX.toString()}, ${functions.virtualToRelative(NFOffsetStruct(
+                              offsetX: _model.virtualX,
+                              offsetY: _model.virtualY,
+                            ), NFSizeStruct(
+                              width: 200.0,
+                              height: 200.0,
+                            ), NFOffsetStruct(
+                              offsetX: 0.0,
+                              offsetY: 0.0,
+                            ), 1.0, NFSizeStruct(
+                              width: MediaQuery.sizeOf(context).width,
+                              height: MediaQuery.sizeOf(context).height,
+                            )).offsetY.toString()}',
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Inter',
                               letterSpacing: 0.0,
