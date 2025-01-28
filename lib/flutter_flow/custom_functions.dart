@@ -128,7 +128,7 @@ double relativeToAbsoluteX(
   double parentWidth,
   double childWidth,
 ) {
-  double x = (alignmentX * parentWidth + parentWidth) / 2 - childWidth / 2;
+  double x = (alignmentX * parentWidth + parentWidth) / 2 + childWidth / 2;
   return x;
 }
 
@@ -137,7 +137,7 @@ double relativeToAbsoluteY(
   double parentHeight,
   double childHeight,
 ) {
-  double y = (alignmentY * parentHeight + parentHeight) / 2 - childHeight / 2;
+  double y = (alignmentY * parentHeight + parentHeight) / 2 + childHeight / 2;
   return y;
 }
 
