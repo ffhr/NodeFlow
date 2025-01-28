@@ -162,8 +162,17 @@ NFOffsetStruct absoluteToRelative(
   NFSizeStruct windowSize,
   NFSizeStruct nodeSize,
 ) {
-  double relativeX = 2 * (absolutePosition.offsetX) / (windowSize.width) - 1;
-  double relativeY = 2 * (absolutePosition.offsetY) / (windowSize.height) - 1;
+  double nodeSizeWidth = nodeSize.width;
+  double nodeSizeHeight = nodeSize.height;
+
+  double relativeX = 2 *
+          (absolutePosition.offsetX - (nodeSizeWidth / 2)) /
+          (windowSize.width - nodeSizeWidth) -
+      1;
+  double relativeY = 2 *
+          (absolutePosition.offsetY - (nodeSizeHeight / 2)) /
+          (windowSize.height - nodeSizeHeight) -
+      1;
   return NFOffsetStruct(offsetX: relativeX, offsetY: relativeY);
 }
 
@@ -179,7 +188,8 @@ NFOffsetStruct virtualToRelative(
       nodePosition, nodeSize, viewportCenter, zoomFactor, windowSize);
   // Convert absolute to relative
   NFOffsetStruct relativePosition =
-      absoluteToRelative(absolutePosition, windowSize);
+      absoluteToRelative(absolutePosition, windowSize, nodeSize);
+
   return NFOffsetStruct(
       offsetX: relativePosition.offsetX, offsetY: relativePosition.offsetY);
 }
