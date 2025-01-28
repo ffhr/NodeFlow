@@ -166,7 +166,13 @@ NFOffsetStruct absoluteToRelative(
   return NFOffsetStruct(offsetX: relativeX, offsetY: relativeY);
 }
 
-NFOffsetStruct virtualToRelative() {
+NFOffsetStruct virtualToRelative(
+  NFOffsetStruct nodePosition,
+  NFSizeStruct nodeSize,
+  NFOffsetStruct viewportCenter,
+  double zoomFactor,
+  NFSizeStruct windowSize,
+) {
   // Convert virtual to absolute
   // Offset absolutePosition = virtualToAbsolute(nodePosition, nodeSize, viewportCenter, zoomFactor, windowSize);
   // // Convert absolute to relative
