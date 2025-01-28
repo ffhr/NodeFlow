@@ -165,3 +165,13 @@ NFOffsetStruct absoluteToRelative(
   double relativeY = 2 * (absolutePosition.offsetY) / (windowSize.height) - 1;
   return NFOffsetStruct(offsetX: relativeX, offsetY: relativeY);
 }
+
+NFOffsetStruct virtualToRelative() {
+  // Convert virtual to absolute
+  // Offset absolutePosition = virtualToAbsolute(nodePosition, nodeSize, viewportCenter, zoomFactor, windowSize);
+  // // Convert absolute to relative
+  // Offset relativePosition = absoluteToRelative(absolutePosition, windowSize, padding: padding);
+  // return relativePosition;
+
+  return NFOffsetStruct();
+}
