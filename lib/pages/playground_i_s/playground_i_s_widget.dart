@@ -1,3 +1,4 @@
+import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -78,7 +79,38 @@ class _PlaygroundISWidgetState extends State<PlaygroundISWidget> {
                             ),
                       ),
                       Text(
-                        'Absolute (x, y):  ${functions.relativeToAbsoluteX(_model.relativeX!, MediaQuery.sizeOf(context).width, 200.0).toString()}',
+                        'Absolute (x, y):  ${functions.virtualToAbsolute(NFOffsetStruct(
+                              offsetX: _model.virtualX,
+                              offsetY: _model.virtualY,
+                            ), NFSizeStruct(
+                              width: 200.0,
+                              height: 200.0,
+                            ), NFOffsetStruct(
+                              offsetX: 0.0,
+                              offsetY: 0.0,
+                            ), 1.0, NFSizeStruct(
+                              width: MediaQuery.sizeOf(context).width,
+                              height: MediaQuery.sizeOf(context).height,
+                            )).offsetX.toString()}, ${functions.virtualToAbsolute(NFOffsetStruct(
+                              offsetX: _model.virtualX,
+                              offsetY: _model.virtualY,
+                            ), NFSizeStruct(
+                              width: 200.0,
+                              height: 200.0,
+                            ), NFOffsetStruct(
+                              offsetX: 0.0,
+                              offsetY: 0.0,
+                            ), 1.0, NFSizeStruct(
+                              width: MediaQuery.sizeOf(context).width,
+                              height: MediaQuery.sizeOf(context).height,
+                            )).offsetY.toString()}',
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'Inter',
+                              letterSpacing: 0.0,
+                            ),
+                      ),
+                      Text(
+                        'Relative (x, y): ',
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Inter',
                               letterSpacing: 0.0,
