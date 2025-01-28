@@ -16,9 +16,9 @@ class PlaygroundISModel extends FlutterFlowModel<PlaygroundISWidget> {
 
   double virtualY = 0.0;
 
-  double containerWidth = 200.0;
+  double nodeWidth = 200.0;
 
-  double containerHeight = 200.0;
+  double nodeHeight = 200.0;
 
   @override
   void initState(BuildContext context) {}

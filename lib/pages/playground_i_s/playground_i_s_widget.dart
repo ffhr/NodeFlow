@@ -81,8 +81,8 @@ class _PlaygroundISWidgetState extends State<PlaygroundISWidget> {
                                 offsetY: _model.virtualY,
                               ),
                               NFSizeStruct(
-                                width: _model.containerWidth,
-                                height: _model.containerHeight,
+                                width: _model.nodeWidth,
+                                height: _model.nodeHeight,
                               ),
                               NFOffsetStruct(
                                 offsetX: 0.0,
@@ -104,8 +104,8 @@ class _PlaygroundISWidgetState extends State<PlaygroundISWidget> {
                                 offsetY: _model.virtualY,
                               ),
                               NFSizeStruct(
-                                width: _model.containerWidth,
-                                height: _model.containerHeight,
+                                width: _model.nodeWidth,
+                                height: _model.nodeHeight,
                               ),
                               NFOffsetStruct(
                                 offsetX: 0.0,
@@ -120,11 +120,11 @@ class _PlaygroundISWidgetState extends State<PlaygroundISWidget> {
                       0.0,
                     )),
                 child: Container(
-                  width: _model.containerWidth,
-                  height: _model.containerHeight,
+                  width: _model.nodeWidth,
+                  height: _model.nodeHeight,
                   constraints: BoxConstraints(
-                    maxWidth: 200.0,
-                    maxHeight: 200.0,
+                    maxWidth: _model.nodeWidth,
+                    maxHeight: _model.nodeHeight,
                   ),
                   decoration: BoxDecoration(
                     color: FlutterFlowTheme.of(context).primary,
@@ -145,8 +145,8 @@ class _PlaygroundISWidgetState extends State<PlaygroundISWidget> {
                               offsetX: _model.virtualX,
                               offsetY: _model.virtualY,
                             ), NFSizeStruct(
-                              width: _model.containerWidth,
-                              height: _model.containerHeight,
+                              width: _model.nodeWidth,
+                              height: _model.nodeHeight,
                             ), NFOffsetStruct(
                               offsetX: 0.0,
                               offsetY: 0.0,
@@ -157,8 +157,8 @@ class _PlaygroundISWidgetState extends State<PlaygroundISWidget> {
                               offsetX: _model.virtualX,
                               offsetY: _model.virtualY,
                             ), NFSizeStruct(
-                              width: _model.containerWidth,
-                              height: _model.containerHeight,
+                              width: _model.nodeWidth,
+                              height: _model.nodeHeight,
                             ), NFOffsetStruct(
                               offsetX: 0.0,
                               offsetY: 0.0,
@@ -180,8 +180,8 @@ class _PlaygroundISWidgetState extends State<PlaygroundISWidget> {
                                     offsetY: _model.virtualY,
                                   ),
                                   NFSizeStruct(
-                                    width: _model.containerWidth,
-                                    height: _model.containerHeight,
+                                    width: _model.nodeWidth,
+                                    height: _model.nodeHeight,
                                   ),
                                   NFOffsetStruct(
                                     offsetX: 0.0,
@@ -204,8 +204,8 @@ class _PlaygroundISWidgetState extends State<PlaygroundISWidget> {
                                     offsetY: _model.virtualY,
                                   ),
                                   NFSizeStruct(
-                                    width: _model.containerWidth,
-                                    height: _model.containerHeight,
+                                    width: _model.nodeWidth,
+                                    height: _model.nodeHeight,
                                   ),
                                   NFOffsetStruct(
                                     offsetX: 0.0,
