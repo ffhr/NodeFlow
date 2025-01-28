@@ -160,6 +160,7 @@ NFOffsetStruct virtualToAbsolute(
 NFOffsetStruct absoluteToRelative(
   NFOffsetStruct absolutePosition,
   NFSizeStruct windowSize,
+  NFSizeStruct nodeSize,
 ) {
   double relativeX = 2 * (absolutePosition.offsetX) / (windowSize.width) - 1;
   double relativeY = 2 * (absolutePosition.offsetY) / (windowSize.height) - 1;
