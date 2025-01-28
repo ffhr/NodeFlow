@@ -144,15 +144,15 @@ double relativeToAbsoluteY(
 NFOffsetStruct virtualToAbsolute(
   NFOffsetStruct nodePosition,
   NFSizeStruct nodeSize,
-  NFOffsetStruct viewPortCenter,
+  NFOffsetStruct viewportCenter,
   double zoomFactor,
   NFSizeStruct windowSize,
 ) {
-  // double absoluteX = (windowSize.width / 2) +
-  //     (nodePosition.dx - viewportCenter.dx) * zoomFactor;
-  // double absoluteY = (windowSize.height / 2) +
-  //     (nodePosition.dy - viewportCenter.dy) * zoomFactor;
+  double absoluteX = (windowSize.width / 2) +
+      (nodePosition.offsetX - viewportCenter.offsetX) * zoomFactor;
 
-  // return NFOffsetStruct(absoluteX, absoluteY);
-  return NFOffsetStruct();
+  double absoluteY = (windowSize.height / 2) +
+      (nodePosition.offsetY - viewportCenter.offsetY) * zoomFactor;
+
+  return NFOffsetStruct(offsetX: absoluteX, offsetY: absoluteY);
 }
