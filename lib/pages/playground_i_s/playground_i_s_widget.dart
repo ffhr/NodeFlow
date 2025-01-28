@@ -132,7 +132,7 @@ class _PlaygroundISWidgetState extends State<PlaygroundISWidget> {
                           0.0,
                         )),
                     child: Column(
-                      mainAxisSize: MainAxisSize.max,
+                      mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
