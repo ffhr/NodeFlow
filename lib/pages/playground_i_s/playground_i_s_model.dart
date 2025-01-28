@@ -16,9 +16,9 @@ class PlaygroundISModel extends FlutterFlowModel<PlaygroundISWidget> {
 
   double? relativeY = 0.0;
 
-  double virtualX = 100.0;
+  double virtualX = 0.0;
 
-  double virtualY = 100.0;
+  double virtualY = 0.0;
 
   @override
   void initState(BuildContext context) {}
