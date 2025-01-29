@@ -63,6 +63,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'PlaygroundIS',
           path: '/playgroundIS',
           builder: (context, params) => PlaygroundISWidget(),
+        ),
+        FFRoute(
+          name: 'LayoutZoomable',
+          path: '/layoutZoomable',
+          builder: (context, params) => LayoutZoomableWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
