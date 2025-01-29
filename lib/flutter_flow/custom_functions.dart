@@ -15,8 +15,7 @@ List<NodeStruct> initNodes() {
   var item1 = NodeStruct(
       title: "Node 1",
       description: "description 1",
-      virtualX: 100,
-      virtualY: 100,
+      virtualPosition: NFOffsetStruct(offsetX: 100, offsetY: 100),
       inputs: [
         NodeInputSocketStruct(
             socket: NodeSocketStruct(
@@ -55,8 +54,7 @@ List<NodeStruct> initNodes() {
   var item2 = NodeStruct(
       title: "Node 2",
       description: "description 2",
-      virtualX: 0.0,
-      virtualY: 0.0,
+      virtualPosition: NFOffsetStruct(offsetX: 0, offsetY: 0),
       inputs: [
         NodeInputSocketStruct(
             socket: NodeSocketStruct(
@@ -95,8 +93,7 @@ List<NodeStruct> initNodes() {
   var item3 = NodeStruct(
       title: "Node 3",
       description: "description 3",
-      virtualX: -100,
-      virtualY: -100,
+      virtualPosition: NFOffsetStruct(offsetX: -100, offsetY: -200),
       inputs: [
         NodeInputSocketStruct(
             socket: NodeSocketStruct(
