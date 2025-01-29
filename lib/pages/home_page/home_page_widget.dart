@@ -216,16 +216,16 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         Container(
                           width: double.infinity,
                           height: double.infinity,
-                          child: custom_widgets.Line(
+                          child: custom_widgets.CurvedLine(
                             width: double.infinity,
                             height: double.infinity,
                             start: NFPointStruct(
                               positionX: 100.0,
-                              positionY: 120.0,
+                              positionY: 100.0,
                             ),
                             end: NFPointStruct(
                               positionX: 200.0,
-                              positionY: 220.0,
+                              positionY: 200.0,
                             ),
                           ),
                         ),
