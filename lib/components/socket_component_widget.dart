@@ -12,11 +12,13 @@ class SocketComponentWidget extends StatefulWidget {
   const SocketComponentWidget({
     super.key,
     required this.nodeSocket,
-    this.onSocketTap,
+    this.onPanDown,
+    this.onPanEnd,
   });
 
   final NodeSocketStruct? nodeSocket;
-  final Future Function()? onSocketTap;
+  final Future Function()? onPanDown;
+  final Future Function()? onPanEnd;
 
   @override
   State<SocketComponentWidget> createState() => _SocketComponentWidgetState();
@@ -51,14 +53,14 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
     return MouseRegion(
       opaque: false,
       cursor: MouseCursor.defer ?? MouseCursor.defer,
-      child: InkWell(
-        splashColor: Colors.transparent,
-        focusColor: Colors.transparent,
-        hoverColor: Colors.transparent,
-        highlightColor: Colors.transparent,
-        onTap: () async {
-          // On socket tap
-          await widget.onSocketTap?.call();
+      child: GestureDetector(
+        onPanDown: (details) async {
+          // On Pan down
+          await widget.onPanDown?.call();
+        },
+        onPanEnd: (details) async {
+          // On Pan End
+          await widget.onPanEnd?.call();
         },
         child: Container(
           width: 20.0,

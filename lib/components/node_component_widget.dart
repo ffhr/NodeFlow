@@ -189,9 +189,14 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                     key: Key(
                         'Keyhbf_${inputsListIndex}_of_${inputsList.length}'),
                     nodeSocket: inputsListItem.socket,
-                    onSocketTap: () async {
+                    onPanDown: () async {
                       // IsDrawing active
                       FFAppState().IsDrawingActive = true;
+                      safeSetState(() {});
+                    },
+                    onPanEnd: () async {
+                      // IsDrawing active
+                      FFAppState().IsDrawingActive = false;
                       safeSetState(() {});
                     },
                   );
@@ -219,7 +224,8 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                       key: Key(
                           'Keydt4_${outputsListIndex}_of_${outputsList.length}'),
                       nodeSocket: outputsListItem.socket,
-                      onSocketTap: () async {},
+                      onPanDown: () async {},
+                      onPanEnd: () async {},
                     );
                   }).divide(SizedBox(height: 10.0)),
                 );
