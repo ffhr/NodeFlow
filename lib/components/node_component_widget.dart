@@ -297,28 +297,60 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                     children:
                         List.generate(outputsList.length, (outputsListIndex) {
                       final outputsListItem = outputsList[outputsListIndex];
-                      return SocketComponentWidget(
-                        key: Key(
-                            'Keydt4_${outputsListIndex}_of_${outputsList.length}'),
-                        nodeSocket: outputsListItem.socket,
-                        onPanDown: () async {
-                          // IsDrawing active
-                          FFAppState().IsDrawingActive = true;
-                          FFAppState().DrawingStartPoint =
-                              functions.convertNFOffsetToNFPoint(
-                                  functions.calculateSocketPosition(
-                                      widget!.node!.virtualPosition,
-                                      widget!.node!.size,
-                                      outputsListIndex,
-                                      false,
-                                      widget!.node!.outputs.length));
-                          safeSetState(() {});
-                        },
-                        onPanEnd: () async {
-                          // IsDrawing active = false
-                          FFAppState().IsDrawingActive = false;
-                          safeSetState(() {});
-                        },
+                      return AlignedTooltip(
+                        content: Padding(
+                          padding: EdgeInsets.all(4.0),
+                          child: Text(
+                            (functions
+                                    .calculateSocketPosition(
+                                        widget!.node!.virtualPosition,
+                                        widget!.node!.size,
+                                        outputsListIndex,
+                                        false,
+                                        widget!.node!.outputs.length)
+                                    .toMap())
+                                .toString(),
+                            style:
+                                FlutterFlowTheme.of(context).bodyLarge.override(
+                                      fontFamily: 'Inter',
+                                      letterSpacing: 0.0,
+                                    ),
+                          ),
+                        ),
+                        offset: 4.0,
+                        preferredDirection: AxisDirection.down,
+                        borderRadius: BorderRadius.circular(8.0),
+                        backgroundColor:
+                            FlutterFlowTheme.of(context).secondaryBackground,
+                        elevation: 4.0,
+                        tailBaseWidth: 24.0,
+                        tailLength: 12.0,
+                        waitDuration: Duration(milliseconds: 100),
+                        showDuration: Duration(milliseconds: 1500),
+                        triggerMode: TooltipTriggerMode.tap,
+                        child: SocketComponentWidget(
+                          key: Key(
+                              'Keydt4_${outputsListIndex}_of_${outputsList.length}'),
+                          nodeSocket: outputsListItem.socket,
+                          onPanDown: () async {
+                            // IsDrawing active
+                            FFAppState().IsDrawingActive = true;
+                            FFAppState().DrawingStartPoint =
+                                functions.convertNFOffsetToNFPoint(
+                                    functions.calculateSocketPosition(
+                                        widget!.node!.virtualPosition,
+                                        widget!.node!.size,
+                                        outputsListIndex,
+                                        false,
+                                        widget!.node!.outputs.length));
+                            safeSetState(() {});
+                          },
+                          onPanEnd: () async {
+                            // IsDrawing active = false
+                            FFAppState().IsDrawingActive = false;
+                            safeSetState(() {});
+                          },
+                        ),
                       );
                     }).divide(SizedBox(height: 10.0)),
                   );
