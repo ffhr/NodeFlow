@@ -189,6 +189,7 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                     key: Key(
                         'Keyhbf_${inputsListIndex}_of_${inputsList.length}'),
                     nodeSocket: inputsListItem.socket,
+                    onSocketTap: () async {},
                   );
                 }).divide(SizedBox(height: 10.0)),
               );
@@ -214,6 +215,7 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                       key: Key(
                           'Keydt4_${outputsListIndex}_of_${outputsList.length}'),
                       nodeSocket: outputsListItem.socket,
+                      onSocketTap: () async {},
                     );
                   }).divide(SizedBox(height: 10.0)),
                 );
