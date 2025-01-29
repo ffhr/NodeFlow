@@ -181,12 +181,20 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                                   padding: EdgeInsets.all(15.0),
                                   child: Text(
                                     '${valueOrDefault<String>(
-                                      widget!.node?.virtualPosition?.offsetX
-                                          .toString(),
+                                      formatNumber(
+                                        widget!.node?.virtualPosition?.offsetX,
+                                        formatType: FormatType.custom,
+                                        format: '##.###',
+                                        locale: '',
+                                      ),
                                       '##.##',
                                     )}, ${valueOrDefault<String>(
-                                      widget!.node?.virtualPosition?.offsetY
-                                          .toString(),
+                                      formatNumber(
+                                        widget!.node?.virtualPosition?.offsetY,
+                                        formatType: FormatType.custom,
+                                        format: '##.###',
+                                        locale: '',
+                                      ),
                                       '##.###',
                                     )}',
                                     style: FlutterFlowTheme.of(context)
