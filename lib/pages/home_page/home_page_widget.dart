@@ -189,8 +189,12 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                     _model.selectedIndex,
                                     (e) => e
                                       ..virtualPosition = NFOffsetStruct(
-                                        offsetX: deltaPoint.positionX,
-                                        offsetY: deltaPoint.positionY,
+                                        offsetX: nodesListItem
+                                                .virtualPosition.offsetX +
+                                            deltaPoint.positionX,
+                                        offsetY: nodesListItem
+                                                .virtualPosition.offsetY +
+                                            deltaPoint.positionY,
                                       ),
                                   );
                                   safeSetState(() {});
