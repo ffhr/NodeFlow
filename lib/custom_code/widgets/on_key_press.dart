@@ -15,10 +15,14 @@ class OnKeyPress extends StatefulWidget {
     super.key,
     this.width,
     this.height,
+    this.onKeyPressedL,
+    this.onKeyPressedH,
   });
 
   final double? width;
   final double? height;
+  final Future Function()? onKeyPressedL;
+  final Future Function()? onKeyPressedH;
 
   @override
   State<OnKeyPress> createState() => _OnKeyPressState();
@@ -27,20 +31,23 @@ class OnKeyPress extends StatefulWidget {
 class _OnKeyPressState extends State<OnKeyPress> {
   @override
   Widget build(BuildContext context) {
-    return RawKeyboardListener(
-      focusNode: FocusNode(),
-      onKey: (event) {
-        if (event is RawKeyDownEvent &&
-            event.logicalKey == LogicalKeyboardKey.keyL) {
-          // Trigger your desired action here
-          print('L key pressed!');
-        }
-        if (event is RawKeyDownEvent &&
-            event.logicalKey == LogicalKeyboardKey.keyH) {
-          print('H key pressed');
-        }
-      },
-      child: Container(),
-    );
+    Widget build(BuildContext context) {
+      return KeyboardListener(
+        focusNode: FocusNode(),
+        onKeyEvent: (KeyEvent event) {
+          if (event is KeyDownEvent) {
+            if (event.logicalKey == LogicalKeyboardKey.keyL) {
+              // Trigger your desired action here
+              print('L key pressed!');
+              widget.onKeyPressedL();
+            } else if (event.logicalKey == LogicalKeyboardKey.keyH) {
+              print('H key pressed');
+              widget.onKeyPressedH();
+            }
+          }
+        },
+        child: Container(),
+      );
+    }
   }
 }
