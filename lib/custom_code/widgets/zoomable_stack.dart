@@ -50,6 +50,6 @@ class _ZoomableStackState extends State<ZoomableStack> {
   Widget build(BuildContext context) {
     return Listener(
         onPointerSignal: _handleMouseWheel,
-        child: Transform.scale(scale: _scale, child: stackComponent));
+        child: Transform.scale(scale: _scale, child: widget.stackComponent!()));
   }
 }
