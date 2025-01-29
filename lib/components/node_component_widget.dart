@@ -3,6 +3,7 @@ import '/components/socket_component_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'dart:ui';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -227,6 +228,14 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                       onPanDown: () async {
                         // IsDrawing active
                         FFAppState().IsDrawingActive = true;
+                        FFAppState().DrawingStartPoint =
+                            functions.convertNFOffsetToNFPoint(
+                                functions.calculateSocketPosition(
+                                    widget!.node!.virtualPosition,
+                                    widget!.node!.size,
+                                    outputsListIndex,
+                                    false,
+                                    widget!.node!.outputs.length));
                         safeSetState(() {});
                       },
                       onPanEnd: () async {

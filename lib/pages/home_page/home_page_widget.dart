@@ -217,10 +217,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       onPanDown: (details) async {
                         // Set drawing start point; isDrawingActive = true
                         FFAppState().IsDrawingActive = true;
-                        FFAppState().DrawingStartPoint = NFPointStruct(
-                          positionX: details.localPosition.dx,
-                          positionY: details.localPosition.dy,
-                        );
                         safeSetState(() {});
                       },
                       onPanEnd: (details) async {
