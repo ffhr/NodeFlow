@@ -55,7 +55,7 @@ class _PlaygroundISStackWidgetState extends State<PlaygroundISStackWidget> {
             width: double.infinity,
             height: double.infinity,
             decoration: BoxDecoration(
-              color: FlutterFlowTheme.of(context).secondaryBackground,
+              color: Color(0xFFF58585),
             ),
           ),
           Align(
