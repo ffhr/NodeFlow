@@ -183,7 +183,7 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                                     '${valueOrDefault<String>(
                                       widget!.node?.virtualPosition?.offsetX
                                           .toString(),
-                                      '##.###',
+                                      '##.##',
                                     )}, ${valueOrDefault<String>(
                                       widget!.node?.virtualPosition?.offsetY
                                           .toString(),
