@@ -124,8 +124,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                   0.0,
                                 )),
                             child: Container(
-                              width: 180.0,
-                              height: 150.0,
                               decoration: BoxDecoration(),
                               child: NodeComponentWidget(
                                 key: Key(
