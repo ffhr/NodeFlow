@@ -8,6 +8,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 
 class NodeStruct extends BaseStruct {
   NodeStruct({
+    String? id,
     String? title,
     String? description,
     bool? isSelected,
@@ -16,7 +17,8 @@ class NodeStruct extends BaseStruct {
     List<NodeOutputSocketStruct>? outputs,
     NFOffsetStruct? virtualPosition,
     NFSizeStruct? size,
-  })  : _title = title,
+  })  : _id = id,
+        _title = title,
         _description = description,
         _isSelected = isSelected,
         _isMoveable = isMoveable,
@@ -24,6 +26,13 @@ class NodeStruct extends BaseStruct {
         _outputs = outputs,
         _virtualPosition = virtualPosition,
         _size = size;
+
+  // "id" field.
+  String? _id;
+  String get id => _id ?? '';
+  set id(String? val) => _id = val;
+
+  bool hasId() => _id != null;
 
   // "title" field.
   String? _title;
@@ -98,6 +107,7 @@ class NodeStruct extends BaseStruct {
   bool hasSize() => _size != null;
 
   static NodeStruct fromMap(Map<String, dynamic> data) => NodeStruct(
+        id: data['id'] as String?,
         title: data['title'] as String?,
         description: data['description'] as String?,
         isSelected: data['isSelected'] as bool?,
@@ -122,6 +132,7 @@ class NodeStruct extends BaseStruct {
       data is Map ? NodeStruct.fromMap(data.cast<String, dynamic>()) : null;
 
   Map<String, dynamic> toMap() => {
+        'id': _id,
         'title': _title,
         'description': _description,
         'isSelected': _isSelected,
@@ -134,6 +145,10 @@ class NodeStruct extends BaseStruct {
 
   @override
   Map<String, dynamic> toSerializableMap() => {
+        'id': serializeParam(
+          _id,
+          ParamType.String,
+        ),
         'title': serializeParam(
           _title,
           ParamType.String,
@@ -172,6 +187,11 @@ class NodeStruct extends BaseStruct {
 
   static NodeStruct fromSerializableMap(Map<String, dynamic> data) =>
       NodeStruct(
+        id: deserializeParam(
+          data['id'],
+          ParamType.String,
+          false,
+        ),
         title: deserializeParam(
           data['title'],
           ParamType.String,
@@ -225,6 +245,7 @@ class NodeStruct extends BaseStruct {
   bool operator ==(Object other) {
     const listEquality = ListEquality();
     return other is NodeStruct &&
+        id == other.id &&
         title == other.title &&
         description == other.description &&
         isSelected == other.isSelected &&
@@ -237,6 +258,7 @@ class NodeStruct extends BaseStruct {
 
   @override
   int get hashCode => const ListEquality().hash([
+        id,
         title,
         description,
         isSelected,
@@ -249,6 +271,7 @@ class NodeStruct extends BaseStruct {
 }
 
 NodeStruct createNodeStruct({
+  String? id,
   String? title,
   String? description,
   bool? isSelected,
@@ -257,6 +280,7 @@ NodeStruct createNodeStruct({
   NFSizeStruct? size,
 }) =>
     NodeStruct(
+      id: id,
       title: title,
       description: description,
       isSelected: isSelected,
