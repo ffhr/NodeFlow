@@ -180,8 +180,15 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                                 Padding(
                                   padding: EdgeInsets.all(15.0),
                                   child: Text(
-                                    functions.helperNFOffsetToString(
-                                        widget!.node!.virtualPosition),
+                                    '${valueOrDefault<String>(
+                                      widget!.node?.virtualPosition?.offsetX
+                                          .toString(),
+                                      '##.###',
+                                    )}, ${valueOrDefault<String>(
+                                      widget!.node?.virtualPosition?.offsetY
+                                          .toString(),
+                                      '##.###',
+                                    )}',
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
