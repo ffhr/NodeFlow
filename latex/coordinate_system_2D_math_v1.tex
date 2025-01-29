@@ -11,9 +11,13 @@
     % Expand bounding box to ensure equal margins on all sides
     \useasboundingbox (-\xmax-2,-\ymax-2) rectangle (\xmax+2,\ymax+2);
 
-    % Draw X and Y axes
-    \draw[->] (-\xmax-1,0) -- (\xmax+1,0) node[right] {\Huge $x$}; % Increased label size
-    \draw[->] (0,-\ymax-1) -- (0,\ymax+1) node[above] {\Huge $y$}; % Increased label size
+    % Draw X and Y axes (WITHOUT left and bottom arrows)
+    \draw[-, line width=0.25mm] (-\xmax-1,0) -- (\xmax+1,0) node[right] {\Huge $x$};
+    \draw[-, line width=0.25mm] (0,-\ymax-1) -- (0,\ymax+1) node[above] {\Huge $y$};
+
+    % Manually draw rotated (inward) arrows for top and right
+    \fill (\xmax+1,0) -- (\xmax+0.5,0.3) -- (\xmax+0.5,-0.3) -- cycle; % Right arrow (rotated)
+    \fill (0,\ymax+1) -- (0.3,\ymax+0.5) -- (-0.3,\ymax+0.5) -- cycle; % Top arrow (rotated)
 
     % Draw grid dots with more density
     \foreach \x in {-15,-12.5,-10,-7.5,-5,-2.5,0,2.5,5,7.5,10,12.5,15} {
