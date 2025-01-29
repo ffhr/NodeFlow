@@ -5,6 +5,7 @@ import 'dart:ui';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'playground_i_s_stack_model.dart';
@@ -56,6 +57,19 @@ class _PlaygroundISStackWidgetState extends State<PlaygroundISStackWidget> {
             height: double.infinity,
             decoration: BoxDecoration(
               color: Color(0xFFF58585),
+            ),
+          ),
+          Align(
+            alignment: AlignmentDirectional(0.5, -0.35),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(8.0),
+              child: SvgPicture.asset(
+                'assets/images/coordinate_system_2D_math_v1.svg',
+                width: 256.0,
+                height: 256.0,
+                fit: BoxFit.cover,
+                alignment: Alignment(0.0, 0.0),
+              ),
             ),
           ),
           Align(
@@ -128,7 +142,7 @@ class _PlaygroundISStackWidgetState extends State<PlaygroundISStackWidget> {
                 maxHeight: _model.nodeHeight,
               ),
               decoration: BoxDecoration(
-                color: FlutterFlowTheme.of(context).primary,
+                color: Color(0x624B39EF),
               ),
               child: Column(
                 mainAxisSize: MainAxisSize.max,
