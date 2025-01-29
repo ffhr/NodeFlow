@@ -165,7 +165,19 @@ class _PlaygroundISWidgetState extends State<PlaygroundISWidget> {
                             ), 1.0, NFSizeStruct(
                               width: MediaQuery.sizeOf(context).width,
                               height: MediaQuery.sizeOf(context).height,
-                            )).offsetY.toString()}',
+                            )).offsetY.toString()}${functions.virtualToAbsolute(NFOffsetStruct(
+                              offsetX: _model.virtualX,
+                              offsetY: _model.virtualY,
+                            ), NFSizeStruct(
+                              width: _model.nodeWidth,
+                              height: _model.nodeHeight,
+                            ), NFOffsetStruct(
+                              offsetX: 0.0,
+                              offsetY: 0.0,
+                            ), 1.0, NFSizeStruct(
+                              width: MediaQuery.sizeOf(context).width,
+                              height: MediaQuery.sizeOf(context).height,
+                            )).toMap().toString()}',
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Inter',
                               letterSpacing: 0.0,
