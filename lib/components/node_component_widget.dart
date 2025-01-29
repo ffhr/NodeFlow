@@ -210,13 +210,10 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                   children:
                       List.generate(outputsList.length, (outputsListIndex) {
                     final outputsListItem = outputsList[outputsListIndex];
-                    return Container(
-                      width: 20.0,
-                      height: 20.0,
-                      decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).warning,
-                        shape: BoxShape.circle,
-                      ),
+                    return SocketComponentWidget(
+                      key: Key(
+                          'Keydt4_${outputsListIndex}_of_${outputsList.length}'),
+                      nodeSocket: outputsListItem.socket,
                     );
                   }).divide(SizedBox(height: 10.0)),
                 );

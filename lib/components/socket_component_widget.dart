@@ -56,9 +56,12 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
           color: FlutterFlowTheme.of(context).warning,
           shape: BoxShape.circle,
           border: Border.all(
-            color: widget!.nodeSocket!.isHover
-                ? Colors.white
-                : FlutterFlowTheme.of(context).warning,
+            color: valueOrDefault<Color>(
+              widget!.nodeSocket!.isHover
+                  ? Colors.white
+                  : FlutterFlowTheme.of(context).warning,
+              Colors.white,
+            ),
             width: 3.0,
           ),
         ),
