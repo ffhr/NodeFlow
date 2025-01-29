@@ -51,6 +51,13 @@ class _PlaygroundISStackWidgetState extends State<PlaygroundISStackWidget> {
       height: double.infinity,
       child: Stack(
         children: [
+          Container(
+            width: double.infinity,
+            height: double.infinity,
+            decoration: BoxDecoration(
+              color: FlutterFlowTheme.of(context).secondaryBackground,
+            ),
+          ),
           Align(
             alignment: AlignmentDirectional(0.0, 0.0),
             child: Container(
