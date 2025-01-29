@@ -227,6 +227,11 @@ NFOffsetStruct calculateSocketPosition(
   }
 }
 
-NFPointStruct? convertNFOffsetToNFPoint(NFOffsetStruct offset) {
-  return NFPointStruct();
+NFPointStruct convertNFOffsetToNFPoint(NFOffsetStruct offset) {
+  return NFPointStruct(positionX: offset.offsetX, positionY: offset.offsetY);
+}
+
+NFOffsetStruct convertNFPointToNFOffset(NFPointStruct point) {
+  //return NFPointStruct(positionX: offset.offsetX, positionY: offset.offsetY);
+  return NFOffsetStruct();
 }
