@@ -10,8 +10,6 @@ import 'package:flutter/material.dart';
 // Begin custom widget code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
-import 'index.dart'; // Imports other custom widgets
-
 enum LineDirection {
   topLeftToBottomRight,
   topRightToBottomLeft,
@@ -141,7 +139,7 @@ class CurvedLine extends StatefulWidget {
   final NFPointStruct end;
 
   @override
-  State<CurvedLine> createState() => _LineState();
+  State<CurvedLine> createState() => _CurvedLineState();
 }
 
 class _CurvedLineState extends State<CurvedLine> {
