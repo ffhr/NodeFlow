@@ -31,7 +31,7 @@ class ZoomableStack extends StatefulWidget {
 }
 
 class _ZoomableStackState extends State<ZoomableStack> {
-  double scale = 10; // Initial scale factor
+  double scale = 5; // Initial scale factor
   final double minScale = 1; // Minimum zoom level
   final double maxScale = 10; // Maximum zoom level
 
