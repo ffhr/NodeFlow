@@ -58,8 +58,6 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return Container(
       width: widget!.node?.size?.width,
       height: widget!.node?.size?.height,
@@ -96,8 +94,8 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                   await widget.onTapUp?.call();
                 },
                 child: Container(
-                  width: FFAppState().NodeWidth,
-                  height: FFAppState().NodeHeight,
+                  width: widget!.node?.size?.width,
+                  height: widget!.node?.size?.height,
                   decoration: BoxDecoration(
                     color: FlutterFlowTheme.of(context).secondary,
                     borderRadius: BorderRadius.circular(10.0),
