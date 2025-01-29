@@ -55,43 +55,56 @@ class _ZoomableStackState extends State<ZoomableStack> {
 
   @override
   Widget build(BuildContext context) {
-    return Listener(
-      onPointerSignal: _handleMouseWheel,
+    // return Listener(
+    //   onPointerSignal: _handleMouseWheel,
 
-      onPointerDown: (PointerDownEvent event) {
-        if (event.buttons == kSecondaryMouseButton || event.buttons == kMiddleMouseButton) {
-          setState(() {
-            _isDragging = true;
-          });
-        }
-      },
-      onPointerUp: (PointerUpEvent event) {
-        if (event.buttons == 0) {
-          setState(() {
-            _isDragging = false;
-          });
-        }
-      },
-      onPointerMove: (PointerMoveEvent event) {
-        if (_isDragging) {
-          setState(() {
-            viewportCenterOffset += event.delta;
-          });
-        }
-      },
+    //   onPointerDown: (PointerDownEvent event) {
+    //     if (event.buttons == kSecondaryMouseButton || event.buttons == kMiddleMouseButton) {
+    //       setState(() {
+    //         _isDragging = true;
+    //       });
+    //     }
+    //   },
+    //   onPointerUp: (PointerUpEvent event) {
+    //     if (event.buttons == 0) {
+    //       setState(() {
+    //         _isDragging = false;
+    //       });
+    //     }
+    //   },
+    //   onPointerMove: (PointerMoveEvent event) {
+    //     if (_isDragging) {
+    //       setState(() {
+    //         viewportCenterOffset += event.delta;
+    //       });
+    //     }
+    //   },
 
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.yellow,
-        ),
-        child: Container(
-          child: Transform.translate(
-            offset: viewportCenterOffset,
-            child: Transform.scale(
-                scale: scale, child: widget.stackComponent?.call()),
+    //   child: Container(
+    //     decoration: BoxDecoration(
+    //       color: Colors.yellow,
+    //     ),
+    //     child: Container(
+    //       child: Transform.translate(
+    //         offset: viewportCenterOffset,
+    //         child: Transform.scale(
+    //             scale: scale, child: widget.stackComponent?.call()),
+    //       ),
+    //     ),
+    //   ),
+    // );
+
+    return Container(child: InteractiveViewer(
+          maxScale: 5.0,
+          minScale: 0.5,
+          constrained: false, // Allows panning beyond constraints
+          child: Center(
+            child: SizedBox(
+              width: 3000, // Define a large canvas size
+              height: 3000,
+              child: widget.stackComponent?.call(),
+            ),
           ),
-        ),
-      ),
-    );
+        ),);
   }
 }
