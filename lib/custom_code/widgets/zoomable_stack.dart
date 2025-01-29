@@ -31,9 +31,9 @@ class ZoomableStack extends StatefulWidget {
 }
 
 class _ZoomableStackState extends State<ZoomableStack> {
-  double scale = 1.0; // Initial scale factor
-  final double minScale = 0.5; // Minimum zoom level
-  final double maxScale = 3.0; // Maximum zoom level
+  double scale = 100; // Initial scale factor
+  final double minScale = 1; // Minimum zoom level
+  final double maxScale = 100; // Maximum zoom level
 
   void _handleMouseWheel(PointerEvent event) {
     if (event is PointerScrollEvent) {
@@ -50,11 +50,48 @@ class _ZoomableStackState extends State<ZoomableStack> {
     }
   }
 
+  Offset viewportCenterOffset = Offset.zero;
+  bool _isDragging = false;
+
   @override
   Widget build(BuildContext context) {
     return Listener(
-        onPointerSignal: _handleMouseWheel,
-        child: Transform.scale(
-            scale: scale, child: widget.stackComponent?.call()));
+      onPointerSignal: _handleMouseWheel,
+
+      onPointerDown: (PointerDownEvent event) {
+        if (event.buttons == kSecondaryMouseButton || event.buttons == kMiddleMouseButton) {
+          setState(() {
+            _isDragging = true;
+          });
+        }
+      },
+      onPointerUp: (PointerUpEvent event) {
+        if (event.buttons == 0) {
+          setState(() {
+            _isDragging = false;
+          });
+        }
+      },
+      onPointerMove: (PointerMoveEvent event) {
+        if (_isDragging) {
+          setState(() {
+            viewportCenterOffset += event.delta;
+          });
+        }
+      },
+
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.yellow,
+        ),
+        child: Container(
+          child: Transform.translate(
+            offset: viewportCenterOffset,
+            child: Transform.scale(
+                scale: scale, child: widget.stackComponent?.call()),
+          ),
+        ),
+      ),
+    );
   }
 }

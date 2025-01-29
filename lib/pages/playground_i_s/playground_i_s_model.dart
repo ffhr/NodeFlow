@@ -9,16 +9,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class PlaygroundISModel extends FlutterFlowModel<PlaygroundISWidget> {
-  ///  Local state fields for this page.
-
-  double virtualX = -100.0;
-
-  double virtualY = -100.0;
-
-  double nodeWidth = 200.0;
-
-  double nodeHeight = 200.0;
-
   @override
   void initState(BuildContext context) {}
 

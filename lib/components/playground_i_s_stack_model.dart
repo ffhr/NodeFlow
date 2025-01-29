@@ -13,7 +13,7 @@ import 'package:provider/provider.dart';
 class PlaygroundISStackModel extends FlutterFlowModel<PlaygroundISStackWidget> {
   ///  Local state fields for this component.
 
-  double virtualX = 0.0;
+  double virtualX = -1000.0;
 
   double? virtualY = 0.0;
 
