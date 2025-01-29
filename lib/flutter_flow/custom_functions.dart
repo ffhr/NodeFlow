@@ -13,10 +13,10 @@ import '/backend/schema/enums/enums.dart';
 
 List<NodeStruct> initNodes() {
   var item1 = NodeStruct(
+      id: "000001",
       title: "Node 1",
       description: "description 1",
-      alignmentX: -0.6,
-      alignmentY: -0.8,
+      virtualPosition: NFOffsetStruct(offsetX: 100, offsetY: 100),
       inputs: [
         NodeInputSocketStruct(
             socket: NodeSocketStruct(
@@ -53,10 +53,10 @@ List<NodeStruct> initNodes() {
       ]);
 
   var item2 = NodeStruct(
+      id: "000002",
       title: "Node 2",
       description: "description 2",
-      alignmentX: 0.0,
-      alignmentY: 0.8,
+      virtualPosition: NFOffsetStruct(offsetX: 0, offsetY: 0),
       inputs: [
         NodeInputSocketStruct(
             socket: NodeSocketStruct(
@@ -93,10 +93,10 @@ List<NodeStruct> initNodes() {
       ]);
 
   var item3 = NodeStruct(
+      id: "000003",
       title: "Node 3",
       description: "description 3",
-      alignmentX: 0.5,
-      alignmentY: 0.5,
+      virtualPosition: NFOffsetStruct(offsetX: -100, offsetY: -200),
       inputs: [
         NodeInputSocketStruct(
             socket: NodeSocketStruct(

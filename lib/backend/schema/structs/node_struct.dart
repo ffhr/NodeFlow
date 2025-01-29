@@ -8,22 +8,31 @@ import '/flutter_flow/flutter_flow_util.dart';
 
 class NodeStruct extends BaseStruct {
   NodeStruct({
+    String? id,
     String? title,
     String? description,
-    double? alignmentX,
-    double? alignmentY,
     bool? isSelected,
     bool? isMoveable,
     List<NodeInputSocketStruct>? inputs,
     List<NodeOutputSocketStruct>? outputs,
-  })  : _title = title,
+    NFOffsetStruct? virtualPosition,
+    NFSizeStruct? size,
+  })  : _id = id,
+        _title = title,
         _description = description,
-        _alignmentX = alignmentX,
-        _alignmentY = alignmentY,
         _isSelected = isSelected,
         _isMoveable = isMoveable,
         _inputs = inputs,
-        _outputs = outputs;
+        _outputs = outputs,
+        _virtualPosition = virtualPosition,
+        _size = size;
+
+  // "id" field.
+  String? _id;
+  String get id => _id ?? '';
+  set id(String? val) => _id = val;
+
+  bool hasId() => _id != null;
 
   // "title" field.
   String? _title;
@@ -38,24 +47,6 @@ class NodeStruct extends BaseStruct {
   set description(String? val) => _description = val;
 
   bool hasDescription() => _description != null;
-
-  // "alignmentX" field.
-  double? _alignmentX;
-  double get alignmentX => _alignmentX ?? 0.0;
-  set alignmentX(double? val) => _alignmentX = val;
-
-  void incrementAlignmentX(double amount) => alignmentX = alignmentX + amount;
-
-  bool hasAlignmentX() => _alignmentX != null;
-
-  // "alignmentY" field.
-  double? _alignmentY;
-  double get alignmentY => _alignmentY ?? 0.0;
-  set alignmentY(double? val) => _alignmentY = val;
-
-  void incrementAlignmentY(double amount) => alignmentY = alignmentY + amount;
-
-  bool hasAlignmentY() => _alignmentY != null;
 
   // "isSelected" field.
   bool? _isSelected;
@@ -93,11 +84,32 @@ class NodeStruct extends BaseStruct {
 
   bool hasOutputs() => _outputs != null;
 
+  // "virtual_position" field.
+  NFOffsetStruct? _virtualPosition;
+  NFOffsetStruct get virtualPosition => _virtualPosition ?? NFOffsetStruct();
+  set virtualPosition(NFOffsetStruct? val) => _virtualPosition = val;
+
+  void updateVirtualPosition(Function(NFOffsetStruct) updateFn) {
+    updateFn(_virtualPosition ??= NFOffsetStruct());
+  }
+
+  bool hasVirtualPosition() => _virtualPosition != null;
+
+  // "size" field.
+  NFSizeStruct? _size;
+  NFSizeStruct get size => _size ?? NFSizeStruct();
+  set size(NFSizeStruct? val) => _size = val;
+
+  void updateSize(Function(NFSizeStruct) updateFn) {
+    updateFn(_size ??= NFSizeStruct());
+  }
+
+  bool hasSize() => _size != null;
+
   static NodeStruct fromMap(Map<String, dynamic> data) => NodeStruct(
+        id: data['id'] as String?,
         title: data['title'] as String?,
         description: data['description'] as String?,
-        alignmentX: castToType<double>(data['alignmentX']),
-        alignmentY: castToType<double>(data['alignmentY']),
         isSelected: data['isSelected'] as bool?,
         isMoveable: data['isMoveable'] as bool?,
         inputs: getStructList(
@@ -108,24 +120,35 @@ class NodeStruct extends BaseStruct {
           data['outputs'],
           NodeOutputSocketStruct.fromMap,
         ),
+        virtualPosition: data['virtual_position'] is NFOffsetStruct
+            ? data['virtual_position']
+            : NFOffsetStruct.maybeFromMap(data['virtual_position']),
+        size: data['size'] is NFSizeStruct
+            ? data['size']
+            : NFSizeStruct.maybeFromMap(data['size']),
       );
 
   static NodeStruct? maybeFromMap(dynamic data) =>
       data is Map ? NodeStruct.fromMap(data.cast<String, dynamic>()) : null;
 
   Map<String, dynamic> toMap() => {
+        'id': _id,
         'title': _title,
         'description': _description,
-        'alignmentX': _alignmentX,
-        'alignmentY': _alignmentY,
         'isSelected': _isSelected,
         'isMoveable': _isMoveable,
         'inputs': _inputs?.map((e) => e.toMap()).toList(),
         'outputs': _outputs?.map((e) => e.toMap()).toList(),
+        'virtual_position': _virtualPosition?.toMap(),
+        'size': _size?.toMap(),
       }.withoutNulls;
 
   @override
   Map<String, dynamic> toSerializableMap() => {
+        'id': serializeParam(
+          _id,
+          ParamType.String,
+        ),
         'title': serializeParam(
           _title,
           ParamType.String,
@@ -133,14 +156,6 @@ class NodeStruct extends BaseStruct {
         'description': serializeParam(
           _description,
           ParamType.String,
-        ),
-        'alignmentX': serializeParam(
-          _alignmentX,
-          ParamType.double,
-        ),
-        'alignmentY': serializeParam(
-          _alignmentY,
-          ParamType.double,
         ),
         'isSelected': serializeParam(
           _isSelected,
@@ -160,10 +175,23 @@ class NodeStruct extends BaseStruct {
           ParamType.DataStruct,
           isList: true,
         ),
+        'virtual_position': serializeParam(
+          _virtualPosition,
+          ParamType.DataStruct,
+        ),
+        'size': serializeParam(
+          _size,
+          ParamType.DataStruct,
+        ),
       }.withoutNulls;
 
   static NodeStruct fromSerializableMap(Map<String, dynamic> data) =>
       NodeStruct(
+        id: deserializeParam(
+          data['id'],
+          ParamType.String,
+          false,
+        ),
         title: deserializeParam(
           data['title'],
           ParamType.String,
@@ -172,16 +200,6 @@ class NodeStruct extends BaseStruct {
         description: deserializeParam(
           data['description'],
           ParamType.String,
-          false,
-        ),
-        alignmentX: deserializeParam(
-          data['alignmentX'],
-          ParamType.double,
-          false,
-        ),
-        alignmentY: deserializeParam(
-          data['alignmentY'],
-          ParamType.double,
           false,
         ),
         isSelected: deserializeParam(
@@ -206,6 +224,18 @@ class NodeStruct extends BaseStruct {
           true,
           structBuilder: NodeOutputSocketStruct.fromSerializableMap,
         ),
+        virtualPosition: deserializeStructParam(
+          data['virtual_position'],
+          ParamType.DataStruct,
+          false,
+          structBuilder: NFOffsetStruct.fromSerializableMap,
+        ),
+        size: deserializeStructParam(
+          data['size'],
+          ParamType.DataStruct,
+          false,
+          structBuilder: NFSizeStruct.fromSerializableMap,
+        ),
       );
 
   @override
@@ -215,42 +245,46 @@ class NodeStruct extends BaseStruct {
   bool operator ==(Object other) {
     const listEquality = ListEquality();
     return other is NodeStruct &&
+        id == other.id &&
         title == other.title &&
         description == other.description &&
-        alignmentX == other.alignmentX &&
-        alignmentY == other.alignmentY &&
         isSelected == other.isSelected &&
         isMoveable == other.isMoveable &&
         listEquality.equals(inputs, other.inputs) &&
-        listEquality.equals(outputs, other.outputs);
+        listEquality.equals(outputs, other.outputs) &&
+        virtualPosition == other.virtualPosition &&
+        size == other.size;
   }
 
   @override
   int get hashCode => const ListEquality().hash([
+        id,
         title,
         description,
-        alignmentX,
-        alignmentY,
         isSelected,
         isMoveable,
         inputs,
-        outputs
+        outputs,
+        virtualPosition,
+        size
       ]);
 }
 
 NodeStruct createNodeStruct({
+  String? id,
   String? title,
   String? description,
-  double? alignmentX,
-  double? alignmentY,
   bool? isSelected,
   bool? isMoveable,
+  NFOffsetStruct? virtualPosition,
+  NFSizeStruct? size,
 }) =>
     NodeStruct(
+      id: id,
       title: title,
       description: description,
-      alignmentX: alignmentX,
-      alignmentY: alignmentY,
       isSelected: isSelected,
       isMoveable: isMoveable,
+      virtualPosition: virtualPosition ?? NFOffsetStruct(),
+      size: size ?? NFSizeStruct(),
     );

@@ -10,16 +10,7 @@ import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
-Future<List<NodeStruct>> sortByIsSelected(List<NodeStruct> nodes) async {
+Future onMouseEnterNodeSocket(NodeSocketStruct nodeSocket) async {
   // Add your function code here!
-  nodes.sort((a, b) {
-    if (a.isSelected && !b.isSelected) {
-      return 1;
-    } else if (!a.isSelected && b.isSelected) {
-      return -1;
-    } else {
-      return 0;
-    }
-  });
-  return nodes;
+  nodeSocket.isHover = true;
 }

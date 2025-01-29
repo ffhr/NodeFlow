@@ -9,13 +9,13 @@ import '/flutter_flow/flutter_flow_util.dart';
 class NodeSocketStruct extends BaseStruct {
   NodeSocketStruct({
     String? id,
-    NFPointStruct? position,
     String? label,
     Color? color,
+    bool? isHover,
   })  : _id = id,
-        _position = position,
         _label = label,
-        _color = color;
+        _color = color,
+        _isHover = isHover;
 
   // "id" field.
   String? _id;
@@ -23,17 +23,6 @@ class NodeSocketStruct extends BaseStruct {
   set id(String? val) => _id = val;
 
   bool hasId() => _id != null;
-
-  // "position" field.
-  NFPointStruct? _position;
-  NFPointStruct get position => _position ?? NFPointStruct();
-  set position(NFPointStruct? val) => _position = val;
-
-  void updatePosition(Function(NFPointStruct) updateFn) {
-    updateFn(_position ??= NFPointStruct());
-  }
-
-  bool hasPosition() => _position != null;
 
   // "label" field.
   String? _label;
@@ -49,14 +38,19 @@ class NodeSocketStruct extends BaseStruct {
 
   bool hasColor() => _color != null;
 
+  // "is_hover" field.
+  bool? _isHover;
+  bool get isHover => _isHover ?? false;
+  set isHover(bool? val) => _isHover = val;
+
+  bool hasIsHover() => _isHover != null;
+
   static NodeSocketStruct fromMap(Map<String, dynamic> data) =>
       NodeSocketStruct(
         id: data['id'] as String?,
-        position: data['position'] is NFPointStruct
-            ? data['position']
-            : NFPointStruct.maybeFromMap(data['position']),
         label: data['label'] as String?,
         color: getSchemaColor(data['color']),
+        isHover: data['is_hover'] as bool?,
       );
 
   static NodeSocketStruct? maybeFromMap(dynamic data) => data is Map
@@ -65,9 +59,9 @@ class NodeSocketStruct extends BaseStruct {
 
   Map<String, dynamic> toMap() => {
         'id': _id,
-        'position': _position?.toMap(),
         'label': _label,
         'color': _color,
+        'is_hover': _isHover,
       }.withoutNulls;
 
   @override
@@ -75,10 +69,6 @@ class NodeSocketStruct extends BaseStruct {
         'id': serializeParam(
           _id,
           ParamType.String,
-        ),
-        'position': serializeParam(
-          _position,
-          ParamType.DataStruct,
         ),
         'label': serializeParam(
           _label,
@@ -88,6 +78,10 @@ class NodeSocketStruct extends BaseStruct {
           _color,
           ParamType.Color,
         ),
+        'is_hover': serializeParam(
+          _isHover,
+          ParamType.bool,
+        ),
       }.withoutNulls;
 
   static NodeSocketStruct fromSerializableMap(Map<String, dynamic> data) =>
@@ -96,12 +90,6 @@ class NodeSocketStruct extends BaseStruct {
           data['id'],
           ParamType.String,
           false,
-        ),
-        position: deserializeStructParam(
-          data['position'],
-          ParamType.DataStruct,
-          false,
-          structBuilder: NFPointStruct.fromSerializableMap,
         ),
         label: deserializeParam(
           data['label'],
@@ -113,6 +101,11 @@ class NodeSocketStruct extends BaseStruct {
           ParamType.Color,
           false,
         ),
+        isHover: deserializeParam(
+          data['is_hover'],
+          ParamType.bool,
+          false,
+        ),
       );
 
   @override
@@ -122,24 +115,24 @@ class NodeSocketStruct extends BaseStruct {
   bool operator ==(Object other) {
     return other is NodeSocketStruct &&
         id == other.id &&
-        position == other.position &&
         label == other.label &&
-        color == other.color;
+        color == other.color &&
+        isHover == other.isHover;
   }
 
   @override
-  int get hashCode => const ListEquality().hash([id, position, label, color]);
+  int get hashCode => const ListEquality().hash([id, label, color, isHover]);
 }
 
 NodeSocketStruct createNodeSocketStruct({
   String? id,
-  NFPointStruct? position,
   String? label,
   Color? color,
+  bool? isHover,
 }) =>
     NodeSocketStruct(
       id: id,
-      position: position ?? NFPointStruct(),
       label: label,
       color: color,
+      isHover: isHover,
     );

@@ -1,4 +1,5 @@
 import '/backend/schema/structs/index.dart';
+import '/components/socket_component_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'dart:ui';
@@ -184,13 +185,20 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: List.generate(inputsList.length, (inputsListIndex) {
                   final inputsListItem = inputsList[inputsListIndex];
-                  return Container(
-                    width: 20.0,
-                    height: 20.0,
-                    decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).warning,
-                      shape: BoxShape.circle,
-                    ),
+                  return SocketComponentWidget(
+                    key: Key(
+                        'Keyhbf_${inputsListIndex}_of_${inputsList.length}'),
+                    nodeSocket: inputsListItem.socket,
+                    onPanDown: () async {
+                      // IsDrawing active
+                      FFAppState().IsDrawingActive = true;
+                      safeSetState(() {});
+                    },
+                    onPanEnd: () async {
+                      // IsDrawing active
+                      FFAppState().IsDrawingActive = false;
+                      safeSetState(() {});
+                    },
                   );
                 }).divide(SizedBox(height: 10.0)),
               );
@@ -212,13 +220,12 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                   children:
                       List.generate(outputsList.length, (outputsListIndex) {
                     final outputsListItem = outputsList[outputsListIndex];
-                    return Container(
-                      width: 20.0,
-                      height: 20.0,
-                      decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).warning,
-                        shape: BoxShape.circle,
-                      ),
+                    return SocketComponentWidget(
+                      key: Key(
+                          'Keydt4_${outputsListIndex}_of_${outputsList.length}'),
+                      nodeSocket: outputsListItem.socket,
+                      onPanDown: () async {},
+                      onPanEnd: () async {},
                     );
                   }).divide(SizedBox(height: 10.0)),
                 );
