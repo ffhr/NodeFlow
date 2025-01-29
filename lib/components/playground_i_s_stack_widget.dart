@@ -56,7 +56,7 @@ class _PlaygroundISStackWidgetState extends State<PlaygroundISStackWidget> {
             width: double.infinity,
             height: double.infinity,
             decoration: BoxDecoration(
-              color: Color(0xFFF58585),
+              color: Color(0x4CF58585),
             ),
           ),
           Align(
@@ -81,7 +81,7 @@ class _PlaygroundISStackWidgetState extends State<PlaygroundISStackWidget> {
               ),
             ),
           ),
-          Align(
+          if (false) Align(
             alignment: AlignmentDirectional(0.0, 0.0),
             child: Container(
               width: double.infinity,
@@ -91,7 +91,7 @@ class _PlaygroundISStackWidgetState extends State<PlaygroundISStackWidget> {
               ),
             ),
           ),
-          Align(
+          if (false) Align(
             alignment: AlignmentDirectional(0.0, 0.0),
             child: Container(
               width: 1.0,
