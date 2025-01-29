@@ -36,26 +36,19 @@ class _ZoomableStackState extends State<ZoomableStack> {
   final double maxScale = 10; // Maximum zoom level
 
   void _handleMouseWheel(PointerEvent event) {
-  if (event is PointerScrollEvent) {
-    setState(() {
-      double zoomFactor = 1.1; // Adjust for smoother zooming
-      Offset cursorPosition = event.localPosition;
-
-      double previousScale = scale;
-      if (event.scrollDelta.dy < 0) {
-        // Zoom in
-        scale = (scale * zoomFactor).clamp(minScale, maxScale);
-      } else if (event.scrollDelta.dy > 0) {
-        // Zoom out
-        scale = (scale / zoomFactor).clamp(minScale, maxScale);
-      }
-
-      // Adjust the offset to maintain zoom focus at cursor position
-      double scaleChange = scale / previousScale;
-      viewportCenterOffset = cursorPosition - (cursorPosition - viewportCenterOffset) * scaleChange;
-    });
+    if (event is PointerScrollEvent) {
+      setState(() {
+        // Adjust the scale based on the scroll direction
+        if (event.scrollDelta.dy < 0) {
+          // Zoom in
+          scale = (scale + 0.1).clamp(minScale, maxScale);
+        } else if (event.scrollDelta.dy > 0) {
+          // Zoom out
+          scale = (scale - 0.1).clamp(minScale, maxScale);
+        }
+      });
+    }
   }
-}
 
   Offset viewportCenterOffset = Offset.zero;
   bool _isDragging = false;
