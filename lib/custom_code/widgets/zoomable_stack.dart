@@ -10,6 +10,8 @@ import 'package:flutter/material.dart';
 // Begin custom widget code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
+import 'package:flutter/gestures.dart';
+
 class ZoomableStack extends StatefulWidget {
   const ZoomableStack({
     super.key,
@@ -27,9 +29,9 @@ class ZoomableStack extends StatefulWidget {
 }
 
 class _ZoomableStackState extends State<ZoomableStack> {
-  double _scale = 1.0; // Initial scale factor
-  final double _minScale = 0.5; // Minimum zoom level
-  final double _maxScale = 3.0; // Maximum zoom level
+  double scale = 1.0; // Initial scale factor
+  final double minScale = 0.5; // Minimum zoom level
+  final double maxScale = 3.0; // Maximum zoom level
 
   void _handleMouseWheel(PointerEvent event) {
     if (event is PointerScrollEvent) {
@@ -37,10 +39,10 @@ class _ZoomableStackState extends State<ZoomableStack> {
         // Adjust the scale based on the scroll direction
         if (event.scrollDelta.dy < 0) {
           // Zoom in
-          _scale = (_scale + 0.1).clamp(_minScale, _maxScale);
+          scale = (scale + 0.1).clamp(minScale, maxScale);
         } else if (event.scrollDelta.dy > 0) {
           // Zoom out
-          _scale = (_scale - 0.1).clamp(_minScale, _maxScale);
+          scale = (scale - 0.1).clamp(minScale, maxScale);
         }
       });
     }
@@ -50,6 +52,7 @@ class _ZoomableStackState extends State<ZoomableStack> {
   Widget build(BuildContext context) {
     return Listener(
         onPointerSignal: _handleMouseWheel,
-        child: Transform.scale(scale: _scale, child: stackComponent));
+        child: Transform.scale(
+            scale: scale, child: widget.stackComponent?.call()));
   }
 }
