@@ -1,4 +1,5 @@
 import '/backend/schema/structs/index.dart';
+import '/components/socket_component_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'dart:ui';
@@ -184,13 +185,10 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: List.generate(inputsList.length, (inputsListIndex) {
                   final inputsListItem = inputsList[inputsListIndex];
-                  return Container(
-                    width: 20.0,
-                    height: 20.0,
-                    decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).warning,
-                      shape: BoxShape.circle,
-                    ),
+                  return SocketComponentWidget(
+                    key: Key(
+                        'Keyhbf_${inputsListIndex}_of_${inputsList.length}'),
+                    nodeSocket: inputsListItem.socket,
                   );
                 }).divide(SizedBox(height: 10.0)),
               );
