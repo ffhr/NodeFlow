@@ -49,9 +49,9 @@ class CurvedLinePainter extends CustomPainter {
       case LineDirection.topLeftToBottomRight:
         //print("topLeftToBottomRight");
         path.cubicTo(
-          start.dx + 0.5 * height.abs(),
+          start.dx + 0.15 * height.abs(),
           start.dy - 0.15 * height.abs(), // Control point 1
-          end.dx - 0.5 * height.abs(),
+          end.dx - 0.15 * height.abs(),
           end.dy + 0.15 * height.abs(), // Control point 2
           end.dx,
           end.dy, // End point
@@ -60,9 +60,9 @@ class CurvedLinePainter extends CustomPainter {
       case LineDirection.topRightToBottomLeft:
         //print("topRightToBottomLeft");
         path.cubicTo(
-          start.dx - 0.5 * height.abs(),
+          start.dx - 0.15 * height.abs(),
           start.dy - 0.15 * height.abs(), // Control point 1
-          end.dx + 0.5 * height.abs(),
+          end.dx + 0.15 * height.abs(),
           end.dy + 0.15 * height.abs(), // Control point 2
           end.dx, end.dy, // End point
         );
@@ -70,9 +70,9 @@ class CurvedLinePainter extends CustomPainter {
       case LineDirection.bottomLeftToTopRight:
         //print("bottomLeftToTopRight");
         path.cubicTo(
-          start.dx + 0.5 * height.abs(),
+          start.dx + 0.15 * height.abs(),
           start.dy + 0.15 * height.abs(), // Control point 1
-          end.dx - 0.5 * height.abs(),
+          end.dx - 0.15 * height.abs(),
           end.dy - 0.15 * height.abs(), // Control point 2
           end.dx,
           end.dy, // End point
@@ -81,9 +81,9 @@ class CurvedLinePainter extends CustomPainter {
       case LineDirection.bottomRightToTopLeft:
         //print("bottomRightToTopLeft");
         path.cubicTo(
-          start.dx - 0.5 * height.abs(),
+          start.dx - 0.15 * height.abs(),
           start.dy + 0.15 * height.abs(), // Control point 1
-          end.dx + 0.5 * height.abs(),
+          end.dx + 0.15 * height.abs(),
           end.dy - 0.15 * height.abs(), // Control point 2
           end.dx,
           end.dy, // End point
