@@ -92,11 +92,35 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           return Align(
                             alignment: AlignmentDirectional(
                                 valueOrDefault<double>(
-                                  nodesListItem.alignmentX,
+                                  functions
+                                      .virtualToRelative(
+                                          nodesListItem.virtualPosition,
+                                          nodesListItem.size,
+                                          FFAppState().ViewportCenter,
+                                          FFAppState().ZoomFactor,
+                                          NFSizeStruct(
+                                            width: MediaQuery.sizeOf(context)
+                                                .width,
+                                            height: MediaQuery.sizeOf(context)
+                                                .height,
+                                          ))
+                                      .offsetX,
                                   0.0,
                                 ),
                                 valueOrDefault<double>(
-                                  nodesListItem.alignmentY,
+                                  functions
+                                      .virtualToRelative(
+                                          nodesListItem.virtualPosition,
+                                          nodesListItem.size,
+                                          FFAppState().ViewportCenter,
+                                          FFAppState().ZoomFactor,
+                                          NFSizeStruct(
+                                            width: MediaQuery.sizeOf(context)
+                                                .width,
+                                            height: MediaQuery.sizeOf(context)
+                                                .height,
+                                          ))
+                                      .offsetY,
                                   0.0,
                                 )),
                             child: Container(
@@ -164,22 +188,10 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                   _model.updateNodesAtIndex(
                                     _model.selectedIndex,
                                     (e) => e
-                                      ..alignmentX = (_model.nodes
-                                                  .elementAtOrNull(
-                                                      _model.selectedIndex)!
-                                                  .alignmentX +
-                                              (deltaPoint.positionX * 2) /
-                                                  MediaQuery.sizeOf(context)
-                                                      .width)
-                                          .clamp(-1.0, 1.0)
-                                      ..alignmentY = (_model.nodes
-                                                  .elementAtOrNull(
-                                                      _model.selectedIndex)!
-                                                  .alignmentY +
-                                              (deltaPoint.positionY * 2) /
-                                                  MediaQuery.sizeOf(context)
-                                                      .height)
-                                          .clamp(-1.0, 1.0),
+                                      ..virtualPosition = NFOffsetStruct(
+                                        offsetX: deltaPoint.positionX,
+                                        offsetY: deltaPoint.positionY,
+                                      ),
                                   );
                                   safeSetState(() {});
                                 },
