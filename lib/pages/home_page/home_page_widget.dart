@@ -215,7 +215,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                     },
                     child: Stack(
                       children: [
-                        if (FFAppState().IsDrawingActive)
+                        if (true)
                           Align(
                             alignment: AlignmentDirectional(0.0, 0.0),
                             child: Container(
