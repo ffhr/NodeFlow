@@ -203,6 +203,7 @@ NFOffsetStruct calculateSocketPosition(
   NFSizeStruct nodeSize,
   int socketIndex,
   bool isInput,
+  int socketCount,
 ) {
   return NFOffsetStruct();
 }
