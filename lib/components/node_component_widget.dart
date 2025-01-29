@@ -169,6 +169,33 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                           ),
                         ),
                       ),
+                      Expanded(
+                        child: Align(
+                          alignment: AlignmentDirectional(0.0, 0.0),
+                          child: Container(
+                            decoration: BoxDecoration(),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.all(15.0),
+                                  child: Text(
+                                    functions.helperNFOffsetToString(
+                                        widget!.node!.virtualPosition),
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Inter',
+                                          color: Colors.white,
+                                          letterSpacing: 0.0,
+                                        ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
