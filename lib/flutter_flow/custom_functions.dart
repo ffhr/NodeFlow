@@ -197,3 +197,11 @@ NFOffsetStruct virtualToRelative(
 String helperNFOffsetToString(NFOffsetStruct val) {
   return "${val.offsetX},${val.offsetY}";
 }
+
+NFOffsetStruct calculateSocketPosition(
+  NFOffsetStruct nodePosition,
+  bool isInput,
+  int socketIndex,
+) {
+  return NFOffsetStruct();
+}
