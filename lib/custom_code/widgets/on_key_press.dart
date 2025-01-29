@@ -45,10 +45,10 @@ class _OnKeyPressState extends State<OnKeyPress> {
           if (event.logicalKey == LogicalKeyboardKey.keyL) {
             // Trigger your desired action here
             print('L key pressed!');
-            widget.onKeyPressedL.call();
+            widget.onKeyPressedL?.call();
           } else if (event.logicalKey == LogicalKeyboardKey.keyH) {
             print('H key pressed');
-            widget.onKeyPressedH.call();
+            widget.onKeyPressedH?.call();
           }
         }
       },
