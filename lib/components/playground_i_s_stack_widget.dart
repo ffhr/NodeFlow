@@ -62,14 +62,8 @@ class _PlaygroundISStackWidgetState extends State<PlaygroundISStackWidget> {
           Align(
             alignment: AlignmentDirectional(-0.5, -0.5),
             child: Container(
-              width: 10.0,
-              height: 10.0,
-              constraints: BoxConstraints(
-                minWidth: 10.0,
-                minHeight: 10.0,
-                maxWidth: 10.0,
-                maxHeight: 10.0,
-              ),
+              width: 500.0,
+              height: 500.0,
               decoration: BoxDecoration(
                 border: Border.all(
                   width: 1.0,
