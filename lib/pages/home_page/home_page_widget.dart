@@ -79,50 +79,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
               ),
               child: Stack(
                 children: [
-                  GestureDetector(
-                    onPanDown: (details) async {
-                      // Set drawing start point; isDrawingActive = true
-                      FFAppState().IsDrawingActive = true;
-                      FFAppState().DrawingStartPoint = NFPointStruct(
-                        positionX: details.localPosition.dx,
-                        positionY: details.localPosition.dy,
-                      );
-                      safeSetState(() {});
-                    },
-                    onPanEnd: (details) async {
-                      // Set isDrawingActive = false
-                      FFAppState().IsDrawingActive = false;
-                      safeSetState(() {});
-                    },
-                    onPanUpdate: (details) async {
-                      // Set drawing endpoint
-                      FFAppState().DrawingEndPoint = NFPointStruct(
-                        positionX: details.localPosition.dx,
-                        positionY: details.localPosition.dy,
-                      );
-                      safeSetState(() {});
-                    },
-                    child: Stack(
-                      children: [
-                        Container(
-                          width: double.infinity,
-                          height: double.infinity,
-                          child: custom_widgets.Line(
-                            width: double.infinity,
-                            height: double.infinity,
-                            start: NFPointStruct(
-                              positionX: 100.0,
-                              positionY: 120.0,
-                            ),
-                            end: NFPointStruct(
-                              positionX: 200.0,
-                              positionY: 220.0,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
                   Builder(
                     builder: (context) {
                       final nodesList = _model.nodes.toList();
@@ -231,6 +187,50 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         }),
                       );
                     },
+                  ),
+                  GestureDetector(
+                    onPanDown: (details) async {
+                      // Set drawing start point; isDrawingActive = true
+                      FFAppState().IsDrawingActive = true;
+                      FFAppState().DrawingStartPoint = NFPointStruct(
+                        positionX: details.localPosition.dx,
+                        positionY: details.localPosition.dy,
+                      );
+                      safeSetState(() {});
+                    },
+                    onPanEnd: (details) async {
+                      // Set isDrawingActive = false
+                      FFAppState().IsDrawingActive = false;
+                      safeSetState(() {});
+                    },
+                    onPanUpdate: (details) async {
+                      // Set drawing endpoint
+                      FFAppState().DrawingEndPoint = NFPointStruct(
+                        positionX: details.localPosition.dx,
+                        positionY: details.localPosition.dy,
+                      );
+                      safeSetState(() {});
+                    },
+                    child: Stack(
+                      children: [
+                        Container(
+                          width: double.infinity,
+                          height: double.infinity,
+                          child: custom_widgets.Line(
+                            width: double.infinity,
+                            height: double.infinity,
+                            start: NFPointStruct(
+                              positionX: 100.0,
+                              positionY: 120.0,
+                            ),
+                            end: NFPointStruct(
+                              positionX: 200.0,
+                              positionY: 220.0,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
