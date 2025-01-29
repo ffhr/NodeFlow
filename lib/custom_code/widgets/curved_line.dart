@@ -12,8 +12,6 @@ import 'package:flutter/material.dart';
 
 import 'index.dart'; // Imports other custom widgets
 
-import 'index.dart'; // Imports other custom widgets
-
 enum LineDirection {
   topLeftToBottomRight,
   topRightToBottomLeft,
@@ -21,11 +19,11 @@ enum LineDirection {
   bottomRightToTopLeft,
 }
 
-class LinePainter extends CustomPainter {
+class CurvedLinePainter extends CustomPainter {
   final Offset start;
   final Offset end;
 
-  LinePainter(this.start, this.end);
+  CurvedLinePainter(this.start, this.end);
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -99,7 +97,7 @@ class LinePainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant LinePainter oldDelegate) {
+  bool shouldRepaint(covariant CurvedLinePainter oldDelegate) {
     if (oldDelegate.start == start && oldDelegate.end == end) {
       //print("shouldRepaint: false");
       return false;
@@ -128,8 +126,8 @@ class LinePainter extends CustomPainter {
   }
 }
 
-class Line extends StatefulWidget {
-  const Line({
+class CurvedLine extends StatefulWidget {
+  const CurvedLine({
     super.key,
     this.width,
     this.height,
@@ -143,16 +141,16 @@ class Line extends StatefulWidget {
   final NFPointStruct end;
 
   @override
-  State<Line> createState() => _LineState();
+  State<CurvedLine> createState() => _LineState();
 }
 
-class _LineState extends State<Line> {
+class _CurvedLineState extends State<CurvedLine> {
   @override
   Widget build(BuildContext context) {
     return RepaintBoundary(
       child: CustomPaint(
           size: MediaQuery.of(context).size,
-          painter: LinePainter(
+          painter: CurvedLinePainter(
               Offset(widget.start.positionX, widget.start.positionY),
               Offset(widget.end.positionX, widget.end.positionY))),
     );
