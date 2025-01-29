@@ -37,7 +37,7 @@ class CurvedLinePainter extends CustomPainter {
     final width = end.dx - start.dx;
     final height = end.dy - start.dy;
 
-    print("width: $width, height: $height");
+    //print("width: $width, height: $height");
 
     // Define the "S" shape using cubic Bézier curves
     path.moveTo(start.dx, start.dy); // Start point
@@ -47,7 +47,7 @@ class CurvedLinePainter extends CustomPainter {
     // https://flutter.github.io/assets-for-api-docs/assets/dart-ui/path_cubic_to.png#gh-light-mode-only
     switch (direction) {
       case LineDirection.topLeftToBottomRight:
-        print("topLeftToBottomRight");
+        //print("topLeftToBottomRight");
         path.cubicTo(
           start.dx + 0.5 * height.abs(),
           start.dy - 0.15 * height.abs(), // Control point 1
@@ -58,7 +58,7 @@ class CurvedLinePainter extends CustomPainter {
         );
         break;
       case LineDirection.topRightToBottomLeft:
-        print("topRightToBottomLeft");
+        //print("topRightToBottomLeft");
         path.cubicTo(
           start.dx - 0.5 * height.abs(),
           start.dy - 0.15 * height.abs(), // Control point 1
@@ -68,7 +68,7 @@ class CurvedLinePainter extends CustomPainter {
         );
         break;
       case LineDirection.bottomLeftToTopRight:
-        print("bottomLeftToTopRight");
+        //print("bottomLeftToTopRight");
         path.cubicTo(
           start.dx + 0.5 * height.abs(),
           start.dy + 0.15 * height.abs(), // Control point 1
@@ -79,7 +79,7 @@ class CurvedLinePainter extends CustomPainter {
         );
         break;
       case LineDirection.bottomRightToTopLeft:
-        print("bottomRightToTopLeft");
+        //print("bottomRightToTopLeft");
         path.cubicTo(
           start.dx - 0.5 * height.abs(),
           start.dy + 0.15 * height.abs(), // Control point 1
