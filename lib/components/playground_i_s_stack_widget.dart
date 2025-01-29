@@ -70,7 +70,12 @@ class _PlaygroundISStackWidgetState extends State<PlaygroundISStackWidget> {
                 maxWidth: 2211.0,
                 maxHeight: 2211.0,
               ),
-              decoration: BoxDecoration(),
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: Color(0xFFE80000),
+                  width: 1.0,
+                ),
+              ),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(0.0),
                 child: SvgPicture.asset(
