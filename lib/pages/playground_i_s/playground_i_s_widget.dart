@@ -141,43 +141,28 @@ class _PlaygroundISWidgetState extends State<PlaygroundISWidget> {
                             ),
                       ),
                       Text(
-                        'Absolute (x, y):  ${functions.virtualToAbsolute(NFOffsetStruct(
-                              offsetX: _model.virtualX,
-                              offsetY: _model.virtualY,
-                            ), NFSizeStruct(
-                              width: _model.nodeWidth,
-                              height: _model.nodeHeight,
-                            ), NFOffsetStruct(
-                              offsetX: 0.0,
-                              offsetY: 0.0,
-                            ), 1.0, NFSizeStruct(
-                              width: MediaQuery.sizeOf(context).width,
-                              height: MediaQuery.sizeOf(context).height,
-                            )).offsetX.toString()}, ${functions.virtualToAbsolute(NFOffsetStruct(
-                              offsetX: _model.virtualX,
-                              offsetY: _model.virtualY,
-                            ), NFSizeStruct(
-                              width: _model.nodeWidth,
-                              height: _model.nodeHeight,
-                            ), NFOffsetStruct(
-                              offsetX: 0.0,
-                              offsetY: 0.0,
-                            ), 1.0, NFSizeStruct(
-                              width: MediaQuery.sizeOf(context).width,
-                              height: MediaQuery.sizeOf(context).height,
-                            )).offsetY.toString()}${functions.virtualToAbsolute(NFOffsetStruct(
-                              offsetX: _model.virtualX,
-                              offsetY: _model.virtualY,
-                            ), NFSizeStruct(
-                              width: _model.nodeWidth,
-                              height: _model.nodeHeight,
-                            ), NFOffsetStruct(
-                              offsetX: 0.0,
-                              offsetY: 0.0,
-                            ), 1.0, NFSizeStruct(
-                              width: MediaQuery.sizeOf(context).width,
-                              height: MediaQuery.sizeOf(context).height,
-                            )).toMap().toString()}',
+                        'Absolute (x, y):  ${valueOrDefault<String>(
+                          functions.helperNFOffsetToString(
+                              functions.virtualToAbsolute(
+                                  NFOffsetStruct(
+                                    offsetX: _model.virtualX,
+                                    offsetY: _model.virtualY,
+                                  ),
+                                  NFSizeStruct(
+                                    width: _model.nodeWidth,
+                                    height: _model.nodeHeight,
+                                  ),
+                                  NFOffsetStruct(
+                                    offsetX: 0.0,
+                                    offsetY: 0.0,
+                                  ),
+                                  1.0,
+                                  NFSizeStruct(
+                                    width: MediaQuery.sizeOf(context).width,
+                                    height: MediaQuery.sizeOf(context).height,
+                                  ))),
+                          'n/a',
+                        )}',
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Inter',
                               letterSpacing: 0.0,
