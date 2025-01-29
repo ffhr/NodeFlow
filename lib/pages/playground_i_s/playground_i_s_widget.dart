@@ -153,8 +153,8 @@ class _PlaygroundISWidgetState extends State<PlaygroundISWidget> {
                                     height: _model.nodeHeight,
                                   ),
                                   NFOffsetStruct(
-                                    offsetX: 0.0,
-                                    offsetY: 0.0,
+                                    offsetX: -100.0,
+                                    offsetY: -100.0,
                                   ),
                                   1.0,
                                   NFSizeStruct(
