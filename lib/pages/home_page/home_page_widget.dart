@@ -49,6 +49,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -213,25 +215,20 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                     },
                     child: Stack(
                       children: [
-                        Align(
-                          alignment: AlignmentDirectional(0.0, 0.0),
-                          child: Container(
-                            width: double.infinity,
-                            height: double.infinity,
-                            child: custom_widgets.CurvedLine(
+                        if (FFAppState().IsDrawingActive)
+                          Align(
+                            alignment: AlignmentDirectional(0.0, 0.0),
+                            child: Container(
                               width: double.infinity,
                               height: double.infinity,
-                              start: NFPointStruct(
-                                positionX: 100.0,
-                                positionY: 100.0,
-                              ),
-                              end: NFPointStruct(
-                                positionX: 200.0,
-                                positionY: 200.0,
+                              child: custom_widgets.CurvedLine(
+                                width: double.infinity,
+                                height: double.infinity,
+                                start: FFAppState().DrawingStartPoint,
+                                end: FFAppState().DrawingEndPoint,
                               ),
                             ),
                           ),
-                        ),
                       ],
                     ),
                   ),
