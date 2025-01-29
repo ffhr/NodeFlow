@@ -200,8 +200,9 @@ String helperNFOffsetToString(NFOffsetStruct val) {
 
 NFOffsetStruct calculateSocketPosition(
   NFOffsetStruct nodePosition,
-  bool isInput,
+  NFSizeStruct nodeSize,
   int socketIndex,
+  bool isInput,
 ) {
   return NFOffsetStruct();
 }
