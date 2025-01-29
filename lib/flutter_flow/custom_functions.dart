@@ -205,5 +205,28 @@ NFOffsetStruct calculateSocketPosition(
   bool isInput,
   int socketCount,
 ) {
-  return NFOffsetStruct();
+  var topLeftY = nodePosition.offsetY - nodeSize.height / 2;
+  var socketSize = NFSizeStruct(width: 20, height: 20);
+  var socketSpacing = 10;
+
+  var allSocketsHeight =
+      socketCount * socketSize.height + (socketCount - 1) * socketSpacing;
+  var socketStartPositionY =
+      topLeftY + (nodeSize.height - allSocketsHeight) / 2;
+
+  var socketY = socketStartPositionY +
+      socketIndex * (socketSize.height + socketSpacing) +
+      socketSize.height / 2;
+
+  if (isInput) {
+    return NFOffsetStruct(
+        offsetX: nodePosition.offsetX - nodeSize.width / 2, offsetY: socketY);
+  } else {
+    return NFOffsetStruct(
+        offsetX: nodePosition.offsetX + nodeSize.width / 2, offsetY: socketY);
+  }
+}
+
+NFPointStruct? convertNFOffsetToNFPoint(NFOffsetStruct offset) {
+  return NFPointStruct();
 }
