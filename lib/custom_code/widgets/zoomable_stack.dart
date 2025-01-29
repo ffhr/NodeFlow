@@ -36,75 +36,82 @@ class _ZoomableStackState extends State<ZoomableStack> {
   final double maxScale = 10; // Maximum zoom level
 
   void _handleMouseWheel(PointerEvent event) {
-    if (event is PointerScrollEvent) {
-      setState(() {
-        // Adjust the scale based on the scroll direction
-        if (event.scrollDelta.dy < 0) {
-          // Zoom in
-          scale = (scale + 0.1).clamp(minScale, maxScale);
-        } else if (event.scrollDelta.dy > 0) {
-          // Zoom out
-          scale = (scale - 0.1).clamp(minScale, maxScale);
-        }
-      });
-    }
+  if (event is PointerScrollEvent) {
+    setState(() {
+      double zoomFactor = 1.1; // Adjust for smoother zooming
+      Offset cursorPosition = event.localPosition;
+
+      double previousScale = scale;
+      if (event.scrollDelta.dy < 0) {
+        // Zoom in
+        scale = (scale * zoomFactor).clamp(minScale, maxScale);
+      } else if (event.scrollDelta.dy > 0) {
+        // Zoom out
+        scale = (scale / zoomFactor).clamp(minScale, maxScale);
+      }
+
+      // Adjust the offset to maintain zoom focus at cursor position
+      double scaleChange = scale / previousScale;
+      offset = cursorPosition - (cursorPosition - offset) * scaleChange;
+    });
   }
+}
 
   Offset viewportCenterOffset = Offset.zero;
   bool _isDragging = false;
 
   @override
   Widget build(BuildContext context) {
-    // return Listener(
-    //   onPointerSignal: _handleMouseWheel,
+    return Listener(
+      onPointerSignal: _handleMouseWheel,
 
-    //   onPointerDown: (PointerDownEvent event) {
-    //     if (event.buttons == kSecondaryMouseButton || event.buttons == kMiddleMouseButton) {
-    //       setState(() {
-    //         _isDragging = true;
-    //       });
-    //     }
-    //   },
-    //   onPointerUp: (PointerUpEvent event) {
-    //     if (event.buttons == 0) {
-    //       setState(() {
-    //         _isDragging = false;
-    //       });
-    //     }
-    //   },
-    //   onPointerMove: (PointerMoveEvent event) {
-    //     if (_isDragging) {
-    //       setState(() {
-    //         viewportCenterOffset += event.delta;
-    //       });
-    //     }
-    //   },
+      onPointerDown: (PointerDownEvent event) {
+        if (event.buttons == kSecondaryMouseButton || event.buttons == kMiddleMouseButton) {
+          setState(() {
+            _isDragging = true;
+          });
+        }
+      },
+      onPointerUp: (PointerUpEvent event) {
+        if (event.buttons == 0) {
+          setState(() {
+            _isDragging = false;
+          });
+        }
+      },
+      onPointerMove: (PointerMoveEvent event) {
+        if (_isDragging) {
+          setState(() {
+            viewportCenterOffset += event.delta;
+          });
+        }
+      },
 
-    //   child: Container(
-    //     decoration: BoxDecoration(
-    //       color: Colors.yellow,
-    //     ),
-    //     child: Container(
-    //       child: Transform.translate(
-    //         offset: viewportCenterOffset,
-    //         child: Transform.scale(
-    //             scale: scale, child: widget.stackComponent?.call()),
-    //       ),
-    //     ),
-    //   ),
-    // );
-
-    return Container(child: InteractiveViewer(
-          maxScale: 5.0,
-          minScale: 0.5,
-          constrained: false, // Allows panning beyond constraints
-          child: Center(
-            child: SizedBox(
-              width: 3000, // Define a large canvas size
-              height: 3000,
-              child: widget.stackComponent?.call(),
-            ),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.yellow,
+        ),
+        child: Container(
+          child: Transform.translate(
+            offset: viewportCenterOffset,
+            child: Transform.scale(
+                scale: scale, child: widget.stackComponent?.call()),
           ),
-        ),);
+        ),
+      ),
+    );
+
+    // return Container(child: InteractiveViewer(
+    //       maxScale: 10.0,
+    //       minScale: 2.0,
+    //       constrained: false, // Allows panning beyond constraints
+    //       child: Center(
+    //         child: SizedBox(
+    //           width: 3000, // Define a large canvas size
+    //           height: 3000,
+    //           child: widget.stackComponent?.call(),
+    //         ),
+    //       ),
+    //     ),);
   }
 }
