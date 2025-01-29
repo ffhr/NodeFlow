@@ -63,4 +63,21 @@ class FFAppState extends ChangeNotifier {
   set IsDrawingActive(bool value) {
     _IsDrawingActive = value;
   }
+
+  NFOffsetStruct _ViewportCenter = NFOffsetStruct.fromSerializableMap(
+      jsonDecode('{\"offset_x\":\"0\",\"offset_y\":\"0\"}'));
+  NFOffsetStruct get ViewportCenter => _ViewportCenter;
+  set ViewportCenter(NFOffsetStruct value) {
+    _ViewportCenter = value;
+  }
+
+  void updateViewportCenterStruct(Function(NFOffsetStruct) updateFn) {
+    updateFn(_ViewportCenter);
+  }
+
+  double _ZoomFactor = 1.0;
+  double get ZoomFactor => _ZoomFactor;
+  set ZoomFactor(double value) {
+    _ZoomFactor = value;
+  }
 }

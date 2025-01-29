@@ -32,15 +32,6 @@ class _PlaygroundISStackWidgetState extends State<PlaygroundISStackWidget> {
     super.initState();
     _model = createModel(context, () => PlaygroundISStackModel());
 
-    // On component load action.
-    SchedulerBinding.instance.addPostFrameCallback((_) async {
-      _model.viewportCenter = NFPointStruct(
-        positionX: 0.0,
-        positionY: 0.0,
-      );
-      safeSetState(() {});
-    });
-
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
@@ -53,6 +44,8 @@ class _PlaygroundISStackWidgetState extends State<PlaygroundISStackWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Stack(
       children: [
         Align(
@@ -88,11 +81,8 @@ class _PlaygroundISStackWidgetState extends State<PlaygroundISStackWidget> {
                           width: _model.nodeWidth,
                           height: _model.nodeHeight,
                         ),
-                        NFOffsetStruct(
-                          offsetX: _model.viewportCenter?.positionX,
-                          offsetY: _model.viewportCenter?.positionY,
-                        ),
-                        _model.zoomFactor,
+                        FFAppState().ViewportCenter,
+                        FFAppState().ZoomFactor,
                         NFSizeStruct(
                           width: MediaQuery.sizeOf(context).width,
                           height: MediaQuery.sizeOf(context).height,
@@ -111,11 +101,8 @@ class _PlaygroundISStackWidgetState extends State<PlaygroundISStackWidget> {
                           width: _model.nodeWidth,
                           height: _model.nodeHeight,
                         ),
-                        NFOffsetStruct(
-                          offsetX: _model.viewportCenter?.positionX,
-                          offsetY: _model.viewportCenter?.positionY,
-                        ),
-                        _model.zoomFactor,
+                        FFAppState().ViewportCenter,
+                        FFAppState().ZoomFactor,
                         NFSizeStruct(
                           width: MediaQuery.sizeOf(context).width,
                           height: MediaQuery.sizeOf(context).height,
@@ -156,11 +143,8 @@ class _PlaygroundISStackWidgetState extends State<PlaygroundISStackWidget> {
                               width: _model.nodeWidth,
                               height: _model.nodeHeight,
                             ),
-                            NFOffsetStruct(
-                              offsetX: _model.viewportCenter?.positionX,
-                              offsetY: _model.viewportCenter?.positionY,
-                            ),
-                            _model.zoomFactor,
+                            FFAppState().ViewportCenter,
+                            FFAppState().ZoomFactor,
                             NFSizeStruct(
                               width: MediaQuery.sizeOf(context).width,
                               height: MediaQuery.sizeOf(context).height,
@@ -184,11 +168,8 @@ class _PlaygroundISStackWidgetState extends State<PlaygroundISStackWidget> {
                               width: _model.nodeWidth,
                               height: _model.nodeHeight,
                             ),
-                            NFOffsetStruct(
-                              offsetX: _model.viewportCenter?.positionX,
-                              offsetY: _model.viewportCenter?.positionY,
-                            ),
-                            _model.zoomFactor,
+                            FFAppState().ViewportCenter,
+                            FFAppState().ZoomFactor,
                             NFSizeStruct(
                               width: MediaQuery.sizeOf(context).width,
                               height: MediaQuery.sizeOf(context).height,
@@ -208,11 +189,8 @@ class _PlaygroundISStackWidgetState extends State<PlaygroundISStackWidget> {
                               width: _model.nodeWidth,
                               height: _model.nodeHeight,
                             ),
-                            NFOffsetStruct(
-                              offsetX: _model.viewportCenter?.positionX,
-                              offsetY: _model.viewportCenter?.positionY,
-                            ),
-                            _model.zoomFactor,
+                            FFAppState().ViewportCenter,
+                            FFAppState().ZoomFactor,
                             NFSizeStruct(
                               width: MediaQuery.sizeOf(context).width,
                               height: MediaQuery.sizeOf(context).height,
