@@ -77,7 +77,7 @@ class _PlaygroundISStackWidgetState extends State<PlaygroundISStackWidget> {
                   'assets/images/coordinate_system_2D_math_v1_a.svg',
                   width: 2211.0,
                   height: 2211.0,
-                  fit: BoxFit.cover,
+                  fit: BoxFit.fitHeight,
                   alignment: Alignment(0.0, 0.0),
                 ),
               ),
