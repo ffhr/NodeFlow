@@ -60,13 +60,13 @@ class _PlaygroundISStackWidgetState extends State<PlaygroundISStackWidget> {
             ),
           ),
           Align(
-            alignment: AlignmentDirectional(0.5, -0.35),
+            alignment: AlignmentDirectional(-0.5, 0.0),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(8.0),
               child: SvgPicture.asset(
-                'assets/images/coordinate_system_2D_math_v1.svg',
-                width: 256.0,
-                height: 256.0,
+                'assets/images/coordinate_system_2D_math_v1_a.svg',
+                width: 2211.0,
+                height: 2211.0,
                 fit: BoxFit.cover,
                 alignment: Alignment(0.0, 0.0),
               ),
