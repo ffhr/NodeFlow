@@ -232,6 +232,5 @@ NFPointStruct convertNFOffsetToNFPoint(NFOffsetStruct offset) {
 }
 
 NFOffsetStruct convertNFPointToNFOffset(NFPointStruct point) {
-  //return NFPointStruct(positionX: offset.offsetX, positionY: offset.offsetY);
-  return NFOffsetStruct();
+  return NFOffsetStruct(offsetX: point.positionX, offsetY: point.positionY);
 }
