@@ -20,13 +20,6 @@ class PlaygroundISStackModel extends FlutterFlowModel<PlaygroundISStackWidget> {
 
   double nodeHeight = 200.0;
 
-  double zoomFactor = 1.0;
-
-  NFPointStruct? viewportCenter;
-  void updateViewportCenterStruct(Function(NFPointStruct) updateFn) {
-    updateFn(viewportCenter ??= NFPointStruct());
-  }
-
   @override
   void initState(BuildContext context) {}
 
