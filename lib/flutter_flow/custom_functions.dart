@@ -193,3 +193,7 @@ NFOffsetStruct virtualToRelative(
   return NFOffsetStruct(
       offsetX: relativePosition.offsetX, offsetY: relativePosition.offsetY);
 }
+
+String helperNFOffsetToString(NFOffsetStruct val) {
+  return "${val.offsetX},${val.offsetY}";
+}
