@@ -52,7 +52,7 @@ class _ZoomableStackState extends State<ZoomableStack> {
 
       // Adjust the offset to maintain zoom focus at cursor position
       double scaleChange = scale / previousScale;
-      offset = cursorPosition - (cursorPosition - offset) * scaleChange;
+      viewportCenterOffset = cursorPosition - (cursorPosition - viewportCenterOffset) * scaleChange;
     });
   }
 }
