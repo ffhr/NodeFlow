@@ -74,7 +74,7 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
         );
         // Set IsDrawing=true
         FFAppState().IsDrawingActive = true;
-        safeSetState(() {});
+        _model.updatePage(() {});
       }),
       onExit: ((event) async {
         safeSetState(() => _model.mouseRegionHovered = false);
