@@ -96,6 +96,17 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         end: FFAppState().EdgeDrawing.drawingEndPoint,
                       ),
                     ),
+                  if ((FFAppState().EdgeDrawing.drawingState ==
+                          DrawingState.started) ||
+                      (FFAppState().EdgeDrawing.drawingState ==
+                          DrawingState.active))
+                    Container(
+                      width: double.infinity,
+                      height: double.infinity,
+                      decoration: BoxDecoration(
+                        color: Color(0x324B39EF),
+                      ),
+                    ),
                   Builder(
                     builder: (context) {
                       final nodesList = _model.nodes.toList();
