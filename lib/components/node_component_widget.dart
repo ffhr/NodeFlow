@@ -185,7 +185,7 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                                       formatNumber(
                                         widget!.node?.virtualPosition?.offsetX,
                                         formatType: FormatType.custom,
-                                        format: '##.###',
+                                        format: '##.##',
                                         locale: '',
                                       ),
                                       '##.##',
@@ -193,7 +193,7 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                                       formatNumber(
                                         widget!.node?.virtualPosition?.offsetY,
                                         formatType: FormatType.custom,
-                                        format: '##.###',
+                                        format: '##.##',
                                         locale: '',
                                       ),
                                       '##.###',
