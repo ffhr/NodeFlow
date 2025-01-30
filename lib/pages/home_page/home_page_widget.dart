@@ -239,6 +239,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           Align(
                             alignment: AlignmentDirectional(0.0, 0.0),
                             child: Container(
+                              width: double.infinity,
+                              height: double.infinity,
                               decoration: BoxDecoration(
                                 color: Color(0x2F4B39EF),
                               ),
