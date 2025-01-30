@@ -210,48 +210,49 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       );
                     },
                   ),
-                  GestureDetector(
-                    onPanDown: (details) async {
-                      // Set drawing start point; isDrawingActive = true
-                      FFAppState().IsDrawingActive = true;
-                      FFAppState().DrawingStartPoint = NFPointStruct(
-                        positionX: details.localPosition.dx,
-                        positionY: details.localPosition.dy,
-                      );
-                      safeSetState(() {});
-                    },
-                    onPanEnd: (details) async {
-                      // Set isDrawingActive = false
-                      FFAppState().IsDrawingActive = false;
-                      safeSetState(() {});
-                    },
-                    onPanUpdate: (details) async {
-                      // Set drawing endpoint
-                      FFAppState().DrawingEndPoint = NFPointStruct(
-                        positionX: details.localPosition.dx,
-                        positionY: details.localPosition.dy,
-                      );
-                      safeSetState(() {});
-                    },
-                    child: Stack(
-                      children: [
-                        if (true)
-                          Align(
-                            alignment: AlignmentDirectional(0.0, 0.0),
-                            child: Container(
-                              width: double.infinity,
-                              height: double.infinity,
-                              child: custom_widgets.CurvedLine(
+                  if (FFAppState().IsDrawingActive)
+                    GestureDetector(
+                      onPanDown: (details) async {
+                        // Set drawing start point; isDrawingActive = true
+                        FFAppState().IsDrawingActive = true;
+                        FFAppState().DrawingStartPoint = NFPointStruct(
+                          positionX: details.localPosition.dx,
+                          positionY: details.localPosition.dy,
+                        );
+                        safeSetState(() {});
+                      },
+                      onPanEnd: (details) async {
+                        // Set isDrawingActive = false
+                        FFAppState().IsDrawingActive = false;
+                        safeSetState(() {});
+                      },
+                      onPanUpdate: (details) async {
+                        // Set drawing endpoint
+                        FFAppState().DrawingEndPoint = NFPointStruct(
+                          positionX: details.localPosition.dx,
+                          positionY: details.localPosition.dy,
+                        );
+                        safeSetState(() {});
+                      },
+                      child: Stack(
+                        children: [
+                          if (true)
+                            Align(
+                              alignment: AlignmentDirectional(0.0, 0.0),
+                              child: Container(
                                 width: double.infinity,
                                 height: double.infinity,
-                                start: FFAppState().DrawingStartPoint,
-                                end: FFAppState().DrawingEndPoint,
+                                child: custom_widgets.CurvedLine(
+                                  width: double.infinity,
+                                  height: double.infinity,
+                                  start: FFAppState().DrawingStartPoint,
+                                  end: FFAppState().DrawingEndPoint,
+                                ),
                               ),
                             ),
-                          ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
                 ],
               ),
             ),
