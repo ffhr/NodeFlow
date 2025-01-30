@@ -205,10 +205,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                   safeSetState(() {});
                                 },
                                 onMouseEnterNodeSocket: () async {
-                                  FFAppState().IsDrawingActive =
-                                      !(FFAppState().IsDrawingActive ?? true);
-                                  FFAppState().DrawingEndPoint =
-                                      FFAppState().DrawingStartPoint;
                                   FFAppState().updateEdgeDrawingStruct(
                                     (e) => e
                                       ..drawingEndPoint = FFAppState()
@@ -221,6 +217,16 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                     FFAppState().updateEdgeDrawingStruct(
                                       (e) => e
                                         ..drawingState = DrawingState.finished,
+                                    );
+                                    safeSetState(() {});
+                                  }
+                                  if ((FFAppState().EdgeDrawing.drawingState ==
+                                          DrawingState.inactive) ||
+                                      (FFAppState().EdgeDrawing.drawingState ==
+                                          DrawingState.finished)) {
+                                    FFAppState().updateEdgeDrawingStruct(
+                                      (e) => e
+                                        ..drawingState = DrawingState.started,
                                     );
                                     safeSetState(() {});
                                   }
