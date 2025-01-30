@@ -115,6 +115,13 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
           (e) => e..isHover = false,
         );
         safeSetState(() {});
+        if (FFAppState().EdgeDrawing.drawingState == DrawingState.started) {
+          // Set status Drawing.INACTIVE
+          FFAppState().updateEdgeDrawingStruct(
+            (e) => e..drawingState = DrawingState.inactive,
+          );
+          FFAppState().update(() {});
+        }
       }),
     );
   }
