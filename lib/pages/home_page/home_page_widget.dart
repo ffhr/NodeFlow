@@ -232,7 +232,10 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         end: FFAppState().EdgeDrawing.drawingEndPoint,
                       ),
                     ),
-                  if (false)
+                  if ((FFAppState().EdgeDrawing.drawingState ==
+                          DrawingState.started) ||
+                      (FFAppState().EdgeDrawing.drawingState ==
+                          DrawingState.active))
                     GestureDetector(
                       onPanDown: (details) async {
                         FFAppState().updateEdgeDrawingStruct(
