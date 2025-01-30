@@ -231,7 +231,6 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                     return SocketComponentWidget(
                       key: Key(
                           'Keyhbf_${inputsListIndex}_of_${inputsList.length}'),
-                      nodeSocket: inputsListItem.socket,
                     );
                   }).divide(SizedBox(height: 10.0)),
                 );
@@ -256,7 +255,6 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                       return SocketComponentWidget(
                         key: Key(
                             'Keydt4_${outputsListIndex}_of_${outputsList.length}'),
-                        nodeSocket: outputsListItem.socket,
                       );
                     }).divide(SizedBox(height: 10.0)),
                   );

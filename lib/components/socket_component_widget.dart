@@ -10,12 +10,7 @@ import 'socket_component_model.dart';
 export 'socket_component_model.dart';
 
 class SocketComponentWidget extends StatefulWidget {
-  const SocketComponentWidget({
-    super.key,
-    required this.nodeSocket,
-  });
-
-  final NodeSocketStruct? nodeSocket;
+  const SocketComponentWidget({super.key});
 
   @override
   State<SocketComponentWidget> createState() => _SocketComponentWidgetState();
@@ -38,7 +33,7 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
     // On component load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       // Set NodeSocket
-      _model.nodeSocket = widget!.nodeSocket;
+
       safeSetState(() {});
     });
 
@@ -110,15 +105,10 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
       }),
       onExit: ((event) async {
         safeSetState(() => _model.mouseRegionHovered = false);
-        // Set is hover OFF
-        _model.updateNodeSocketStruct(
-          (e) => e..isHover = false,
-        );
-        safeSetState(() {});
         if (FFAppState().EdgeDrawing.drawingState == DrawingState.started) {
           // Set status Drawing.INACTIVE
           FFAppState().updateEdgeDrawingStruct(
-            (e) => e..drawingState = DrawingState.inactive,
+            (e) => e..drawingState = DrawingState.finished,
           );
           FFAppState().update(() {});
         }
