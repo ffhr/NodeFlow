@@ -204,35 +204,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                   );
                                   safeSetState(() {});
                                 },
-                                onMouseEnterNodeSocket: () async {
-                                  // Reset drawing
-                                  FFAppState().updateEdgeDrawingStruct(
-                                    (e) => e
-                                      ..drawingEndPoint = FFAppState()
-                                          .EdgeDrawing
-                                          .drawingStartPoint,
-                                  );
-                                  if (FFAppState().EdgeDrawing.drawingState ==
-                                      DrawingState.inactive) {
-                                    // Set status Drawing.STARTED
-                                    FFAppState().updateEdgeDrawingStruct(
-                                      (e) => e
-                                        ..drawingState = DrawingState.started,
-                                    );
-                                    safeSetState(() {});
-                                  }
-                                  if ((FFAppState().EdgeDrawing.drawingState ==
-                                          DrawingState.active) ||
-                                      (FFAppState().EdgeDrawing.drawingState ==
-                                          DrawingState.finished)) {
-                                    // Set status Drawing.INACTIVE
-                                    FFAppState().updateEdgeDrawingStruct(
-                                      (e) => e
-                                        ..drawingState = DrawingState.inactive,
-                                    );
-                                    safeSetState(() {});
-                                  }
-                                },
                               ),
                             ),
                           );

@@ -13,11 +13,9 @@ class SocketComponentWidget extends StatefulWidget {
   const SocketComponentWidget({
     super.key,
     required this.nodeSocket,
-    this.onMouseEnterNodeSocket,
   });
 
   final NodeSocketStruct? nodeSocket;
-  final Future Function()? onMouseEnterNodeSocket;
 
   @override
   State<SocketComponentWidget> createState() => _SocketComponentWidgetState();
