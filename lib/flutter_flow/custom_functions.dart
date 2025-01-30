@@ -17,6 +17,7 @@ List<NodeStruct> initNodes() {
       title: "Node 1",
       description: "description 1",
       virtualPosition: NFOffsetStruct(offsetX: 100, offsetY: 100),
+      size: NFSizeStruct(width: 200, height: 200),
       inputs: [
         NodeInputSocketStruct(
             socket: NodeSocketStruct(
@@ -57,6 +58,7 @@ List<NodeStruct> initNodes() {
       title: "Node 2",
       description: "description 2",
       virtualPosition: NFOffsetStruct(offsetX: 0, offsetY: 0),
+      size: NFSizeStruct(width: 180, height: 150),
       inputs: [
         NodeInputSocketStruct(
             socket: NodeSocketStruct(
@@ -97,6 +99,7 @@ List<NodeStruct> initNodes() {
       title: "Node 3",
       description: "description 3",
       virtualPosition: NFOffsetStruct(offsetX: -100, offsetY: -200),
+      size: NFSizeStruct(width: 180, height: 150),
       inputs: [
         NodeInputSocketStruct(
             socket: NodeSocketStruct(
@@ -196,4 +199,41 @@ NFOffsetStruct virtualToRelative(
 
 String helperNFOffsetToString(NFOffsetStruct val) {
   return "${val.offsetX},${val.offsetY}";
+}
+
+NFOffsetStruct calculateSocketPosition(
+  NFOffsetStruct nodePosition,
+  NFSizeStruct nodeSize,
+  int socketIndex,
+  bool isInput,
+  int socketCount,
+) {
+  var topLeftY = nodePosition.offsetY - nodeSize.height / 2;
+  var socketSize = NFSizeStruct(width: 20, height: 20);
+  var socketSpacing = 10;
+
+  var allSocketsHeight =
+      socketCount * socketSize.height + (socketCount - 1) * socketSpacing;
+  var socketStartPositionY =
+      topLeftY + (nodeSize.height - allSocketsHeight) / 2;
+
+  var socketY = socketStartPositionY +
+      socketIndex * (socketSize.height + socketSpacing) +
+      socketSize.height / 2;
+
+  if (isInput) {
+    return NFOffsetStruct(
+        offsetX: nodePosition.offsetX - nodeSize.width / 2, offsetY: socketY);
+  } else {
+    return NFOffsetStruct(
+        offsetX: nodePosition.offsetX + nodeSize.width / 2, offsetY: socketY);
+  }
+}
+
+NFPointStruct convertNFOffsetToNFPoint(NFOffsetStruct offset) {
+  return NFPointStruct(positionX: offset.offsetX, positionY: offset.offsetY);
+}
+
+NFOffsetStruct convertNFPointToNFOffset(NFPointStruct point) {
+  return NFOffsetStruct(offsetX: point.positionX, offsetY: point.positionY);
 }

@@ -1,5 +1,6 @@
 export '/backend/schema/util/schema_util.dart';
 
+export 'edge_drawing_struct.dart';
 export 'n_f_color_struct.dart';
 export 'n_f_diagram_struct.dart';
 export 'n_f_diagram_id_struct.dart';

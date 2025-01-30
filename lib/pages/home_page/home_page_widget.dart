@@ -1,3 +1,4 @@
+import '/backend/schema/enums/enums.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/node_component_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -124,8 +125,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                   0.0,
                                 )),
                             child: Container(
-                              width: 180.0,
-                              height: 150.0,
                               decoration: BoxDecoration(),
                               child: NodeComponentWidget(
                                 key: Key(
@@ -205,6 +204,13 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                   );
                                   safeSetState(() {});
                                 },
+                                renderPanStack: () async {
+                                  FFAppState().updateEdgeDrawingStruct(
+                                    (e) =>
+                                        e..drawingState = DrawingState.started,
+                                  );
+                                  safeSetState(() {});
+                                },
                               ),
                             ),
                           );
@@ -212,47 +218,63 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       );
                     },
                   ),
-                  if (FFAppState().IsDrawingActive)
+                  if ((FFAppState().EdgeDrawing.drawingState ==
+                          DrawingState.started) ||
+                      (FFAppState().EdgeDrawing.drawingState ==
+                          DrawingState.active))
+                    Container(
+                      width: double.infinity,
+                      height: double.infinity,
+                      child: custom_widgets.CurvedLine(
+                        width: double.infinity,
+                        height: double.infinity,
+                        start: FFAppState().EdgeDrawing.drawingStartPoint,
+                        end: FFAppState().EdgeDrawing.drawingEndPoint,
+                      ),
+                    ),
+                  if ((FFAppState().EdgeDrawing.drawingState ==
+                          DrawingState.started) ||
+                      (FFAppState().EdgeDrawing.drawingState ==
+                          DrawingState.active))
                     GestureDetector(
                       onPanDown: (details) async {
-                        // Set drawing start point; isDrawingActive = true
-                        FFAppState().IsDrawingActive = true;
-                        FFAppState().DrawingStartPoint = NFPointStruct(
-                          positionX: details.localPosition.dx,
-                          positionY: details.localPosition.dy,
+                        FFAppState().updateEdgeDrawingStruct(
+                          (e) => e
+                            ..drawingStartPoint = NFPointStruct(
+                              positionX: details.localPosition.dx,
+                              positionY: details.localPosition.dy,
+                            )
+                            ..drawingState = DrawingState.started
+                            ..drawingEndPoint = NFPointStruct(
+                              positionX: details.localPosition.dx,
+                              positionY: details.localPosition.dy,
+                            ),
                         );
                         safeSetState(() {});
                       },
                       onPanEnd: (details) async {
-                        // Set isDrawingActive = false
-                        FFAppState().IsDrawingActive = false;
-                        safeSetState(() {});
-                      },
-                      onPanUpdate: (details) async {
-                        // Set drawing endpoint
-                        FFAppState().DrawingEndPoint = NFPointStruct(
-                          positionX: details.localPosition.dx,
-                          positionY: details.localPosition.dy,
+                        FFAppState().updateEdgeDrawingStruct(
+                          (e) => e..drawingState = DrawingState.finished,
                         );
                         safeSetState(() {});
                       },
-                      child: Stack(
-                        children: [
-                          if (true)
-                            Align(
-                              alignment: AlignmentDirectional(0.0, 0.0),
-                              child: Container(
-                                width: double.infinity,
-                                height: double.infinity,
-                                child: custom_widgets.CurvedLine(
-                                  width: double.infinity,
-                                  height: double.infinity,
-                                  start: FFAppState().DrawingStartPoint,
-                                  end: FFAppState().DrawingEndPoint,
-                                ),
-                              ),
+                      onPanUpdate: (details) async {
+                        FFAppState().updateEdgeDrawingStruct(
+                          (e) => e
+                            ..drawingState = DrawingState.active
+                            ..drawingEndPoint = NFPointStruct(
+                              positionX: details.localPosition.dx,
+                              positionY: details.localPosition.dy,
                             ),
-                        ],
+                        );
+                        safeSetState(() {});
+                      },
+                      child: Container(
+                        width: double.infinity,
+                        height: double.infinity,
+                        decoration: BoxDecoration(
+                          color: Color(0x324B39EF),
+                        ),
                       ),
                     ),
                 ],
