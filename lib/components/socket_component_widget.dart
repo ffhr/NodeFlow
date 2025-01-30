@@ -92,7 +92,7 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
                 positionY: 0.0,
               ),
           );
-          FFAppState().update(() {});
+          _model.updatePage(() {});
         }
         if ((FFAppState().EdgeDrawing.drawingState == DrawingState.active) ||
             (FFAppState().EdgeDrawing.drawingState == DrawingState.finished)) {
@@ -100,7 +100,7 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
           FFAppState().updateEdgeDrawingStruct(
             (e) => e..drawingState = DrawingState.inactive,
           );
-          FFAppState().update(() {});
+          _model.updatePage(() {});
         }
         await widget.renderPan?.call();
       }),
