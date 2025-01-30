@@ -82,65 +82,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
               ),
               child: Stack(
                 children: [
-                  if ((FFAppState().EdgeDrawing.drawingState ==
-                          DrawingState.started) ||
-                      (FFAppState().EdgeDrawing.drawingState ==
-                          DrawingState.active))
-                    Container(
-                      width: double.infinity,
-                      height: double.infinity,
-                      child: custom_widgets.CurvedLine(
-                        width: double.infinity,
-                        height: double.infinity,
-                        start: FFAppState().EdgeDrawing.drawingStartPoint,
-                        end: FFAppState().EdgeDrawing.drawingEndPoint,
-                      ),
-                    ),
-                  if ((FFAppState().EdgeDrawing.drawingState ==
-                          DrawingState.started) ||
-                      (FFAppState().EdgeDrawing.drawingState ==
-                          DrawingState.active))
-                    GestureDetector(
-                      onPanDown: (details) async {
-                        FFAppState().updateEdgeDrawingStruct(
-                          (e) => e
-                            ..drawingStartPoint = NFPointStruct(
-                              positionX: details.localPosition.dx,
-                              positionY: details.localPosition.dy,
-                            )
-                            ..drawingState = DrawingState.started
-                            ..drawingEndPoint = NFPointStruct(
-                              positionX: details.localPosition.dx,
-                              positionY: details.localPosition.dy,
-                            ),
-                        );
-                        safeSetState(() {});
-                      },
-                      onPanEnd: (details) async {
-                        FFAppState().updateEdgeDrawingStruct(
-                          (e) => e..drawingState = DrawingState.finished,
-                        );
-                        safeSetState(() {});
-                      },
-                      onPanUpdate: (details) async {
-                        FFAppState().updateEdgeDrawingStruct(
-                          (e) => e
-                            ..drawingState = DrawingState.active
-                            ..drawingEndPoint = NFPointStruct(
-                              positionX: details.localPosition.dx,
-                              positionY: details.localPosition.dy,
-                            ),
-                        );
-                        safeSetState(() {});
-                      },
-                      child: Container(
-                        width: double.infinity,
-                        height: double.infinity,
-                        decoration: BoxDecoration(
-                          color: Color(0x324B39EF),
-                        ),
-                      ),
-                    ),
                   Builder(
                     builder: (context) {
                       final nodesList = _model.nodes.toList();
@@ -271,6 +212,65 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       );
                     },
                   ),
+                  if ((FFAppState().EdgeDrawing.drawingState ==
+                          DrawingState.started) ||
+                      (FFAppState().EdgeDrawing.drawingState ==
+                          DrawingState.active))
+                    GestureDetector(
+                      onPanDown: (details) async {
+                        FFAppState().updateEdgeDrawingStruct(
+                          (e) => e
+                            ..drawingStartPoint = NFPointStruct(
+                              positionX: details.localPosition.dx,
+                              positionY: details.localPosition.dy,
+                            )
+                            ..drawingState = DrawingState.started
+                            ..drawingEndPoint = NFPointStruct(
+                              positionX: details.localPosition.dx,
+                              positionY: details.localPosition.dy,
+                            ),
+                        );
+                        safeSetState(() {});
+                      },
+                      onPanEnd: (details) async {
+                        FFAppState().updateEdgeDrawingStruct(
+                          (e) => e..drawingState = DrawingState.finished,
+                        );
+                        safeSetState(() {});
+                      },
+                      onPanUpdate: (details) async {
+                        FFAppState().updateEdgeDrawingStruct(
+                          (e) => e
+                            ..drawingState = DrawingState.active
+                            ..drawingEndPoint = NFPointStruct(
+                              positionX: details.localPosition.dx,
+                              positionY: details.localPosition.dy,
+                            ),
+                        );
+                        safeSetState(() {});
+                      },
+                      child: Container(
+                        width: double.infinity,
+                        height: double.infinity,
+                        decoration: BoxDecoration(
+                          color: Color(0x324B39EF),
+                        ),
+                      ),
+                    ),
+                  if ((FFAppState().EdgeDrawing.drawingState ==
+                          DrawingState.started) ||
+                      (FFAppState().EdgeDrawing.drawingState ==
+                          DrawingState.active))
+                    Container(
+                      width: double.infinity,
+                      height: double.infinity,
+                      child: custom_widgets.CurvedLine(
+                        width: double.infinity,
+                        height: double.infinity,
+                        start: FFAppState().EdgeDrawing.drawingStartPoint,
+                        end: FFAppState().EdgeDrawing.drawingEndPoint,
+                      ),
+                    ),
                 ],
               ),
             ),
