@@ -99,13 +99,7 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
       }),
       onExit: ((event) async {
         safeSetState(() => _model.mouseRegionHovered = false);
-        if (FFAppState().EdgeDrawing.drawingState == DrawingState.started) {
-          // Set status Drawing.INACTIVE
-          FFAppState().updateEdgeDrawingStruct(
-            (e) => e..drawingState = DrawingState.finished,
-          );
-          FFAppState().update(() {});
-        }
+        if (FFAppState().EdgeDrawing.drawingState == DrawingState.started) {}
       }),
     );
   }
