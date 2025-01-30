@@ -205,6 +205,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                 },
                                 onMouseEnterNodeSocket: () async {
                                   FFAppState().IsDrawingActive = true;
+                                  FFAppState().DrawingEndPoint =
+                                      FFAppState().DrawingStartPoint;
                                   safeSetState(() {});
                                 },
                               ),
