@@ -72,15 +72,6 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
             );
             FFAppState().update(() {});
           }
-          if ((FFAppState().EdgeDrawing.drawingState == DrawingState.active) ||
-              (FFAppState().EdgeDrawing.drawingState ==
-                  DrawingState.finished)) {
-            // Set status Drawing.INACTIVE
-            FFAppState().updateEdgeDrawingStruct(
-              (e) => e..drawingState = DrawingState.inactive,
-            );
-            FFAppState().update(() {});
-          }
         },
         child: Container(
           width: 20.0,
@@ -102,6 +93,9 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
       ),
       onEnter: ((event) async {
         safeSetState(() => _model.mouseRegionHovered = true);
+        if (FFAppState().EdgeDrawing.drawingState == DrawingState.inactive) {}
+        if ((FFAppState().EdgeDrawing.drawingState == DrawingState.active) ||
+            (FFAppState().EdgeDrawing.drawingState == DrawingState.finished)) {}
       }),
       onExit: ((event) async {
         safeSetState(() => _model.mouseRegionHovered = false);
