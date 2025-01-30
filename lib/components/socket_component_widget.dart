@@ -90,7 +90,6 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
           FFAppState().updateEdgeDrawingStruct(
             (e) => e..drawingState = DrawingState.started,
           );
-          safeSetState(() {});
         }
         if ((FFAppState().EdgeDrawing.drawingState == DrawingState.active) ||
             (FFAppState().EdgeDrawing.drawingState == DrawingState.finished)) {
@@ -98,7 +97,6 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
           FFAppState().updateEdgeDrawingStruct(
             (e) => e..drawingState = DrawingState.inactive,
           );
-          safeSetState(() {});
         }
         // Set is hover ON
         _model.updateNodeSocketStruct(
