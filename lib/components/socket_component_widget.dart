@@ -12,13 +12,9 @@ class SocketComponentWidget extends StatefulWidget {
   const SocketComponentWidget({
     super.key,
     required this.nodeSocket,
-    this.onTapDown,
-    this.onTap,
   });
 
   final NodeSocketStruct? nodeSocket;
-  final Future Function()? onTapDown;
-  final Future Function()? onTap;
 
   @override
   State<SocketComponentWidget> createState() => _SocketComponentWidgetState();
@@ -53,25 +49,20 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
     return MouseRegion(
       opaque: false,
       cursor: MouseCursor.defer ?? MouseCursor.defer,
-      child: GestureDetector(
-        onTapDown: (details) async {
-          await widget.onTapDown?.call();
-        },
-        child: Container(
-          width: 20.0,
-          height: 20.0,
-          decoration: BoxDecoration(
-            color: FlutterFlowTheme.of(context).warning,
-            shape: BoxShape.circle,
-            border: Border.all(
-              color: valueOrDefault<Color>(
-                widget!.nodeSocket!.isHover
-                    ? Colors.white
-                    : FlutterFlowTheme.of(context).warning,
-                Colors.white,
-              ),
-              width: 3.0,
+      child: Container(
+        width: 20.0,
+        height: 20.0,
+        decoration: BoxDecoration(
+          color: FlutterFlowTheme.of(context).warning,
+          shape: BoxShape.circle,
+          border: Border.all(
+            color: valueOrDefault<Color>(
+              widget!.nodeSocket!.isHover
+                  ? Colors.white
+                  : FlutterFlowTheme.of(context).warning,
+              Colors.white,
             ),
+            width: 3.0,
           ),
         ),
       ),

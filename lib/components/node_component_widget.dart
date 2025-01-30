@@ -265,19 +265,6 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                         key: Key(
                             'Keyhbf_${inputsListIndex}_of_${inputsList.length}'),
                         nodeSocket: inputsListItem.socket,
-                        onTapDown: () async {
-                          FFAppState().IsDrawingActive = true;
-                          FFAppState().DrawingStartPoint =
-                              functions.convertNFOffsetToNFPoint(
-                                  functions.calculateSocketPosition(
-                                      widget!.node!.virtualPosition,
-                                      widget!.node!.size,
-                                      inputsListIndex,
-                                      true,
-                                      widget!.node!.inputs.length));
-                          safeSetState(() {});
-                        },
-                        onTap: () async {},
                       ),
                     );
                   }).divide(SizedBox(height: 10.0)),
@@ -304,8 +291,6 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                         key: Key(
                             'Keydt4_${outputsListIndex}_of_${outputsList.length}'),
                         nodeSocket: outputsListItem.socket,
-                        onTapDown: () async {},
-                        onTap: () async {},
                       );
                     }).divide(SizedBox(height: 10.0)),
                   );
