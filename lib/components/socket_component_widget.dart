@@ -1,3 +1,4 @@
+import '/backend/schema/enums/enums.dart';
 import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -55,6 +56,8 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return MouseRegion(
       opaque: false,
       cursor: MouseCursor.defer ?? MouseCursor.defer,
@@ -82,9 +85,26 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
           (e) => e..isHover = true,
         );
         safeSetState(() {});
-        await Future.delayed(const Duration(milliseconds: 1));
-        // On mouse enter callback
-        await widget.onMouseEnterNodeSocket?.call();
+        // Reset drawing
+        FFAppState().updateEdgeDrawingStruct(
+          (e) =>
+              e..drawingEndPoint = FFAppState().EdgeDrawing.drawingStartPoint,
+        );
+        if (FFAppState().EdgeDrawing.drawingState == DrawingState.inactive) {
+          // Set status Drawing.STARTED
+          FFAppState().updateEdgeDrawingStruct(
+            (e) => e..drawingState = DrawingState.started,
+          );
+          safeSetState(() {});
+        }
+        if ((FFAppState().EdgeDrawing.drawingState == DrawingState.active) ||
+            (FFAppState().EdgeDrawing.drawingState == DrawingState.finished)) {
+          // Set status Drawing.INACTIVE
+          FFAppState().updateEdgeDrawingStruct(
+            (e) => e..drawingState = DrawingState.inactive,
+          );
+          safeSetState(() {});
+        }
       }),
       onExit: ((event) async {
         safeSetState(() => _model.mouseRegionHovered = false);
