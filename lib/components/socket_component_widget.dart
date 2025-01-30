@@ -54,30 +54,30 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
     return MouseRegion(
       opaque: false,
       cursor: MouseCursor.defer ?? MouseCursor.defer,
-      child: GestureDetector(
-        onTapDown: (details) async {
-          if (FFAppState().EdgeDrawing.drawingState == DrawingState.inactive) {
-            // Set status Drawing.STARTED
-            FFAppState().updateEdgeDrawingStruct(
-              (e) => e
-                ..drawingState = DrawingState.started
-                ..drawingStartPoint = NFPointStruct(
-                  positionX: 0.0,
-                  positionY: 0.0,
-                )
-                ..drawingEndPoint = NFPointStruct(
-                  positionX: 0.0,
-                  positionY: 0.0,
-                ),
-            );
-            FFAppState().update(() {});
-          }
-        },
-        onTapUp: (details) async {
-          // Set status Drawing.INACTIVE
+      child: Container(
+        width: 20.0,
+        height: 20.0,
+        decoration: BoxDecoration(
+          color: FlutterFlowTheme.of(context).warning,
+          shape: BoxShape.circle,
+          border: Border.all(
+            color: valueOrDefault<Color>(
+              _model.mouseRegionHovered!
+                  ? Colors.white
+                  : FlutterFlowTheme.of(context).warning,
+              Colors.white,
+            ),
+            width: 3.0,
+          ),
+        ),
+      ),
+      onEnter: ((event) async {
+        safeSetState(() => _model.mouseRegionHovered = true);
+        if (FFAppState().EdgeDrawing.drawingState == DrawingState.inactive) {
+          // Set status Drawing.STARTED
           FFAppState().updateEdgeDrawingStruct(
             (e) => e
-              ..drawingState = DrawingState.inactive
+              ..drawingState = DrawingState.started
               ..drawingStartPoint = NFPointStruct(
                 positionX: 0.0,
                 positionY: 0.0,
@@ -88,30 +88,15 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
               ),
           );
           FFAppState().update(() {});
-        },
-        child: Container(
-          width: 20.0,
-          height: 20.0,
-          decoration: BoxDecoration(
-            color: FlutterFlowTheme.of(context).warning,
-            shape: BoxShape.circle,
-            border: Border.all(
-              color: valueOrDefault<Color>(
-                _model.mouseRegionHovered!
-                    ? Colors.white
-                    : FlutterFlowTheme.of(context).warning,
-                Colors.white,
-              ),
-              width: 3.0,
-            ),
-          ),
-        ),
-      ),
-      onEnter: ((event) async {
-        safeSetState(() => _model.mouseRegionHovered = true);
-        if (FFAppState().EdgeDrawing.drawingState == DrawingState.inactive) {}
+        }
         if ((FFAppState().EdgeDrawing.drawingState == DrawingState.active) ||
-            (FFAppState().EdgeDrawing.drawingState == DrawingState.finished)) {}
+            (FFAppState().EdgeDrawing.drawingState == DrawingState.finished)) {
+          // Set status Drawing.INACTIVE
+          FFAppState().updateEdgeDrawingStruct(
+            (e) => e..drawingState = DrawingState.inactive,
+          );
+          FFAppState().update(() {});
+        }
       }),
       onExit: ((event) async {
         safeSetState(() => _model.mouseRegionHovered = false);
