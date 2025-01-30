@@ -82,6 +82,9 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
           (e) => e..isHover = true,
         );
         safeSetState(() {});
+        await Future.delayed(const Duration(milliseconds: 1));
+        // On mouse enter callback
+        await widget.onMouseEnterNodeSocket?.call();
       }),
       onExit: ((event) async {
         safeSetState(() => _model.mouseRegionHovered = false);
