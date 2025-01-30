@@ -18,6 +18,7 @@ class NodeComponentWidget extends StatefulWidget {
     this.onPanDown,
     this.onPanEnd,
     this.onPanUpdate,
+    this.renderPanStack,
   });
 
   final NodeStruct? node;
@@ -26,6 +27,7 @@ class NodeComponentWidget extends StatefulWidget {
   final Future Function()? onPanDown;
   final Future Function()? onPanEnd;
   final Future Function(NFPointStruct deltaPoint)? onPanUpdate;
+  final Future Function()? renderPanStack;
 
   @override
   State<NodeComponentWidget> createState() => _NodeComponentWidgetState();
@@ -231,6 +233,9 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                     return SocketComponentWidget(
                       key: Key(
                           'Keyhbf_${inputsListIndex}_of_${inputsList.length}'),
+                      renderPan: () async {
+                        await widget.renderPanStack?.call();
+                      },
                     );
                   }).divide(SizedBox(height: 10.0)),
                 );
@@ -255,6 +260,7 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                       return SocketComponentWidget(
                         key: Key(
                             'Keydt4_${outputsListIndex}_of_${outputsList.length}'),
+                        renderPan: () async {},
                       );
                     }).divide(SizedBox(height: 10.0)),
                   );

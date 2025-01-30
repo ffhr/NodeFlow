@@ -10,7 +10,12 @@ import 'socket_component_model.dart';
 export 'socket_component_model.dart';
 
 class SocketComponentWidget extends StatefulWidget {
-  const SocketComponentWidget({super.key});
+  const SocketComponentWidget({
+    super.key,
+    this.renderPan,
+  });
+
+  final Future Function()? renderPan;
 
   @override
   State<SocketComponentWidget> createState() => _SocketComponentWidgetState();
