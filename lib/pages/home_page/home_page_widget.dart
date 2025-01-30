@@ -1,5 +1,6 @@
 import '/backend/schema/enums/enums.dart';
 import '/backend/schema/structs/index.dart';
+import '/components/drawing_pan_widget.dart';
 import '/components/node_component_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -204,7 +205,13 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                   );
                                   safeSetState(() {});
                                 },
-                                renderPanStack: () async {},
+                                renderPanStack: () async {
+                                  FFAppState().updateEdgeDrawingStruct(
+                                    (e) =>
+                                        e..drawingState = DrawingState.started,
+                                  );
+                                  safeSetState(() {});
+                                },
                               ),
                             ),
                           );
@@ -212,51 +219,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       );
                     },
                   ),
-                  if ((FFAppState().EdgeDrawing.drawingState ==
-                          DrawingState.started) ||
-                      (FFAppState().EdgeDrawing.drawingState ==
-                          DrawingState.active))
-                    GestureDetector(
-                      onPanDown: (details) async {
-                        FFAppState().updateEdgeDrawingStruct(
-                          (e) => e
-                            ..drawingStartPoint = NFPointStruct(
-                              positionX: details.localPosition.dx,
-                              positionY: details.localPosition.dy,
-                            )
-                            ..drawingState = DrawingState.started
-                            ..drawingEndPoint = NFPointStruct(
-                              positionX: details.localPosition.dx,
-                              positionY: details.localPosition.dy,
-                            ),
-                        );
-                        safeSetState(() {});
-                      },
-                      onPanEnd: (details) async {
-                        FFAppState().updateEdgeDrawingStruct(
-                          (e) => e..drawingState = DrawingState.finished,
-                        );
-                        safeSetState(() {});
-                      },
-                      onPanUpdate: (details) async {
-                        FFAppState().updateEdgeDrawingStruct(
-                          (e) => e
-                            ..drawingState = DrawingState.active
-                            ..drawingEndPoint = NFPointStruct(
-                              positionX: details.localPosition.dx,
-                              positionY: details.localPosition.dy,
-                            ),
-                        );
-                        safeSetState(() {});
-                      },
-                      child: Container(
-                        width: double.infinity,
-                        height: double.infinity,
-                        decoration: BoxDecoration(
-                          color: Color(0x324B39EF),
-                        ),
-                      ),
-                    ),
                   if ((FFAppState().EdgeDrawing.drawingState ==
                           DrawingState.started) ||
                       (FFAppState().EdgeDrawing.drawingState ==
@@ -271,6 +233,11 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         end: FFAppState().EdgeDrawing.drawingEndPoint,
                       ),
                     ),
+                  wrapWithModel(
+                    model: _model.drawingPanModel,
+                    updateCallback: () => safeSetState(() {}),
+                    child: DrawingPanWidget(),
+                  ),
                 ],
               ),
             ),

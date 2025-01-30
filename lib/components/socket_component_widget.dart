@@ -35,6 +35,13 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
     super.initState();
     _model = createModel(context, () => SocketComponentModel());
 
+    // On component load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      // Set NodeSocket
+
+      safeSetState(() {});
+    });
+
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
@@ -50,7 +57,7 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
     context.watch<FFAppState>();
 
     return MouseRegion(
-      opaque: true,
+      opaque: false,
       cursor: MouseCursor.defer ?? MouseCursor.defer,
       child: Container(
         width: 20.0,
