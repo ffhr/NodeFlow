@@ -254,10 +254,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       );
                     },
                   ),
-                  if ((FFAppState().EdgeDrawing.drawingState ==
-                          DrawingState.started) ||
-                      (FFAppState().EdgeDrawing.drawingState ==
-                          DrawingState.active))
+                  if (FFAppState().IsDrawingPanVisible)
                     Container(
                       width: double.infinity,
                       height: double.infinity,
