@@ -212,25 +212,23 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           .EdgeDrawing
                                           .drawingStartPoint,
                                   );
-                                  if ((FFAppState().EdgeDrawing.drawingState ==
-                                          DrawingState.started) ||
-                                      (FFAppState().EdgeDrawing.drawingState ==
-                                          DrawingState.active)) {
-                                    // Set status Drawing.INACTIVE
-                                    FFAppState().updateEdgeDrawingStruct(
-                                      (e) => e
-                                        ..drawingState = DrawingState.inactive,
-                                    );
-                                    safeSetState(() {});
-                                  }
-                                  if ((FFAppState().EdgeDrawing.drawingState ==
-                                          DrawingState.inactive) ||
-                                      (FFAppState().EdgeDrawing.drawingState ==
-                                          DrawingState.finished)) {
+                                  if (FFAppState().EdgeDrawing.drawingState ==
+                                      DrawingState.inactive) {
                                     // Set status Drawing.STARTED
                                     FFAppState().updateEdgeDrawingStruct(
                                       (e) => e
                                         ..drawingState = DrawingState.started,
+                                    );
+                                    safeSetState(() {});
+                                  }
+                                  if ((FFAppState().EdgeDrawing.drawingState ==
+                                          DrawingState.active) ||
+                                      (FFAppState().EdgeDrawing.drawingState ==
+                                          DrawingState.finished)) {
+                                    // Set status Drawing.INACTIVE
+                                    FFAppState().updateEdgeDrawingStruct(
+                                      (e) => e
+                                        ..drawingState = DrawingState.inactive,
                                     );
                                     safeSetState(() {});
                                   }
