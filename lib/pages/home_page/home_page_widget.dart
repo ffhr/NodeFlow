@@ -236,20 +236,27 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       },
                       child: Stack(
                         children: [
-                          if (true)
-                            Align(
-                              alignment: AlignmentDirectional(0.0, 0.0),
-                              child: Container(
-                                width: double.infinity,
-                                height: double.infinity,
-                                child: custom_widgets.CurvedLine(
+                          Align(
+                            alignment: AlignmentDirectional(0.0, 0.0),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Color(0x2F4B39EF),
+                              ),
+                              child: Visibility(
+                                visible: true,
+                                child: Container(
                                   width: double.infinity,
                                   height: double.infinity,
-                                  start: FFAppState().DrawingStartPoint,
-                                  end: FFAppState().DrawingEndPoint,
+                                  child: custom_widgets.CurvedLine(
+                                    width: double.infinity,
+                                    height: double.infinity,
+                                    start: FFAppState().DrawingStartPoint,
+                                    end: FFAppState().DrawingEndPoint,
+                                  ),
                                 ),
                               ),
                             ),
+                          ),
                         ],
                       ),
                     ),
