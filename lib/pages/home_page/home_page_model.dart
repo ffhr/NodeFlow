@@ -1,5 +1,6 @@
 import '/backend/schema/enums/enums.dart';
 import '/backend/schema/structs/index.dart';
+import '/components/drawing_pan_widget.dart';
 import '/components/node_component_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -31,10 +32,16 @@ class HomePageModel extends FlutterFlowModel<HomePageWidget> {
 
   // Stores action output result for [Custom Action - sortByIsSelected] action in NodeComponent widget.
   List<NodeStruct>? sortedNodes;
+  // Model for DrawingPan component.
+  late DrawingPanModel drawingPanModel;
 
   @override
-  void initState(BuildContext context) {}
+  void initState(BuildContext context) {
+    drawingPanModel = createModel(context, () => DrawingPanModel());
+  }
 
   @override
-  void dispose() {}
+  void dispose() {
+    drawingPanModel.dispose();
+  }
 }

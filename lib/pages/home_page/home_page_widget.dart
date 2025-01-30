@@ -1,5 +1,6 @@
 import '/backend/schema/enums/enums.dart';
 import '/backend/schema/structs/index.dart';
+import '/components/drawing_pan_widget.dart';
 import '/components/node_component_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -266,6 +267,12 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         start: FFAppState().EdgeDrawing.drawingStartPoint,
                         end: FFAppState().EdgeDrawing.drawingEndPoint,
                       ),
+                    ),
+                  if (FFAppState().IsDrawingPanVisible == true)
+                    wrapWithModel(
+                      model: _model.drawingPanModel,
+                      updateCallback: () => safeSetState(() {}),
+                      child: DrawingPanWidget(),
                     ),
                 ],
               ),
