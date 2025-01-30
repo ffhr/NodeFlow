@@ -56,7 +56,7 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
     context.watch<FFAppState>();
 
     return MouseRegion(
-      opaque: false,
+      opaque: true,
       cursor: MouseCursor.defer ?? MouseCursor.defer,
       child: Container(
         width: 20.0,
