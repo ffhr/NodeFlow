@@ -80,11 +80,6 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
       ),
       onEnter: ((event) async {
         safeSetState(() => _model.mouseRegionHovered = true);
-        // Set is hover ON
-        _model.updateNodeSocketStruct(
-          (e) => e..isHover = true,
-        );
-        safeSetState(() {});
         // Reset drawing
         FFAppState().updateEdgeDrawingStruct(
           (e) =>
@@ -105,6 +100,11 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
           );
           safeSetState(() {});
         }
+        // Set is hover ON
+        _model.updateNodeSocketStruct(
+          (e) => e..isHover = true,
+        );
+        safeSetState(() {});
       }),
       onExit: ((event) async {
         safeSetState(() => _model.mouseRegionHovered = false);
