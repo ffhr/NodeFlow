@@ -212,11 +212,19 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           .EdgeDrawing
                                           .drawingStartPoint,
                                   );
-                                  safeSetState(() {});
                                   if ((FFAppState().EdgeDrawing.drawingState ==
-                                          DrawingState.inactive) ||
+                                          DrawingState.started) ||
                                       (FFAppState().EdgeDrawing.drawingState ==
-                                          DrawingState.finished)) {
+                                          DrawingState.active)) {
+                                    // Set status Drawing.INACTIVE
+                                    FFAppState().updateEdgeDrawingStruct(
+                                      (e) => e
+                                        ..drawingState = DrawingState.inactive,
+                                    );
+                                    safeSetState(() {});
+                                  }
+                                  if (FFAppState().EdgeDrawing.drawingState ==
+                                      DrawingState.inactive) {
                                     // Set status Drawing.STARTED
                                     FFAppState().updateEdgeDrawingStruct(
                                       (e) => e
@@ -239,11 +247,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                     GestureDetector(
                       onPanDown: (details) async {
                         // Set drawing start point; isDrawingActive = true
-                        FFAppState().IsDrawingActive = true;
-                        FFAppState().DrawingStartPoint = NFPointStruct(
-                          positionX: details.localPosition.dx,
-                          positionY: details.localPosition.dy,
-                        );
                         FFAppState().updateEdgeDrawingStruct(
                           (e) => e
                             ..drawingState = DrawingState.started
@@ -256,7 +259,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       },
                       onPanEnd: (details) async {
                         // Set isDrawingActive = false
-                        FFAppState().IsDrawingActive = false;
                         FFAppState().updateEdgeDrawingStruct(
                           (e) => e..drawingState = DrawingState.finished,
                         );
@@ -264,10 +266,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       },
                       onPanUpdate: (details) async {
                         // Set drawing endpoint
-                        FFAppState().DrawingEndPoint = NFPointStruct(
-                          positionX: details.localPosition.dx,
-                          positionY: details.localPosition.dy,
-                        );
                         FFAppState().updateEdgeDrawingStruct(
                           (e) => e
                             ..drawingEndPoint = NFPointStruct(
