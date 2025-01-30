@@ -215,6 +215,20 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           DrawingState.started) ||
                       (FFAppState().EdgeDrawing.drawingState ==
                           DrawingState.active))
+                    Container(
+                      width: double.infinity,
+                      height: double.infinity,
+                      child: custom_widgets.CurvedLine(
+                        width: double.infinity,
+                        height: double.infinity,
+                        start: FFAppState().EdgeDrawing.drawingStartPoint,
+                        end: FFAppState().EdgeDrawing.drawingEndPoint,
+                      ),
+                    ),
+                  if ((FFAppState().EdgeDrawing.drawingState ==
+                          DrawingState.started) ||
+                      (FFAppState().EdgeDrawing.drawingState ==
+                          DrawingState.active))
                     GestureDetector(
                       onPanDown: (details) async {
                         FFAppState().updateEdgeDrawingStruct(
@@ -250,20 +264,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         decoration: BoxDecoration(
                           color: Color(0x324B39EF),
                         ),
-                      ),
-                    ),
-                  if ((FFAppState().EdgeDrawing.drawingState ==
-                          DrawingState.started) ||
-                      (FFAppState().EdgeDrawing.drawingState ==
-                          DrawingState.active))
-                    Container(
-                      width: double.infinity,
-                      height: double.infinity,
-                      child: custom_widgets.CurvedLine(
-                        width: double.infinity,
-                        height: double.infinity,
-                        start: FFAppState().EdgeDrawing.drawingStartPoint,
-                        end: FFAppState().EdgeDrawing.drawingEndPoint,
                       ),
                     ),
                 ],
