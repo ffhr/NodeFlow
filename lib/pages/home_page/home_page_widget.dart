@@ -205,7 +205,13 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                   );
                                   safeSetState(() {});
                                 },
-                                renderPanStack: () async {},
+                                renderPanStack: () async {
+                                  FFAppState().updateEdgeDrawingStruct(
+                                    (e) =>
+                                        e..drawingState = DrawingState.started,
+                                  );
+                                  safeSetState(() {});
+                                },
                               ),
                             ),
                           );
