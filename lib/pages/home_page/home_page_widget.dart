@@ -203,6 +203,10 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                   );
                                   safeSetState(() {});
                                 },
+                                onMouseEnterNodeSocket: () async {
+                                  FFAppState().IsDrawingActive = true;
+                                  safeSetState(() {});
+                                },
                               ),
                             ),
                           );

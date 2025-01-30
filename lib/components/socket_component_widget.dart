@@ -12,9 +12,11 @@ class SocketComponentWidget extends StatefulWidget {
   const SocketComponentWidget({
     super.key,
     required this.nodeSocket,
+    this.onMouseEnterNodeSocket,
   });
 
   final NodeSocketStruct? nodeSocket;
+  final Future Function()? onMouseEnterNodeSocket;
 
   @override
   State<SocketComponentWidget> createState() => _SocketComponentWidgetState();
@@ -72,9 +74,8 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
         await actions.onMouseEnterNodeSocket(
           widget!.nodeSocket!,
         );
-        // Set IsDrawing=true
-        FFAppState().IsDrawingActive = true;
-        _model.updatePage(() {});
+        // On mouse enter callback
+        await widget.onMouseEnterNodeSocket?.call();
       }),
       onExit: ((event) async {
         safeSetState(() => _model.mouseRegionHovered = false);
