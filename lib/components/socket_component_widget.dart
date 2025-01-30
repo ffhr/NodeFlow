@@ -102,6 +102,7 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
           );
           FFAppState().update(() {});
         }
+        await widget.renderPan?.call();
       }),
       onExit: ((event) async {
         safeSetState(() => _model.mouseRegionHovered = false);
