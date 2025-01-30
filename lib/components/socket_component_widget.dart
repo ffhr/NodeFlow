@@ -35,13 +35,6 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
     super.initState();
     _model = createModel(context, () => SocketComponentModel());
 
-    // On component load action.
-    SchedulerBinding.instance.addPostFrameCallback((_) async {
-      // Set NodeSocket
-
-      safeSetState(() {});
-    });
-
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
@@ -92,6 +85,7 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
                 positionY: 0.0,
               ),
           );
+          FFAppState().IsDrawingPanVisible = true;
           FFAppState().update(() {});
         }
         if ((FFAppState().EdgeDrawing.drawingState == DrawingState.active) ||
