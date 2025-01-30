@@ -19,6 +19,13 @@ enum NFEntityTypeLong {
   edge,
 }
 
+enum DrawingState {
+  inactive,
+  started,
+  active,
+  finished,
+}
+
 extension FFEnumExtensions<T extends Enum> on T {
   String serialize() => name;
 }
@@ -36,6 +43,8 @@ T? deserializeEnum<T>(String? value) {
       return NFEntityTypeShort.values.deserialize(value) as T?;
     case (NFEntityTypeLong):
       return NFEntityTypeLong.values.deserialize(value) as T?;
+    case (DrawingState):
+      return DrawingState.values.deserialize(value) as T?;
     default:
       return null;
   }

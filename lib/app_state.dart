@@ -80,4 +80,15 @@ class FFAppState extends ChangeNotifier {
   set ZoomFactor(double value) {
     _ZoomFactor = value;
   }
+
+  EdgeDrawingStruct _EdgeDrawing = EdgeDrawingStruct.fromSerializableMap(jsonDecode(
+      '{\"drawing_start_point\":\"{\\\"position_x\\\":\\\"0\\\",\\\"position_y\\\":\\\"0\\\"}\",\"drawing_end_point\":\"{\\\"position_x\\\":\\\"0\\\",\\\"position_y\\\":\\\"0\\\"}\",\"drawing_state\":\"inactive\"}'));
+  EdgeDrawingStruct get EdgeDrawing => _EdgeDrawing;
+  set EdgeDrawing(EdgeDrawingStruct value) {
+    _EdgeDrawing = value;
+  }
+
+  void updateEdgeDrawingStruct(Function(EdgeDrawingStruct) updateFn) {
+    updateFn(_EdgeDrawing);
+  }
 }

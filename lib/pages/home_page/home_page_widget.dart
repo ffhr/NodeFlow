@@ -1,3 +1,4 @@
+import '/backend/schema/enums/enums.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/node_component_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -208,7 +209,21 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                       !(FFAppState().IsDrawingActive ?? true);
                                   FFAppState().DrawingEndPoint =
                                       FFAppState().DrawingStartPoint;
+                                  FFAppState().updateEdgeDrawingStruct(
+                                    (e) => e
+                                      ..drawingEndPoint = FFAppState()
+                                          .EdgeDrawing
+                                          .drawingStartPoint,
+                                  );
                                   safeSetState(() {});
+                                  if (FFAppState().EdgeDrawing.drawingState ==
+                                      DrawingState.active) {
+                                    FFAppState().updateEdgeDrawingStruct(
+                                      (e) => e
+                                        ..drawingState = DrawingState.finished,
+                                    );
+                                    safeSetState(() {});
+                                  }
                                 },
                               ),
                             ),
@@ -226,11 +241,22 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                           positionX: details.localPosition.dx,
                           positionY: details.localPosition.dy,
                         );
+                        FFAppState().updateEdgeDrawingStruct(
+                          (e) => e
+                            ..drawingState = DrawingState.started
+                            ..drawingStartPoint = NFPointStruct(
+                              positionX: details.localPosition.dx,
+                              positionY: details.localPosition.dy,
+                            ),
+                        );
                         safeSetState(() {});
                       },
                       onPanEnd: (details) async {
                         // Set isDrawingActive = false
                         FFAppState().IsDrawingActive = false;
+                        FFAppState().updateEdgeDrawingStruct(
+                          (e) => e..drawingState = DrawingState.finished,
+                        );
                         safeSetState(() {});
                       },
                       onPanUpdate: (details) async {
@@ -238,6 +264,14 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         FFAppState().DrawingEndPoint = NFPointStruct(
                           positionX: details.localPosition.dx,
                           positionY: details.localPosition.dy,
+                        );
+                        FFAppState().updateEdgeDrawingStruct(
+                          (e) => e
+                            ..drawingEndPoint = NFPointStruct(
+                              positionX: details.localPosition.dx,
+                              positionY: details.localPosition.dy,
+                            )
+                            ..drawingState = DrawingState.active,
                         );
                         safeSetState(() {});
                       },
@@ -250,8 +284,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                               child: custom_widgets.CurvedLine(
                                 width: double.infinity,
                                 height: double.infinity,
-                                start: FFAppState().DrawingStartPoint,
-                                end: FFAppState().DrawingEndPoint,
+                                start:
+                                    FFAppState().EdgeDrawing.drawingStartPoint,
+                                end: FFAppState().EdgeDrawing.drawingEndPoint,
                               ),
                             ),
                           Container(
