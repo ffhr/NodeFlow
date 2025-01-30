@@ -9,13 +9,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class SocketComponentModel extends FlutterFlowModel<SocketComponentWidget> {
-  ///  Local state fields for this component.
-
-  NodeSocketStruct? nodeSocket;
-  void updateNodeSocketStruct(Function(NodeSocketStruct) updateFn) {
-    updateFn(nodeSocket ??= NodeSocketStruct());
-  }
-
   ///  State fields for stateful widgets in this component.
 
   // State field(s) for MouseRegion widget.
