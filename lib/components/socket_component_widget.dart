@@ -53,20 +53,25 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
     return MouseRegion(
       opaque: false,
       cursor: MouseCursor.defer ?? MouseCursor.defer,
-      child: Container(
-        width: 20.0,
-        height: 20.0,
-        decoration: BoxDecoration(
-          color: FlutterFlowTheme.of(context).warning,
-          shape: BoxShape.circle,
-          border: Border.all(
-            color: valueOrDefault<Color>(
-              widget!.nodeSocket!.isHover
-                  ? Colors.white
-                  : FlutterFlowTheme.of(context).warning,
-              Colors.white,
+      child: GestureDetector(
+        onTapDown: (details) async {
+          await widget.onTapDown?.call();
+        },
+        child: Container(
+          width: 20.0,
+          height: 20.0,
+          decoration: BoxDecoration(
+            color: FlutterFlowTheme.of(context).warning,
+            shape: BoxShape.circle,
+            border: Border.all(
+              color: valueOrDefault<Color>(
+                widget!.nodeSocket!.isHover
+                    ? Colors.white
+                    : FlutterFlowTheme.of(context).warning,
+                Colors.white,
+              ),
+              width: 3.0,
             ),
-            width: 3.0,
           ),
         ),
       ),
