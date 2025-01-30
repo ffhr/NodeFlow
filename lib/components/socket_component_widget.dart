@@ -73,6 +73,24 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
             FFAppState().update(() {});
           }
         },
+        onTapUp: (details) async {
+          if (FFAppState().EdgeDrawing.drawingState == DrawingState.finished) {
+            // Set status Drawing.INACTIVE
+            FFAppState().updateEdgeDrawingStruct(
+              (e) => e
+                ..drawingState = DrawingState.inactive
+                ..drawingStartPoint = NFPointStruct(
+                  positionX: 0.0,
+                  positionY: 0.0,
+                )
+                ..drawingEndPoint = NFPointStruct(
+                  positionX: 0.0,
+                  positionY: 0.0,
+                ),
+            );
+            FFAppState().update(() {});
+          }
+        },
         child: Container(
           width: 20.0,
           height: 20.0,
