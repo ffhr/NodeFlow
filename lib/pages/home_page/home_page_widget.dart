@@ -290,13 +290,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                 end: FFAppState().EdgeDrawing.drawingEndPoint,
                               ),
                             ),
-                          Container(
-                            width: double.infinity,
-                            height: double.infinity,
-                            decoration: BoxDecoration(
-                              color: Color(0x624B39EF),
-                            ),
-                          ),
                         ],
                       ),
                     ),
