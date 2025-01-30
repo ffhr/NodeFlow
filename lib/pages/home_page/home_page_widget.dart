@@ -237,7 +237,11 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                               positionX: details.localPosition.dx,
                               positionY: details.localPosition.dy,
                             )
-                            ..drawingState = DrawingState.started,
+                            ..drawingState = DrawingState.started
+                            ..drawingEndPoint = NFPointStruct(
+                              positionX: details.localPosition.dx,
+                              positionY: details.localPosition.dy,
+                            ),
                         );
                         safeSetState(() {});
                       },
