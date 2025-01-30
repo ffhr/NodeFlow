@@ -1,8 +1,8 @@
 import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'socket_component_model.dart';
@@ -35,6 +35,13 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => SocketComponentModel());
+
+    // On component load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      // Set NodeSocket
+      _model.nodeSocket = widget!.nodeSocket;
+      safeSetState(() {});
+    });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
@@ -70,19 +77,21 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
       ),
       onEnter: ((event) async {
         safeSetState(() => _model.mouseRegionHovered = true);
-        // On mouse hover node socket
-        await actions.onMouseEnterNodeSocket(
-          widget!.nodeSocket!,
+        // Set is hover ON
+        _model.updateNodeSocketStruct(
+          (e) => e..isHover = true,
         );
+        safeSetState(() {});
         // On mouse enter callback
         await widget.onMouseEnterNodeSocket?.call();
       }),
       onExit: ((event) async {
         safeSetState(() => _model.mouseRegionHovered = false);
-        // On mouse exit node socket
-        await actions.onMouseExitNodeSocket(
-          widget!.nodeSocket!,
+        // Set is hover OFF
+        _model.updateNodeSocketStruct(
+          (e) => e..isHover = false,
         );
+        safeSetState(() {});
       }),
     );
   }
