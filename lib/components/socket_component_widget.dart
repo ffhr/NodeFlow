@@ -94,7 +94,6 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
           FFAppState().updateEdgeDrawingStruct(
             (e) => e..drawingState = DrawingState.inactive,
           );
-          FFAppState().IsDrawingPanVisible = false;
           FFAppState().update(() {});
         }
       }),
