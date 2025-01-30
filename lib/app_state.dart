@@ -36,34 +36,6 @@ class FFAppState extends ChangeNotifier {
     _NodeHeight = value;
   }
 
-  NFPointStruct _DrawingStartPoint = NFPointStruct.fromSerializableMap(
-      jsonDecode('{\"position_x\":\"0\",\"position_y\":\"0\"}'));
-  NFPointStruct get DrawingStartPoint => _DrawingStartPoint;
-  set DrawingStartPoint(NFPointStruct value) {
-    _DrawingStartPoint = value;
-  }
-
-  void updateDrawingStartPointStruct(Function(NFPointStruct) updateFn) {
-    updateFn(_DrawingStartPoint);
-  }
-
-  NFPointStruct _DrawingEndPoint = NFPointStruct.fromSerializableMap(
-      jsonDecode('{\"position_x\":\"0\",\"position_y\":\"0\"}'));
-  NFPointStruct get DrawingEndPoint => _DrawingEndPoint;
-  set DrawingEndPoint(NFPointStruct value) {
-    _DrawingEndPoint = value;
-  }
-
-  void updateDrawingEndPointStruct(Function(NFPointStruct) updateFn) {
-    updateFn(_DrawingEndPoint);
-  }
-
-  bool _IsDrawingActive = false;
-  bool get IsDrawingActive => _IsDrawingActive;
-  set IsDrawingActive(bool value) {
-    _IsDrawingActive = value;
-  }
-
   NFOffsetStruct _ViewportCenter = NFOffsetStruct.fromSerializableMap(
       jsonDecode('{\"offset_x\":\"0\",\"offset_y\":\"0\"}'));
   NFOffsetStruct get ViewportCenter => _ViewportCenter;

@@ -234,10 +234,7 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                       key: Key(
                           'Keyhbf_${inputsListIndex}_of_${inputsList.length}'),
                       nodeSocket: inputsListItem.socket,
-                      onMouseEnterNodeSocket: () async {
-                        // On mouse enter node socket
-                        await widget.onMouseEnterNodeSocket?.call();
-                      },
+                      onMouseEnterNodeSocket: () async {},
                     );
                   }).divide(SizedBox(height: 10.0)),
                 );

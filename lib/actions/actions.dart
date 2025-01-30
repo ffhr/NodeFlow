@@ -4,7 +4,4 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 
-Future resetCommandFlags(BuildContext context) async {
-  // Reset command flags
-  FFAppState().IsDrawingActive = false;
-}
+Future resetCommandFlags(BuildContext context) async {}
