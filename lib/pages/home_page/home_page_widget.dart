@@ -232,7 +232,10 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       );
                     },
                   ),
-                  if (FFAppState().IsDrawingActive)
+                  if ((FFAppState().EdgeDrawing.drawingState ==
+                          DrawingState.started) ||
+                      (FFAppState().EdgeDrawing.drawingState ==
+                          DrawingState.active))
                     GestureDetector(
                       onPanDown: (details) async {
                         // Set drawing start point; isDrawingActive = true
