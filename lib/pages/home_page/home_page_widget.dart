@@ -236,27 +236,22 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       },
                       child: Stack(
                         children: [
-                          Align(
-                            alignment: AlignmentDirectional(0.0, 0.0),
-                            child: Container(
+                          if (true)
+                            Container(
                               width: double.infinity,
                               height: double.infinity,
-                              decoration: BoxDecoration(
-                                color: Color(0x2F4B39EF),
+                              child: custom_widgets.CurvedLine(
+                                width: double.infinity,
+                                height: double.infinity,
+                                start: FFAppState().DrawingStartPoint,
+                                end: FFAppState().DrawingEndPoint,
                               ),
-                              child: Visibility(
-                                visible: true,
-                                child: Container(
-                                  width: double.infinity,
-                                  height: double.infinity,
-                                  child: custom_widgets.CurvedLine(
-                                    width: double.infinity,
-                                    height: double.infinity,
-                                    start: FFAppState().DrawingStartPoint,
-                                    end: FFAppState().DrawingEndPoint,
-                                  ),
-                                ),
-                              ),
+                            ),
+                          Container(
+                            width: double.infinity,
+                            height: double.infinity,
+                            decoration: BoxDecoration(
+                              color: Color(0x624B39EF),
                             ),
                           ),
                         ],
