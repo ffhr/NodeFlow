@@ -41,9 +41,12 @@ class _ZoomableStackState extends State<ZoomableStack>
 
   double viewerCenterX = 0;
   double viewerCenterY = 0;
-
+  
   double alignmentX = 0;
   double alignmentY = 0;
+
+  double offsetXFromWindowCenter = 0;
+  double offsetYFromWindowCenter = 0;
 
   final GlobalKey interactiveViewerKey = GlobalKey();
   late TransformationController _transformationController;
@@ -132,7 +135,7 @@ class _ZoomableStackState extends State<ZoomableStack>
               height: MediaQuery.of(context).size.height,
               child: CustomPaint(
                 size: Size.infinite,
-                painter: MiroGridPainter(scale),
+                painter: MiroGridPainter(scale, offsetX: offsetXFromWindowCenter, offsetY: offsetYFromWindowCenter),
               ),
             ),
           ),
@@ -203,29 +206,45 @@ class _ZoomableStackState extends State<ZoomableStack>
     double halfW = w / 2;
     double halfH = h / 2;
 
-    print(w);
-    print(h);
+    // print(w);
+    // print(h);
 
-    print(_transformationController.value.row0[3]);
-    print(_transformationController.value.row1[3]);
+    // print(_transformationController.value.row0[3]);
+    // print(_transformationController.value.row1[3]);
 
     viewerCenterX = _transformationController.value.row0[3] + halfW;
     viewerCenterY = _transformationController.value.row1[3] + halfH;
 
-    print(viewerCenterX);
-    print(viewerCenterY);
-    print('--------------------');
+    // print(viewerCenterX);
+    // print(viewerCenterY);
+    // print('--------------------');
 
     alignmentX = (viewerCenterX / MediaQuery.of(context).size.width) * 2 - 1;
     alignmentY = (viewerCenterY / MediaQuery.of(context).size.height) * 2 - 1;
+
+    // Calculate the center of the window
+    double centerX = MediaQuery.of(context).size.width / 2;
+    double centerY = MediaQuery.of(context).size.height / 2;
+
+    // Calculate the absolute offsets from the center
+    double offsetX = viewerCenterX - centerX;
+    double offsetY = viewerCenterY - centerY;
+
+    // print('Offset from center X: $offsetX');
+    // print('Offset from center Y: $offsetY');
+
+    offsetXFromWindowCenter = offsetX;
+    offsetYFromWindowCenter = offsetY;
   }
 }
 
 class MiroGridPainter extends CustomPainter {
   final double zoom;
-  
-  MiroGridPainter(this.zoom);
-  
+  final double offsetX;
+  final double offsetY;
+
+  MiroGridPainter(this.zoom, {this.offsetX = 0.0, this.offsetY = 0.0});
+
   @override
   void paint(Canvas canvas, Size size) {
     final Paint paint = Paint()
@@ -238,15 +257,15 @@ class MiroGridPainter extends CustomPainter {
     double zoomFactor = max(minZoom, min(zoom, maxZoom));
 
     int levels = 5;
-    double centerX = size.width / 2;
-    double centerY = size.height / 2;
-    
+    double centerX = (size.width / 2) + offsetX;
+    double centerY = (size.height / 2) + offsetY;
+
     for (int i = 0; i < levels; i++) {
       double gridSize = baseSize * pow(5, i) * zoomFactor;
       if (gridSize < 1.0 || (zoomFactor <= 0.1 && i < 2)) continue; // Avoid rendering too small grids at low zoom
       
-      double startX = centerX % gridSize;
-      double startY = centerY % gridSize;
+      double startX = (centerX % gridSize) - gridSize;
+      double startY = (centerY % gridSize) - gridSize;
       
       for (double x = startX; x < size.width; x += gridSize) {
         canvas.drawLine(Offset(x, 0), Offset(x, size.height), paint);
