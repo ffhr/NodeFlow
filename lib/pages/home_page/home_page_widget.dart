@@ -238,17 +238,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                     updateCallback: () => safeSetState(() {}),
                     child: DrawingPanWidget(),
                   ),
-                  if ((FFAppState().EdgeDrawing.drawingState ==
-                          DrawingState.started) ||
-                      (FFAppState().EdgeDrawing.drawingState ==
-                          DrawingState.active))
-                    Container(
-                      width: 100.0,
-                      height: 100.0,
-                      decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).secondaryBackground,
-                      ),
-                    ),
                 ],
               ),
             ),

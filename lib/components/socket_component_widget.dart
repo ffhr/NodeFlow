@@ -80,6 +80,7 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
         if (FFAppState().EdgeDrawing.drawingState == DrawingState.inactive) {}
         if ((FFAppState().EdgeDrawing.drawingState == DrawingState.active) ||
             (FFAppState().EdgeDrawing.drawingState == DrawingState.finished)) {}
+        await Future.delayed(const Duration(milliseconds: 1000));
         await widget.renderPan?.call();
       }),
       onExit: ((event) async {
