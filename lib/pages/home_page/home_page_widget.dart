@@ -223,8 +223,10 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                     );
                                     safeSetState(() {});
                                   }
-                                  if (FFAppState().EdgeDrawing.drawingState ==
-                                      DrawingState.inactive) {
+                                  if ((FFAppState().EdgeDrawing.drawingState ==
+                                          DrawingState.inactive) ||
+                                      (FFAppState().EdgeDrawing.drawingState ==
+                                          DrawingState.finished)) {
                                     // Set status Drawing.STARTED
                                     FFAppState().updateEdgeDrawingStruct(
                                       (e) => e
