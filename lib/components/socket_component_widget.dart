@@ -12,13 +12,13 @@ class SocketComponentWidget extends StatefulWidget {
   const SocketComponentWidget({
     super.key,
     required this.nodeSocket,
-    this.onPanDown,
-    this.onPanEnd,
+    this.onTapDown,
+    this.onTap,
   });
 
   final NodeSocketStruct? nodeSocket;
-  final Future Function()? onPanDown;
-  final Future Function()? onPanEnd;
+  final Future Function()? onTapDown;
+  final Future Function()? onTap;
 
   @override
   State<SocketComponentWidget> createState() => _SocketComponentWidgetState();
@@ -53,30 +53,20 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
     return MouseRegion(
       opaque: false,
       cursor: MouseCursor.defer ?? MouseCursor.defer,
-      child: GestureDetector(
-        onPanDown: (details) async {
-          // On Pan down
-          await widget.onPanDown?.call();
-        },
-        onPanEnd: (details) async {
-          // On Pan End
-          await widget.onPanEnd?.call();
-        },
-        child: Container(
-          width: 20.0,
-          height: 20.0,
-          decoration: BoxDecoration(
-            color: FlutterFlowTheme.of(context).warning,
-            shape: BoxShape.circle,
-            border: Border.all(
-              color: valueOrDefault<Color>(
-                widget!.nodeSocket!.isHover
-                    ? Colors.white
-                    : FlutterFlowTheme.of(context).warning,
-                Colors.white,
-              ),
-              width: 3.0,
+      child: Container(
+        width: 20.0,
+        height: 20.0,
+        decoration: BoxDecoration(
+          color: FlutterFlowTheme.of(context).warning,
+          shape: BoxShape.circle,
+          border: Border.all(
+            color: valueOrDefault<Color>(
+              widget!.nodeSocket!.isHover
+                  ? Colors.white
+                  : FlutterFlowTheme.of(context).warning,
+              Colors.white,
             ),
+            width: 3.0,
           ),
         ),
       ),
