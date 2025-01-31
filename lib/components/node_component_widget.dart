@@ -72,22 +72,28 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
             padding: EdgeInsetsDirectional.fromSTEB(15.0, 0.0, 15.0, 0.0),
             child: GestureDetector(
               onPanDown: (details) async {
-                if (FFAppState().EdgeDrawing.drawingState ==
-                    DrawingState.inactive) {
+                if ((FFAppState().EdgeDrawing.drawingState ==
+                        DrawingState.inactive) ||
+                    (FFAppState().EdgeDrawing.drawingState ==
+                        DrawingState.finished)) {
                   // On pan down
                   await widget.onPanDown?.call();
                 }
               },
               onPanEnd: (details) async {
-                if (FFAppState().EdgeDrawing.drawingState ==
-                    DrawingState.inactive) {
+                if ((FFAppState().EdgeDrawing.drawingState ==
+                        DrawingState.inactive) ||
+                    (FFAppState().EdgeDrawing.drawingState ==
+                        DrawingState.finished)) {
                   // On pan end
                   await widget.onPanEnd?.call();
                 }
               },
               onPanUpdate: (details) async {
-                if (FFAppState().EdgeDrawing.drawingState ==
-                    DrawingState.inactive) {
+                if ((FFAppState().EdgeDrawing.drawingState ==
+                        DrawingState.inactive) ||
+                    (FFAppState().EdgeDrawing.drawingState ==
+                        DrawingState.finished)) {
                   // On pan update
                   await widget.onPanUpdate?.call(
                     NFPointStruct(
@@ -98,15 +104,19 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                 }
               },
               onTapDown: (details) async {
-                if (FFAppState().EdgeDrawing.drawingState ==
-                    DrawingState.inactive) {
+                if ((FFAppState().EdgeDrawing.drawingState ==
+                        DrawingState.inactive) ||
+                    (FFAppState().EdgeDrawing.drawingState ==
+                        DrawingState.finished)) {
                   // On tap down
                   await widget.onTapDown?.call();
                 }
               },
               onTapUp: (details) async {
-                if (FFAppState().EdgeDrawing.drawingState ==
-                    DrawingState.inactive) {
+                if ((FFAppState().EdgeDrawing.drawingState ==
+                        DrawingState.inactive) ||
+                    (FFAppState().EdgeDrawing.drawingState ==
+                        DrawingState.finished)) {
                   // On tap up
                   await widget.onTapUp?.call();
                 }
