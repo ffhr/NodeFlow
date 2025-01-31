@@ -247,12 +247,11 @@ NFPointStruct calculateStartPointFromEdge(
   double zoomFactor,
 ) {
   var startNode = getNodeFromId(edge.sourceNodeId, nodes);
-  var startSocket = startNode.outputs[edge.sourceOutputSocketIndex];
 
   var startSocketVirtualPosition = calculateSocketPosition(
       startNode.virtualPosition,
       startNode.size,
-      startNode.outputs.indexOf(startSocket),
+      edge.sourceOutputSocketIndex,
       false,
       startNode.outputs.length);
 
@@ -272,7 +271,7 @@ NFPointStruct? calculateEndPointFromEdge(
   double screenHeight,
   List<NodeStruct> nodes,
   NFOffsetStruct viewportCenter,
-  double zoomfactor,
+  double zoomFactor,
 ) {
   return NFPointStruct();
 }
