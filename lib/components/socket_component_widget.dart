@@ -63,7 +63,7 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
         onTap: () async {
           await actions.emptyAction();
         },
-        onTapDown: (details) async {
+        onPanDown: (details) async {
           if ((FFAppState().EdgeDrawing.drawingState ==
                   DrawingState.inactive) ||
               (FFAppState().EdgeDrawing.drawingState ==
@@ -73,16 +73,33 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
               (e) => e
                 ..drawingState = DrawingState.started
                 ..drawingStartPoint = NFPointStruct(
-                  positionX: 0.0,
-                  positionY: 0.0,
+                  positionX: details.localPosition.dx,
+                  positionY: details.localPosition.dy,
                 )
                 ..drawingEndPoint = NFPointStruct(
-                  positionX: 0.0,
-                  positionY: 0.0,
+                  positionX: details.localPosition.dx,
+                  positionY: details.localPosition.dy,
                 ),
             );
             FFAppState().update(() {});
           }
+        },
+        onPanEnd: (details) async {
+          FFAppState().updateEdgeDrawingStruct(
+            (e) => e..drawingState = DrawingState.finished,
+          );
+          safeSetState(() {});
+        },
+        onPanUpdate: (details) async {
+          FFAppState().updateEdgeDrawingStruct(
+            (e) => e
+              ..drawingState = DrawingState.active
+              ..drawingEndPoint = NFPointStruct(
+                positionX: details.localPosition.dx,
+                positionY: details.localPosition.dy,
+              ),
+          );
+          safeSetState(() {});
         },
         child: Container(
           width: 20.0,
