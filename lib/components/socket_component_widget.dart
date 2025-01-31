@@ -76,7 +76,7 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
       cursor: MouseCursor.defer ?? MouseCursor.defer,
       child: Builder(
         builder: (context) {
-          if (_model.isClicked) {
+          if (widget!.isClicked) {
             return GestureDetector(
               onTap: () async {
                 // onClicked(false)
