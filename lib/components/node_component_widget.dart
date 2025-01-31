@@ -304,7 +304,7 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                                   .hasTargetNodeId()) {
                             // Unset
                             FFAppState().CurrentBuildingEdge = NodeEdgeStruct();
-                            _model.updatePage(() {});
+                            FFAppState().update(() {});
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
                                 content: Text(
@@ -398,7 +398,7 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                               // Unset
                               FFAppState().CurrentBuildingEdge =
                                   NodeEdgeStruct();
-                              _model.updatePage(() {});
+                              FFAppState().update(() {});
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                   content: Text(
