@@ -47,7 +47,10 @@ class _PlaygroundISWidgetState extends State<PlaygroundISWidget> {
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         body: SafeArea(
-          top: true,
+          top: false,
+          left: false,
+          right: false,
+          bottom: false,
           child: Container(
             width: double.infinity,
             height: double.infinity,

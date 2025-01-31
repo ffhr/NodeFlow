@@ -52,13 +52,13 @@ class _PlaygroundISStackWidgetState extends State<PlaygroundISStackWidget> {
       height: double.infinity,
       child: Stack(
         children: [
-          Container(
-            width: double.infinity,
-            height: double.infinity,
-            decoration: BoxDecoration(
-              color: Color(0x4CF58585),
-            ),
-          ),
+          // Container(
+          //   width: double.infinity,
+          //   height: double.infinity,
+          //   decoration: BoxDecoration(
+          //     color: Color(0x4CF58585),
+          //   ),
+          // ),
           Align(
             alignment: AlignmentDirectional(-0.5, -0.5),
             child: Container(

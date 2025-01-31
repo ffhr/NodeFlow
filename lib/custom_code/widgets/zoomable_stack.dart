@@ -2,6 +2,7 @@
 
 import 'dart:math';
 
+import '../nf_interactive_viewer.dart';
 import '/backend/schema/structs/index.dart';
 import '/backend/schema/enums/enums.dart';
 import '/actions/actions.dart' as action_blocks;
@@ -32,12 +33,13 @@ class ZoomableStack extends StatefulWidget {
   State<ZoomableStack> createState() => _ZoomableStackState();
 }
 
+const double DEFAULT_SCALE_FACTOR = 1;
 class _ZoomableStackState extends State<ZoomableStack>
     with WidgetsBindingObserver {
-  double initialScale = 2; // Initial scale factor
-  double scale = 2;
-  final double minScale = 0.25; // Minimum zoom level
-  final double maxScale = 10; // Maximum zoom level
+  double initialScale = DEFAULT_SCALE_FACTOR; // Initial scale factor
+  double scale = DEFAULT_SCALE_FACTOR;
+  final double minScale = 0.03125; // Minimum zoom level
+  final double maxScale = 20; // Maximum zoom level
 
   double viewerCenterX = 0;
   double viewerCenterY = 0;
@@ -49,7 +51,7 @@ class _ZoomableStackState extends State<ZoomableStack>
   double offsetYFromWindowCenter = 0;
 
   final GlobalKey interactiveViewerKey = GlobalKey();
-  late TransformationController _transformationController;
+  late NFTransformationController _transformationController;
 
   void _centerAndScale() {
     final RenderBox? renderBox = context.findRenderObject() as RenderBox?;
@@ -108,7 +110,7 @@ class _ZoomableStackState extends State<ZoomableStack>
   void initState() {
     super.initState();
     // Initialize the TransformationController with the desired scale
-    _transformationController = TransformationController();
+    _transformationController = NFTransformationController();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _centerAndScale();
     });
@@ -135,28 +137,28 @@ class _ZoomableStackState extends State<ZoomableStack>
               height: MediaQuery.of(context).size.height,
               child: CustomPaint(
                 size: Size.infinite,
-                painter: MiroGridPainter(scale, offsetX: offsetXFromWindowCenter, offsetY: offsetYFromWindowCenter),
+                painter: NFGridPainter(scale, offsetX: offsetXFromWindowCenter, offsetY: offsetYFromWindowCenter),
               ),
             ),
           ),
-          Align(
-            alignment: AlignmentDirectional(alignmentX, alignmentY),
-            child: Container(
-              width: scale * 4,
-              height: double.infinity,
-              color: Colors.green,
-            ),
-          ),
-          Align(
-            alignment: AlignmentDirectional(alignmentX, alignmentY),
-            child: Container(
-              width: double.infinity,
-              height: scale * 4,
-              color: Colors.green,
-            ),
-          ),
+          // Align(
+          //   alignment: AlignmentDirectional(alignmentX, alignmentY),
+          //   child: Container(
+          //     width: scale * 4,
+          //     height: double.infinity,
+          //     color: Colors.green,
+          //   ),
+          // ),
+          // Align(
+          //   alignment: AlignmentDirectional(alignmentX, alignmentY),
+          //   child: Container(
+          //     width: double.infinity,
+          //     height: scale * 4,
+          //     color: Colors.green,
+          //   ),
+          // ),
           Container(
-            child: InteractiveViewer(
+            child: NFInteractiveViewer(
               transformationController: _transformationController,
               minScale: minScale,
               maxScale: maxScale,
@@ -171,15 +173,16 @@ class _ZoomableStackState extends State<ZoomableStack>
                 });
               },
               onInteractionEnd: (details) {
+                // NOTE: removed HACK with NFInteractiveViewer
                 // HACK to make sure the alignment is updated after the interaction ends, becasue
                 // it is impossible to disable internal Tween animation after Pan is done
-                for (int delay = 200; delay <= 1000; delay += 100) {
-                  Future.delayed(Duration(milliseconds: delay), () {
-                    setState(() {
-                      alignToCenterOfViewer(context);
-                    });
-                  });
-                }
+                // for (int delay = 200; delay <= 1000; delay += 100) {
+                //   Future.delayed(Duration(milliseconds: delay), () {
+                //     setState(() {
+                //       alignToCenterOfViewer(context);
+                //     });
+                //   });
+                // }
               },
               boundaryMargin:
                   EdgeInsets.all(double.infinity), // Allows free panning
@@ -238,17 +241,17 @@ class _ZoomableStackState extends State<ZoomableStack>
   }
 }
 
-class MiroGridPainter extends CustomPainter {
+class NFGridPainter extends CustomPainter {
   final double zoom;
   final double offsetX;
   final double offsetY;
 
-  MiroGridPainter(this.zoom, {this.offsetX = 0.0, this.offsetY = 0.0});
+  NFGridPainter(this.zoom, {this.offsetX = 0.0, this.offsetY = 0.0});
 
   @override
   void paint(Canvas canvas, Size size) {
     final Paint paint = Paint()
-      ..color = Colors.grey.withOpacity(0.25)
+      ..color = Colors.grey.withOpacity(0.125)
       ..style = PaintingStyle.stroke;
 
     double baseSize = 10.0; // Base grid unit
@@ -319,7 +322,7 @@ class _MiroGridWidgetState extends State<MiroGridWidget> {
       },
       child: CustomPaint(
         size: Size.infinite,
-        painter: MiroGridPainter(zoom),
+        painter: NFGridPainter(zoom),
       ),
     );
   }
