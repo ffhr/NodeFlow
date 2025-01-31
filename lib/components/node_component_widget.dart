@@ -302,6 +302,9 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                               FFAppState()
                                   .CurrentBuildingEdge
                                   .hasTargetNodeId()) {
+                            // Unset
+                            FFAppState().CurrentBuildingEdge = NodeEdgeStruct();
+                            _model.updatePage(() {});
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
                                 content: Text(
@@ -324,7 +327,7 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                               ..targetNodeId = null
                               ..targetInputSocketIndex = null,
                           );
-                          safeSetState(() {});
+                          _model.updatePage(() {});
                         }
                       },
                     );
@@ -392,6 +395,10 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                                 FFAppState()
                                     .CurrentBuildingEdge
                                     .hasTargetNodeId()) {
+                              // Unset
+                              FFAppState().CurrentBuildingEdge =
+                                  NodeEdgeStruct();
+                              _model.updatePage(() {});
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                   content: Text(
@@ -414,7 +421,7 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                                 ..sourceNodeId = null
                                 ..sourceOutputSocketIndex = null,
                             );
-                            safeSetState(() {});
+                            _model.updatePage(() {});
                           }
                         },
                       );
