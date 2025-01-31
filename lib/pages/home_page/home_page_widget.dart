@@ -99,36 +99,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                   width: double.infinity,
                                   height: double.infinity,
                                   start: NFPointStruct(
-                                    positionX: functions
-                                        .calculateSocketPosition(
-                                            FFAppState()
-                                                .Nodes
-                                                .where((e) =>
-                                                    e.id ==
-                                                    edgesItem.sourceNodeId)
-                                                .toList()
-                                                .firstOrNull!
-                                                .virtualPosition,
-                                            FFAppState()
-                                                .Nodes
-                                                .where((e) =>
-                                                    e.id ==
-                                                    edgesItem.sourceNodeId)
-                                                .toList()
-                                                .firstOrNull!
-                                                .size,
-                                            edgesItem.sourceOutputSocketIndex,
-                                            false,
-                                            FFAppState()
-                                                .Nodes
-                                                .where((e) =>
-                                                    e.id ==
-                                                    edgesItem.sourceNodeId)
-                                                .toList()
-                                                .firstOrNull!
-                                                .outputs
-                                                .length)
-                                        .offsetX,
+                                    positionX: MediaQuery.sizeOf(context).width,
                                     positionY: functions
                                         .calculateSocketPosition(
                                             FFAppState()

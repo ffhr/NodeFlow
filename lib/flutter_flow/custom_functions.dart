@@ -238,11 +238,19 @@ NFOffsetStruct convertNFPointToNFOffset(NFPointStruct point) {
   return NFOffsetStruct(offsetX: point.positionX, offsetY: point.positionY);
 }
 
-NFPointStruct calculateStartPointFromEdge(NodeEdgeStruct? edge) {
+NFPointStruct calculateStartPointFromEdge(
+  NodeEdgeStruct? edge,
+  double screenWidth,
+  double screenHeight,
+) {
   return NFPointStruct();
 }
 
-NFPointStruct? calculateEndPointFromEdge(NodeEdgeStruct edge) {
+NFPointStruct? calculateEndPointFromEdge(
+  NodeEdgeStruct edge,
+  double screenWidth,
+  double screenHeight,
+) {
   return NFPointStruct();
 }
 
