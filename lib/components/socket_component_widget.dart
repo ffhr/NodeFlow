@@ -101,6 +101,12 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
           );
           FFAppState().update(() {});
         },
+        onTapUp: (details) async {
+          FFAppState().updateEdgeDrawingStruct(
+            (e) => e..drawingState = DrawingState.finished,
+          );
+          FFAppState().update(() {});
+        },
         child: Container(
           width: 20.0,
           height: 20.0,
