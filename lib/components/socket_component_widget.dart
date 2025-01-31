@@ -85,12 +85,14 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
           }
         },
         onPanEnd: (details) async {
+          // Set status Drawing.FINISHED
           FFAppState().updateEdgeDrawingStruct(
             (e) => e..drawingState = DrawingState.finished,
           );
           FFAppState().update(() {});
         },
         onPanUpdate: (details) async {
+          // Set status Drawing.ACTIVE
           FFAppState().updateEdgeDrawingStruct(
             (e) => e
               ..drawingState = DrawingState.active
@@ -98,6 +100,13 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
                 positionX: details.globalPosition.dx,
                 positionY: details.globalPosition.dy,
               ),
+          );
+          FFAppState().update(() {});
+        },
+        onTapUp: (details) async {
+          // Set status Drawing.FINISHED
+          FFAppState().updateEdgeDrawingStruct(
+            (e) => e..drawingState = DrawingState.finished,
           );
           FFAppState().update(() {});
         },
