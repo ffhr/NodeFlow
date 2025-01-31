@@ -360,7 +360,7 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                                     widget!.node?.id) &&
                                 (FFAppState()
                                         .CurrentBuildingEdge
-                                        .targetInputSocketIndex ==
+                                        .sourceOutputSocketIndex ==
                                     outputsListIndex),
                         renderPan: () async {},
                         mouseEntered: () async {
