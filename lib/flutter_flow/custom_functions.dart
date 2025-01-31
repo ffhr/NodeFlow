@@ -244,9 +244,9 @@ NFPointStruct calculateStartPointFromEdge(
   double screenHeight,
   List<NodeStruct> nodes,
   NFOffsetStruct viewportCenter,
-  double? zoomFactor,
+  double zoomFactor,
 ) {
-  return NodeEdgeStruct();
+  return NFPointStruct();
 }
 
 NFPointStruct? calculateEndPointFromEdge(
