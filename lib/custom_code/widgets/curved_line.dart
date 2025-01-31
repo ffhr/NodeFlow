@@ -27,7 +27,7 @@ class CurvedLinePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color = Colors.black
+      ..color = Colors.white
       ..strokeWidth = 2
       ..style = PaintingStyle.stroke;
 
