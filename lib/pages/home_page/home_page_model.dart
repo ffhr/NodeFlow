@@ -16,12 +16,18 @@ import 'package:provider/provider.dart';
 class HomePageModel extends FlutterFlowModel<HomePageWidget> {
   ///  State fields for stateful widgets in this page.
 
+  // Models for NodeComponent dynamic component.
+  late FlutterFlowDynamicModels<NodeComponentModel> nodeComponentModels;
   // Stores action output result for [Custom Action - sortByIsSelected] action in NodeComponent widget.
   List<NodeStruct>? sortedNodes;
 
   @override
-  void initState(BuildContext context) {}
+  void initState(BuildContext context) {
+    nodeComponentModels = FlutterFlowDynamicModels(() => NodeComponentModel());
+  }
 
   @override
-  void dispose() {}
+  void dispose() {
+    nodeComponentModels.dispose();
+  }
 }
