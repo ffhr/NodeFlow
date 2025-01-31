@@ -246,6 +246,8 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                         await actions.onMouseExitNodeSocket(
                           inputsListItem.socket,
                         );
+                        _model.renderNodeVar = _model.renderNodeVar;
+                        safeSetState(() {});
                       },
                     );
                   }).divide(SizedBox(height: 10.0)),
@@ -273,8 +275,20 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                             'Keydt4_${outputsListIndex}_of_${outputsList.length}'),
                         isHovered: outputsListItem.socket.isHover,
                         renderPan: () async {},
-                        mouseEntered: () async {},
-                        mouseExit: () async {},
+                        mouseEntered: () async {
+                          await actions.onMouseEnterNodeSocket(
+                            outputsListItem.socket,
+                          );
+                          _model.renderNodeVar = _model.renderNodeVar;
+                          safeSetState(() {});
+                        },
+                        mouseExit: () async {
+                          await actions.onMouseExitNodeSocket(
+                            outputsListItem.socket,
+                          );
+                          _model.renderNodeVar = _model.renderNodeVar;
+                          safeSetState(() {});
+                        },
                       );
                     }).divide(SizedBox(height: 10.0)),
                   );
