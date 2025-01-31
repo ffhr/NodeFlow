@@ -10,6 +10,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class NodeComponentModel extends FlutterFlowModel<NodeComponentWidget> {
+  ///  Local state fields for this component.
+
+  int renderNodeVar = 0;
+
   @override
   void initState(BuildContext context) {}
 
