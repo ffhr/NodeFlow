@@ -51,12 +51,6 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
     super.initState();
     _model = createModel(context, () => SocketComponentModel());
 
-    // On component load action.
-    SchedulerBinding.instance.addPostFrameCallback((_) async {
-      _model.isClicked = widget!.isClicked;
-      safeSetState(() {});
-    });
-
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
@@ -83,9 +77,6 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
                 await widget.onClicked?.call(
                   false,
                 );
-                // isClicked=false
-                _model.isClicked = false;
-                safeSetState(() {});
               },
               onPanDown: (details) async {
                 if ((FFAppState().EdgeDrawing.drawingState ==
@@ -159,9 +150,6 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
                 await widget.onClicked?.call(
                   true,
                 );
-                // isClicked=true
-                _model.isClicked = true;
-                safeSetState(() {});
               },
               onPanDown: (details) async {
                 if ((FFAppState().EdgeDrawing.drawingState ==
