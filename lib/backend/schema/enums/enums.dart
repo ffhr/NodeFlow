@@ -26,6 +26,11 @@ enum DrawingState {
   finished,
 }
 
+enum SocketType {
+  input,
+  output,
+}
+
 extension FFEnumExtensions<T extends Enum> on T {
   String serialize() => name;
 }
@@ -45,6 +50,8 @@ T? deserializeEnum<T>(String? value) {
       return NFEntityTypeLong.values.deserialize(value) as T?;
     case (DrawingState):
       return DrawingState.values.deserialize(value) as T?;
+    case (SocketType):
+      return SocketType.values.deserialize(value) as T?;
     default:
       return null;
   }

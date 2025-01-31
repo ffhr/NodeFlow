@@ -16,15 +16,6 @@ import 'package:provider/provider.dart';
 class HomePageModel extends FlutterFlowModel<HomePageWidget> {
   ///  Local state fields for this page.
 
-  List<NodeStruct> nodes = [];
-  void addToNodes(NodeStruct item) => nodes.add(item);
-  void removeFromNodes(NodeStruct item) => nodes.remove(item);
-  void removeAtIndexFromNodes(int index) => nodes.removeAt(index);
-  void insertAtIndexInNodes(int index, NodeStruct item) =>
-      nodes.insert(index, item);
-  void updateNodesAtIndex(int index, Function(NodeStruct) updateFn) =>
-      nodes[index] = updateFn(nodes[index]);
-
   int selectedIndex = -1;
 
   ///  State fields for stateful widgets in this page.

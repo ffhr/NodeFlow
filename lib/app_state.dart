@@ -63,4 +63,33 @@ class FFAppState extends ChangeNotifier {
   void updateEdgeDrawingStruct(Function(EdgeDrawingStruct) updateFn) {
     updateFn(_EdgeDrawing);
   }
+
+  List<NodeStruct> _Nodes = [];
+  List<NodeStruct> get Nodes => _Nodes;
+  set Nodes(List<NodeStruct> value) {
+    _Nodes = value;
+  }
+
+  void addToNodes(NodeStruct value) {
+    Nodes.add(value);
+  }
+
+  void removeFromNodes(NodeStruct value) {
+    Nodes.remove(value);
+  }
+
+  void removeAtIndexFromNodes(int index) {
+    Nodes.removeAt(index);
+  }
+
+  void updateNodesAtIndex(
+    int index,
+    NodeStruct Function(NodeStruct) updateFn,
+  ) {
+    Nodes[index] = updateFn(_Nodes[index]);
+  }
+
+  void insertAtIndexInNodes(int index, NodeStruct value) {
+    Nodes.insert(index, value);
+  }
 }

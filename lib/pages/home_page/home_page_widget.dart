@@ -34,7 +34,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       // Init nodes
-      _model.nodes = functions.initNodes().toList().cast<NodeStruct>();
+      FFAppState().Nodes = functions.initNodes().toList().cast<NodeStruct>();
       safeSetState(() {});
     });
 
@@ -70,7 +70,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
             onTap: () async {
               // Reset selections
               await actions.resetSelections(
-                _model.nodes.toList(),
+                FFAppState().Nodes.toList(),
               );
               // Set selected index
               _model.selectedIndex = -1;
@@ -84,7 +84,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                 children: [
                   Builder(
                     builder: (context) {
-                      final nodesList = _model.nodes.toList();
+                      final nodesList = FFAppState().Nodes.toList();
 
                       return Stack(
                         children:
@@ -135,66 +135,67 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                 onPanDown: () async {
                                   // Reset all isMoveable
                                   await actions.resetMoveables(
-                                    _model.nodes.toList(),
+                                    FFAppState().Nodes.toList(),
                                   );
                                   // Is moveable true
-                                  _model.updateNodesAtIndex(
-                                    nodesListIndex,
+                                  FFAppState().updateNodesAtIndex(
+                                    _model.selectedIndex,
                                     (e) => e..isMoveable = true,
                                   );
                                   safeSetState(() {});
                                   // Reset selections
                                   await actions.resetSelections(
-                                    _model.nodes.toList(),
+                                    FFAppState().Nodes.toList(),
                                   );
                                   // Toggle selected item
-                                  _model.updateNodesAtIndex(
-                                    nodesListIndex,
-                                    (e) => e
-                                      ..isSelected = !nodesListItem.isSelected,
+                                  FFAppState().updateNodesAtIndex(
+                                    _model.selectedIndex,
+                                    (e) => e..isSelected = !e.isSelected,
                                   );
                                   safeSetState(() {});
                                   // Bring to front selected item
                                   _model.sortedNodes =
                                       await actions.sortByIsSelected(
-                                    _model.nodes.toList(),
+                                    FFAppState().Nodes.toList(),
                                   );
                                   // Bring to front selected item
-                                  _model.nodes = _model.sortedNodes!
+                                  FFAppState().Nodes = _model.sortedNodes!
                                       .toList()
                                       .cast<NodeStruct>();
                                   safeSetState(() {});
                                   // Set selected index
                                   _model.selectedIndex =
-                                      _model.nodes.length - 1;
+                                      FFAppState().Nodes.length - 1;
 
                                   safeSetState(() {});
                                 },
                                 onPanEnd: () async {
                                   // Reset all isMoveable
                                   await actions.resetMoveables(
-                                    _model.nodes.toList(),
+                                    FFAppState().Nodes.toList(),
                                   );
                                   // Is moveable false
-                                  _model.updateNodesAtIndex(
-                                    nodesListIndex,
+                                  FFAppState().updateNodesAtIndex(
+                                    _model.selectedIndex,
                                     (e) => e..isMoveable = false,
                                   );
                                   safeSetState(() {});
                                 },
                                 onPanUpdate: (deltaPoint) async {
                                   // Render node movement
-                                  _model.updateNodesAtIndex(
+                                  FFAppState().updateNodesAtIndex(
                                     _model.selectedIndex,
                                     (e) => e
                                       ..virtualPosition = NFOffsetStruct(
-                                        offsetX: _model.nodes
+                                        offsetX: FFAppState()
+                                                .Nodes
                                                 .elementAtOrNull(
                                                     _model.selectedIndex)!
                                                 .virtualPosition
                                                 .offsetX +
                                             deltaPoint.positionX,
-                                        offsetY: _model.nodes
+                                        offsetY: FFAppState()
+                                                .Nodes
                                                 .elementAtOrNull(
                                                     _model.selectedIndex)!
                                                 .virtualPosition
