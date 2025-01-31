@@ -130,7 +130,7 @@ class CurvedLinePainter extends CustomPainter {
 
   // Hit test method for lines
   bool hitTest(Offset position) {
-    final double tolerance = 15.0; // Define a tolerance distance
+    final double tolerance = 10.0; // Define a tolerance distance
 
     // Calculate the distance from the tap position to the line
     final double distance = _distanceToLine(position, start, end);
