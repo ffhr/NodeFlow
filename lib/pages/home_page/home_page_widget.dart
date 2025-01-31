@@ -82,152 +82,153 @@ class _HomePageWidgetState extends State<HomePageWidget> {
               ),
               child: Stack(
                 children: [
-                  Builder(
-                    builder: (context) {
-                      final edges = FFAppState().Edges.toList();
+                  if (FFAppState().Nodes.isNotEmpty)
+                    Builder(
+                      builder: (context) {
+                        final edges = FFAppState().Edges.toList();
 
-                      return Stack(
-                        children: List.generate(edges.length, (edgesIndex) {
-                          final edgesItem = edges[edgesIndex];
-                          return Visibility(
-                            visible: true,
-                            child: Container(
-                              width: double.infinity,
-                              height: double.infinity,
-                              child: custom_widgets.CurvedLine(
+                        return Stack(
+                          children: List.generate(edges.length, (edgesIndex) {
+                            final edgesItem = edges[edgesIndex];
+                            return Visibility(
+                              visible: true,
+                              child: Container(
                                 width: double.infinity,
                                 height: double.infinity,
-                                start: NFPointStruct(
-                                  positionX: functions
-                                      .calculateSocketPosition(
-                                          FFAppState()
-                                              .Nodes
-                                              .where((e) =>
-                                                  e.id ==
-                                                  edgesItem.sourceNodeId)
-                                              .toList()
-                                              .firstOrNull!
-                                              .virtualPosition,
-                                          FFAppState()
-                                              .Nodes
-                                              .where((e) =>
-                                                  e.id ==
-                                                  edgesItem.sourceNodeId)
-                                              .toList()
-                                              .firstOrNull!
-                                              .size,
-                                          edgesItem.sourceOutputSocketIndex,
-                                          false,
-                                          FFAppState()
-                                              .Nodes
-                                              .where((e) =>
-                                                  e.id ==
-                                                  edgesItem.sourceNodeId)
-                                              .toList()
-                                              .firstOrNull!
-                                              .outputs
-                                              .length)
-                                      .offsetX,
-                                  positionY: functions
-                                      .calculateSocketPosition(
-                                          FFAppState()
-                                              .Nodes
-                                              .where((e) =>
-                                                  e.id ==
-                                                  edgesItem.sourceNodeId)
-                                              .toList()
-                                              .firstOrNull!
-                                              .virtualPosition,
-                                          FFAppState()
-                                              .Nodes
-                                              .where((e) =>
-                                                  e.id ==
-                                                  edgesItem.sourceNodeId)
-                                              .toList()
-                                              .firstOrNull!
-                                              .size,
-                                          edgesItem.sourceOutputSocketIndex,
-                                          false,
-                                          FFAppState()
-                                              .Nodes
-                                              .where((e) =>
-                                                  e.id ==
-                                                  edgesItem.sourceNodeId)
-                                              .toList()
-                                              .firstOrNull!
-                                              .outputs
-                                              .length)
-                                      .offsetY,
-                                ),
-                                end: NFPointStruct(
-                                  positionX: functions
-                                      .calculateSocketPosition(
-                                          FFAppState()
-                                              .Nodes
-                                              .where((e) =>
-                                                  e.id ==
-                                                  edgesItem.targetNodeId)
-                                              .toList()
-                                              .firstOrNull!
-                                              .virtualPosition,
-                                          FFAppState()
-                                              .Nodes
-                                              .where((e) =>
-                                                  e.id ==
-                                                  edgesItem.targetNodeId)
-                                              .toList()
-                                              .firstOrNull!
-                                              .size,
-                                          edgesItem.targetInputSocketIndex,
-                                          true,
-                                          FFAppState()
-                                              .Nodes
-                                              .where((e) =>
-                                                  e.id ==
-                                                  edgesItem.targetNodeId)
-                                              .toList()
-                                              .firstOrNull!
-                                              .inputs
-                                              .length)
-                                      .offsetX,
-                                  positionY: functions
-                                      .calculateSocketPosition(
-                                          FFAppState()
-                                              .Nodes
-                                              .where((e) =>
-                                                  e.id ==
-                                                  edgesItem.targetNodeId)
-                                              .toList()
-                                              .firstOrNull!
-                                              .virtualPosition,
-                                          FFAppState()
-                                              .Nodes
-                                              .where((e) =>
-                                                  e.id ==
-                                                  edgesItem.targetNodeId)
-                                              .toList()
-                                              .firstOrNull!
-                                              .size,
-                                          edgesItem.targetInputSocketIndex,
-                                          true,
-                                          FFAppState()
-                                              .Nodes
-                                              .where((e) =>
-                                                  e.id ==
-                                                  edgesItem.targetNodeId)
-                                              .toList()
-                                              .firstOrNull!
-                                              .inputs
-                                              .length)
-                                      .offsetY,
+                                child: custom_widgets.CurvedLine(
+                                  width: double.infinity,
+                                  height: double.infinity,
+                                  start: NFPointStruct(
+                                    positionX: functions
+                                        .calculateSocketPosition(
+                                            FFAppState()
+                                                .Nodes
+                                                .where((e) =>
+                                                    e.id ==
+                                                    edgesItem.sourceNodeId)
+                                                .toList()
+                                                .firstOrNull!
+                                                .virtualPosition,
+                                            FFAppState()
+                                                .Nodes
+                                                .where((e) =>
+                                                    e.id ==
+                                                    edgesItem.sourceNodeId)
+                                                .toList()
+                                                .firstOrNull!
+                                                .size,
+                                            edgesItem.sourceOutputSocketIndex,
+                                            false,
+                                            FFAppState()
+                                                .Nodes
+                                                .where((e) =>
+                                                    e.id ==
+                                                    edgesItem.sourceNodeId)
+                                                .toList()
+                                                .firstOrNull!
+                                                .outputs
+                                                .length)
+                                        .offsetX,
+                                    positionY: functions
+                                        .calculateSocketPosition(
+                                            FFAppState()
+                                                .Nodes
+                                                .where((e) =>
+                                                    e.id ==
+                                                    edgesItem.sourceNodeId)
+                                                .toList()
+                                                .firstOrNull!
+                                                .virtualPosition,
+                                            FFAppState()
+                                                .Nodes
+                                                .where((e) =>
+                                                    e.id ==
+                                                    edgesItem.sourceNodeId)
+                                                .toList()
+                                                .firstOrNull!
+                                                .size,
+                                            edgesItem.sourceOutputSocketIndex,
+                                            false,
+                                            FFAppState()
+                                                .Nodes
+                                                .where((e) =>
+                                                    e.id ==
+                                                    edgesItem.sourceNodeId)
+                                                .toList()
+                                                .firstOrNull!
+                                                .outputs
+                                                .length)
+                                        .offsetY,
+                                  ),
+                                  end: NFPointStruct(
+                                    positionX: functions
+                                        .calculateSocketPosition(
+                                            FFAppState()
+                                                .Nodes
+                                                .where((e) =>
+                                                    e.id ==
+                                                    edgesItem.targetNodeId)
+                                                .toList()
+                                                .firstOrNull!
+                                                .virtualPosition,
+                                            FFAppState()
+                                                .Nodes
+                                                .where((e) =>
+                                                    e.id ==
+                                                    edgesItem.targetNodeId)
+                                                .toList()
+                                                .firstOrNull!
+                                                .size,
+                                            edgesItem.targetInputSocketIndex,
+                                            true,
+                                            FFAppState()
+                                                .Nodes
+                                                .where((e) =>
+                                                    e.id ==
+                                                    edgesItem.targetNodeId)
+                                                .toList()
+                                                .firstOrNull!
+                                                .inputs
+                                                .length)
+                                        .offsetX,
+                                    positionY: functions
+                                        .calculateSocketPosition(
+                                            FFAppState()
+                                                .Nodes
+                                                .where((e) =>
+                                                    e.id ==
+                                                    edgesItem.targetNodeId)
+                                                .toList()
+                                                .firstOrNull!
+                                                .virtualPosition,
+                                            FFAppState()
+                                                .Nodes
+                                                .where((e) =>
+                                                    e.id ==
+                                                    edgesItem.targetNodeId)
+                                                .toList()
+                                                .firstOrNull!
+                                                .size,
+                                            edgesItem.targetInputSocketIndex,
+                                            true,
+                                            FFAppState()
+                                                .Nodes
+                                                .where((e) =>
+                                                    e.id ==
+                                                    edgesItem.targetNodeId)
+                                                .toList()
+                                                .firstOrNull!
+                                                .inputs
+                                                .length)
+                                        .offsetY,
+                                  ),
                                 ),
                               ),
-                            ),
-                          );
-                        }),
-                      );
-                    },
-                  ),
+                            );
+                          }),
+                        );
+                      },
+                    ),
                   Builder(
                     builder: (context) {
                       final nodesList = FFAppState().Nodes.toList();
