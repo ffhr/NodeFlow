@@ -97,30 +97,9 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
       ),
       onEnter: ((event) async {
         safeSetState(() => _model.mouseRegionHovered = true);
-        if (FFAppState().EdgeDrawing.drawingState == DrawingState.inactive) {
-          // Set status Drawing.STARTED
-          FFAppState().updateEdgeDrawingStruct(
-            (e) => e
-              ..drawingState = DrawingState.started
-              ..drawingStartPoint = NFPointStruct(
-                positionX: 0.0,
-                positionY: 0.0,
-              )
-              ..drawingEndPoint = NFPointStruct(
-                positionX: 0.0,
-                positionY: 0.0,
-              ),
-          );
-          FFAppState().update(() {});
-        }
+        if (FFAppState().EdgeDrawing.drawingState == DrawingState.inactive) {}
         if ((FFAppState().EdgeDrawing.drawingState == DrawingState.active) ||
-            (FFAppState().EdgeDrawing.drawingState == DrawingState.finished)) {
-          // Set status Drawing.INACTIVE
-          FFAppState().updateEdgeDrawingStruct(
-            (e) => e..drawingState = DrawingState.inactive,
-          );
-          FFAppState().update(() {});
-        }
+            (FFAppState().EdgeDrawing.drawingState == DrawingState.finished)) {}
         // Execute callback
         await widget.mouseEntered?.call();
       }),
