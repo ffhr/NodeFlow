@@ -133,6 +133,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                 onTapDown: () async {},
                                 onTapUp: () async {},
                                 onPanDown: () async {
+                                  // Set selected index
+                                  _model.selectedIndex = nodesListIndex;
                                   // Reset all isMoveable
                                   await actions.resetMoveables(
                                     FFAppState().Nodes.toList(),
