@@ -108,4 +108,36 @@ class FFAppState extends ChangeNotifier {
   void updateCurrentBuildingEdgeStruct(Function(NodeEdgeStruct) updateFn) {
     updateFn(_CurrentBuildingEdge);
   }
+
+  List<NodeEdgeStruct> _Edges = [
+    NodeEdgeStruct.fromSerializableMap(jsonDecode(
+        '{\"id\":\"e1\",\"source_node_id\":\"000001\",\"target_node_id\":\"000002\",\"source_output_socket_index\":\"1\",\"target_input_socket_index\":\"1\"}'))
+  ];
+  List<NodeEdgeStruct> get Edges => _Edges;
+  set Edges(List<NodeEdgeStruct> value) {
+    _Edges = value;
+  }
+
+  void addToEdges(NodeEdgeStruct value) {
+    Edges.add(value);
+  }
+
+  void removeFromEdges(NodeEdgeStruct value) {
+    Edges.remove(value);
+  }
+
+  void removeAtIndexFromEdges(int index) {
+    Edges.removeAt(index);
+  }
+
+  void updateEdgesAtIndex(
+    int index,
+    NodeEdgeStruct Function(NodeEdgeStruct) updateFn,
+  ) {
+    Edges[index] = updateFn(_Edges[index]);
+  }
+
+  void insertAtIndexInEdges(int index, NodeEdgeStruct value) {
+    Edges.insert(index, value);
+  }
 }
