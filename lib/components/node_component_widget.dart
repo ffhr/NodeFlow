@@ -295,7 +295,7 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                               ..targetNodeId = widget!.node?.id
                               ..targetInputSocketIndex = inputsListIndex,
                           );
-                          safeSetState(() {});
+                          _model.updatePage(() {});
                           if (FFAppState()
                                   .CurrentBuildingEdge
                                   .hasSourceNodeId() &&
@@ -385,7 +385,7 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                                 ..sourceNodeId = widget!.node?.id
                                 ..sourceOutputSocketIndex = outputsListIndex,
                             );
-                            safeSetState(() {});
+                            _model.updatePage(() {});
                             if (FFAppState()
                                     .CurrentBuildingEdge
                                     .hasSourceNodeId() &&
