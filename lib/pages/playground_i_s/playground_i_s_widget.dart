@@ -54,7 +54,7 @@ class _PlaygroundISWidgetState extends State<PlaygroundISWidget> {
           child: Container(
             width: double.infinity,
             height: double.infinity,
-            child: custom_widgets.ZoomableStack(
+            child: custom_widgets.NFZoomableStack(
               width: double.infinity,
               height: double.infinity,
               stackComponent: () => PlaygroundISStackWidget(),

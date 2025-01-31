@@ -17,8 +17,8 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter/gestures.dart';
 
-class ZoomableStack extends StatefulWidget {
-  const ZoomableStack({
+class NFZoomableStack extends StatefulWidget {
+  const NFZoomableStack({
     super.key,
     this.width,
     this.height,
@@ -30,11 +30,11 @@ class ZoomableStack extends StatefulWidget {
   final Widget Function()? stackComponent;
 
   @override
-  State<ZoomableStack> createState() => _ZoomableStackState();
+  State<NFZoomableStack> createState() => _NFZoomableStackState();
 }
 
 const double DEFAULT_SCALE_FACTOR = 1;
-class _ZoomableStackState extends State<ZoomableStack>
+class _NFZoomableStackState extends State<NFZoomableStack>
     with WidgetsBindingObserver {
   double initialScale = DEFAULT_SCALE_FACTOR; // Initial scale factor
   double scale = DEFAULT_SCALE_FACTOR;
@@ -97,10 +97,10 @@ class _ZoomableStackState extends State<ZoomableStack>
   }
 
   void _updateWindowSize() {
-    final newSize =
-        View.of(context).physicalSize / View.of(context).devicePixelRatio;
-    print("newSize");
-    print(newSize);
+    // final newSize =
+    //     View.of(context).physicalSize / View.of(context).devicePixelRatio;
+    // print("newSize");
+    // print(newSize);
     setState(() {
       alignToCenterOfViewer(context);
     });
@@ -164,11 +164,9 @@ class _ZoomableStackState extends State<ZoomableStack>
               maxScale: maxScale,
               onInteractionUpdate: (details) {
                 setState(() {
-                  print("onInteractionUpdate");
-                  print(_transformationController.value.getMaxScaleOnAxis());
+                  // print("onInteractionUpdate");
+                  // print(_transformationController.value.getMaxScaleOnAxis());
                   scale = _transformationController.value.getMaxScaleOnAxis();
-
-                  print('val');
                   alignToCenterOfViewer(context);
                 });
               },
@@ -298,32 +296,4 @@ class NFGridPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
-}
-
-class MiroGridWidget extends StatefulWidget {
-  double zoom;
-
-  MiroGridWidget({required this.zoom});
-
-  @override
-  _MiroGridWidgetState createState() => _MiroGridWidgetState();
-}
-
-class _MiroGridWidgetState extends State<MiroGridWidget> {
-  double zoom = 2.0;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onScaleUpdate: (details) {
-        setState(() {
-          zoom *= details.scale.clamp(0.25, 10.0);
-        });
-      },
-      child: CustomPaint(
-        size: Size.infinite,
-        painter: NFGridPainter(zoom),
-      ),
-    );
-  }
 }
