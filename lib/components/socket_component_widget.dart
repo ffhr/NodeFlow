@@ -88,7 +88,7 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
           FFAppState().updateEdgeDrawingStruct(
             (e) => e..drawingState = DrawingState.finished,
           );
-          safeSetState(() {});
+          FFAppState().update(() {});
         },
         onPanUpdate: (details) async {
           FFAppState().updateEdgeDrawingStruct(
