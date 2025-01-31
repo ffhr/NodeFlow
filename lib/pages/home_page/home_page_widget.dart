@@ -73,7 +73,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                 FFAppState().Nodes.toList(),
               );
               // Set selected index
-              _model.selectedIndex = -1;
+              FFAppState().NodeSelectedIndex = -1;
               safeSetState(() {});
             },
             child: Container(
@@ -134,14 +134,16 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                 onTapUp: () async {},
                                 onPanDown: () async {
                                   // Set selected index
-                                  _model.selectedIndex = nodesListIndex;
+                                  FFAppState().NodeSelectedIndex =
+                                      nodesListIndex;
+                                  safeSetState(() {});
                                   // Reset all isMoveable
                                   await actions.resetMoveables(
                                     FFAppState().Nodes.toList(),
                                   );
                                   // Is moveable true
                                   FFAppState().updateNodesAtIndex(
-                                    _model.selectedIndex,
+                                    FFAppState().NodeSelectedIndex,
                                     (e) => e..isMoveable = true,
                                   );
                                   safeSetState(() {});
@@ -151,7 +153,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                   );
                                   // Toggle selected item
                                   FFAppState().updateNodesAtIndex(
-                                    _model.selectedIndex,
+                                    FFAppState().NodeSelectedIndex,
                                     (e) => e..isSelected = !e.isSelected,
                                   );
                                   safeSetState(() {});
@@ -166,8 +168,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                       .cast<NodeStruct>();
                                   safeSetState(() {});
                                   // Set selected index
-                                  _model.selectedIndex =
+                                  FFAppState().NodeSelectedIndex =
                                       FFAppState().Nodes.length - 1;
+                                  safeSetState(() {});
 
                                   safeSetState(() {});
                                 },
@@ -178,7 +181,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                   );
                                   // Is moveable false
                                   FFAppState().updateNodesAtIndex(
-                                    _model.selectedIndex,
+                                    FFAppState().NodeSelectedIndex,
                                     (e) => e..isMoveable = false,
                                   );
                                   safeSetState(() {});
@@ -186,20 +189,20 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                 onPanUpdate: (deltaPoint) async {
                                   // Render node movement
                                   FFAppState().updateNodesAtIndex(
-                                    _model.selectedIndex,
+                                    FFAppState().NodeSelectedIndex,
                                     (e) => e
                                       ..virtualPosition = NFOffsetStruct(
                                         offsetX: FFAppState()
                                                 .Nodes
-                                                .elementAtOrNull(
-                                                    _model.selectedIndex)!
+                                                .elementAtOrNull(FFAppState()
+                                                    .NodeSelectedIndex)!
                                                 .virtualPosition
                                                 .offsetX +
                                             deltaPoint.positionX,
                                         offsetY: FFAppState()
                                                 .Nodes
-                                                .elementAtOrNull(
-                                                    _model.selectedIndex)!
+                                                .elementAtOrNull(FFAppState()
+                                                    .NodeSelectedIndex)!
                                                 .virtualPosition
                                                 .offsetY +
                                             deltaPoint.positionY,

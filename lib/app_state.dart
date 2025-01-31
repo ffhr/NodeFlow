@@ -92,4 +92,10 @@ class FFAppState extends ChangeNotifier {
   void insertAtIndexInNodes(int index, NodeStruct value) {
     Nodes.insert(index, value);
   }
+
+  int _NodeSelectedIndex = -1;
+  int get NodeSelectedIndex => _NodeSelectedIndex;
+  set NodeSelectedIndex(int value) {
+    _NodeSelectedIndex = value;
+  }
 }
