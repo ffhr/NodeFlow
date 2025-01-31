@@ -58,8 +58,12 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
     return MouseRegion(
       opaque: false,
       cursor: MouseCursor.defer ?? MouseCursor.defer,
-      child: GestureDetector(
-        onTapUp: (details) async {
+      child: InkWell(
+        splashColor: Colors.transparent,
+        focusColor: Colors.transparent,
+        hoverColor: Colors.transparent,
+        highlightColor: Colors.transparent,
+        onTap: () async {
           if (FFAppState().EdgeDrawing.drawingState == DrawingState.inactive) {
             // Set status Drawing.STARTED
             FFAppState().updateEdgeDrawingStruct(
