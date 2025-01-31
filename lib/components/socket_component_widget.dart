@@ -101,10 +101,13 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
           );
           FFAppState().update(() {});
         }
+        // Execute callback
+        await widget.mouseEntered?.call();
       }),
       onExit: ((event) async {
         safeSetState(() => _model.mouseRegionHovered = false);
         if (FFAppState().EdgeDrawing.drawingState == DrawingState.started) {}
+        await widget.mouseExit?.call();
       }),
     );
   }
