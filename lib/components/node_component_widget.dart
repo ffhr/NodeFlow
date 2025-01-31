@@ -1,4 +1,3 @@
-import '/backend/schema/enums/enums.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/socket_component_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -60,64 +59,91 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return Container(
       width: widget!.node?.size?.width,
       height: widget!.node?.size?.height,
       child: Stack(
         children: [
-          Align(
-            alignment: AlignmentDirectional(0.0, 0.8),
-            child: MouseRegion(
-              opaque: false,
-              cursor: MouseCursor.defer ?? MouseCursor.defer,
-              child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(15.0, 0.0, 15.0, 0.0),
-                child: GestureDetector(
-                  onPanDown: (details) async {
-                    // On pan down
-                    await widget.onPanDown?.call();
-                  },
-                  onPanEnd: (details) async {
-                    // On pan end
-                    await widget.onPanEnd?.call();
-                  },
-                  onPanUpdate: (details) async {
-                    // On pan update
-                    await widget.onPanUpdate?.call(
-                      NFPointStruct(
-                        positionX: details.delta.dx,
-                        positionY: details.delta.dy,
-                      ),
-                    );
-                  },
-                  onTapDown: (details) async {
-                    // On tap down
-                    await widget.onTapDown?.call();
-                  },
-                  onTapUp: (details) async {
-                    // On tap up
-                    await widget.onTapUp?.call();
-                  },
-                  child: Container(
-                    width: widget!.node?.size?.width,
-                    height: widget!.node?.size?.height,
-                    decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).secondary,
-                      borderRadius: BorderRadius.circular(10.0),
-                      border: Border.all(
-                        color: widget!.node!.isSelected
-                            ? Colors.white
-                            : Color(0x00000000),
-                        width: 2.0,
+          Padding(
+            padding: EdgeInsetsDirectional.fromSTEB(15.0, 0.0, 15.0, 0.0),
+            child: GestureDetector(
+              onPanDown: (details) async {
+                // On pan down
+                await widget.onPanDown?.call();
+              },
+              onPanEnd: (details) async {
+                // On pan end
+                await widget.onPanEnd?.call();
+              },
+              onPanUpdate: (details) async {
+                // On pan update
+                await widget.onPanUpdate?.call(
+                  NFPointStruct(
+                    positionX: details.delta.dx,
+                    positionY: details.delta.dy,
+                  ),
+                );
+              },
+              onTapDown: (details) async {
+                // On tap down
+                await widget.onTapDown?.call();
+              },
+              onTapUp: (details) async {
+                // On tap up
+                await widget.onTapUp?.call();
+              },
+              child: Container(
+                width: widget!.node?.size?.width,
+                height: widget!.node?.size?.height,
+                decoration: BoxDecoration(
+                  color: FlutterFlowTheme.of(context).secondary,
+                  borderRadius: BorderRadius.circular(10.0),
+                  border: Border.all(
+                    color: widget!.node!.isSelected
+                        ? Colors.white
+                        : Color(0x00000000),
+                    width: 2.0,
+                  ),
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Align(
+                      alignment: AlignmentDirectional(0.0, -1.0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.all(15.0),
+                            child: Text(
+                              valueOrDefault<String>(
+                                widget!.node?.title,
+                                '[title]',
+                              ),
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Inter',
+                                    color: Colors.white,
+                                    letterSpacing: 0.0,
+                                  ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Align(
-                          alignment: AlignmentDirectional(0.0, -1.0),
+                    Container(
+                      width: double.infinity,
+                      height: 0.5,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                      ),
+                    ),
+                    Expanded(
+                      child: Align(
+                        alignment: AlignmentDirectional(0.0, 0.0),
+                        child: Container(
+                          decoration: BoxDecoration(),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             children: [
@@ -125,8 +151,8 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                                 padding: EdgeInsets.all(15.0),
                                 child: Text(
                                   valueOrDefault<String>(
-                                    widget!.node?.title,
-                                    '[title]',
+                                    widget!.node?.description,
+                                    '[description]',
                                   ),
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
@@ -140,105 +166,53 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                             ],
                           ),
                         ),
-                        Container(
-                          width: double.infinity,
-                          height: 0.5,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                          ),
-                        ),
-                        Expanded(
-                          child: Align(
-                            alignment: AlignmentDirectional(0.0, 0.0),
-                            child: Container(
-                              decoration: BoxDecoration(),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.all(15.0),
-                                    child: Text(
-                                      valueOrDefault<String>(
-                                        widget!.node?.description,
-                                        '[description]',
-                                      ),
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Inter',
-                                            color: Colors.white,
-                                            letterSpacing: 0.0,
-                                          ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: Align(
-                            alignment: AlignmentDirectional(0.0, 0.0),
-                            child: Container(
-                              decoration: BoxDecoration(),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.all(15.0),
-                                    child: Text(
-                                      '${valueOrDefault<String>(
-                                        formatNumber(
-                                          widget!
-                                              .node?.virtualPosition?.offsetX,
-                                          formatType: FormatType.custom,
-                                          format: '##.##',
-                                          locale: '',
-                                        ),
-                                        '##.##',
-                                      )}, ${valueOrDefault<String>(
-                                        formatNumber(
-                                          widget!
-                                              .node?.virtualPosition?.offsetY,
-                                          formatType: FormatType.custom,
-                                          format: '##.##',
-                                          locale: '',
-                                        ),
-                                        '##.###',
-                                      )}',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Inter',
-                                            color: Colors.white,
-                                            letterSpacing: 0.0,
-                                          ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
-                  ),
+                    Expanded(
+                      child: Align(
+                        alignment: AlignmentDirectional(0.0, 0.0),
+                        child: Container(
+                          decoration: BoxDecoration(),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.all(15.0),
+                                child: Text(
+                                  '${valueOrDefault<String>(
+                                    formatNumber(
+                                      widget!.node?.virtualPosition?.offsetX,
+                                      formatType: FormatType.custom,
+                                      format: '##.##',
+                                      locale: '',
+                                    ),
+                                    '##.##',
+                                  )}, ${valueOrDefault<String>(
+                                    formatNumber(
+                                      widget!.node?.virtualPosition?.offsetY,
+                                      formatType: FormatType.custom,
+                                      format: '##.##',
+                                      locale: '',
+                                    ),
+                                    '##.###',
+                                  )}',
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Inter',
+                                        color: Colors.white,
+                                        letterSpacing: 0.0,
+                                      ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              onEnter: ((event) async {
-                safeSetState(() => _model.mouseRegionHovered = true);
-                if (FFAppState().EdgeDrawing.drawingState ==
-                    DrawingState.started) {
-                  // Set status Drawing.INACTIVE
-                  FFAppState().updateEdgeDrawingStruct(
-                    (e) => e..drawingState = DrawingState.inactive,
-                  );
-                  FFAppState().update(() {});
-                }
-              }),
-              onExit: ((event) async {
-                safeSetState(() => _model.mouseRegionHovered = false);
-              }),
             ),
           ),
           Padding(
