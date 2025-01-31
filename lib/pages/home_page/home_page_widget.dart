@@ -232,51 +232,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         end: FFAppState().EdgeDrawing.drawingEndPoint,
                       ),
                     ),
-                  if ((FFAppState().EdgeDrawing.drawingState ==
-                          DrawingState.started) ||
-                      (FFAppState().EdgeDrawing.drawingState ==
-                          DrawingState.active))
-                    GestureDetector(
-                      onPanDown: (details) async {
-                        FFAppState().updateEdgeDrawingStruct(
-                          (e) => e
-                            ..drawingStartPoint = NFPointStruct(
-                              positionX: details.localPosition.dx,
-                              positionY: details.localPosition.dy,
-                            )
-                            ..drawingState = DrawingState.started
-                            ..drawingEndPoint = NFPointStruct(
-                              positionX: details.localPosition.dx,
-                              positionY: details.localPosition.dy,
-                            ),
-                        );
-                        safeSetState(() {});
-                      },
-                      onPanEnd: (details) async {
-                        FFAppState().updateEdgeDrawingStruct(
-                          (e) => e..drawingState = DrawingState.finished,
-                        );
-                        safeSetState(() {});
-                      },
-                      onPanUpdate: (details) async {
-                        FFAppState().updateEdgeDrawingStruct(
-                          (e) => e
-                            ..drawingState = DrawingState.active
-                            ..drawingEndPoint = NFPointStruct(
-                              positionX: details.localPosition.dx,
-                              positionY: details.localPosition.dy,
-                            ),
-                        );
-                        safeSetState(() {});
-                      },
-                      child: Container(
-                        width: double.infinity,
-                        height: double.infinity,
-                        decoration: BoxDecoration(
-                          color: Color(0x324B39EF),
-                        ),
-                      ),
-                    ),
                 ],
               ),
             ),
