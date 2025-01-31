@@ -4,3 +4,4 @@ export 'reset_moveables.dart' show resetMoveables;
 export 'on_mouse_enter_node_socket.dart' show onMouseEnterNodeSocket;
 export 'on_mouse_exit_node_socket.dart' show onMouseExitNodeSocket;
 export 'empty_action.dart' show emptyAction;
+export 'on_mouse_enter_input.dart' show onMouseEnterInput;

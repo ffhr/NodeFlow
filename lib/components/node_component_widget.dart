@@ -267,6 +267,10 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                         await actions.onMouseEnterNodeSocket(
                           inputsListItem.socket,
                         );
+                        await actions.onMouseEnterInput(
+                          inputsListIndex,
+                          widget!.node!.inputs.toList(),
+                        );
                         _model.renderNodeVar = _model.renderNodeVar;
                         safeSetState(() {});
                       },
