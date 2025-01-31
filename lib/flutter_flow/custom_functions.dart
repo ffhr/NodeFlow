@@ -245,3 +245,10 @@ NFPointStruct calculateStartPointFromEdge(NodeEdgeStruct? edge) {
 NFPointStruct? calculateEndPointFromEdge(NodeEdgeStruct edge) {
   return NFPointStruct();
 }
+
+NodeStruct getNodeFromId(
+  String id,
+  List<NodeStruct> nodes,
+) {
+  return NodeStruct();
+}
