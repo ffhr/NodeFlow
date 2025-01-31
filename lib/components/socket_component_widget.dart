@@ -16,9 +16,6 @@ class SocketComponentWidget extends StatefulWidget {
     this.isHovered,
     this.mouseEntered,
     this.mouseExit,
-    this.node,
-    this.socketIndex,
-    this.socketType,
     bool? isClicked,
     required this.onClicked,
   }) : this.isClicked = isClicked ?? false;
@@ -27,9 +24,6 @@ class SocketComponentWidget extends StatefulWidget {
   final bool? isHovered;
   final Future Function()? mouseEntered;
   final Future Function()? mouseExit;
-  final NodeStruct? node;
-  final int? socketIndex;
-  final SocketType? socketType;
   final bool isClicked;
   final Future Function(bool isClicked)? onClicked;
 

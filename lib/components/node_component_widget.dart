@@ -260,9 +260,6 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                       key: Key(
                           'Keyhbf_${inputsListIndex}_of_${inputsList.length}'),
                       isHovered: inputsListItem.socket.isHover,
-                      socketIndex: inputsListIndex,
-                      node: widget!.node,
-                      socketType: SocketType.input,
                       isClicked:
                           (FFAppState().CurrentBuildingEdge.targetNodeId ==
                                   widget!.node?.id) &&
@@ -305,20 +302,10 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                             // Unset
                             FFAppState().CurrentBuildingEdge = NodeEdgeStruct();
                             _model.updatePage(() {});
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text(
-                                  'Crtam edge',
-                                  style: TextStyle(
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
-                                  ),
-                                ),
-                                duration: Duration(milliseconds: 4000),
-                                backgroundColor:
-                                    FlutterFlowTheme.of(context).secondary,
-                              ),
-                            );
+                            // Add building edge to list
+                            FFAppState()
+                                .addToEdges(FFAppState().CurrentBuildingEdge);
+                            safeSetState(() {});
                           }
                         } else {
                           // Unset
@@ -355,9 +342,6 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                         key: Key(
                             'Keydt4_${outputsListIndex}_of_${outputsList.length}'),
                         isHovered: outputsListItem.socket.isHover,
-                        socketIndex: outputsListIndex,
-                        node: widget!.node,
-                        socketType: SocketType.output,
                         isClicked:
                             (FFAppState().CurrentBuildingEdge.sourceNodeId ==
                                     widget!.node?.id) &&
@@ -399,20 +383,10 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                               FFAppState().CurrentBuildingEdge =
                                   NodeEdgeStruct();
                               _model.updatePage(() {});
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text(
-                                    'Crtam edge',
-                                    style: TextStyle(
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryText,
-                                    ),
-                                  ),
-                                  duration: Duration(milliseconds: 4000),
-                                  backgroundColor:
-                                      FlutterFlowTheme.of(context).secondary,
-                                ),
-                              );
+                              // Add building edge to list
+                              FFAppState()
+                                  .addToEdges(FFAppState().CurrentBuildingEdge);
+                              safeSetState(() {});
                             }
                           } else {
                             // Unset
