@@ -223,10 +223,12 @@ NFOffsetStruct calculateSocketPosition(
 
   if (isInput) {
     return NFOffsetStruct(
-        offsetX: nodePosition.offsetX - nodeSize.width / 2, offsetY: socketY);
+        offsetX: nodePosition.offsetX - nodeSize.width / 2 + 5,
+        offsetY: socketY);
   } else {
     return NFOffsetStruct(
-        offsetX: nodePosition.offsetX + nodeSize.width / 2, offsetY: socketY);
+        offsetX: nodePosition.offsetX + nodeSize.width / 2 - 5,
+        offsetY: socketY);
   }
 }
 
