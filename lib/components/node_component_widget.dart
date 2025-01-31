@@ -3,6 +3,7 @@ import '/components/socket_component_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'dart:ui';
+import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -230,8 +231,19 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                     return SocketComponentWidget(
                       key: Key(
                           'Keyhbf_${inputsListIndex}_of_${inputsList.length}'),
+                      isHovered: inputsListItem.socket.isHover,
                       renderPan: () async {
                         await widget.renderPanStack?.call();
+                      },
+                      mouseEntered: () async {
+                        await actions.onMouseEnterNodeSocket(
+                          inputsListItem.socket,
+                        );
+                      },
+                      mouseExit: () async {
+                        await actions.onMouseExitNodeSocket(
+                          inputsListItem.socket,
+                        );
                       },
                     );
                   }).divide(SizedBox(height: 10.0)),
@@ -258,6 +270,8 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                         key: Key(
                             'Keydt4_${outputsListIndex}_of_${outputsList.length}'),
                         renderPan: () async {},
+                        mouseEntered: () async {},
+                        mouseExit: () async {},
                       );
                     }).divide(SizedBox(height: 10.0)),
                   );

@@ -13,9 +13,15 @@ class SocketComponentWidget extends StatefulWidget {
   const SocketComponentWidget({
     super.key,
     this.renderPan,
+    this.isHovered,
+    this.mouseEntered,
+    this.mouseExit,
   });
 
   final Future Function()? renderPan;
+  final bool? isHovered;
+  final Future Function()? mouseEntered;
+  final Future Function()? mouseExit;
 
   @override
   State<SocketComponentWidget> createState() => _SocketComponentWidgetState();
@@ -60,7 +66,7 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
           shape: BoxShape.circle,
           border: Border.all(
             color: valueOrDefault<Color>(
-              _model.mouseRegionHovered!
+              widget!.isHovered!
                   ? Colors.white
                   : FlutterFlowTheme.of(context).warning,
               Colors.white,
