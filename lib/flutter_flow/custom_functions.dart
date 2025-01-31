@@ -239,11 +239,30 @@ NFOffsetStruct convertNFPointToNFOffset(NFPointStruct point) {
 }
 
 NFPointStruct calculateStartPointFromEdge(
-  NodeEdgeStruct? edge,
+  NodeEdgeStruct edge,
   double screenWidth,
   double screenHeight,
 ) {
-  return NFPointStruct();
+  var startNode = getNodeFromId(edge.sourceNodeId, FFAppState().Nodes);
+  var startSocket = startNode.outputs.firstWhere(
+      (element) => element.socket.id == edge.sourceOutputSocketIndex,
+      orElse: () => NodeOutputSocketStruct());
+
+  var startSocketVirtualPosition = calculateSocketPosition(
+      startNode.virtualPosition,
+      startNode.size,
+      startNode.outputs.indexOf(startSocket),
+      false,
+      startNode.outputs.length);
+
+  var startSocketAbsolutePosition = virtualToAbsolute(
+      startSocketVirtualPosition,
+      startNode.size,
+      FFAppState().ViewportCenter,
+      FFAppState().ZoomFactor,
+      NFSizeStruct(width: screenWidth, height: screenHeight));
+
+  return convertNFOffsetToNFPoint(startSocketAbsolutePosition);
 }
 
 NFPointStruct? calculateEndPointFromEdge(
