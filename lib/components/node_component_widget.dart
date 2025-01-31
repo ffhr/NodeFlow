@@ -299,13 +299,13 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                               FFAppState()
                                   .CurrentBuildingEdge
                                   .hasTargetNodeId()) {
-                            // Unset
-                            FFAppState().CurrentBuildingEdge = NodeEdgeStruct();
-                            _model.updatePage(() {});
                             // Add building edge to list
                             FFAppState()
                                 .addToEdges(FFAppState().CurrentBuildingEdge);
                             safeSetState(() {});
+                            // Unset
+                            FFAppState().CurrentBuildingEdge = NodeEdgeStruct();
+                            _model.updatePage(() {});
                           }
                         } else {
                           // Unset
@@ -379,14 +379,14 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                                 FFAppState()
                                     .CurrentBuildingEdge
                                     .hasTargetNodeId()) {
-                              // Unset
-                              FFAppState().CurrentBuildingEdge =
-                                  NodeEdgeStruct();
-                              _model.updatePage(() {});
                               // Add building edge to list
                               FFAppState()
                                   .addToEdges(FFAppState().CurrentBuildingEdge);
                               safeSetState(() {});
+                              // Unset
+                              FFAppState().CurrentBuildingEdge =
+                                  NodeEdgeStruct();
+                              _model.updatePage(() {});
                             }
                           } else {
                             // Unset
