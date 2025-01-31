@@ -63,4 +63,10 @@ class FFAppState extends ChangeNotifier {
   void updateEdgeDrawingStruct(Function(EdgeDrawingStruct) updateFn) {
     updateFn(_EdgeDrawing);
   }
+
+  bool _IsDrawingPanVisible = false;
+  bool get IsDrawingPanVisible => _IsDrawingPanVisible;
+  set IsDrawingPanVisible(bool value) {
+    _IsDrawingPanVisible = value;
+  }
 }

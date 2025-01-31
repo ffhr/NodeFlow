@@ -35,13 +35,6 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
     super.initState();
     _model = createModel(context, () => SocketComponentModel());
 
-    // On component load action.
-    SchedulerBinding.instance.addPostFrameCallback((_) async {
-      // Set NodeSocket
-
-      safeSetState(() {});
-    });
-
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
@@ -92,6 +85,7 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
                 positionY: 0.0,
               ),
           );
+          FFAppState().IsDrawingPanVisible = true;
           FFAppState().update(() {});
         }
         if ((FFAppState().EdgeDrawing.drawingState == DrawingState.active) ||
@@ -100,13 +94,21 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
           FFAppState().updateEdgeDrawingStruct(
             (e) => e..drawingState = DrawingState.inactive,
           );
+          FFAppState().IsDrawingPanVisible = false;
           FFAppState().update(() {});
         }
-        await widget.renderPan?.call();
       }),
       onExit: ((event) async {
         safeSetState(() => _model.mouseRegionHovered = false);
-        if (FFAppState().EdgeDrawing.drawingState == DrawingState.started) {}
+        if (FFAppState().EdgeDrawing.drawingState == DrawingState.started) {
+          // Set status Drawing.INACTIVE
+          FFAppState().updateEdgeDrawingStruct(
+            (e) => e..drawingState = DrawingState.finished,
+          );
+          FFAppState().update(() {});
+          FFAppState().IsDrawingPanVisible = false;
+          safeSetState(() {});
+        }
       }),
     );
   }
