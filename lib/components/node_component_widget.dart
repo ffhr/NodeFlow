@@ -1,3 +1,4 @@
+import '/backend/schema/enums/enums.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/socket_component_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -60,6 +61,8 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Container(
       width: widget!.node?.size?.width,
       height: widget!.node?.size?.height,
@@ -69,29 +72,44 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
             padding: EdgeInsetsDirectional.fromSTEB(15.0, 0.0, 15.0, 0.0),
             child: GestureDetector(
               onPanDown: (details) async {
-                // On pan down
-                await widget.onPanDown?.call();
+                if (FFAppState().EdgeDrawing.drawingState ==
+                    DrawingState.inactive) {
+                  // On pan down
+                  await widget.onPanDown?.call();
+                }
               },
               onPanEnd: (details) async {
-                // On pan end
-                await widget.onPanEnd?.call();
+                if (FFAppState().EdgeDrawing.drawingState ==
+                    DrawingState.inactive) {
+                  // On pan end
+                  await widget.onPanEnd?.call();
+                }
               },
               onPanUpdate: (details) async {
-                // On pan update
-                await widget.onPanUpdate?.call(
-                  NFPointStruct(
-                    positionX: details.delta.dx,
-                    positionY: details.delta.dy,
-                  ),
-                );
+                if (FFAppState().EdgeDrawing.drawingState ==
+                    DrawingState.inactive) {
+                  // On pan update
+                  await widget.onPanUpdate?.call(
+                    NFPointStruct(
+                      positionX: details.delta.dx,
+                      positionY: details.delta.dy,
+                    ),
+                  );
+                }
               },
               onTapDown: (details) async {
-                // On tap down
-                await widget.onTapDown?.call();
+                if (FFAppState().EdgeDrawing.drawingState ==
+                    DrawingState.inactive) {
+                  // On tap down
+                  await widget.onTapDown?.call();
+                }
               },
               onTapUp: (details) async {
-                // On tap up
-                await widget.onTapUp?.call();
+                if (FFAppState().EdgeDrawing.drawingState ==
+                    DrawingState.inactive) {
+                  // On tap up
+                  await widget.onTapUp?.call();
+                }
               },
               child: Container(
                 width: widget!.node?.size?.width,
