@@ -260,6 +260,16 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                       key: Key(
                           'Keyhbf_${inputsListIndex}_of_${inputsList.length}'),
                       isHovered: inputsListItem.socket.isHover,
+                      socketIndex: inputsListIndex,
+                      node: widget!.node,
+                      socketType: SocketType.input,
+                      isClicked:
+                          (FFAppState().CurrentBuildingEdge.targetNodeId ==
+                                  widget!.node?.id) &&
+                              (FFAppState()
+                                      .CurrentBuildingEdge
+                                      .targetInputSocketIndex ==
+                                  inputsListIndex),
                       renderPan: () async {
                         await widget.renderPanStack?.call();
                       },
@@ -276,6 +286,46 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                         );
                         _model.renderNodeVar = _model.renderNodeVar;
                         safeSetState(() {});
+                      },
+                      onClicked: (isClicked) async {
+                        if (isClicked) {
+                          // Set node target input socket
+                          FFAppState().updateCurrentBuildingEdgeStruct(
+                            (e) => e
+                              ..targetNodeId = widget!.node?.id
+                              ..targetInputSocketIndex = inputsListIndex,
+                          );
+                          safeSetState(() {});
+                          if (FFAppState()
+                                  .CurrentBuildingEdge
+                                  .hasSourceNodeId() &&
+                              FFAppState()
+                                  .CurrentBuildingEdge
+                                  .hasTargetNodeId()) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  'Crtam edge',
+                                  style: TextStyle(
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                  ),
+                                ),
+                                duration: Duration(milliseconds: 4000),
+                                backgroundColor:
+                                    FlutterFlowTheme.of(context).secondary,
+                              ),
+                            );
+                          }
+                        } else {
+                          // Unset
+                          FFAppState().updateCurrentBuildingEdgeStruct(
+                            (e) => e
+                              ..targetNodeId = null
+                              ..targetInputSocketIndex = null,
+                          );
+                          safeSetState(() {});
+                        }
                       },
                     );
                   }).divide(SizedBox(height: 10.0)),
@@ -302,6 +352,16 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                         key: Key(
                             'Keydt4_${outputsListIndex}_of_${outputsList.length}'),
                         isHovered: outputsListItem.socket.isHover,
+                        socketIndex: outputsListIndex,
+                        node: widget!.node,
+                        socketType: SocketType.output,
+                        isClicked:
+                            (FFAppState().CurrentBuildingEdge.sourceNodeId ==
+                                    widget!.node?.id) &&
+                                (FFAppState()
+                                        .CurrentBuildingEdge
+                                        .targetInputSocketIndex ==
+                                    outputsListIndex),
                         renderPan: () async {},
                         mouseEntered: () async {
                           await actions.onMouseEnterNodeSocket(
@@ -316,6 +376,46 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                           );
                           _model.renderNodeVar = _model.renderNodeVar;
                           safeSetState(() {});
+                        },
+                        onClicked: (isClicked) async {
+                          if (isClicked) {
+                            // Set edge source output socket
+                            FFAppState().updateCurrentBuildingEdgeStruct(
+                              (e) => e
+                                ..sourceNodeId = widget!.node?.id
+                                ..sourceOutputSocketIndex = outputsListIndex,
+                            );
+                            safeSetState(() {});
+                            if (FFAppState()
+                                    .CurrentBuildingEdge
+                                    .hasSourceNodeId() &&
+                                FFAppState()
+                                    .CurrentBuildingEdge
+                                    .hasTargetNodeId()) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                    'Crtam edge',
+                                    style: TextStyle(
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
+                                    ),
+                                  ),
+                                  duration: Duration(milliseconds: 4000),
+                                  backgroundColor:
+                                      FlutterFlowTheme.of(context).secondary,
+                                ),
+                              );
+                            }
+                          } else {
+                            // Unset
+                            FFAppState().updateCurrentBuildingEdgeStruct(
+                              (e) => e
+                                ..sourceNodeId = null
+                                ..sourceOutputSocketIndex = null,
+                            );
+                            safeSetState(() {});
+                          }
                         },
                       );
                     }).divide(SizedBox(height: 10.0)),

@@ -98,4 +98,14 @@ class FFAppState extends ChangeNotifier {
   set NodeSelectedIndex(int value) {
     _NodeSelectedIndex = value;
   }
+
+  NodeEdgeStruct _CurrentBuildingEdge = NodeEdgeStruct();
+  NodeEdgeStruct get CurrentBuildingEdge => _CurrentBuildingEdge;
+  set CurrentBuildingEdge(NodeEdgeStruct value) {
+    _CurrentBuildingEdge = value;
+  }
+
+  void updateCurrentBuildingEdgeStruct(Function(NodeEdgeStruct) updateFn) {
+    updateFn(_CurrentBuildingEdge);
+  }
 }
