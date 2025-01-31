@@ -247,9 +247,7 @@ NFPointStruct calculateStartPointFromEdge(
   double zoomFactor,
 ) {
   var startNode = getNodeFromId(edge.sourceNodeId, nodes);
-  var startSocket = startNode.outputs.firstWhere(
-      (element) => element.socket.id == edge.sourceOutputSocketIndex,
-      orElse: () => NodeOutputSocketStruct());
+  var startSocket = startNode.outputs[edge.sourceOutputSocketIndex];
 
   var startSocketVirtualPosition = calculateSocketPosition(
       startNode.virtualPosition,
