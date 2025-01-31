@@ -92,51 +92,31 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                             final edgesItem = edges[edgesIndex];
                             return Visibility(
                               visible: true,
-                              child: InkWell(
-                                splashColor: Colors.transparent,
-                                focusColor: Colors.transparent,
-                                hoverColor: Colors.transparent,
-                                highlightColor: Colors.transparent,
-                                onTap: () async {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(
-                                        'Kliknuo sam na edge',
-                                        style: TextStyle(
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryText,
-                                        ),
-                                      ),
-                                      duration: Duration(milliseconds: 4000),
-                                      backgroundColor:
-                                          FlutterFlowTheme.of(context)
-                                              .secondary,
-                                    ),
-                                  );
-                                },
-                                child: Container(
+                              child: Container(
+                                width: double.infinity,
+                                height: double.infinity,
+                                child: custom_widgets.CurvedLine(
                                   width: double.infinity,
                                   height: double.infinity,
-                                  child: custom_widgets.CurvedLine(
-                                    width: double.infinity,
-                                    height: double.infinity,
-                                    start:
-                                        functions.calculateStartPointFromEdge(
-                                            edgesItem,
-                                            MediaQuery.sizeOf(context).width,
-                                            MediaQuery.sizeOf(context).height,
-                                            FFAppState().Nodes.toList(),
-                                            FFAppState().ViewportCenter,
-                                            FFAppState().ZoomFactor),
-                                    end: functions.calculateEndPointFromEdge(
-                                        edgesItem,
-                                        MediaQuery.sizeOf(context).width,
-                                        MediaQuery.sizeOf(context).height,
-                                        FFAppState().Nodes.toList(),
-                                        FFAppState().ViewportCenter,
-                                        FFAppState().ZoomFactor)!,
-                                    onTap: () async {},
-                                  ),
+                                  start: functions.calculateStartPointFromEdge(
+                                      edgesItem,
+                                      MediaQuery.sizeOf(context).width,
+                                      MediaQuery.sizeOf(context).height,
+                                      FFAppState().Nodes.toList(),
+                                      FFAppState().ViewportCenter,
+                                      FFAppState().ZoomFactor),
+                                  end: functions.calculateEndPointFromEdge(
+                                      edgesItem,
+                                      MediaQuery.sizeOf(context).width,
+                                      MediaQuery.sizeOf(context).height,
+                                      FFAppState().Nodes.toList(),
+                                      FFAppState().ViewportCenter,
+                                      FFAppState().ZoomFactor)!,
+                                  onTap: () async {
+                                    // Remove from list
+                                    FFAppState().removeFromEdges(edgesItem);
+                                    safeSetState(() {});
+                                  },
                                 ),
                               ),
                             );
