@@ -303,7 +303,13 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                                   .CurrentBuildingEdge
                                   .hasTargetNodeId()) {
                             // Unset
-                            FFAppState().CurrentBuildingEdge = NodeEdgeStruct();
+                            FFAppState().updateCurrentBuildingEdgeStruct(
+                              (e) => e
+                                ..sourceNodeId = null
+                                ..targetNodeId = null
+                                ..sourceOutputSocketIndex = null
+                                ..targetInputSocketIndex = null,
+                            );
                             FFAppState().update(() {});
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
@@ -396,8 +402,13 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                                     .CurrentBuildingEdge
                                     .hasTargetNodeId()) {
                               // Unset
-                              FFAppState().CurrentBuildingEdge =
-                                  NodeEdgeStruct();
+                              FFAppState().updateCurrentBuildingEdgeStruct(
+                                (e) => e
+                                  ..sourceNodeId = null
+                                  ..targetNodeId = null
+                                  ..sourceOutputSocketIndex = null
+                                  ..targetInputSocketIndex = null,
+                              );
                               FFAppState().update(() {});
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
