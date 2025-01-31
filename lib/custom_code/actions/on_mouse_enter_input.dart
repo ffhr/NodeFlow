@@ -15,6 +15,6 @@ Future<List<NodeInputSocketStruct>> onMouseEnterInput(
   List<NodeInputSocketStruct> inputs,
 ) async {
   // Add your function code here!
-  inputs[index].isHover = true;
+  inputs[index].socket.isHover = true;
   return inputs;
 }
