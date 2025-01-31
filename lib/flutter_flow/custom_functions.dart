@@ -279,8 +279,8 @@ NFPointStruct? calculateEndPointFromEdge(
       startNode.virtualPosition,
       startNode.size,
       edge.targetInputSocketIndex,
-      false,
-      startNode.outputs.length);
+      true,
+      startNode.inputs.length);
 
   var startSocketAbsolutePosition = virtualToAbsolute(
       startSocketVirtualPosition,
