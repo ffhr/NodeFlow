@@ -231,7 +231,7 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                     DrawingState.started) {
                   // Set status Drawing.INACTIVE
                   FFAppState().updateEdgeDrawingStruct(
-                    (e) => e..drawingState = DrawingState.finished,
+                    (e) => e..drawingState = DrawingState.inactive,
                   );
                   FFAppState().update(() {});
                 }
