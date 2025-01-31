@@ -58,20 +58,40 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
     return MouseRegion(
       opaque: false,
       cursor: MouseCursor.defer ?? MouseCursor.defer,
-      child: Container(
-        width: 20.0,
-        height: 20.0,
-        decoration: BoxDecoration(
-          color: FlutterFlowTheme.of(context).warning,
-          shape: BoxShape.circle,
-          border: Border.all(
-            color: valueOrDefault<Color>(
-              widget!.isHovered!
-                  ? Colors.white
-                  : FlutterFlowTheme.of(context).warning,
-              Colors.white,
+      child: GestureDetector(
+        onTapUp: (details) async {
+          if (FFAppState().EdgeDrawing.drawingState == DrawingState.inactive) {
+            // Set status Drawing.STARTED
+            FFAppState().updateEdgeDrawingStruct(
+              (e) => e
+                ..drawingState = DrawingState.started
+                ..drawingStartPoint = NFPointStruct(
+                  positionX: 0.0,
+                  positionY: 0.0,
+                )
+                ..drawingEndPoint = NFPointStruct(
+                  positionX: 0.0,
+                  positionY: 0.0,
+                ),
+            );
+            FFAppState().update(() {});
+          }
+        },
+        child: Container(
+          width: 20.0,
+          height: 20.0,
+          decoration: BoxDecoration(
+            color: FlutterFlowTheme.of(context).warning,
+            shape: BoxShape.circle,
+            border: Border.all(
+              color: valueOrDefault<Color>(
+                widget!.isHovered!
+                    ? Colors.white
+                    : FlutterFlowTheme.of(context).warning,
+                Colors.white,
+              ),
+              width: 3.0,
             ),
-            width: 3.0,
           ),
         ),
       ),
