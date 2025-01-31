@@ -73,12 +73,12 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
               (e) => e
                 ..drawingState = DrawingState.started
                 ..drawingStartPoint = NFPointStruct(
-                  positionX: details.localPosition.dx,
-                  positionY: details.localPosition.dy,
+                  positionX: details.globalPosition.dx,
+                  positionY: details.globalPosition.dy,
                 )
                 ..drawingEndPoint = NFPointStruct(
-                  positionX: details.localPosition.dx,
-                  positionY: details.localPosition.dy,
+                  positionX: details.globalPosition.dx,
+                  positionY: details.globalPosition.dy,
                 ),
             );
             FFAppState().update(() {});
@@ -95,11 +95,11 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
             (e) => e
               ..drawingState = DrawingState.active
               ..drawingEndPoint = NFPointStruct(
-                positionX: details.localPosition.dx,
-                positionY: details.localPosition.dy,
+                positionX: details.globalPosition.dx,
+                positionY: details.globalPosition.dy,
               ),
           );
-          safeSetState(() {});
+          FFAppState().update(() {});
         },
         child: Container(
           width: 20.0,
