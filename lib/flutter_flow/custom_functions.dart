@@ -250,5 +250,10 @@ NodeStruct getNodeFromId(
   String id,
   List<NodeStruct> nodes,
 ) {
+  for (var node in nodes) {
+    if (node.id == id) {
+      return node;
+    }
+  }
   return NodeStruct();
 }
