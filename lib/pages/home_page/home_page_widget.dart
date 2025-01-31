@@ -98,101 +98,20 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                 child: custom_widgets.CurvedLine(
                                   width: double.infinity,
                                   height: double.infinity,
-                                  start: NFPointStruct(
-                                    positionX: MediaQuery.sizeOf(context).width,
-                                    positionY: functions
-                                        .calculateSocketPosition(
-                                            FFAppState()
-                                                .Nodes
-                                                .where((e) =>
-                                                    e.id ==
-                                                    edgesItem.sourceNodeId)
-                                                .toList()
-                                                .firstOrNull!
-                                                .virtualPosition,
-                                            FFAppState()
-                                                .Nodes
-                                                .where((e) =>
-                                                    e.id ==
-                                                    edgesItem.sourceNodeId)
-                                                .toList()
-                                                .firstOrNull!
-                                                .size,
-                                            edgesItem.sourceOutputSocketIndex,
-                                            false,
-                                            FFAppState()
-                                                .Nodes
-                                                .where((e) =>
-                                                    e.id ==
-                                                    edgesItem.sourceNodeId)
-                                                .toList()
-                                                .firstOrNull!
-                                                .outputs
-                                                .length)
-                                        .offsetY,
-                                  ),
-                                  end: NFPointStruct(
-                                    positionX: functions
-                                        .calculateSocketPosition(
-                                            FFAppState()
-                                                .Nodes
-                                                .where((e) =>
-                                                    e.id ==
-                                                    edgesItem.targetNodeId)
-                                                .toList()
-                                                .firstOrNull!
-                                                .virtualPosition,
-                                            FFAppState()
-                                                .Nodes
-                                                .where((e) =>
-                                                    e.id ==
-                                                    edgesItem.targetNodeId)
-                                                .toList()
-                                                .firstOrNull!
-                                                .size,
-                                            edgesItem.targetInputSocketIndex,
-                                            true,
-                                            FFAppState()
-                                                .Nodes
-                                                .where((e) =>
-                                                    e.id ==
-                                                    edgesItem.targetNodeId)
-                                                .toList()
-                                                .firstOrNull!
-                                                .inputs
-                                                .length)
-                                        .offsetX,
-                                    positionY: functions
-                                        .calculateSocketPosition(
-                                            FFAppState()
-                                                .Nodes
-                                                .where((e) =>
-                                                    e.id ==
-                                                    edgesItem.targetNodeId)
-                                                .toList()
-                                                .firstOrNull!
-                                                .virtualPosition,
-                                            FFAppState()
-                                                .Nodes
-                                                .where((e) =>
-                                                    e.id ==
-                                                    edgesItem.targetNodeId)
-                                                .toList()
-                                                .firstOrNull!
-                                                .size,
-                                            edgesItem.targetInputSocketIndex,
-                                            true,
-                                            FFAppState()
-                                                .Nodes
-                                                .where((e) =>
-                                                    e.id ==
-                                                    edgesItem.targetNodeId)
-                                                .toList()
-                                                .firstOrNull!
-                                                .inputs
-                                                .length)
-                                        .offsetY,
-                                  ),
+                                  start: functions.calculateStartPointFromEdge(
+                                      edgesItem,
+                                      MediaQuery.sizeOf(context).width,
+                                      MediaQuery.sizeOf(context).height,
+                                      FFAppState().Nodes.toList(),
+                                      FFAppState().ViewportCenter,
+                                      FFAppState().ZoomFactor),
+                                  end: functions.calculateEndPointFromEdge(
+                                      edgesItem,
+                                      MediaQuery.sizeOf(context).width,
+                                      MediaQuery.sizeOf(context).height,
+                                      FFAppState().Nodes.toList(),
+                                      FFAppState().ViewportCenter,
+                                      FFAppState().ZoomFactor)!,
                                 ),
                               ),
                             );

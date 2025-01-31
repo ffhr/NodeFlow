@@ -273,7 +273,23 @@ NFPointStruct? calculateEndPointFromEdge(
   NFOffsetStruct viewportCenter,
   double zoomFactor,
 ) {
-  return NFPointStruct();
+  var startNode = getNodeFromId(edge.targetNodeId, nodes);
+
+  var startSocketVirtualPosition = calculateSocketPosition(
+      startNode.virtualPosition,
+      startNode.size,
+      edge.targetInputSocketIndex,
+      false,
+      startNode.outputs.length);
+
+  var startSocketAbsolutePosition = virtualToAbsolute(
+      startSocketVirtualPosition,
+      startNode.size,
+      viewportCenter,
+      zoomFactor,
+      NFSizeStruct(width: screenWidth, height: screenHeight));
+
+  return convertNFOffsetToNFPoint(startSocketAbsolutePosition);
 }
 
 NodeStruct getNodeFromId(
