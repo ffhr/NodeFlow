@@ -316,6 +316,35 @@ String? getSourceNodeIdFromPoint(
 NodeStruct? getNodeFromPoint(
   NFPointStruct point,
   List<NodeStruct> nodes,
+  NFOffsetStruct viewportCenter,
+  double zoomFactor,
+  double screenWidth,
+  double screenHeight,
 ) {
+  for (var index = nodes.length - 1; index < nodes.length; index--) {
+    var node = nodes[index];
+    var nodePosition = virtualToAbsolute(
+        node.virtualPosition,
+        node.size,
+        NFOffsetStruct(offsetX: 0, offsetY: 0),
+        1.0,
+        NFSizeStruct(width: 0, height: 0));
+
+    var nodeSize = node.size;
+    var nodeWidth = nodeSize.width;
+    var nodeHeight = nodeSize.height;
+
+    var nodeTopLeftX = nodePosition.offsetX - nodeWidth / 2;
+    var nodeTopLeftY = nodePosition.offsetY - nodeHeight / 2;
+    var nodeBottomRightX = nodePosition.offsetX + nodeWidth / 2;
+    var nodeBottomRightY = nodePosition.offsetY + nodeHeight / 2;
+
+    if (point.positionX >= nodeTopLeftX &&
+        point.positionX <= nodeBottomRightX &&
+        point.positionY >= nodeTopLeftY &&
+        point.positionY <= nodeBottomRightY) {
+      return node;
+    }
+  }
   return null;
 }
