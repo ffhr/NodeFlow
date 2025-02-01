@@ -309,6 +309,10 @@ NodeStruct getNodeFromId(
 String? getSourceNodeIdFromPoint(
   NFPointStruct point,
   List<NodeStruct> nodes,
+  NFOffsetStruct viewportCenter,
+  double zoomFactor,
+  double screenWidth,
+  double screenHeight,
 ) {
   return null;
 }
