@@ -177,14 +177,14 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
                   SnackBar(
                     content: Text(
                       'Dignuo pan iznad node-a: ${functions.getNodeFromPoint(NFPointStruct(
-                            positionX: details.localPosition.dx,
-                            positionY: details.localPosition.dy,
+                            positionX: details.globalPosition.dx,
+                            positionY: details.globalPosition.dy,
                           ), FFAppState().Nodes.toList(), FFAppState().ViewportCenter, FFAppState().ZoomFactor, MediaQuery.sizeOf(context).width, MediaQuery.sizeOf(context).height)?.title}',
                       style: TextStyle(
                         color: FlutterFlowTheme.of(context).primaryText,
                       ),
                     ),
-                    duration: Duration(milliseconds: 4000),
+                    duration: Duration(milliseconds: 2000),
                     backgroundColor: FlutterFlowTheme.of(context).secondary,
                   ),
                 );

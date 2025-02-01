@@ -321,7 +321,7 @@ NodeStruct? getNodeFromPoint(
   double screenWidth,
   double screenHeight,
 ) {
-  for (var index = nodes.length - 1; index < nodes.length; index--) {
+  for (var index = nodes.length - 1; index >= 0; index--) {
     var node = nodes[index];
     var nodePosition = virtualToAbsolute(
         node.virtualPosition,
