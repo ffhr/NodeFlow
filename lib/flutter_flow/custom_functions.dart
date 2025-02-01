@@ -313,6 +313,9 @@ String? getSourceNodeIdFromPoint(
   return null;
 }
 
-NodeStruct? getNodeFromPoint(NFPointStruct point) {
+NodeStruct? getNodeFromPoint(
+  NFPointStruct point,
+  List<NodeStruct> nodes,
+) {
   return null;
 }
