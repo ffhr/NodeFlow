@@ -305,3 +305,14 @@ NodeStruct getNodeFromId(
   }
   return NodeStruct();
 }
+
+String? getSourceNodeIdFromPoint(
+  NFPointStruct point,
+  List<NodeStruct> nodes,
+) {
+  return null;
+}
+
+NodeStruct? getNodeFromPoint(NFPointStruct point) {
+  return null;
+}
