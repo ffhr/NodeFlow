@@ -2,7 +2,6 @@ import '/backend/schema/enums/enums.dart';
 import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -19,6 +18,8 @@ class SocketComponentWidget extends StatefulWidget {
     this.mouseExit,
     bool? isClicked,
     required this.onClicked,
+    this.onPanDown,
+    this.onPanEnd,
   }) : this.isClicked = isClicked ?? false;
 
   final Future Function()? renderPan;
@@ -27,6 +28,8 @@ class SocketComponentWidget extends StatefulWidget {
   final Future Function()? mouseExit;
   final bool isClicked;
   final Future Function(bool isClicked)? onClicked;
+  final Future Function(NFPointStruct point)? onPanDown;
+  final Future Function(NFPointStruct point)? onPanEnd;
 
   @override
   State<SocketComponentWidget> createState() => _SocketComponentWidgetState();
@@ -92,6 +95,13 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
                       ),
                   );
                   FFAppState().update(() {});
+                  // Execute callback
+                  await widget.onPanDown?.call(
+                    NFPointStruct(
+                      positionX: details.globalPosition.dx,
+                      positionY: details.globalPosition.dy,
+                    ),
+                  );
                 }
               },
               onPanEnd: (details) async {
@@ -100,6 +110,13 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
                   (e) => e..drawingState = DrawingState.finished,
                 );
                 FFAppState().update(() {});
+                // Execute callback
+                await widget.onPanEnd?.call(
+                  NFPointStruct(
+                    positionX: details.globalPosition.dx,
+                    positionY: details.globalPosition.dy,
+                  ),
+                );
               },
               onPanUpdate: (details) async {
                 // Set status Drawing.ACTIVE
@@ -165,6 +182,13 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
                       ),
                   );
                   FFAppState().update(() {});
+                  // Execute callback
+                  await widget.onPanDown?.call(
+                    NFPointStruct(
+                      positionX: details.globalPosition.dx,
+                      positionY: details.globalPosition.dy,
+                    ),
+                  );
                 }
               },
               onPanEnd: (details) async {
@@ -173,20 +197,11 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
                   (e) => e..drawingState = DrawingState.finished,
                 );
                 FFAppState().update(() {});
-                // Show snackbar
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(
-                      'Dignuo pan iznad socketa-a: ${functions.getSourceOutputIndexFromPoint(NFPointStruct(
-                            positionX: details.globalPosition.dx,
-                            positionY: details.globalPosition.dy,
-                          ), FFAppState().Nodes.toList(), FFAppState().ViewportCenter, FFAppState().ZoomFactor, MediaQuery.sizeOf(context).width, MediaQuery.sizeOf(context).height).toString()}',
-                      style: TextStyle(
-                        color: FlutterFlowTheme.of(context).primaryText,
-                      ),
-                    ),
-                    duration: Duration(milliseconds: 2000),
-                    backgroundColor: FlutterFlowTheme.of(context).secondary,
+                // Execute callback
+                await widget.onPanEnd?.call(
+                  NFPointStruct(
+                    positionX: details.globalPosition.dx,
+                    positionY: details.globalPosition.dy,
                   ),
                 );
               },

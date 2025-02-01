@@ -5,6 +5,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'dart:ui';
 import '/custom_code/actions/index.dart' as actions;
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -317,6 +318,70 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                           _model.updatePage(() {});
                         }
                       },
+                      onPanDown: (point) async {
+                        // Set node target input socket
+                        FFAppState().updateCurrentBuildingEdgeStruct(
+                          (e) => e
+                            ..targetNodeId = widget!.node?.id
+                            ..targetInputSocketIndex = inputsListIndex,
+                        );
+                        _model.updatePage(() {});
+                      },
+                      onPanEnd: (point) async {
+                        // Set node target input socket
+                        FFAppState().updateCurrentBuildingEdgeStruct(
+                          (e) => e
+                            ..targetNodeId = functions.getTargetNodeIdFromPoint(
+                                point,
+                                FFAppState().Nodes.toList(),
+                                FFAppState().ViewportCenter,
+                                FFAppState().ZoomFactor,
+                                MediaQuery.sizeOf(context).width,
+                                MediaQuery.sizeOf(context).height)
+                            ..targetInputSocketIndex =
+                                functions.getTargetInputIndexFromPoint(
+                                    point,
+                                    FFAppState().Nodes.toList(),
+                                    FFAppState().ViewportCenter,
+                                    FFAppState().ZoomFactor,
+                                    MediaQuery.sizeOf(context).width,
+                                    MediaQuery.sizeOf(context).height),
+                        );
+                        _model.updatePage(() {});
+                        if (FFAppState().CurrentBuildingEdge.hasSourceNodeId() &&
+                            FFAppState()
+                                .CurrentBuildingEdge
+                                .hasTargetNodeId() &&
+                            FFAppState()
+                                .CurrentBuildingEdge
+                                .hasSourceOutputSocketIndex() &&
+                            FFAppState()
+                                .CurrentBuildingEdge
+                                .hasTargetInputSocketIndex()) {
+                          // Show snackbar
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                'Crtam edge...',
+                                style: TextStyle(
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryText,
+                                ),
+                              ),
+                              duration: Duration(milliseconds: 2000),
+                              backgroundColor:
+                                  FlutterFlowTheme.of(context).secondary,
+                            ),
+                          );
+                          // Add building edge to list
+                          FFAppState()
+                              .addToEdges(FFAppState().CurrentBuildingEdge);
+                          safeSetState(() {});
+                          // Unset
+                          FFAppState().CurrentBuildingEdge = NodeEdgeStruct();
+                          _model.updatePage(() {});
+                        }
+                      },
                     );
                   }).divide(SizedBox(height: 10.0)),
                 );
@@ -395,6 +460,71 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                                 ..sourceNodeId = null
                                 ..sourceOutputSocketIndex = null,
                             );
+                            _model.updatePage(() {});
+                          }
+                        },
+                        onPanDown: (point) async {
+                          // Set node source output socket
+                          FFAppState().updateCurrentBuildingEdgeStruct(
+                            (e) => e
+                              ..sourceNodeId = widget!.node?.id
+                              ..sourceOutputSocketIndex = outputsListIndex,
+                          );
+                          _model.updatePage(() {});
+                        },
+                        onPanEnd: (point) async {
+                          // Set node source output socket
+                          FFAppState().updateCurrentBuildingEdgeStruct(
+                            (e) => e
+                              ..sourceNodeId =
+                                  functions.getSourceNodeIdFromPoint(
+                                      point,
+                                      FFAppState().Nodes.toList(),
+                                      FFAppState().ViewportCenter,
+                                      FFAppState().ZoomFactor,
+                                      MediaQuery.sizeOf(context).width,
+                                      MediaQuery.sizeOf(context).height)
+                              ..sourceOutputSocketIndex =
+                                  functions.getSourceOutputIndexFromPoint(
+                                      point,
+                                      FFAppState().Nodes.toList(),
+                                      FFAppState().ViewportCenter,
+                                      FFAppState().ZoomFactor,
+                                      MediaQuery.sizeOf(context).width,
+                                      MediaQuery.sizeOf(context).height),
+                          );
+                          _model.updatePage(() {});
+                          if (FFAppState().CurrentBuildingEdge.hasSourceNodeId() &&
+                              FFAppState()
+                                  .CurrentBuildingEdge
+                                  .hasTargetNodeId() &&
+                              FFAppState()
+                                  .CurrentBuildingEdge
+                                  .hasSourceOutputSocketIndex() &&
+                              FFAppState()
+                                  .CurrentBuildingEdge
+                                  .hasTargetInputSocketIndex()) {
+                            // Show snackbar
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  'Crtam edge...',
+                                  style: TextStyle(
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryText,
+                                  ),
+                                ),
+                                duration: Duration(milliseconds: 2000),
+                                backgroundColor:
+                                    FlutterFlowTheme.of(context).secondary,
+                              ),
+                            );
+                            // Add building edge to list
+                            FFAppState()
+                                .addToEdges(FFAppState().CurrentBuildingEdge);
+                            safeSetState(() {});
+                            // Unset
+                            FFAppState().CurrentBuildingEdge = NodeEdgeStruct();
                             _model.updatePage(() {});
                           }
                         },

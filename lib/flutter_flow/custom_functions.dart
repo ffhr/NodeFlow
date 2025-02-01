@@ -413,5 +413,31 @@ int? getTargetInputIndexFromPoint(
   double screenWidth,
   double screenHeight,
 ) {
+  var node = getNodeFromPoint(
+      point, nodes, viewportCenter, zoomFactor, screenWidth, screenHeight);
+  if (node != null) {
+    for (var index = 0; index < node.inputs.length; index++) {
+      var inputSocketPosition = calculateSocketPosition(
+          node.virtualPosition, node.size, index, true, node.inputs.length);
+      var inputSocketAbsolutePosition = virtualToAbsolute(
+          inputSocketPosition,
+          node.size,
+          viewportCenter,
+          zoomFactor,
+          NFSizeStruct(width: screenWidth, height: screenHeight));
+
+      var inputSocketAbsolutePositionX = inputSocketAbsolutePosition.offsetX;
+      var inputSocketAbsolutePositionY = inputSocketAbsolutePosition.offsetY;
+
+      var distance = math.sqrt(
+          math.pow(point.positionX - inputSocketAbsolutePositionX, 2) +
+              math.pow(point.positionY - inputSocketAbsolutePositionY, 2));
+
+      var socketDiameter = 20;
+      if (distance < socketDiameter) {
+        return index;
+      }
+    }
+  }
   return null;
 }
