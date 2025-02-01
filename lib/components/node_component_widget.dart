@@ -362,21 +362,6 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                             FFAppState()
                                 .CurrentBuildingEdge
                                 .hasTargetInputSocketIndex()) {
-                          // Show snackbar
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(
-                                'Crtam edge...',
-                                style: TextStyle(
-                                  color:
-                                      FlutterFlowTheme.of(context).primaryText,
-                                ),
-                              ),
-                              duration: Duration(milliseconds: 2000),
-                              backgroundColor:
-                                  FlutterFlowTheme.of(context).secondary,
-                            ),
-                          );
                           // Add building edge to list
                           FFAppState()
                               .addToEdges(FFAppState().CurrentBuildingEdge);
@@ -516,21 +501,6 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                               FFAppState()
                                   .CurrentBuildingEdge
                                   .hasTargetInputSocketIndex()) {
-                            // Show snackbar
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text(
-                                  'Crtam edge...',
-                                  style: TextStyle(
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryText,
-                                  ),
-                                ),
-                                duration: Duration(milliseconds: 2000),
-                                backgroundColor:
-                                    FlutterFlowTheme.of(context).secondary,
-                              ),
-                            );
                             // Add building edge to list
                             FFAppState()
                                 .addToEdges(FFAppState().CurrentBuildingEdge);
