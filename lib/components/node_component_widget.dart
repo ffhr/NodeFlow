@@ -294,12 +294,16 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                               ..targetInputSocketIndex = inputsListIndex,
                           );
                           _model.updatePage(() {});
-                          if (FFAppState()
-                                  .CurrentBuildingEdge
-                                  .hasSourceNodeId() &&
+                          if (FFAppState().CurrentBuildingEdge.hasSourceNodeId() &&
                               FFAppState()
                                   .CurrentBuildingEdge
-                                  .hasTargetNodeId()) {
+                                  .hasTargetNodeId() &&
+                              FFAppState()
+                                  .CurrentBuildingEdge
+                                  .hasSourceOutputSocketIndex() &&
+                              FFAppState()
+                                  .CurrentBuildingEdge
+                                  .hasTargetInputSocketIndex()) {
                             // Add building edge to list
                             FFAppState()
                                 .addToEdges(FFAppState().CurrentBuildingEdge);
@@ -438,12 +442,16 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                                 ..sourceOutputSocketIndex = outputsListIndex,
                             );
                             _model.updatePage(() {});
-                            if (FFAppState()
-                                    .CurrentBuildingEdge
-                                    .hasSourceNodeId() &&
+                            if (FFAppState().CurrentBuildingEdge.hasSourceNodeId() &&
                                 FFAppState()
                                     .CurrentBuildingEdge
-                                    .hasTargetNodeId()) {
+                                    .hasTargetNodeId() &&
+                                FFAppState()
+                                    .CurrentBuildingEdge
+                                    .hasSourceOutputSocketIndex() &&
+                                FFAppState()
+                                    .CurrentBuildingEdge
+                                    .hasTargetInputSocketIndex()) {
                               // Add building edge to list
                               FFAppState()
                                   .addToEdges(FFAppState().CurrentBuildingEdge);
