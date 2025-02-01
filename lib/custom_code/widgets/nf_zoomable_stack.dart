@@ -34,6 +34,7 @@ class NFZoomableStack extends StatefulWidget {
 }
 
 const double DEFAULT_SCALE_FACTOR = 1;
+
 class _NFZoomableStackState extends State<NFZoomableStack>
     with WidgetsBindingObserver {
   double initialScale = DEFAULT_SCALE_FACTOR; // Initial scale factor
@@ -43,7 +44,7 @@ class _NFZoomableStackState extends State<NFZoomableStack>
 
   double viewerCenterX = 0;
   double viewerCenterY = 0;
-  
+
   double alignmentX = 0;
   double alignmentY = 0;
 
@@ -96,14 +97,36 @@ class _NFZoomableStackState extends State<NFZoomableStack>
     _updateWindowSize();
   }
 
+  Size? _previousSize;
+
   void _updateWindowSize() {
-    // final newSize =
-    //     View.of(context).physicalSize / View.of(context).devicePixelRatio;
-    // print("newSize");
-    // print(newSize);
-    setState(() {
-      alignToCenterOfViewer(context);
-    });
+    final newSize =
+        View.of(context).physicalSize / View.of(context).devicePixelRatio;
+
+    if (_previousSize != null) {
+      double dx = newSize.width - _previousSize!.width;
+      double dy = newSize.height - _previousSize!.height;
+
+      // print("dx: $dx, dy: $dy");
+
+      if (dx.abs() > 50 || dy.abs() > 50) {
+        // Arbitrary threshold for maximize
+        // print("Window maximized");
+
+        Future.delayed(Duration(milliseconds: 100), () {
+          setState(() {
+            alignToCenterOfViewer(context);
+          });
+        });
+      } else {
+        // print("Window resized");
+        setState(() {
+          alignToCenterOfViewer(context);
+        });
+      }
+    }
+
+    _previousSize = newSize;
   }
 
   @override
@@ -137,7 +160,9 @@ class _NFZoomableStackState extends State<NFZoomableStack>
               height: MediaQuery.of(context).size.height,
               child: CustomPaint(
                 size: Size.infinite,
-                painter: NFGridPainter(scale, offsetX: offsetXFromWindowCenter, offsetY: offsetYFromWindowCenter),
+                painter: NFGridPainter(scale,
+                    offsetX: offsetXFromWindowCenter,
+                    offsetY: offsetYFromWindowCenter),
               ),
             ),
           ),
@@ -185,12 +210,26 @@ class _NFZoomableStackState extends State<NFZoomableStack>
               boundaryMargin:
                   EdgeInsets.all(double.infinity), // Allows free panning
               constrained: true,
-              child: SizedBox(
-                width: MediaQuery.of(context).size.width * maxScale,
-                height: MediaQuery.of(context).size.height * maxScale,
-                child: Container(
-                  key: interactiveViewerKey,
-                  child: widget.stackComponent!(),
+              child: Container(
+                decoration: BoxDecoration(
+                  // color: Colors.yellow,
+                ),
+                constraints: BoxConstraints(
+                    // minWidth: 10000,
+                    // minHeight: 10000, // Ensures minimum height of 6000
+
+                    ),
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width * maxScale,
+                  height: MediaQuery.of(context).size.height * maxScale,
+                  // width: 1000,
+                  // height: 150,
+                  child: Container(
+                    // decoration: BoxDecoration(color: Colors.blue),
+                    // height: 5000,
+                    key: interactiveViewerKey,
+                    child: widget.stackComponent!(),
+                  ),
                 ),
               ),
             ),
@@ -263,11 +302,12 @@ class NFGridPainter extends CustomPainter {
 
     for (int i = 0; i < levels; i++) {
       double gridSize = baseSize * pow(5, i) * zoomFactor;
-      if (gridSize < 1.0 || (zoomFactor <= 0.1 && i < 2)) continue; // Avoid rendering too small grids at low zoom
-      
+      if (gridSize < 1.0 || (zoomFactor <= 0.1 && i < 2))
+        continue; // Avoid rendering too small grids at low zoom
+
       double startX = (centerX % gridSize) - gridSize;
       double startY = (centerY % gridSize) - gridSize;
-      
+
       for (double x = startX; x < size.width; x += gridSize) {
         canvas.drawLine(Offset(x, 0), Offset(x, size.height), paint);
       }
