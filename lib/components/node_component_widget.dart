@@ -328,18 +328,18 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                         _model.updatePage(() {});
                       },
                       onPanEnd: (point) async {
-                        // Set node target input socket
+                        // Set node source output socket
                         FFAppState().updateCurrentBuildingEdgeStruct(
                           (e) => e
-                            ..targetNodeId = functions.getTargetNodeIdFromPoint(
+                            ..sourceNodeId = functions.getSourceNodeIdFromPoint(
                                 point,
                                 FFAppState().Nodes.toList(),
                                 FFAppState().ViewportCenter,
                                 FFAppState().ZoomFactor,
                                 MediaQuery.sizeOf(context).width,
                                 MediaQuery.sizeOf(context).height)
-                            ..targetInputSocketIndex =
-                                functions.getTargetInputIndexFromPoint(
+                            ..sourceOutputSocketIndex =
+                                functions.getSourceOutputIndexFromPoint(
                                     point,
                                     FFAppState().Nodes.toList(),
                                     FFAppState().ViewportCenter,
@@ -473,19 +473,19 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                           _model.updatePage(() {});
                         },
                         onPanEnd: (point) async {
-                          // Set node source output socket
+                          // Set node target input socket
                           FFAppState().updateCurrentBuildingEdgeStruct(
                             (e) => e
-                              ..sourceNodeId =
-                                  functions.getSourceNodeIdFromPoint(
+                              ..targetNodeId =
+                                  functions.getTargetNodeIdFromPoint(
                                       point,
                                       FFAppState().Nodes.toList(),
                                       FFAppState().ViewportCenter,
                                       FFAppState().ZoomFactor,
                                       MediaQuery.sizeOf(context).width,
                                       MediaQuery.sizeOf(context).height)
-                              ..sourceOutputSocketIndex =
-                                  functions.getSourceOutputIndexFromPoint(
+                              ..targetInputSocketIndex =
+                                  functions.getTargetInputIndexFromPoint(
                                       point,
                                       FFAppState().Nodes.toList(),
                                       FFAppState().ViewportCenter,
