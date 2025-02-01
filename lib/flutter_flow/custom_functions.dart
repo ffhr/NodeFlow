@@ -391,3 +391,27 @@ int? getSourceOutputIndexFromPoint(
   }
   return null;
 }
+
+String? getTargetNodeIdFromPoint(
+  NFPointStruct point,
+  List<NodeStruct> nodes,
+  NFOffsetStruct viewportCenter,
+  double zoomFactor,
+  double screenWidtth,
+  double screenHeight,
+) {
+  var node = getNodeFromPoint(
+      point, nodes, viewportCenter, zoomFactor, screenWidth, screenHeight);
+  return node?.id;
+}
+
+int? getTargetInputIndexFromPoint(
+  NFPointStruct point,
+  List<NodeStruct> nodes,
+  NFOffsetStruct viewportCenter,
+  double zoomFactor,
+  double screenWidth,
+  double screenHeight,
+) {
+  return null;
+}
