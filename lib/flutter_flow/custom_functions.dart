@@ -363,5 +363,31 @@ int? getSourceOutputIndexFromPoint(
   double screenWidth,
   double screenHeight,
 ) {
+  var node = getNodeFromPoint(
+      point, nodes, viewportCenter, zoomFactor, screenWidth, screenHeight);
+  if (node != null) {
+    for (var index = 0; index < node.outputs.length; index++) {
+      var outputSocketPosition = calculateSocketPosition(
+          node.virtualPosition, node.size, index, false, node.outputs.length);
+      var outputSocketAbsolutePosition = virtualToAbsolute(
+          outputSocketPosition,
+          node.size,
+          viewportCenter,
+          zoomFactor,
+          NFSizeStruct(width: screenWidth, height: screenHeight));
+
+      var outputSocketAbsolutePositionX = outputSocketAbsolutePosition.offsetX;
+      var outputSocketAbsolutePositionY = outputSocketAbsolutePosition.offsetY;
+
+      var distance = math.sqrt(
+          math.pow(point.positionX - outputSocketAbsolutePositionX, 2) +
+              math.pow(point.positionY - outputSocketAbsolutePositionY, 2));
+
+      var socketDiameter = 20;
+      if (distance < socketDiameter) {
+        return index;
+      }
+    }
+  }
   return null;
 }

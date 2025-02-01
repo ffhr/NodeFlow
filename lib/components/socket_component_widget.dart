@@ -173,13 +173,14 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
                   (e) => e..drawingState = DrawingState.finished,
                 );
                 FFAppState().update(() {});
+                // Show snackbar
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content: Text(
-                      'Dignuo pan iznad node-a: ${functions.getNodeFromPoint(NFPointStruct(
+                      'Dignuo pan iznad socketa-a: ${functions.getSourceOutputIndexFromPoint(NFPointStruct(
                             positionX: details.globalPosition.dx,
                             positionY: details.globalPosition.dy,
-                          ), FFAppState().Nodes.toList(), FFAppState().ViewportCenter, FFAppState().ZoomFactor, MediaQuery.sizeOf(context).width, MediaQuery.sizeOf(context).height)?.title}',
+                          ), FFAppState().Nodes.toList(), FFAppState().ViewportCenter, FFAppState().ZoomFactor, MediaQuery.sizeOf(context).width, MediaQuery.sizeOf(context).height).toString()}',
                       style: TextStyle(
                         color: FlutterFlowTheme.of(context).primaryText,
                       ),
