@@ -397,7 +397,7 @@ String? getTargetNodeIdFromPoint(
   List<NodeStruct> nodes,
   NFOffsetStruct viewportCenter,
   double zoomFactor,
-  double screenWidtth,
+  double screenWidth,
   double screenHeight,
 ) {
   var node = getNodeFromPoint(
