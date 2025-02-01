@@ -361,7 +361,7 @@ int? getSourceOutputIndexFromPoint(
   NFOffsetStruct viewportCenter,
   double zoomFactor,
   double screenWidth,
-  String screenHeight,
+  double screenHeight,
 ) {
   return null;
 }
