@@ -314,7 +314,9 @@ String? getSourceNodeIdFromPoint(
   double screenWidth,
   double screenHeight,
 ) {
-  return null;
+  var node = getNodeFromPoint(
+      point, nodes, viewportCenter, zoomFactor, screenWidth, screenHeight);
+  return node?.id;
 }
 
 NodeStruct? getNodeFromPoint(
@@ -350,5 +352,16 @@ NodeStruct? getNodeFromPoint(
       return node;
     }
   }
+  return null;
+}
+
+int? getSourceOutputIndexFromPoint(
+  NFPointStruct point,
+  List<NodeStruct> nodes,
+  NFOffsetStruct viewportCenter,
+  double zoomFactor,
+  double screenWidth,
+  String screenHeight,
+) {
   return null;
 }
