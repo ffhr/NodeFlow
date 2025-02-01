@@ -326,9 +326,9 @@ NodeStruct? getNodeFromPoint(
     var nodePosition = virtualToAbsolute(
         node.virtualPosition,
         node.size,
-        NFOffsetStruct(offsetX: 0, offsetY: 0),
-        1.0,
-        NFSizeStruct(width: 0, height: 0));
+        viewportCenter,
+        zoomFactor,
+        NFSizeStruct(width: screenWidth, height: screenHeight));
 
     var nodeSize = node.size;
     var nodeWidth = nodeSize.width;

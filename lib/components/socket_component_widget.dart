@@ -2,6 +2,7 @@ import '/backend/schema/enums/enums.dart';
 import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -172,6 +173,21 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
                   (e) => e..drawingState = DrawingState.finished,
                 );
                 FFAppState().update(() {});
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(
+                      'Dignuo pan iznad node-a: ${functions.getNodeFromPoint(NFPointStruct(
+                            positionX: details.localPosition.dx,
+                            positionY: details.localPosition.dy,
+                          ), FFAppState().Nodes.toList(), FFAppState().ViewportCenter, FFAppState().ZoomFactor, MediaQuery.sizeOf(context).width, MediaQuery.sizeOf(context).height)?.title}',
+                      style: TextStyle(
+                        color: FlutterFlowTheme.of(context).primaryText,
+                      ),
+                    ),
+                    duration: Duration(milliseconds: 4000),
+                    backgroundColor: FlutterFlowTheme.of(context).secondary,
+                  ),
+                );
               },
               onPanUpdate: (details) async {
                 // Set status Drawing.ACTIVE
