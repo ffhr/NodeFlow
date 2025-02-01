@@ -13,9 +13,23 @@ class SocketComponentWidget extends StatefulWidget {
   const SocketComponentWidget({
     super.key,
     this.renderPan,
-  });
+    this.isHovered,
+    this.mouseEntered,
+    this.mouseExit,
+    bool? isClicked,
+    required this.onClicked,
+    this.onPanDown,
+    this.onPanEnd,
+  }) : this.isClicked = isClicked ?? false;
 
   final Future Function()? renderPan;
+  final bool? isHovered;
+  final Future Function()? mouseEntered;
+  final Future Function()? mouseExit;
+  final bool isClicked;
+  final Future Function(bool isClicked)? onClicked;
+  final Future Function(NFPointStruct point)? onPanDown;
+  final Future Function(NFPointStruct point)? onPanEnd;
 
   @override
   State<SocketComponentWidget> createState() => _SocketComponentWidgetState();
@@ -52,63 +66,197 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
     return MouseRegion(
       opaque: false,
       cursor: MouseCursor.defer ?? MouseCursor.defer,
-      child: Container(
-        width: 20.0,
-        height: 20.0,
-        decoration: BoxDecoration(
-          color: FlutterFlowTheme.of(context).warning,
-          shape: BoxShape.circle,
-          border: Border.all(
-            color: valueOrDefault<Color>(
-              _model.mouseRegionHovered!
-                  ? Colors.white
-                  : FlutterFlowTheme.of(context).warning,
-              Colors.white,
-            ),
-            width: 3.0,
-          ),
-        ),
+      child: Builder(
+        builder: (context) {
+          if (widget!.isClicked) {
+            return GestureDetector(
+              onTap: () async {
+                // onClicked(false)
+                await widget.onClicked?.call(
+                  false,
+                );
+              },
+              onPanDown: (details) async {
+                if ((FFAppState().EdgeDrawing.drawingState ==
+                        DrawingState.inactive) ||
+                    (FFAppState().EdgeDrawing.drawingState ==
+                        DrawingState.finished)) {
+                  // Set status Drawing.STARTED
+                  FFAppState().updateEdgeDrawingStruct(
+                    (e) => e
+                      ..drawingState = DrawingState.started
+                      ..drawingStartPoint = NFPointStruct(
+                        positionX: details.globalPosition.dx,
+                        positionY: details.globalPosition.dy,
+                      )
+                      ..drawingEndPoint = NFPointStruct(
+                        positionX: details.globalPosition.dx,
+                        positionY: details.globalPosition.dy,
+                      ),
+                  );
+                  FFAppState().update(() {});
+                  // Execute callback
+                  await widget.onPanDown?.call(
+                    NFPointStruct(
+                      positionX: details.globalPosition.dx,
+                      positionY: details.globalPosition.dy,
+                    ),
+                  );
+                }
+              },
+              onPanEnd: (details) async {
+                // Set status Drawing.FINISHED
+                FFAppState().updateEdgeDrawingStruct(
+                  (e) => e..drawingState = DrawingState.finished,
+                );
+                FFAppState().update(() {});
+                // Execute callback
+                await widget.onPanEnd?.call(
+                  NFPointStruct(
+                    positionX: details.globalPosition.dx,
+                    positionY: details.globalPosition.dy,
+                  ),
+                );
+              },
+              onPanUpdate: (details) async {
+                // Set status Drawing.ACTIVE
+                FFAppState().updateEdgeDrawingStruct(
+                  (e) => e
+                    ..drawingState = DrawingState.active
+                    ..drawingEndPoint = NFPointStruct(
+                      positionX: details.globalPosition.dx,
+                      positionY: details.globalPosition.dy,
+                    ),
+                );
+                FFAppState().update(() {});
+              },
+              onTapUp: (details) async {
+                // Set status Drawing.FINISHED
+                FFAppState().updateEdgeDrawingStruct(
+                  (e) => e..drawingState = DrawingState.finished,
+                );
+                FFAppState().update(() {});
+              },
+              child: Container(
+                width: 20.0,
+                height: 20.0,
+                decoration: BoxDecoration(
+                  color: FlutterFlowTheme.of(context).tertiary,
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: valueOrDefault<Color>(
+                      widget!.isHovered!
+                          ? Colors.white
+                          : FlutterFlowTheme.of(context).warning,
+                      Colors.white,
+                    ),
+                    width: 3.0,
+                  ),
+                ),
+              ),
+            );
+          } else {
+            return GestureDetector(
+              onTap: () async {
+                // onClicked(true)
+                await widget.onClicked?.call(
+                  true,
+                );
+              },
+              onPanDown: (details) async {
+                if ((FFAppState().EdgeDrawing.drawingState ==
+                        DrawingState.inactive) ||
+                    (FFAppState().EdgeDrawing.drawingState ==
+                        DrawingState.finished)) {
+                  // Set status Drawing.STARTED
+                  FFAppState().updateEdgeDrawingStruct(
+                    (e) => e
+                      ..drawingState = DrawingState.started
+                      ..drawingStartPoint = NFPointStruct(
+                        positionX: details.globalPosition.dx,
+                        positionY: details.globalPosition.dy,
+                      )
+                      ..drawingEndPoint = NFPointStruct(
+                        positionX: details.globalPosition.dx,
+                        positionY: details.globalPosition.dy,
+                      ),
+                  );
+                  FFAppState().update(() {});
+                  // Execute callback
+                  await widget.onPanDown?.call(
+                    NFPointStruct(
+                      positionX: details.globalPosition.dx,
+                      positionY: details.globalPosition.dy,
+                    ),
+                  );
+                }
+              },
+              onPanEnd: (details) async {
+                // Set status Drawing.FINISHED
+                FFAppState().updateEdgeDrawingStruct(
+                  (e) => e..drawingState = DrawingState.finished,
+                );
+                FFAppState().update(() {});
+                // Execute callback
+                await widget.onPanEnd?.call(
+                  NFPointStruct(
+                    positionX: details.globalPosition.dx,
+                    positionY: details.globalPosition.dy,
+                  ),
+                );
+              },
+              onPanUpdate: (details) async {
+                // Set status Drawing.ACTIVE
+                FFAppState().updateEdgeDrawingStruct(
+                  (e) => e
+                    ..drawingState = DrawingState.active
+                    ..drawingEndPoint = NFPointStruct(
+                      positionX: details.globalPosition.dx,
+                      positionY: details.globalPosition.dy,
+                    ),
+                );
+                FFAppState().update(() {});
+              },
+              onTapUp: (details) async {
+                // Set status Drawing.FINISHED
+                FFAppState().updateEdgeDrawingStruct(
+                  (e) => e..drawingState = DrawingState.finished,
+                );
+                FFAppState().update(() {});
+              },
+              child: Container(
+                width: 20.0,
+                height: 20.0,
+                decoration: BoxDecoration(
+                  color: FlutterFlowTheme.of(context).warning,
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: valueOrDefault<Color>(
+                      widget!.isHovered!
+                          ? Colors.white
+                          : FlutterFlowTheme.of(context).warning,
+                      Colors.white,
+                    ),
+                    width: 3.0,
+                  ),
+                ),
+              ),
+            );
+          }
+        },
       ),
       onEnter: ((event) async {
         safeSetState(() => _model.mouseRegionHovered = true);
-        if (FFAppState().EdgeDrawing.drawingState == DrawingState.inactive) {
-          // Set status Drawing.STARTED
-          FFAppState().updateEdgeDrawingStruct(
-            (e) => e
-              ..drawingState = DrawingState.started
-              ..drawingStartPoint = NFPointStruct(
-                positionX: 0.0,
-                positionY: 0.0,
-              )
-              ..drawingEndPoint = NFPointStruct(
-                positionX: 0.0,
-                positionY: 0.0,
-              ),
-          );
-          FFAppState().IsDrawingPanVisible = true;
-          FFAppState().update(() {});
-        }
+        if (FFAppState().EdgeDrawing.drawingState == DrawingState.inactive) {}
         if ((FFAppState().EdgeDrawing.drawingState == DrawingState.active) ||
-            (FFAppState().EdgeDrawing.drawingState == DrawingState.finished)) {
-          // Set status Drawing.INACTIVE
-          FFAppState().updateEdgeDrawingStruct(
-            (e) => e..drawingState = DrawingState.inactive,
-          );
-          FFAppState().IsDrawingPanVisible = false;
-          FFAppState().update(() {});
-        }
+            (FFAppState().EdgeDrawing.drawingState == DrawingState.finished)) {}
+        // Execute callback
+        await widget.mouseEntered?.call();
       }),
       onExit: ((event) async {
         safeSetState(() => _model.mouseRegionHovered = false);
-        if (FFAppState().EdgeDrawing.drawingState == DrawingState.started) {
-          // Set status Drawing.INACTIVE
-          FFAppState().updateEdgeDrawingStruct(
-            (e) => e..drawingState = DrawingState.finished,
-          );
-          FFAppState().update(() {});
-          FFAppState().IsDrawingPanVisible = false;
-          safeSetState(() {});
-        }
+        if (FFAppState().EdgeDrawing.drawingState == DrawingState.started) {}
+        await widget.mouseExit?.call();
       }),
     );
   }

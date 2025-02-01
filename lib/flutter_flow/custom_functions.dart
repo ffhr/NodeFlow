@@ -223,10 +223,12 @@ NFOffsetStruct calculateSocketPosition(
 
   if (isInput) {
     return NFOffsetStruct(
-        offsetX: nodePosition.offsetX - nodeSize.width / 2, offsetY: socketY);
+        offsetX: nodePosition.offsetX - nodeSize.width / 2 + 5,
+        offsetY: socketY);
   } else {
     return NFOffsetStruct(
-        offsetX: nodePosition.offsetX + nodeSize.width / 2, offsetY: socketY);
+        offsetX: nodePosition.offsetX + nodeSize.width / 2 - 5,
+        offsetY: socketY);
   }
 }
 
@@ -236,4 +238,206 @@ NFPointStruct convertNFOffsetToNFPoint(NFOffsetStruct offset) {
 
 NFOffsetStruct convertNFPointToNFOffset(NFPointStruct point) {
   return NFOffsetStruct(offsetX: point.positionX, offsetY: point.positionY);
+}
+
+NFPointStruct calculateStartPointFromEdge(
+  NodeEdgeStruct edge,
+  double screenWidth,
+  double screenHeight,
+  List<NodeStruct> nodes,
+  NFOffsetStruct viewportCenter,
+  double zoomFactor,
+) {
+  var startNode = getNodeFromId(edge.sourceNodeId, nodes);
+
+  var startSocketVirtualPosition = calculateSocketPosition(
+      startNode.virtualPosition,
+      startNode.size,
+      edge.sourceOutputSocketIndex,
+      false,
+      startNode.outputs.length);
+
+  var startSocketAbsolutePosition = virtualToAbsolute(
+      startSocketVirtualPosition,
+      startNode.size,
+      viewportCenter,
+      zoomFactor,
+      NFSizeStruct(width: screenWidth, height: screenHeight));
+
+  return convertNFOffsetToNFPoint(startSocketAbsolutePosition);
+}
+
+NFPointStruct? calculateEndPointFromEdge(
+  NodeEdgeStruct edge,
+  double screenWidth,
+  double screenHeight,
+  List<NodeStruct> nodes,
+  NFOffsetStruct viewportCenter,
+  double zoomFactor,
+) {
+  var startNode = getNodeFromId(edge.targetNodeId, nodes);
+
+  var startSocketVirtualPosition = calculateSocketPosition(
+      startNode.virtualPosition,
+      startNode.size,
+      edge.targetInputSocketIndex,
+      true,
+      startNode.inputs.length);
+
+  var startSocketAbsolutePosition = virtualToAbsolute(
+      startSocketVirtualPosition,
+      startNode.size,
+      viewportCenter,
+      zoomFactor,
+      NFSizeStruct(width: screenWidth, height: screenHeight));
+
+  return convertNFOffsetToNFPoint(startSocketAbsolutePosition);
+}
+
+NodeStruct getNodeFromId(
+  String id,
+  List<NodeStruct> nodes,
+) {
+  for (var node in nodes) {
+    if (node.id == id) {
+      return node;
+    }
+  }
+  return NodeStruct();
+}
+
+String? getSourceNodeIdFromPoint(
+  NFPointStruct point,
+  List<NodeStruct> nodes,
+  NFOffsetStruct viewportCenter,
+  double zoomFactor,
+  double screenWidth,
+  double screenHeight,
+) {
+  var node = getNodeFromPoint(
+      point, nodes, viewportCenter, zoomFactor, screenWidth, screenHeight);
+  return node?.id;
+}
+
+NodeStruct? getNodeFromPoint(
+  NFPointStruct point,
+  List<NodeStruct> nodes,
+  NFOffsetStruct viewportCenter,
+  double zoomFactor,
+  double screenWidth,
+  double screenHeight,
+) {
+  for (var index = nodes.length - 1; index >= 0; index--) {
+    var node = nodes[index];
+    var nodePosition = virtualToAbsolute(
+        node.virtualPosition,
+        node.size,
+        viewportCenter,
+        zoomFactor,
+        NFSizeStruct(width: screenWidth, height: screenHeight));
+
+    var nodeSize = node.size;
+    var nodeWidth = nodeSize.width;
+    var nodeHeight = nodeSize.height;
+
+    var nodeTopLeftX = nodePosition.offsetX - nodeWidth / 2;
+    var nodeTopLeftY = nodePosition.offsetY - nodeHeight / 2;
+    var nodeBottomRightX = nodePosition.offsetX + nodeWidth / 2;
+    var nodeBottomRightY = nodePosition.offsetY + nodeHeight / 2;
+
+    if (point.positionX >= nodeTopLeftX &&
+        point.positionX <= nodeBottomRightX &&
+        point.positionY >= nodeTopLeftY &&
+        point.positionY <= nodeBottomRightY) {
+      return node;
+    }
+  }
+  return null;
+}
+
+int? getSourceOutputIndexFromPoint(
+  NFPointStruct point,
+  List<NodeStruct> nodes,
+  NFOffsetStruct viewportCenter,
+  double zoomFactor,
+  double screenWidth,
+  double screenHeight,
+) {
+  var node = getNodeFromPoint(
+      point, nodes, viewportCenter, zoomFactor, screenWidth, screenHeight);
+  if (node != null) {
+    for (var index = 0; index < node.outputs.length; index++) {
+      var outputSocketPosition = calculateSocketPosition(
+          node.virtualPosition, node.size, index, false, node.outputs.length);
+      var outputSocketAbsolutePosition = virtualToAbsolute(
+          outputSocketPosition,
+          node.size,
+          viewportCenter,
+          zoomFactor,
+          NFSizeStruct(width: screenWidth, height: screenHeight));
+
+      var outputSocketAbsolutePositionX = outputSocketAbsolutePosition.offsetX;
+      var outputSocketAbsolutePositionY = outputSocketAbsolutePosition.offsetY;
+
+      var distance = math.sqrt(
+          math.pow(point.positionX - outputSocketAbsolutePositionX, 2) +
+              math.pow(point.positionY - outputSocketAbsolutePositionY, 2));
+
+      var socketDiameter = 20;
+      if (distance < socketDiameter) {
+        return index;
+      }
+    }
+  }
+  return null;
+}
+
+String? getTargetNodeIdFromPoint(
+  NFPointStruct point,
+  List<NodeStruct> nodes,
+  NFOffsetStruct viewportCenter,
+  double zoomFactor,
+  double screenWidth,
+  double screenHeight,
+) {
+  var node = getNodeFromPoint(
+      point, nodes, viewportCenter, zoomFactor, screenWidth, screenHeight);
+  return node?.id;
+}
+
+int? getTargetInputIndexFromPoint(
+  NFPointStruct point,
+  List<NodeStruct> nodes,
+  NFOffsetStruct viewportCenter,
+  double zoomFactor,
+  double screenWidth,
+  double screenHeight,
+) {
+  var node = getNodeFromPoint(
+      point, nodes, viewportCenter, zoomFactor, screenWidth, screenHeight);
+  if (node != null) {
+    for (var index = 0; index < node.inputs.length; index++) {
+      var inputSocketPosition = calculateSocketPosition(
+          node.virtualPosition, node.size, index, true, node.inputs.length);
+      var inputSocketAbsolutePosition = virtualToAbsolute(
+          inputSocketPosition,
+          node.size,
+          viewportCenter,
+          zoomFactor,
+          NFSizeStruct(width: screenWidth, height: screenHeight));
+
+      var inputSocketAbsolutePositionX = inputSocketAbsolutePosition.offsetX;
+      var inputSocketAbsolutePositionY = inputSocketAbsolutePosition.offsetY;
+
+      var distance = math.sqrt(
+          math.pow(point.positionX - inputSocketAbsolutePositionX, 2) +
+              math.pow(point.positionY - inputSocketAbsolutePositionY, 2));
+
+      var socketDiameter = 20;
+      if (distance < socketDiameter) {
+        return index;
+      }
+    }
+  }
+  return null;
 }

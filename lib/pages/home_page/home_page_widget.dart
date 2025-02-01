@@ -1,6 +1,5 @@
 import '/backend/schema/enums/enums.dart';
 import '/backend/schema/structs/index.dart';
-import '/components/drawing_pan_widget.dart';
 import '/components/node_component_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -35,7 +34,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       // Init nodes
-      _model.nodes = functions.initNodes().toList().cast<NodeStruct>();
+      FFAppState().Nodes = functions.initNodes().toList().cast<NodeStruct>();
       safeSetState(() {});
     });
 
@@ -71,10 +70,10 @@ class _HomePageWidgetState extends State<HomePageWidget> {
             onTap: () async {
               // Reset selections
               await actions.resetSelections(
-                _model.nodes.toList(),
+                FFAppState().Nodes.toList(),
               );
               // Set selected index
-              _model.selectedIndex = -1;
+              FFAppState().NodeSelectedIndex = -1;
               safeSetState(() {});
             },
             child: Container(
@@ -83,178 +82,194 @@ class _HomePageWidgetState extends State<HomePageWidget> {
               ),
               child: Stack(
                 children: [
-                  Builder(
-                    builder: (context) {
-                      final nodesList = _model.nodes.toList();
+                  if (FFAppState().Nodes.isNotEmpty)
+                    Builder(
+                      builder: (context) {
+                        final edges = FFAppState().Edges.toList();
 
-                      return GestureDetector(
-                        onPanDown: (details) async {
-                          FFAppState().updateEdgeDrawingStruct(
-                            (e) => e
-                              ..drawingStartPoint = NFPointStruct(
-                                positionX: details.localPosition.dx,
-                                positionY: details.localPosition.dy,
-                              )
-                              ..drawingState = DrawingState.started
-                              ..drawingEndPoint = NFPointStruct(
-                                positionX: details.localPosition.dx,
-                                positionY: details.localPosition.dy,
-                              ),
-                          );
-                          safeSetState(() {});
-                        },
-                        onPanEnd: (details) async {
-                          FFAppState().updateEdgeDrawingStruct(
-                            (e) => e..drawingState = DrawingState.finished,
-                          );
-                          safeSetState(() {});
-                        },
-                        onPanUpdate: (details) async {
-                          FFAppState().updateEdgeDrawingStruct(
-                            (e) => e
-                              ..drawingState = DrawingState.active
-                              ..drawingEndPoint = NFPointStruct(
-                                positionX: details.localPosition.dx,
-                                positionY: details.localPosition.dy,
-                              ),
-                          );
-                          safeSetState(() {});
-                        },
-                        child: Stack(
-                          children:
-                              List.generate(nodesList.length, (nodesListIndex) {
-                            final nodesListItem = nodesList[nodesListIndex];
-                            return Align(
-                              alignment: AlignmentDirectional(
-                                  valueOrDefault<double>(
-                                    functions
-                                        .virtualToRelative(
-                                            nodesListItem.virtualPosition,
-                                            nodesListItem.size,
-                                            FFAppState().ViewportCenter,
-                                            FFAppState().ZoomFactor,
-                                            NFSizeStruct(
-                                              width: MediaQuery.sizeOf(context)
-                                                  .width,
-                                              height: MediaQuery.sizeOf(context)
-                                                  .height,
-                                            ))
-                                        .offsetX,
-                                    0.0,
-                                  ),
-                                  valueOrDefault<double>(
-                                    functions
-                                        .virtualToRelative(
-                                            nodesListItem.virtualPosition,
-                                            nodesListItem.size,
-                                            FFAppState().ViewportCenter,
-                                            FFAppState().ZoomFactor,
-                                            NFSizeStruct(
-                                              width: MediaQuery.sizeOf(context)
-                                                  .width,
-                                              height: MediaQuery.sizeOf(context)
-                                                  .height,
-                                            ))
-                                        .offsetY,
-                                    0.0,
-                                  )),
+                        return Stack(
+                          children: List.generate(edges.length, (edgesIndex) {
+                            final edgesItem = edges[edgesIndex];
+                            return Visibility(
+                              visible: true,
                               child: Container(
-                                decoration: BoxDecoration(),
-                                child: NodeComponentWidget(
-                                  key: Key(
-                                      'Keyr1c_${nodesListIndex}_of_${nodesList.length}'),
-                                  node: nodesListItem,
-                                  onTapDown: () async {},
-                                  onTapUp: () async {},
-                                  onPanDown: () async {
-                                    // Reset all isMoveable
-                                    await actions.resetMoveables(
-                                      _model.nodes.toList(),
-                                    );
-                                    // Is moveable true
-                                    _model.updateNodesAtIndex(
-                                      nodesListIndex,
-                                      (e) => e..isMoveable = true,
-                                    );
-                                    safeSetState(() {});
-                                    // Reset selections
-                                    await actions.resetSelections(
-                                      _model.nodes.toList(),
-                                    );
-                                    // Toggle selected item
-                                    _model.updateNodesAtIndex(
-                                      nodesListIndex,
-                                      (e) => e
-                                        ..isSelected =
-                                            !nodesListItem.isSelected,
-                                    );
-                                    safeSetState(() {});
-                                    // Bring to front selected item
-                                    _model.sortedNodes =
-                                        await actions.sortByIsSelected(
-                                      _model.nodes.toList(),
-                                    );
-                                    // Bring to front selected item
-                                    _model.nodes = _model.sortedNodes!
-                                        .toList()
-                                        .cast<NodeStruct>();
-                                    safeSetState(() {});
-                                    // Set selected index
-                                    _model.selectedIndex =
-                                        _model.nodes.length - 1;
-
-                                    safeSetState(() {});
-                                  },
-                                  onPanEnd: () async {
-                                    // Reset all isMoveable
-                                    await actions.resetMoveables(
-                                      _model.nodes.toList(),
-                                    );
-                                    // Is moveable false
-                                    _model.updateNodesAtIndex(
-                                      nodesListIndex,
-                                      (e) => e..isMoveable = false,
-                                    );
-                                    safeSetState(() {});
-                                  },
-                                  onPanUpdate: (deltaPoint) async {
-                                    // Render node movement
-                                    _model.updateNodesAtIndex(
-                                      _model.selectedIndex,
-                                      (e) => e
-                                        ..virtualPosition = NFOffsetStruct(
-                                          offsetX: _model.nodes
-                                                  .elementAtOrNull(
-                                                      _model.selectedIndex)!
-                                                  .virtualPosition
-                                                  .offsetX +
-                                              deltaPoint.positionX,
-                                          offsetY: _model.nodes
-                                                  .elementAtOrNull(
-                                                      _model.selectedIndex)!
-                                                  .virtualPosition
-                                                  .offsetY +
-                                              deltaPoint.positionY,
-                                        ),
-                                    );
-                                    safeSetState(() {});
-                                  },
-                                  renderPanStack: () async {
-                                    FFAppState().updateEdgeDrawingStruct(
-                                      (e) => e
-                                        ..drawingState = DrawingState.started,
-                                    );
+                                width: double.infinity,
+                                height: double.infinity,
+                                child: custom_widgets.CurvedLine(
+                                  width: double.infinity,
+                                  height: double.infinity,
+                                  start: functions.calculateStartPointFromEdge(
+                                      edgesItem,
+                                      MediaQuery.sizeOf(context).width,
+                                      MediaQuery.sizeOf(context).height,
+                                      FFAppState().Nodes.toList(),
+                                      FFAppState().ViewportCenter,
+                                      FFAppState().ZoomFactor),
+                                  end: functions.calculateEndPointFromEdge(
+                                      edgesItem,
+                                      MediaQuery.sizeOf(context).width,
+                                      MediaQuery.sizeOf(context).height,
+                                      FFAppState().Nodes.toList(),
+                                      FFAppState().ViewportCenter,
+                                      FFAppState().ZoomFactor)!,
+                                  onTap: () async {
+                                    // Remove from list
+                                    FFAppState().removeFromEdges(edgesItem);
                                     safeSetState(() {});
                                   },
                                 ),
                               ),
                             );
                           }),
-                        ),
+                        );
+                      },
+                    ),
+                  Builder(
+                    builder: (context) {
+                      final nodesList = FFAppState().Nodes.toList();
+
+                      return Stack(
+                        children:
+                            List.generate(nodesList.length, (nodesListIndex) {
+                          final nodesListItem = nodesList[nodesListIndex];
+                          return Align(
+                            alignment: AlignmentDirectional(
+                                valueOrDefault<double>(
+                                  functions
+                                      .virtualToRelative(
+                                          nodesListItem.virtualPosition,
+                                          nodesListItem.size,
+                                          FFAppState().ViewportCenter,
+                                          FFAppState().ZoomFactor,
+                                          NFSizeStruct(
+                                            width: MediaQuery.sizeOf(context)
+                                                .width,
+                                            height: MediaQuery.sizeOf(context)
+                                                .height,
+                                          ))
+                                      .offsetX,
+                                  0.0,
+                                ),
+                                valueOrDefault<double>(
+                                  functions
+                                      .virtualToRelative(
+                                          nodesListItem.virtualPosition,
+                                          nodesListItem.size,
+                                          FFAppState().ViewportCenter,
+                                          FFAppState().ZoomFactor,
+                                          NFSizeStruct(
+                                            width: MediaQuery.sizeOf(context)
+                                                .width,
+                                            height: MediaQuery.sizeOf(context)
+                                                .height,
+                                          ))
+                                      .offsetY,
+                                  0.0,
+                                )),
+                            child: Container(
+                              decoration: BoxDecoration(),
+                              child: NodeComponentWidget(
+                                key: Key(
+                                    'Keyr1c_${nodesListIndex}_of_${nodesList.length}'),
+                                node: nodesListItem,
+                                onTapDown: () async {},
+                                onTapUp: () async {},
+                                onPanDown: () async {
+                                  // Set selected index
+                                  FFAppState().NodeSelectedIndex =
+                                      nodesListIndex;
+                                  safeSetState(() {});
+                                  // Reset all isMoveable
+                                  await actions.resetMoveables(
+                                    FFAppState().Nodes.toList(),
+                                  );
+                                  // Is moveable true
+                                  FFAppState().updateNodesAtIndex(
+                                    FFAppState().NodeSelectedIndex,
+                                    (e) => e..isMoveable = true,
+                                  );
+                                  safeSetState(() {});
+                                  // Reset selections
+                                  await actions.resetSelections(
+                                    FFAppState().Nodes.toList(),
+                                  );
+                                  // Toggle selected item
+                                  FFAppState().updateNodesAtIndex(
+                                    FFAppState().NodeSelectedIndex,
+                                    (e) => e..isSelected = !e.isSelected,
+                                  );
+                                  safeSetState(() {});
+                                  // Bring to front selected item
+                                  _model.sortedNodes =
+                                      await actions.sortByIsSelected(
+                                    FFAppState().Nodes.toList(),
+                                  );
+                                  // Bring to front selected item
+                                  FFAppState().Nodes = _model.sortedNodes!
+                                      .toList()
+                                      .cast<NodeStruct>();
+                                  safeSetState(() {});
+                                  // Set selected index
+                                  FFAppState().NodeSelectedIndex =
+                                      FFAppState().Nodes.length - 1;
+                                  safeSetState(() {});
+
+                                  safeSetState(() {});
+                                },
+                                onPanEnd: () async {
+                                  // Reset all isMoveable
+                                  await actions.resetMoveables(
+                                    FFAppState().Nodes.toList(),
+                                  );
+                                  // Is moveable false
+                                  FFAppState().updateNodesAtIndex(
+                                    FFAppState().NodeSelectedIndex,
+                                    (e) => e..isMoveable = false,
+                                  );
+                                  safeSetState(() {});
+                                },
+                                onPanUpdate: (deltaPoint) async {
+                                  // Render node movement
+                                  FFAppState().updateNodesAtIndex(
+                                    FFAppState().NodeSelectedIndex,
+                                    (e) => e
+                                      ..virtualPosition = NFOffsetStruct(
+                                        offsetX: FFAppState()
+                                                .Nodes
+                                                .elementAtOrNull(FFAppState()
+                                                    .NodeSelectedIndex)!
+                                                .virtualPosition
+                                                .offsetX +
+                                            deltaPoint.positionX,
+                                        offsetY: FFAppState()
+                                                .Nodes
+                                                .elementAtOrNull(FFAppState()
+                                                    .NodeSelectedIndex)!
+                                                .virtualPosition
+                                                .offsetY +
+                                            deltaPoint.positionY,
+                                      ),
+                                  );
+                                  safeSetState(() {});
+                                },
+                                renderPanStack: () async {
+                                  FFAppState().updateEdgeDrawingStruct(
+                                    (e) =>
+                                        e..drawingState = DrawingState.started,
+                                  );
+                                  safeSetState(() {});
+                                },
+                              ),
+                            ),
+                          );
+                        }),
                       );
                     },
                   ),
-                  if (FFAppState().IsDrawingPanVisible)
+                  if ((FFAppState().EdgeDrawing.drawingState ==
+                          DrawingState.started) ||
+                      (FFAppState().EdgeDrawing.drawingState ==
+                          DrawingState.active))
                     Container(
                       width: double.infinity,
                       height: double.infinity,
@@ -263,13 +278,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                         height: double.infinity,
                         start: FFAppState().EdgeDrawing.drawingStartPoint,
                         end: FFAppState().EdgeDrawing.drawingEndPoint,
+                        onTap: () async {},
                       ),
-                    ),
-                  if (FFAppState().IsDrawingPanVisible == true)
-                    wrapWithModel(
-                      model: _model.drawingPanModel,
-                      updateCallback: () => safeSetState(() {}),
-                      child: DrawingPanWidget(),
                     ),
                 ],
               ),

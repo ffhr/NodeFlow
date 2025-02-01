@@ -64,9 +64,80 @@ class FFAppState extends ChangeNotifier {
     updateFn(_EdgeDrawing);
   }
 
-  bool _IsDrawingPanVisible = false;
-  bool get IsDrawingPanVisible => _IsDrawingPanVisible;
-  set IsDrawingPanVisible(bool value) {
-    _IsDrawingPanVisible = value;
+  List<NodeStruct> _Nodes = [];
+  List<NodeStruct> get Nodes => _Nodes;
+  set Nodes(List<NodeStruct> value) {
+    _Nodes = value;
+  }
+
+  void addToNodes(NodeStruct value) {
+    Nodes.add(value);
+  }
+
+  void removeFromNodes(NodeStruct value) {
+    Nodes.remove(value);
+  }
+
+  void removeAtIndexFromNodes(int index) {
+    Nodes.removeAt(index);
+  }
+
+  void updateNodesAtIndex(
+    int index,
+    NodeStruct Function(NodeStruct) updateFn,
+  ) {
+    Nodes[index] = updateFn(_Nodes[index]);
+  }
+
+  void insertAtIndexInNodes(int index, NodeStruct value) {
+    Nodes.insert(index, value);
+  }
+
+  int _NodeSelectedIndex = -1;
+  int get NodeSelectedIndex => _NodeSelectedIndex;
+  set NodeSelectedIndex(int value) {
+    _NodeSelectedIndex = value;
+  }
+
+  NodeEdgeStruct _CurrentBuildingEdge = NodeEdgeStruct();
+  NodeEdgeStruct get CurrentBuildingEdge => _CurrentBuildingEdge;
+  set CurrentBuildingEdge(NodeEdgeStruct value) {
+    _CurrentBuildingEdge = value;
+  }
+
+  void updateCurrentBuildingEdgeStruct(Function(NodeEdgeStruct) updateFn) {
+    updateFn(_CurrentBuildingEdge);
+  }
+
+  List<NodeEdgeStruct> _Edges = [
+    NodeEdgeStruct.fromSerializableMap(jsonDecode(
+        '{\"id\":\"e1\",\"source_node_id\":\"000001\",\"target_node_id\":\"000002\",\"source_output_socket_index\":\"1\",\"target_input_socket_index\":\"1\"}'))
+  ];
+  List<NodeEdgeStruct> get Edges => _Edges;
+  set Edges(List<NodeEdgeStruct> value) {
+    _Edges = value;
+  }
+
+  void addToEdges(NodeEdgeStruct value) {
+    Edges.add(value);
+  }
+
+  void removeFromEdges(NodeEdgeStruct value) {
+    Edges.remove(value);
+  }
+
+  void removeAtIndexFromEdges(int index) {
+    Edges.removeAt(index);
+  }
+
+  void updateEdgesAtIndex(
+    int index,
+    NodeEdgeStruct Function(NodeEdgeStruct) updateFn,
+  ) {
+    Edges[index] = updateFn(_Edges[index]);
+  }
+
+  void insertAtIndexInEdges(int index, NodeEdgeStruct value) {
+    Edges.insert(index, value);
   }
 }
