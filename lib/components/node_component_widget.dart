@@ -384,6 +384,10 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                           // Unset
                           FFAppState().CurrentBuildingEdge = NodeEdgeStruct();
                           _model.updatePage(() {});
+                        } else {
+                          // Unset
+                          FFAppState().CurrentBuildingEdge = NodeEdgeStruct();
+                          _model.updatePage(() {});
                         }
                       },
                     );
@@ -531,6 +535,10 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                             FFAppState()
                                 .addToEdges(FFAppState().CurrentBuildingEdge);
                             safeSetState(() {});
+                            // Unset
+                            FFAppState().CurrentBuildingEdge = NodeEdgeStruct();
+                            _model.updatePage(() {});
+                          } else {
                             // Unset
                             FFAppState().CurrentBuildingEdge = NodeEdgeStruct();
                             _model.updatePage(() {});
