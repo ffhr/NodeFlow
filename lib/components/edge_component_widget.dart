@@ -1,5 +1,9 @@
+import '/backend/schema/enums/enums.dart';
+import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/custom_code/widgets/index.dart' as custom_widgets;
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -7,7 +11,16 @@ import 'edge_component_model.dart';
 export 'edge_component_model.dart';
 
 class EdgeComponentWidget extends StatefulWidget {
-  const EdgeComponentWidget({super.key});
+  const EdgeComponentWidget({
+    super.key,
+    required this.edge,
+    required this.sourceNode,
+    required this.targetNode,
+  });
+
+  final NodeEdgeStruct? edge;
+  final NodeStruct? sourceNode;
+  final NodeStruct? targetNode;
 
   @override
   State<EdgeComponentWidget> createState() => _EdgeComponentWidgetState();
@@ -39,6 +52,93 @@ class _EdgeComponentWidgetState extends State<EdgeComponentWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    context.watch<FFAppState>();
+
+    return Builder(
+      builder: (context) {
+        if (functions
+                .calculateStartPointFromEdge(
+                    widget!.edge!,
+                    MediaQuery.sizeOf(context).width,
+                    MediaQuery.sizeOf(context).height,
+                    FFAppState().Nodes.toList(),
+                    FFAppState().ViewportCenter,
+                    FFAppState().ZoomFactor)
+                .positionX <=
+            functions
+                .calculateEndPointFromEdge(
+                    widget!.edge!,
+                    MediaQuery.sizeOf(context).width,
+                    MediaQuery.sizeOf(context).height,
+                    FFAppState().Nodes.toList(),
+                    FFAppState().ViewportCenter,
+                    FFAppState().ZoomFactor)!
+                .positionX) {
+          return Visibility(
+            visible: true,
+            child: Container(
+              width: double.infinity,
+              height: double.infinity,
+              child: custom_widgets.CurvedLine(
+                width: double.infinity,
+                height: double.infinity,
+                start: functions.calculateStartPointFromEdge(
+                    widget!.edge!,
+                    MediaQuery.sizeOf(context).width,
+                    MediaQuery.sizeOf(context).height,
+                    FFAppState().Nodes.toList(),
+                    FFAppState().ViewportCenter,
+                    FFAppState().ZoomFactor),
+                end: functions.calculateEndPointFromEdge(
+                    widget!.edge!,
+                    MediaQuery.sizeOf(context).width,
+                    MediaQuery.sizeOf(context).height,
+                    FFAppState().Nodes.toList(),
+                    FFAppState().ViewportCenter,
+                    FFAppState().ZoomFactor)!,
+                onTap: () async {
+                  // Remove from list
+                  FFAppState().removeFromEdges(widget!.edge!);
+                  safeSetState(() {});
+                },
+              ),
+            ),
+          );
+        } else {
+          return Container(
+            width: double.infinity,
+            height: double.infinity,
+            child: custom_widgets.CurvedLoop(
+              width: double.infinity,
+              height: double.infinity,
+              start: functions.calculateStartPointFromEdge(
+                  widget!.edge!,
+                  MediaQuery.sizeOf(context).width,
+                  MediaQuery.sizeOf(context).height,
+                  FFAppState().Nodes.toList(),
+                  FFAppState().ViewportCenter,
+                  FFAppState().ZoomFactor),
+              end: functions.calculateEndPointFromEdge(
+                  widget!.edge!,
+                  MediaQuery.sizeOf(context).width,
+                  MediaQuery.sizeOf(context).height,
+                  FFAppState().Nodes.toList(),
+                  FFAppState().ViewportCenter,
+                  FFAppState().ZoomFactor)!,
+              sourceNodeSize: widget!.sourceNode!.size,
+              curvedLoopType: widget!.sourceNode!.virtualPosition.offsetY <
+                      widget!.targetNode!.virtualPosition.offsetY
+                  ? CurvedLoopType.topToBottom
+                  : CurvedLoopType.bottomToTop,
+              onTap: () async {
+                // Remove from list
+                FFAppState().removeFromEdges(widget!.edge!);
+                safeSetState(() {});
+              },
+            ),
+          );
+        }
+      },
+    );
   }
 }

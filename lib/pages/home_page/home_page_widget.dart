@@ -1,5 +1,6 @@
 import '/backend/schema/enums/enums.dart';
 import '/backend/schema/structs/index.dart';
+import '/components/edge_component_widget.dart';
 import '/components/node_component_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -88,35 +89,15 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       return Stack(
                         children: List.generate(edges.length, (edgesIndex) {
                           final edgesItem = edges[edgesIndex];
-                          return Visibility(
-                            visible: true,
-                            child: Container(
-                              width: double.infinity,
-                              height: double.infinity,
-                              child: custom_widgets.CurvedLine(
-                                width: double.infinity,
-                                height: double.infinity,
-                                start: functions.calculateStartPointFromEdge(
-                                    edgesItem,
-                                    MediaQuery.sizeOf(context).width,
-                                    MediaQuery.sizeOf(context).height,
-                                    FFAppState().Nodes.toList(),
-                                    FFAppState().ViewportCenter,
-                                    FFAppState().ZoomFactor),
-                                end: functions.calculateEndPointFromEdge(
-                                    edgesItem,
-                                    MediaQuery.sizeOf(context).width,
-                                    MediaQuery.sizeOf(context).height,
-                                    FFAppState().Nodes.toList(),
-                                    FFAppState().ViewportCenter,
-                                    FFAppState().ZoomFactor)!,
-                                onTap: () async {
-                                  // Remove from list
-                                  FFAppState().removeFromEdges(edgesItem);
-                                  safeSetState(() {});
-                                },
-                              ),
-                            ),
+                          return EdgeComponentWidget(
+                            key: Key('Key5yc_${edgesIndex}_of_${edges.length}'),
+                            edge: edgesItem,
+                            sourceNode: functions.getNodeFromId(
+                                edgesItem.sourceNodeId,
+                                FFAppState().Nodes.toList()),
+                            targetNode: functions.getNodeFromId(
+                                edgesItem.targetNodeId,
+                                FFAppState().Nodes.toList()),
                           );
                         }),
                       );
