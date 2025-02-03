@@ -13,6 +13,10 @@ import 'package:flutter/material.dart';
 // Begin custom widget code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
+import 'dart:ui';
+
+import 'index.dart'; // Imports other custom widgets
+
 class CurvedLoopPainter extends CustomPainter {
   final Offset start;
   final Offset end;
