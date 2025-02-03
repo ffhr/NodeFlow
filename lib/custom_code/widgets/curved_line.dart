@@ -13,6 +13,8 @@ import 'package:flutter/material.dart';
 
 import 'index.dart'; // Imports other custom widgets
 
+import 'index.dart'; // Imports other custom widgets
+
 import 'dart:math';
 
 enum LineDirection {
@@ -38,7 +40,7 @@ class CurvedLinePainter extends CustomPainter {
     // canvas.drawLine(start, end, paint);
 
     final path = Path();
-    final width = end.dx - start.dx;
+    //final width = end.dx - start.dx;
     final height = end.dy - start.dy;
 
     //print("width: $width, height: $height");
@@ -190,6 +192,7 @@ class _CurvedLineState extends State<CurvedLine> {
 
   @override
   void didUpdateWidget(covariant CurvedLine oldWidget) {
+    super.didUpdateWidget(oldWidget);
     _painter = CurvedLinePainter(
         Offset(widget.start.positionX, widget.start.positionY),
         Offset(widget.end.positionX, widget.end.positionY));
