@@ -48,7 +48,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: '_initialize',
           path: '/',
           // builder: (context, _) => HomePageWidget(),
-          builder: (context, _) => PlaygroundISWidget(),
+          builder: (context, _) => HomePageWidget(),
         ),
         FFRoute(
           name: 'HomePage',
