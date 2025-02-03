@@ -80,6 +80,48 @@ class _HomePageWidgetState extends State<HomePageWidget> {
             ),
             child: Stack(
               children: [
+                if (FFAppState().Nodes.isNotEmpty)
+                  Builder(
+                    builder: (context) {
+                      final edges = FFAppState().Edges.toList();
+
+                      return Stack(
+                        children: List.generate(edges.length, (edgesIndex) {
+                          final edgesItem = edges[edgesIndex];
+                          return Visibility(
+                            visible: true,
+                            child: Container(
+                              width: double.infinity,
+                              height: double.infinity,
+                              child: custom_widgets.CurvedLine(
+                                width: double.infinity,
+                                height: double.infinity,
+                                start: functions.calculateStartPointFromEdge(
+                                    edgesItem,
+                                    MediaQuery.sizeOf(context).width,
+                                    MediaQuery.sizeOf(context).height,
+                                    FFAppState().Nodes.toList(),
+                                    FFAppState().ViewportCenter,
+                                    FFAppState().ZoomFactor),
+                                end: functions.calculateEndPointFromEdge(
+                                    edgesItem,
+                                    MediaQuery.sizeOf(context).width,
+                                    MediaQuery.sizeOf(context).height,
+                                    FFAppState().Nodes.toList(),
+                                    FFAppState().ViewportCenter,
+                                    FFAppState().ZoomFactor)!,
+                                onTap: () async {
+                                  // Remove from list
+                                  FFAppState().removeFromEdges(edgesItem);
+                                  safeSetState(() {});
+                                },
+                              ),
+                            ),
+                          );
+                        }),
+                      );
+                    },
+                  ),
                 Builder(
                   builder: (context) {
                     final nodesList = FFAppState().Nodes.toList();
@@ -220,48 +262,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                     );
                   },
                 ),
-                if (FFAppState().Nodes.isNotEmpty)
-                  Builder(
-                    builder: (context) {
-                      final edges = FFAppState().Edges.toList();
-
-                      return Stack(
-                        children: List.generate(edges.length, (edgesIndex) {
-                          final edgesItem = edges[edgesIndex];
-                          return Visibility(
-                            visible: true,
-                            child: Container(
-                              width: double.infinity,
-                              height: double.infinity,
-                              child: custom_widgets.CurvedLine(
-                                width: double.infinity,
-                                height: double.infinity,
-                                start: functions.calculateStartPointFromEdge(
-                                    edgesItem,
-                                    MediaQuery.sizeOf(context).width,
-                                    MediaQuery.sizeOf(context).height,
-                                    FFAppState().Nodes.toList(),
-                                    FFAppState().ViewportCenter,
-                                    FFAppState().ZoomFactor),
-                                end: functions.calculateEndPointFromEdge(
-                                    edgesItem,
-                                    MediaQuery.sizeOf(context).width,
-                                    MediaQuery.sizeOf(context).height,
-                                    FFAppState().Nodes.toList(),
-                                    FFAppState().ViewportCenter,
-                                    FFAppState().ZoomFactor)!,
-                                onTap: () async {
-                                  // Remove from list
-                                  FFAppState().removeFromEdges(edgesItem);
-                                  safeSetState(() {});
-                                },
-                              ),
-                            ),
-                          );
-                        }),
-                      );
-                    },
-                  ),
                 if ((FFAppState().EdgeDrawing.drawingState ==
                         DrawingState.started) ||
                     (FFAppState().EdgeDrawing.drawingState ==
