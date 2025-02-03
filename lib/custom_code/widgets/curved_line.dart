@@ -11,17 +11,15 @@ import 'package:flutter/material.dart';
 // Begin custom widget code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
-import 'index.dart'; // Imports other custom widgets
+import 'dart:ui';
 
 import 'index.dart'; // Imports other custom widgets
 
 import 'dart:math';
 
 enum LineDirection {
-  topLeftToBottomRight,
-  topRightToBottomLeft,
-  bottomLeftToTopRight,
-  bottomRightToTopLeft,
+  leftToRight,
+  rightToLeft,
 }
 
 class CurvedLinePainter extends CustomPainter {
@@ -32,73 +30,55 @@ class CurvedLinePainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
+    // // Draw the path on the canvas
     final paint = Paint()
       ..color = Colors.white
       ..strokeWidth = 2
       ..style = PaintingStyle.stroke;
 
-    // canvas.drawLine(start, end, paint);
+    var path = getPath();
+    canvas.drawPath(path, paint);
+  }
 
+  Path getPath() {
     final path = Path();
-    //final width = end.dx - start.dx;
+    final width = end.dx - start.dx;
     final height = end.dy - start.dy;
+    final distanceX = width.abs();
+    final distanceY = height.abs();
 
-    //print("width: $width, height: $height");
-
-    // Define the "S" shape using cubic Bézier curves
     path.moveTo(start.dx, start.dy); // Start point
     var direction = getLineDirection(start, end);
 
+    // Dynamically calculate xFactor based on distanceY
+    double xFactor = 1.25 - 0.0025 * (distanceY - 100);
+    xFactor = xFactor.clamp(0.25, 1.25); // Ensure it stays within bounds
+
+    double yFactor = 0; // nice WHEN
+
     // More information:
     // https://flutter.github.io/assets-for-api-docs/assets/dart-ui/path_cubic_to.png#gh-light-mode-only
-    switch (direction) {
-      case LineDirection.topLeftToBottomRight:
-        //print("topLeftToBottomRight");
-        path.cubicTo(
-          start.dx + 0.15 * height.abs(),
-          start.dy - 0.15 * height.abs(), // Control point 1
-          end.dx - 0.15 * height.abs(),
-          end.dy + 0.15 * height.abs(), // Control point 2
-          end.dx,
-          end.dy, // End point
-        );
-        break;
-      case LineDirection.topRightToBottomLeft:
-        //print("topRightToBottomLeft");
-        path.cubicTo(
-          start.dx - 0.15 * height.abs(),
-          start.dy - 0.15 * height.abs(), // Control point 1
-          end.dx + 0.15 * height.abs(),
-          end.dy + 0.15 * height.abs(), // Control point 2
-          end.dx, end.dy, // End point
-        );
-        break;
-      case LineDirection.bottomLeftToTopRight:
-        //print("bottomLeftToTopRight");
-        path.cubicTo(
-          start.dx + 0.15 * height.abs(),
-          start.dy + 0.15 * height.abs(), // Control point 1
-          end.dx - 0.15 * height.abs(),
-          end.dy - 0.15 * height.abs(), // Control point 2
-          end.dx,
-          end.dy, // End point
-        );
-        break;
-      case LineDirection.bottomRightToTopLeft:
-        //print("bottomRightToTopLeft");
-        path.cubicTo(
-          start.dx - 0.15 * height.abs(),
-          start.dy + 0.15 * height.abs(), // Control point 1
-          end.dx + 0.15 * height.abs(),
-          end.dy - 0.15 * height.abs(), // Control point 2
-          end.dx,
-          end.dy, // End point
-        );
-        break;
+    if (direction == LineDirection.leftToRight) {
+      path.cubicTo(
+        start.dx + xFactor * height.abs(),
+        start.dy + yFactor * width.abs(), // Control point 1
+        end.dx - xFactor * height.abs(),
+        end.dy - yFactor * width.abs(), // Control point 2
+        end.dx,
+        end.dy, // End point
+      );
+    } else if (direction == LineDirection.rightToLeft) {
+      path.cubicTo(
+        start.dx - xFactor * height.abs(),
+        start.dy + yFactor * width.abs(), // Control point 1
+        end.dx + xFactor * height.abs(),
+        end.dy - yFactor * width.abs(), // Control point 2
+        end.dx,
+        end.dy, // End point
+      );
     }
 
-    // // Draw the path on the canvas
-    canvas.drawPath(path, paint);
+    return path;
   }
 
   @override
@@ -112,36 +92,64 @@ class CurvedLinePainter extends CustomPainter {
   }
 
   LineDirection getLineDirection(Offset start, Offset end) {
-    final width = end.dx - start.dx;
-    final height = end.dy - start.dy;
-
-    if (width > 0 && height > 0) {
-      return LineDirection.topLeftToBottomRight;
+    if (start.dx < end.dx) {
+      return LineDirection.leftToRight;
+    } else {
+      return LineDirection.rightToLeft;
     }
-    if (width > 0 && height < 0) {
-      return LineDirection.bottomLeftToTopRight;
-    }
-    if (width < 0 && height > 0) {
-      return LineDirection.topRightToBottomLeft;
-    }
-    if (width < 0 && height < 0) {
-      return LineDirection.bottomRightToTopLeft;
-    }
-    return LineDirection.topLeftToBottomRight;
   }
 
+  // LineDirection getLineDirection(Offset start, Offset end) {
+  //   final width = end.dx - start.dx;
+  //   final height = end.dy - start.dy;
+
+  //   if (width > 0 && height > 0) {
+  //     return LineDirection.topLeftToBottomRight;
+  //   }
+  //   if (width > 0 && height < 0) {
+  //     return LineDirection.bottomLeftToTopRight;
+  //   }
+  //   if (width < 0 && height > 0) {
+  //     return LineDirection.topRightToBottomLeft;
+  //   }
+  //   if (width < 0 && height < 0) {
+  //     return LineDirection.bottomRightToTopLeft;
+  //   }
+  //   return LineDirection.topLeftToBottomRight;
+  // }
+
   // Hit test method for lines
-  bool hitTest(Offset position) {
-    final double tolerance = 10.0; // Define a tolerance distance
+  bool hitTestStraightLine(Offset point) {
+    const double tolerance = 10.0; // Define a tolerance distance
 
     // Calculate the distance from the tap position to the line
-    final double distance = _distanceToLine(position, start, end);
+    final double distance = _distanceToStraightLine(point, start, end);
 
     return distance <= tolerance;
   }
 
+  bool hitTestCurvedLine(Offset point) {
+    var path = getPath();
+    PathMetrics pathMetrics = path.computeMetrics();
+    for (PathMetric pathMetric in pathMetrics) {
+      for (double distance = 0.0;
+          distance < pathMetric.length;
+          distance += 1.0) {
+        Tangent? tangent = pathMetric.getTangentForOffset(distance);
+
+        if (tangent != null) {
+          Rect rect = Rect.fromCircle(center: tangent.position, radius: 10.0);
+          if (rect.contains(point)) {
+            return true;
+          }
+        }
+      }
+    }
+    return false;
+  }
+
   // Helper function to calculate the distance from a point to a line segment
-  double _distanceToLine(Offset point, Offset start, Offset end) {
+  double _distanceToStraightLine(Offset point, Offset start, Offset end) {
     final double dx = end.dx - start.dx;
     final double dy = end.dy - start.dy;
     final double lengthSquared = dx * dx + dy * dy;
@@ -183,7 +191,6 @@ class _CurvedLineState extends State<CurvedLine> {
 
   @override
   void initState() {
-    // TODO: implement initState
     _painter = CurvedLinePainter(
         Offset(widget.start.positionX, widget.start.positionY),
         Offset(widget.end.positionX, widget.end.positionY));
@@ -205,7 +212,7 @@ class _CurvedLineState extends State<CurvedLine> {
           final RenderBox renderBox = context.findRenderObject() as RenderBox;
           final Offset localPosition =
               renderBox.globalToLocal(details.globalPosition);
-          if (_painter.hitTest(localPosition)) {
+          if (_painter.hitTestCurvedLine(localPosition)) {
             //print('Tapped on rendered part!');
             widget.onTap?.call();
           } else {

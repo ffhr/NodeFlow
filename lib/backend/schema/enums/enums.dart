@@ -26,9 +26,9 @@ enum DrawingState {
   finished,
 }
 
-enum SocketType {
-  input,
-  output,
+enum CurvedLoopType {
+  topToBottom,
+  bottomToTop,
 }
 
 extension FFEnumExtensions<T extends Enum> on T {
@@ -50,8 +50,8 @@ T? deserializeEnum<T>(String? value) {
       return NFEntityTypeLong.values.deserialize(value) as T?;
     case (DrawingState):
       return DrawingState.values.deserialize(value) as T?;
-    case (SocketType):
-      return SocketType.values.deserialize(value) as T?;
+    case (CurvedLoopType):
+      return CurvedLoopType.values.deserialize(value) as T?;
     default:
       return null;
   }
