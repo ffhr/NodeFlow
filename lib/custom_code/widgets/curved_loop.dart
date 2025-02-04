@@ -129,7 +129,7 @@ class CurvedLoopPainter extends CustomPainter {
     var middleStart = middleEnd;
     path.cubicTo(
         middleStart.dx - 2 * (topLeft.dx - center.dx).abs(),
-        middleStart.dy - 20,
+        middleStart.dy,
         end.dx - (1.0 * sourceNodeSize.width).abs(),
         end.dy - (1.5 * sourceNodeSize.height).abs(),
         end.dx,
