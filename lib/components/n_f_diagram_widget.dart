@@ -9,6 +9,7 @@ import '/custom_code/actions/index.dart' as actions;
 import '/custom_code/widgets/index.dart' as custom_widgets;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'n_f_diagram_model.dart';
@@ -34,6 +35,12 @@ class _NFDiagramWidgetState extends State<NFDiagramWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => NFDiagramModel());
+
+    // On component load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      FFAppState().Nodes = functions.initNodes().toList().cast<NodeStruct>();
+      safeSetState(() {});
+    });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
