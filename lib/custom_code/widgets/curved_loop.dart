@@ -20,6 +20,7 @@ class CurvedLoop extends StatefulWidget {
     required this.end,
     required this.sourceNodeSize,
     required this.curvedLoopType,
+    required this.sourceNodeAbsolutePosition,
     required this.onTap,
   });
 
@@ -29,6 +30,7 @@ class CurvedLoop extends StatefulWidget {
   final NFPointStruct end;
   final NFSizeStruct sourceNodeSize;
   final CurvedLoopType curvedLoopType;
+  final NFOffsetStruct sourceNodeAbsolutePosition;
   final Future Function() onTap;
 
   @override
