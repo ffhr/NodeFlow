@@ -236,6 +236,7 @@ class CurvedLine extends StatefulWidget {
     required this.start,
     required this.end,
     this.onTap,
+    required this.lineType,
   });
 
   final double? width;
@@ -243,6 +244,7 @@ class CurvedLine extends StatefulWidget {
   final NFPointStruct start;
   final NFPointStruct end;
   final Future Function()? onTap;
+  final NFLineType lineType;
 
   @override
   State<CurvedLine> createState() => _CurvedLineState();

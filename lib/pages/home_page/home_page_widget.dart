@@ -255,6 +255,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       height: double.infinity,
                       start: FFAppState().EdgeDrawing.drawingStartPoint,
                       end: FFAppState().EdgeDrawing.drawingEndPoint,
+                      lineType: NFLineType.dotted,
                       onTap: () async {},
                     ),
                   ),

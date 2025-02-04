@@ -31,6 +31,11 @@ enum CurvedLoopType {
   bottomToTop,
 }
 
+enum NFLineType {
+  solid,
+  dotted,
+}
+
 extension FFEnumExtensions<T extends Enum> on T {
   String serialize() => name;
 }
@@ -52,6 +57,8 @@ T? deserializeEnum<T>(String? value) {
       return DrawingState.values.deserialize(value) as T?;
     case (CurvedLoopType):
       return CurvedLoopType.values.deserialize(value) as T?;
+    case (NFLineType):
+      return NFLineType.values.deserialize(value) as T?;
     default:
       return null;
   }

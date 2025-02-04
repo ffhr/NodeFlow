@@ -247,6 +247,7 @@ class CurvedLoop extends StatefulWidget {
     required this.curvedLoopType,
     required this.sourceNodeAbsolutePosition,
     required this.onTap,
+    required this.lineType,
   });
 
   final double? width;
@@ -257,6 +258,7 @@ class CurvedLoop extends StatefulWidget {
   final CurvedLoopType curvedLoopType;
   final NFOffsetStruct sourceNodeAbsolutePosition;
   final Future Function() onTap;
+  final NFLineType lineType;
 
   @override
   State<CurvedLoop> createState() => _CurvedLoopState();
