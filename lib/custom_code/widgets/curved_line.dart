@@ -12,7 +12,7 @@ import 'package:flutter/material.dart';
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
 import 'dart:ui';
-
+import 'dart:math';
 import 'index.dart'; // Imports other custom widgets
 
 enum LineDirection {
