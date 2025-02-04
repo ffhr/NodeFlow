@@ -98,6 +98,7 @@ class _EdgeComponentWidgetState extends State<EdgeComponentWidget> {
                     FFAppState().ZoomFactor)!,
                 lineType: NFLineType.solid,
                 isArrowPointingToStartPoint: false,
+                lineColor: widget!.edge!.color,
                 onTap: () async {
                   // Remove from list
                   print('Edge line tapped');
@@ -142,6 +143,7 @@ class _EdgeComponentWidgetState extends State<EdgeComponentWidget> {
                     height: MediaQuery.sizeOf(context).height,
                   )),
               lineType: NFLineType.solid,
+              lineColor: widget!.edge!.color,
               onTap: () async {
                 // Remove from list
                 print('Edge loop tapped');

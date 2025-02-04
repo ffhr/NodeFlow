@@ -13,11 +13,13 @@ class NodeEdgeStruct extends BaseStruct {
     String? targetNodeId,
     int? sourceOutputSocketIndex,
     int? targetInputSocketIndex,
+    Color? color,
   })  : _id = id,
         _sourceNodeId = sourceNodeId,
         _targetNodeId = targetNodeId,
         _sourceOutputSocketIndex = sourceOutputSocketIndex,
-        _targetInputSocketIndex = targetInputSocketIndex;
+        _targetInputSocketIndex = targetInputSocketIndex,
+        _color = color;
 
   // "id" field.
   String? _id;
@@ -60,6 +62,13 @@ class NodeEdgeStruct extends BaseStruct {
 
   bool hasTargetInputSocketIndex() => _targetInputSocketIndex != null;
 
+  // "color" field.
+  Color? _color;
+  Color get color => _color ?? Colors.black;
+  set color(Color? val) => _color = val;
+
+  bool hasColor() => _color != null;
+
   static NodeEdgeStruct fromMap(Map<String, dynamic> data) => NodeEdgeStruct(
         id: data['id'] as String?,
         sourceNodeId: data['source_node_id'] as String?,
@@ -68,6 +77,7 @@ class NodeEdgeStruct extends BaseStruct {
             castToType<int>(data['source_output_socket_index']),
         targetInputSocketIndex:
             castToType<int>(data['target_input_socket_index']),
+        color: getSchemaColor(data['color']),
       );
 
   static NodeEdgeStruct? maybeFromMap(dynamic data) =>
@@ -79,6 +89,7 @@ class NodeEdgeStruct extends BaseStruct {
         'target_node_id': _targetNodeId,
         'source_output_socket_index': _sourceOutputSocketIndex,
         'target_input_socket_index': _targetInputSocketIndex,
+        'color': _color,
       }.withoutNulls;
 
   @override
@@ -102,6 +113,10 @@ class NodeEdgeStruct extends BaseStruct {
         'target_input_socket_index': serializeParam(
           _targetInputSocketIndex,
           ParamType.int,
+        ),
+        'color': serializeParam(
+          _color,
+          ParamType.Color,
         ),
       }.withoutNulls;
 
@@ -132,6 +147,11 @@ class NodeEdgeStruct extends BaseStruct {
           ParamType.int,
           false,
         ),
+        color: deserializeParam(
+          data['color'],
+          ParamType.Color,
+          false,
+        ),
       );
 
   @override
@@ -144,7 +164,8 @@ class NodeEdgeStruct extends BaseStruct {
         sourceNodeId == other.sourceNodeId &&
         targetNodeId == other.targetNodeId &&
         sourceOutputSocketIndex == other.sourceOutputSocketIndex &&
-        targetInputSocketIndex == other.targetInputSocketIndex;
+        targetInputSocketIndex == other.targetInputSocketIndex &&
+        color == other.color;
   }
 
   @override
@@ -153,7 +174,8 @@ class NodeEdgeStruct extends BaseStruct {
         sourceNodeId,
         targetNodeId,
         sourceOutputSocketIndex,
-        targetInputSocketIndex
+        targetInputSocketIndex,
+        color
       ]);
 }
 
@@ -163,6 +185,7 @@ NodeEdgeStruct createNodeEdgeStruct({
   String? targetNodeId,
   int? sourceOutputSocketIndex,
   int? targetInputSocketIndex,
+  Color? color,
 }) =>
     NodeEdgeStruct(
       id: id,
@@ -170,4 +193,5 @@ NodeEdgeStruct createNodeEdgeStruct({
       targetNodeId: targetNodeId,
       sourceOutputSocketIndex: sourceOutputSocketIndex,
       targetInputSocketIndex: targetInputSocketIndex,
+      color: color,
     );
