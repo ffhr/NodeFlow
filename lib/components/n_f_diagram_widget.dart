@@ -247,6 +247,7 @@ class _NFDiagramWidgetState extends State<NFDiagramWidget> {
                   isArrowPointingToStartPoint:
                       FFAppState().CurrentBuildingEdge.targetNodeId != null &&
                           FFAppState().CurrentBuildingEdge.targetNodeId != '',
+                  lineColor: FlutterFlowTheme.of(context).primaryText,
                   onTap: () async {},
                 ),
               ),
