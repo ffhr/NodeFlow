@@ -24,8 +24,10 @@ class CurvedLinePainter extends CustomPainter {
   final Offset start;
   final Offset end;
   final NFLineType lineType;
+  final bool isArrowPointingToStartPoint;
 
-  CurvedLinePainter(this.start, this.end, this.lineType);
+  CurvedLinePainter(
+      this.start, this.end, this.lineType, this.isArrowPointingToStartPoint);
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -109,11 +111,14 @@ class CurvedLinePainter extends CustomPainter {
     // Instead of positioning the arrow based on its tip,
     // we choose a point along the path (30 pixels before the end)
     // that will serve as the arrow's center.
-    final centerOffset = metric.length - 30.0;
+
+    final centerOffset =
+        isArrowPointingToStartPoint ? 40.0 : metric.length - 30.0;
     final centerTangent = metric.getTangentForOffset(centerOffset);
     if (centerTangent == null) return;
     final arrowCenter = centerTangent.position;
-    final angle = 2 * pi - centerTangent.angle;
+    final angle =
+        (isArrowPointingToStartPoint ? 1 : 2) * pi - centerTangent.angle;
 
     // Define arrow dimensions.
     const double arrowLength = 15.0; // full length from tip to base.
@@ -261,14 +266,15 @@ class CurvedLine extends StatefulWidget {
 
 class _CurvedLineState extends State<CurvedLine> {
   CurvedLinePainter _painter =
-      CurvedLinePainter(Offset(0, 0), Offset(0, 0), NFLineType.solid);
+      CurvedLinePainter(Offset(0, 0), Offset(0, 0), NFLineType.solid, false);
 
   @override
   void initState() {
     _painter = CurvedLinePainter(
         Offset(widget.start.positionX, widget.start.positionY),
         Offset(widget.end.positionX, widget.end.positionY),
-        widget.lineType);
+        widget.lineType,
+        widget.isArrowPointingToStartPoint);
     super.initState();
   }
 
@@ -278,7 +284,8 @@ class _CurvedLineState extends State<CurvedLine> {
     _painter = CurvedLinePainter(
         Offset(widget.start.positionX, widget.start.positionY),
         Offset(widget.end.positionX, widget.end.positionY),
-        widget.lineType);
+        widget.lineType,
+        widget.isArrowPointingToStartPoint);
   }
 
   @override

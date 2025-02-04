@@ -268,6 +268,9 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                                       .CurrentBuildingEdge
                                       .targetInputSocketIndex ==
                                   inputsListIndex),
+                      isConnected: false,
+                      defaultColor: Color(0xFF0034FD),
+                      selectedColor: Color(0xFF00007B),
                       renderPan: () async {
                         await widget.renderPanStack?.call();
                       },
@@ -407,6 +410,9 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                                         .CurrentBuildingEdge
                                         .sourceOutputSocketIndex ==
                                     outputsListIndex),
+                        isConnected: false,
+                        defaultColor: Color(0xFF2EFF00),
+                        selectedColor: Color(0xFF036200),
                         renderPan: () async {},
                         mouseEntered: () async {
                           await actions.onMouseEnterNodeSocket(
