@@ -25,9 +25,10 @@ class CurvedLinePainter extends CustomPainter {
   final Offset end;
   final NFLineType lineType;
   final bool isArrowPointingToStartPoint;
+  final Color lineColor;
 
-  CurvedLinePainter(
-      this.start, this.end, this.lineType, this.isArrowPointingToStartPoint);
+  CurvedLinePainter(this.start, this.end, this.lineType,
+      this.isArrowPointingToStartPoint, this.lineColor);
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -35,15 +36,14 @@ class CurvedLinePainter extends CustomPainter {
     if (lineType == NFLineType.solid) {
       // Draw the path on the canvas
       final paint = Paint()
-        ..color = Colors.white
+        ..color = lineColor
         ..strokeWidth = 2
         ..style = PaintingStyle.stroke;
-
       canvas.drawPath(path, paint);
     }
     if (lineType == NFLineType.dotted) {
-      final paint = Paint()
-        ..color = Colors.white
+      Paint paint = Paint()
+        ..color = lineColor
         ..strokeWidth = 2
         ..style = PaintingStyle.stroke
         ..strokeCap = StrokeCap.round;
@@ -56,7 +56,15 @@ class CurvedLinePainter extends CustomPainter {
               metric.extractPath(i, i + 5), paint); // 5px dot, 5px gap
         }
       }
+      paint = Paint()
+        ..color = lineColor
+        ..strokeWidth = 2
+        ..style = PaintingStyle.fill
+        ..strokeCap = StrokeCap.round;
+      canvas.drawCircle(start, 3, paint);
+      canvas.drawCircle(end, 3, paint);
     }
+
     drawArrowHead(canvas, path);
   }
 
@@ -150,7 +158,7 @@ class CurvedLinePainter extends CustomPainter {
 
     // Draw the arrow.
     final arrowPaint = Paint()
-      ..color = Colors.white
+      ..color = lineColor
       ..style = PaintingStyle.fill;
     canvas.drawPath(arrowPath, arrowPaint);
   }
@@ -267,8 +275,8 @@ class CurvedLine extends StatefulWidget {
 }
 
 class _CurvedLineState extends State<CurvedLine> {
-  CurvedLinePainter _painter =
-      CurvedLinePainter(Offset(0, 0), Offset(0, 0), NFLineType.solid, false);
+  CurvedLinePainter _painter = CurvedLinePainter(
+      Offset(0, 0), Offset(0, 0), NFLineType.solid, false, Colors.black);
 
   @override
   void initState() {
@@ -276,7 +284,8 @@ class _CurvedLineState extends State<CurvedLine> {
         Offset(widget.start.positionX, widget.start.positionY),
         Offset(widget.end.positionX, widget.end.positionY),
         widget.lineType,
-        widget.isArrowPointingToStartPoint);
+        widget.isArrowPointingToStartPoint,
+        widget.lineColor);
     super.initState();
   }
 
@@ -287,7 +296,8 @@ class _CurvedLineState extends State<CurvedLine> {
         Offset(widget.start.positionX, widget.start.positionY),
         Offset(widget.end.positionX, widget.end.positionY),
         widget.lineType,
-        widget.isArrowPointingToStartPoint);
+        widget.isArrowPointingToStartPoint,
+        widget.lineColor);
   }
 
   @override

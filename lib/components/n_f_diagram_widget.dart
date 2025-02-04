@@ -72,7 +72,7 @@ class _NFDiagramWidgetState extends State<NFDiagramWidget> {
       },
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.transparent,
+          color: Color(0x67000000),
         ),
         child: Stack(
           children: [

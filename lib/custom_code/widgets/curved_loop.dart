@@ -11,6 +11,8 @@ import 'package:flutter/material.dart';
 // Begin custom widget code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
+import 'index.dart'; // Imports other custom widgets
+
 import 'dart:math';
 import 'dart:ui';
 
@@ -25,9 +27,16 @@ class CurvedLoopPainter extends CustomPainter {
   final CurvedLoopType curvedLoopType;
   final NFOffsetStruct sourceNodeAbsolutePosition;
   final NFLineType lineType;
+  final Color lineColor;
 
-  CurvedLoopPainter(this.start, this.end, this.sourceNodeSize,
-      this.curvedLoopType, this.sourceNodeAbsolutePosition, this.lineType);
+  CurvedLoopPainter(
+      this.start,
+      this.end,
+      this.sourceNodeSize,
+      this.curvedLoopType,
+      this.sourceNodeAbsolutePosition,
+      this.lineType,
+      this.lineColor);
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -35,7 +44,7 @@ class CurvedLoopPainter extends CustomPainter {
     var path = getPath();
     if (lineType == NFLineType.solid) {
       final paint = Paint()
-        ..color = Colors.white
+        ..color = lineColor
         ..strokeWidth = 2
         ..style = PaintingStyle.stroke;
 
@@ -43,7 +52,7 @@ class CurvedLoopPainter extends CustomPainter {
     }
     if (lineType == NFLineType.dotted) {
       final paint = Paint()
-        ..color = Colors.white
+        ..color = lineColor
         ..strokeWidth = 2
         ..style = PaintingStyle.stroke
         ..strokeCap = StrokeCap.round;
@@ -129,7 +138,7 @@ class CurvedLoopPainter extends CustomPainter {
     var middleStart = middleEnd;
     path.cubicTo(
         middleStart.dx - 2 * (topLeft.dx - center.dx).abs(),
-        middleStart.dy - 20,
+        middleStart.dy,
         end.dx - (1.0 * sourceNodeSize.width).abs(),
         end.dy - (1.5 * sourceNodeSize.height).abs(),
         end.dx,
@@ -223,7 +232,7 @@ class CurvedLoopPainter extends CustomPainter {
 
     // Draw the arrow.
     final arrowPaint = Paint()
-      ..color = Colors.white
+      ..color = lineColor
       ..style = PaintingStyle.fill;
     canvas.drawPath(arrowPath, arrowPaint);
   }
@@ -286,7 +295,8 @@ class _CurvedLoopState extends State<CurvedLoop> {
       NFSizeStruct(width: 0, height: 0),
       CurvedLoopType.topToBottom,
       NFOffsetStruct(offsetX: 0, offsetY: 0),
-      NFLineType.solid);
+      NFLineType.solid,
+      Colors.black);
 
   @override
   void initState() {
@@ -296,7 +306,8 @@ class _CurvedLoopState extends State<CurvedLoop> {
         widget.sourceNodeSize,
         widget.curvedLoopType,
         widget.sourceNodeAbsolutePosition,
-        widget.lineType);
+        widget.lineType,
+        widget.lineColor);
     super.initState();
   }
 
@@ -309,7 +320,8 @@ class _CurvedLoopState extends State<CurvedLoop> {
         widget.sourceNodeSize,
         widget.curvedLoopType,
         widget.sourceNodeAbsolutePosition,
-        widget.lineType);
+        widget.lineType,
+        widget.lineColor);
   }
 
   @override
