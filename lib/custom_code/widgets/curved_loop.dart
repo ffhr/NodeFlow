@@ -11,9 +11,12 @@ import 'package:flutter/material.dart';
 // Begin custom widget code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
+import 'dart:math';
 import 'dart:ui';
 
 import 'index.dart'; // Imports other custom widgets
+
+// Imports other custom widgets
 
 class CurvedLoopPainter extends CustomPainter {
   final Offset start;
@@ -35,23 +38,26 @@ class CurvedLoopPainter extends CustomPainter {
 
     var path = getPath();
     canvas.drawPath(path, paint);
-    final topRightNodeCorner = Offset(
-        sourceNodeAbsolutePosition.offsetX + sourceNodeSize.width / 2,
-        sourceNodeAbsolutePosition.offsetY - sourceNodeSize.height / 2);
-    final topLeftNodeCorner = Offset(
-        sourceNodeAbsolutePosition.offsetX - sourceNodeSize.width / 2,
-        sourceNodeAbsolutePosition.offsetY - sourceNodeSize.height / 2);
-    final bottomLeftNodeCorner = Offset(
-        sourceNodeAbsolutePosition.offsetX - sourceNodeSize.width / 2,
-        sourceNodeAbsolutePosition.offsetY + sourceNodeSize.height / 2);
-    final bottomRightNodeCorner = Offset(
-        sourceNodeAbsolutePosition.offsetX + sourceNodeSize.width / 2,
-        sourceNodeAbsolutePosition.offsetY + sourceNodeSize.height / 2);
+    // final topRightNodeCorner = Offset(
+    //     sourceNodeAbsolutePosition.offsetX + sourceNodeSize.width / 2,
+    //     sourceNodeAbsolutePosition.offsetY - sourceNodeSize.height / 2);
+    // final topLeftNodeCorner = Offset(
+    //     sourceNodeAbsolutePosition.offsetX - sourceNodeSize.width / 2,
+    //     sourceNodeAbsolutePosition.offsetY - sourceNodeSize.height / 2);
+    // final bottomLeftNodeCorner = Offset(
+    //     sourceNodeAbsolutePosition.offsetX - sourceNodeSize.width / 2,
+    //     sourceNodeAbsolutePosition.offsetY + sourceNodeSize.height / 2);
+    // final bottomRightNodeCorner = Offset(
+    //     sourceNodeAbsolutePosition.offsetX + sourceNodeSize.width / 2,
+    //     sourceNodeAbsolutePosition.offsetY + sourceNodeSize.height / 2);
 
-    canvas.drawCircle(topRightNodeCorner, 5, paint);
-    canvas.drawCircle(topLeftNodeCorner, 5, paint);
-    canvas.drawCircle(bottomLeftNodeCorner, 5, paint);
-    canvas.drawCircle(bottomRightNodeCorner, 5, paint);
+    // canvas.drawCircle(topRightNodeCorner, 5, paint);
+    // canvas.drawCircle(topLeftNodeCorner, 5, paint);
+    // canvas.drawCircle(bottomLeftNodeCorner, 5, paint);
+    // canvas.drawCircle(bottomRightNodeCorner, 5, paint);
+
+    // Draw the arrowhead 30 pixels before the end of the path
+    drawArrowHead(canvas, path);
   }
 
   @override
@@ -69,6 +75,7 @@ class CurvedLoopPainter extends CustomPainter {
     } else if (curvedLoopType == CurvedLoopType.bottomToTop) {
       return getBottomToTopPath();
     }
+    print("Empty path");
     return Path();
   }
 
@@ -92,7 +99,7 @@ class CurvedLoopPainter extends CustomPainter {
 
     path.cubicTo(
       start.dx + 2 * (topRight.dx - center.dx).abs(),
-      start.dy - 2 * (topRight.dy - center.dy).abs(), // Control point 1
+      start.dy - 1.55 * (topRight.dy - center.dy).abs(), // Control point 1
       middleEnd.dx,
       middleEnd.dy, // Control point 2
       middleEnd.dx,
@@ -103,12 +110,13 @@ class CurvedLoopPainter extends CustomPainter {
     var middleStart = middleEnd;
     path.cubicTo(
         middleStart.dx - 2 * (topLeft.dx - center.dx).abs(),
-        middleStart.dy,
-        end.dx - (2 * sourceNodeSize.width).abs(),
-        end.dy - (1 * sourceNodeSize.height).abs(),
+        middleStart.dy - 20,
+        end.dx - (1.0 * sourceNodeSize.width).abs(),
+        end.dy - (1.5 * sourceNodeSize.height).abs(),
         end.dx,
         end.dy);
-
+    final bounds = path.getBounds();
+    print("Path bounds 1: $bounds");
     return path;
   }
 
@@ -133,7 +141,7 @@ class CurvedLoopPainter extends CustomPainter {
 
     path.cubicTo(
       start.dx + 2 * (bottomRight.dx - center.dx).abs(),
-      start.dy + 2 * (bottomRight.dy - center.dy).abs(), // Control point 1
+      start.dy + 2.25 * (bottomRight.dy - center.dy).abs(), // Control point 1
       middleEnd.dx,
       middleEnd.dy, // Control point 2
       middleEnd.dx,
@@ -145,12 +153,65 @@ class CurvedLoopPainter extends CustomPainter {
     path.cubicTo(
         middleStart.dx - 2 * (bottomLeft.dx - center.dx).abs(),
         middleStart.dy,
-        end.dx - (2 * sourceNodeSize.width).abs(),
-        end.dy + (1 * sourceNodeSize.height).abs(),
+        end.dx - (0.5 * sourceNodeSize.width).abs(),
+        end.dy + (0.5 * sourceNodeSize.height).abs(),
         end.dx,
         end.dy);
 
+    final bounds = path.getBounds();
+    print("Path bounds 2: $bounds");
     return path;
+  }
+
+  void drawArrowHead(Canvas canvas, Path path) {
+    // Compute the metrics for the path.
+    final metrics = path.computeMetrics().toList();
+    if (metrics.isEmpty) return;
+    final metric = metrics.first;
+    if (metric.length < 30) return; // Too short for our arrow.
+
+    // Instead of positioning the arrow based on its tip,
+    // we choose a point along the path (30 pixels before the end)
+    // that will serve as the arrow's center.
+    final centerOffset = metric.length - 30.0;
+    final centerTangent = metric.getTangentForOffset(centerOffset);
+    if (centerTangent == null) return;
+    final arrowCenter = centerTangent.position;
+    final angle = 2 * pi - centerTangent.angle;
+
+    // Define arrow dimensions.
+    const double arrowLength = 15.0; // full length from tip to base.
+    const double arrowHalfWidth = 6.0; // half of the base width.
+
+    // Calculate the tip and base center relative to the arrow's center.
+    // Here we assume the arrow should be centered on the path:
+    // • The arrow tip is half the arrow length in front of the center.
+    // • The arrow base center is half the arrow length behind the center.
+    final tip = arrowCenter +
+        Offset((arrowLength / 2) * cos(angle), (arrowLength / 2) * sin(angle));
+
+    final baseCenter = arrowCenter -
+        Offset((arrowLength / 2) * cos(angle), (arrowLength / 2) * sin(angle));
+
+    // Compute a perpendicular vector to the path's direction.
+    final perpendicular = Offset(-sin(angle), cos(angle));
+
+    // Compute the left and right corners of the base.
+    final leftBase = baseCenter + perpendicular * arrowHalfWidth;
+    final rightBase = baseCenter - perpendicular * arrowHalfWidth;
+
+    // Create the arrow triangle.
+    final arrowPath = Path()
+      ..moveTo(tip.dx, tip.dy)
+      ..lineTo(leftBase.dx, leftBase.dy)
+      ..lineTo(rightBase.dx, rightBase.dy)
+      ..close();
+
+    // Draw the arrow.
+    final arrowPaint = Paint()
+      ..color = Colors.white
+      ..style = PaintingStyle.fill;
+    canvas.drawPath(arrowPath, arrowPaint);
   }
 
   bool hitTestCurvedLine(Offset point) {

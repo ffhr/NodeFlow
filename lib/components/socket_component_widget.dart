@@ -20,7 +20,9 @@ class SocketComponentWidget extends StatefulWidget {
     required this.onClicked,
     this.onPanDown,
     this.onPanEnd,
-  }) : this.isClicked = isClicked ?? false;
+    bool? isConnected,
+  })  : this.isClicked = isClicked ?? false,
+        this.isConnected = isConnected ?? false;
 
   final Future Function()? renderPan;
   final bool? isHovered;
@@ -30,6 +32,7 @@ class SocketComponentWidget extends StatefulWidget {
   final Future Function(bool isClicked)? onClicked;
   final Future Function(NFPointStruct point)? onPanDown;
   final Future Function(NFPointStruct point)? onPanEnd;
+  final bool isConnected;
 
   @override
   State<SocketComponentWidget> createState() => _SocketComponentWidgetState();
@@ -228,7 +231,9 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
                 width: 20.0,
                 height: 20.0,
                 decoration: BoxDecoration(
-                  color: FlutterFlowTheme.of(context).warning,
+                  color: widget!.isConnected
+                      ? FlutterFlowTheme.of(context).error
+                      : FlutterFlowTheme.of(context).warning,
                   shape: BoxShape.circle,
                   border: Border.all(
                     color: valueOrDefault<Color>(
