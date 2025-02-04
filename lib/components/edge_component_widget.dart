@@ -130,8 +130,17 @@ class _EdgeComponentWidgetState extends State<EdgeComponentWidget> {
                       widget!.targetNode!.virtualPosition.offsetY
                   ? CurvedLoopType.topToBottom
                   : CurvedLoopType.bottomToTop,
+              sourceNodeAbsolutePosition: functions.virtualToAbsolute(
+                  widget!.sourceNode!.virtualPosition,
+                  FFAppState().ViewportCenter,
+                  FFAppState().ZoomFactor,
+                  NFSizeStruct(
+                    width: MediaQuery.sizeOf(context).width,
+                    height: MediaQuery.sizeOf(context).height,
+                  )),
               onTap: () async {
                 // Remove from list
+                print("REMOVE");
                 FFAppState().removeFromEdges(widget!.edge!);
                 safeSetState(() {});
               },
