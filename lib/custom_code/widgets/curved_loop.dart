@@ -72,13 +72,11 @@ class CurvedLoopPainter extends CustomPainter {
   }
 
   Path getPath() {
-    print("Curved Loop Type: $curvedLoopType");
     if (curvedLoopType == CurvedLoopType.topToBottom) {
       return getTopToBottomPath();
     } else if (curvedLoopType == CurvedLoopType.bottomToTop) {
       return getBottomToTopPath();
     }
-    print("Empty path");
     return Path();
   }
 
@@ -118,8 +116,6 @@ class CurvedLoopPainter extends CustomPainter {
         end.dy - (1.5 * sourceNodeSize.height).abs(),
         end.dx,
         end.dy);
-    final bounds = path.getBounds();
-    print("Path bounds 1: $bounds");
     return path;
   }
 
@@ -160,9 +156,6 @@ class CurvedLoopPainter extends CustomPainter {
         end.dy + (0.5 * sourceNodeSize.height).abs(),
         end.dx,
         end.dy);
-
-    final bounds = path.getBounds();
-    print("Path bounds 2: $bounds");
     return path;
   }
 
