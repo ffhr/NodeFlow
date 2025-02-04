@@ -142,6 +142,7 @@ class _EdgeComponentWidgetState extends State<EdgeComponentWidget> {
                 // Remove from list
                 print("REMOVE");
                 FFAppState().removeFromEdges(widget!.edge!);
+                FFAppState().update(() {});
                 _model.updatePage(() {});
               },
             ),

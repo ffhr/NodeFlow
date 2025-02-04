@@ -37,23 +37,23 @@ class CurvedLoopPainter extends CustomPainter {
 
     var path = getPath();
     canvas.drawPath(path, paint);
-    final topRightNodeCorner = Offset(
-        sourceNodeAbsolutePosition.offsetX + sourceNodeSize.width / 2,
-        sourceNodeAbsolutePosition.offsetY - sourceNodeSize.height / 2);
-    final topLeftNodeCorner = Offset(
-        sourceNodeAbsolutePosition.offsetX - sourceNodeSize.width / 2,
-        sourceNodeAbsolutePosition.offsetY - sourceNodeSize.height / 2);
-    final bottomLeftNodeCorner = Offset(
-        sourceNodeAbsolutePosition.offsetX - sourceNodeSize.width / 2,
-        sourceNodeAbsolutePosition.offsetY + sourceNodeSize.height / 2);
-    final bottomRightNodeCorner = Offset(
-        sourceNodeAbsolutePosition.offsetX + sourceNodeSize.width / 2,
-        sourceNodeAbsolutePosition.offsetY + sourceNodeSize.height / 2);
+    // final topRightNodeCorner = Offset(
+    //     sourceNodeAbsolutePosition.offsetX + sourceNodeSize.width / 2,
+    //     sourceNodeAbsolutePosition.offsetY - sourceNodeSize.height / 2);
+    // final topLeftNodeCorner = Offset(
+    //     sourceNodeAbsolutePosition.offsetX - sourceNodeSize.width / 2,
+    //     sourceNodeAbsolutePosition.offsetY - sourceNodeSize.height / 2);
+    // final bottomLeftNodeCorner = Offset(
+    //     sourceNodeAbsolutePosition.offsetX - sourceNodeSize.width / 2,
+    //     sourceNodeAbsolutePosition.offsetY + sourceNodeSize.height / 2);
+    // final bottomRightNodeCorner = Offset(
+    //     sourceNodeAbsolutePosition.offsetX + sourceNodeSize.width / 2,
+    //     sourceNodeAbsolutePosition.offsetY + sourceNodeSize.height / 2);
 
-    canvas.drawCircle(topRightNodeCorner, 5, paint);
-    canvas.drawCircle(topLeftNodeCorner, 5, paint);
-    canvas.drawCircle(bottomLeftNodeCorner, 5, paint);
-    canvas.drawCircle(bottomRightNodeCorner, 5, paint);
+    // canvas.drawCircle(topRightNodeCorner, 5, paint);
+    // canvas.drawCircle(topLeftNodeCorner, 5, paint);
+    // canvas.drawCircle(bottomLeftNodeCorner, 5, paint);
+    // canvas.drawCircle(bottomRightNodeCorner, 5, paint);
   }
 
   @override
@@ -94,7 +94,7 @@ class CurvedLoopPainter extends CustomPainter {
 
     path.cubicTo(
       start.dx + 2 * (topRight.dx - center.dx).abs(),
-      start.dy - 2 * (topRight.dy - center.dy).abs(), // Control point 1
+      start.dy - 1.55 * (topRight.dy - center.dy).abs(), // Control point 1
       middleEnd.dx,
       middleEnd.dy, // Control point 2
       middleEnd.dx,
@@ -105,9 +105,9 @@ class CurvedLoopPainter extends CustomPainter {
     var middleStart = middleEnd;
     path.cubicTo(
         middleStart.dx - 2 * (topLeft.dx - center.dx).abs(),
-        middleStart.dy,
-        end.dx - (2 * sourceNodeSize.width).abs(),
-        end.dy - (1 * sourceNodeSize.height).abs(),
+        middleStart.dy - 20,
+        end.dx - (1.0 * sourceNodeSize.width).abs(),
+        end.dy - (1.5 * sourceNodeSize.height).abs(),
         end.dx,
         end.dy);
 
@@ -135,7 +135,7 @@ class CurvedLoopPainter extends CustomPainter {
 
     path.cubicTo(
       start.dx + 2 * (bottomRight.dx - center.dx).abs(),
-      start.dy + 2 * (bottomRight.dy - center.dy).abs(), // Control point 1
+      start.dy + 2.25 * (bottomRight.dy - center.dy).abs(), // Control point 1
       middleEnd.dx,
       middleEnd.dy, // Control point 2
       middleEnd.dx,
@@ -147,8 +147,8 @@ class CurvedLoopPainter extends CustomPainter {
     path.cubicTo(
         middleStart.dx - 2 * (bottomLeft.dx - center.dx).abs(),
         middleStart.dy,
-        end.dx - (2 * sourceNodeSize.width).abs(),
-        end.dy + (1 * sourceNodeSize.height).abs(),
+        end.dx - (0.5 * sourceNodeSize.width).abs(),
+        end.dy + (0.5 * sourceNodeSize.height).abs(),
         end.dx,
         end.dy);
 
