@@ -172,10 +172,6 @@ class _PlaygroundISStackWidgetState extends State<PlaygroundISStackWidget> {
                                 offsetX: _model.virtualX,
                                 offsetY: _model.virtualY,
                               ),
-                              NFSizeStruct(
-                                width: _model.nodeWidth,
-                                height: _model.nodeHeight,
-                              ),
                               FFAppState().ViewportCenter,
                               FFAppState().ZoomFactor,
                               NFSizeStruct(

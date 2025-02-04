@@ -146,7 +146,6 @@ double relativeToAbsoluteY(
 
 NFOffsetStruct virtualToAbsolute(
   NFOffsetStruct nodePosition,
-  NFSizeStruct nodeSize,
   NFOffsetStruct viewportCenter,
   double zoomFactor,
   NFSizeStruct windowSize,
@@ -187,8 +186,8 @@ NFOffsetStruct virtualToRelative(
   NFSizeStruct windowSize,
 ) {
   // Convert virtual to absolute
-  NFOffsetStruct absolutePosition = virtualToAbsolute(
-      nodePosition, nodeSize, viewportCenter, zoomFactor, windowSize);
+  NFOffsetStruct absolutePosition =
+      virtualToAbsolute(nodePosition, viewportCenter, zoomFactor, windowSize);
   // Convert absolute to relative
   NFOffsetStruct relativePosition =
       absoluteToRelative(absolutePosition, windowSize, nodeSize);
@@ -259,7 +258,6 @@ NFPointStruct calculateStartPointFromEdge(
 
   var startSocketAbsolutePosition = virtualToAbsolute(
       startSocketVirtualPosition,
-      startNode.size,
       viewportCenter,
       zoomFactor,
       NFSizeStruct(width: screenWidth, height: screenHeight));
@@ -286,7 +284,6 @@ NFPointStruct? calculateEndPointFromEdge(
 
   var startSocketAbsolutePosition = virtualToAbsolute(
       startSocketVirtualPosition,
-      startNode.size,
       viewportCenter,
       zoomFactor,
       NFSizeStruct(width: screenWidth, height: screenHeight));
@@ -329,12 +326,8 @@ NodeStruct? getNodeFromPoint(
 ) {
   for (var index = nodes.length - 1; index >= 0; index--) {
     var node = nodes[index];
-    var nodePosition = virtualToAbsolute(
-        node.virtualPosition,
-        node.size,
-        viewportCenter,
-        zoomFactor,
-        NFSizeStruct(width: screenWidth, height: screenHeight));
+    var nodePosition = virtualToAbsolute(node.virtualPosition, viewportCenter,
+        zoomFactor, NFSizeStruct(width: screenWidth, height: screenHeight));
 
     var nodeSize = node.size;
     var nodeWidth = nodeSize.width;
@@ -371,7 +364,6 @@ int? getSourceOutputIndexFromPoint(
           node.virtualPosition, node.size, index, false, node.outputs.length);
       var outputSocketAbsolutePosition = virtualToAbsolute(
           outputSocketPosition,
-          node.size,
           viewportCenter,
           zoomFactor,
           NFSizeStruct(width: screenWidth, height: screenHeight));
@@ -421,7 +413,6 @@ int? getTargetInputIndexFromPoint(
           node.virtualPosition, node.size, index, true, node.inputs.length);
       var inputSocketAbsolutePosition = virtualToAbsolute(
           inputSocketPosition,
-          node.size,
           viewportCenter,
           zoomFactor,
           NFSizeStruct(width: screenWidth, height: screenHeight));
