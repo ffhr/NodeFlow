@@ -99,7 +99,7 @@ class _EdgeComponentWidgetState extends State<EdgeComponentWidget> {
                 onTap: () async {
                   // Remove from list
                   FFAppState().removeFromEdges(widget!.edge!);
-                  _model.updatePage(() {});
+                  FFAppState().update(() {});
                 },
               ),
             ),
@@ -141,7 +141,7 @@ class _EdgeComponentWidgetState extends State<EdgeComponentWidget> {
               onTap: () async {
                 // Remove from list
                 FFAppState().removeFromEdges(widget!.edge!);
-                _model.updatePage(() {});
+                FFAppState().update(() {});
               },
             ),
           );
