@@ -25,9 +25,16 @@ class CurvedLoopPainter extends CustomPainter {
   final CurvedLoopType curvedLoopType;
   final NFOffsetStruct sourceNodeAbsolutePosition;
   final NFLineType lineType;
+  final Color lineColor;
 
-  CurvedLoopPainter(this.start, this.end, this.sourceNodeSize,
-      this.curvedLoopType, this.sourceNodeAbsolutePosition, this.lineType);
+  CurvedLoopPainter(
+      this.start,
+      this.end,
+      this.sourceNodeSize,
+      this.curvedLoopType,
+      this.sourceNodeAbsolutePosition,
+      this.lineType,
+      this.lineColor);
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -35,7 +42,7 @@ class CurvedLoopPainter extends CustomPainter {
     var path = getPath();
     if (lineType == NFLineType.solid) {
       final paint = Paint()
-        ..color = Colors.white
+        ..color = lineColor
         ..strokeWidth = 2
         ..style = PaintingStyle.stroke;
 
@@ -43,7 +50,7 @@ class CurvedLoopPainter extends CustomPainter {
     }
     if (lineType == NFLineType.dotted) {
       final paint = Paint()
-        ..color = Colors.white
+        ..color = lineColor
         ..strokeWidth = 2
         ..style = PaintingStyle.stroke
         ..strokeCap = StrokeCap.round;
@@ -223,7 +230,7 @@ class CurvedLoopPainter extends CustomPainter {
 
     // Draw the arrow.
     final arrowPaint = Paint()
-      ..color = Colors.white
+      ..color = lineColor
       ..style = PaintingStyle.fill;
     canvas.drawPath(arrowPath, arrowPaint);
   }
@@ -286,7 +293,8 @@ class _CurvedLoopState extends State<CurvedLoop> {
       NFSizeStruct(width: 0, height: 0),
       CurvedLoopType.topToBottom,
       NFOffsetStruct(offsetX: 0, offsetY: 0),
-      NFLineType.solid);
+      NFLineType.solid,
+      Colors.black);
 
   @override
   void initState() {
@@ -296,7 +304,8 @@ class _CurvedLoopState extends State<CurvedLoop> {
         widget.sourceNodeSize,
         widget.curvedLoopType,
         widget.sourceNodeAbsolutePosition,
-        widget.lineType);
+        widget.lineType,
+        widget.lineColor);
     super.initState();
   }
 
@@ -309,7 +318,8 @@ class _CurvedLoopState extends State<CurvedLoop> {
         widget.sourceNodeSize,
         widget.curvedLoopType,
         widget.sourceNodeAbsolutePosition,
-        widget.lineType);
+        widget.lineType,
+        widget.lineColor);
   }
 
   @override

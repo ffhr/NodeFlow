@@ -70,6 +70,11 @@ class _NFZoomableStackState extends State<NFZoomableStack>
 
       viewerCenterX = dx;
       viewerCenterY = dy;
+
+      FFAppState().ViewportCenter = NFOffsetStruct(
+        offsetX: viewerCenterX,
+        offsetY: viewerCenterY,
+      );
     }
   }
 
@@ -212,8 +217,8 @@ class _NFZoomableStackState extends State<NFZoomableStack>
               constrained: true,
               child: Container(
                 decoration: BoxDecoration(
-                  // color: Colors.yellow,
-                ),
+                    // color: Colors.yellow,
+                    ),
                 constraints: BoxConstraints(
                     // minWidth: 10000,
                     // minHeight: 10000, // Ensures minimum height of 6000
@@ -254,6 +259,11 @@ class _NFZoomableStackState extends State<NFZoomableStack>
 
     viewerCenterX = _transformationController.value.row0[3] + halfW;
     viewerCenterY = _transformationController.value.row1[3] + halfH;
+
+    FFAppState().ViewportCenter = NFOffsetStruct(
+      offsetX: viewerCenterX,
+      offsetY: viewerCenterY,
+    );
 
     // print(viewerCenterX);
     // print(viewerCenterY);
