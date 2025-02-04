@@ -98,6 +98,7 @@ class _EdgeComponentWidgetState extends State<EdgeComponentWidget> {
                     FFAppState().ZoomFactor)!,
                 onTap: () async {
                   // Remove from list
+                  print('Edge line tapped');
                   FFAppState().removeFromEdges(widget!.edge!);
                   FFAppState().update(() {});
                 },
@@ -140,6 +141,7 @@ class _EdgeComponentWidgetState extends State<EdgeComponentWidget> {
                   )),
               onTap: () async {
                 // Remove from list
+                print('Edge loop tapped');
                 FFAppState().removeFromEdges(widget!.edge!);
                 FFAppState().update(() {});
               },

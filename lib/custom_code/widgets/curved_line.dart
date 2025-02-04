@@ -35,10 +35,19 @@ class CurvedLinePainter extends CustomPainter {
     final paint = Paint()
       ..color = Colors.white
       ..strokeWidth = 2
-      ..style = PaintingStyle.stroke;
+      ..style = PaintingStyle.stroke
+      ..strokeCap = StrokeCap.round;
 
     var path = getPath();
-    canvas.drawPath(path, paint);
+
+    // Create dotted effect
+    final PathMetrics pathMetrics = path.computeMetrics();
+    for (PathMetric metric in pathMetrics) {
+      for (double i = 0; i < metric.length; i += 10) {
+        canvas.drawPath(
+            metric.extractPath(i, i + 5), paint); // 5px dot, 5px gap
+      }
+    }
     drawArrowHead(canvas, path);
   }
 
@@ -266,10 +275,10 @@ class _CurvedLineState extends State<CurvedLine> {
           final Offset localPosition =
               renderBox.globalToLocal(details.globalPosition);
           if (_painter.hitTestCurvedLine(localPosition)) {
-            //print('Tapped on rendered part!');
+            print('Tapped on rendered part!');
             widget.onTap?.call();
           } else {
-            //print('Tapped outside rendered part.');
+            print('Tapped outside rendered part.');
           }
         },
         child: RepaintBoundary(
