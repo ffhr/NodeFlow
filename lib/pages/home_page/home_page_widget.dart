@@ -256,6 +256,11 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                       start: FFAppState().EdgeDrawing.drawingStartPoint,
                       end: FFAppState().EdgeDrawing.drawingEndPoint,
                       lineType: NFLineType.dotted,
+                      isArrowPointingToStartPoint: FFAppState()
+                                  .CurrentBuildingEdge
+                                  .targetNodeId !=
+                              null &&
+                          FFAppState().CurrentBuildingEdge.targetNodeId != '',
                       onTap: () async {},
                     ),
                   ),

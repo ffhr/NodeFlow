@@ -97,6 +97,7 @@ class _EdgeComponentWidgetState extends State<EdgeComponentWidget> {
                     FFAppState().ViewportCenter,
                     FFAppState().ZoomFactor)!,
                 lineType: NFLineType.solid,
+                isArrowPointingToStartPoint: false,
                 onTap: () async {
                   // Remove from list
                   FFAppState().removeFromEdges(widget!.edge!);
