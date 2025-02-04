@@ -99,7 +99,7 @@ class _EdgeComponentWidgetState extends State<EdgeComponentWidget> {
                 onTap: () async {
                   // Remove from list
                   FFAppState().removeFromEdges(widget!.edge!);
-                  _model.updatePage(() {});
+                  FFAppState().update(() {});
                 },
               ),
             ),
@@ -143,7 +143,10 @@ class _EdgeComponentWidgetState extends State<EdgeComponentWidget> {
                 print("REMOVE");
                 FFAppState().removeFromEdges(widget!.edge!);
                 FFAppState().update(() {});
+<<<<<<< HEAD
                 _model.updatePage(() {});
+=======
+>>>>>>> 2a83728eb506841d853f04a764a14ad72ff87923
               },
             ),
           );
