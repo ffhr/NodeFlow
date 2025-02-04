@@ -22,6 +22,7 @@ class NodeComponentWidget extends StatefulWidget {
     this.onPanEnd,
     this.onPanUpdate,
     this.renderPanStack,
+    required this.child,
   });
 
   final NodeStruct? node;
@@ -31,6 +32,7 @@ class NodeComponentWidget extends StatefulWidget {
   final Future Function()? onPanEnd;
   final Future Function(NFPointStruct deltaPoint)? onPanUpdate;
   final Future Function()? renderPanStack;
+  final Widget Function()? child;
 
   @override
   State<NodeComponentWidget> createState() => _NodeComponentWidgetState();
@@ -135,112 +137,11 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                     width: 2.0,
                   ),
                 ),
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Align(
-                      alignment: AlignmentDirectional(0.0, -1.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.all(15.0),
-                            child: Text(
-                              valueOrDefault<String>(
-                                widget!.node?.title,
-                                '[title]',
-                              ),
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Inter',
-                                    color: Colors.white,
-                                    letterSpacing: 0.0,
-                                  ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      width: double.infinity,
-                      height: 0.5,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                      ),
-                    ),
-                    Expanded(
-                      child: Align(
-                        alignment: AlignmentDirectional(0.0, 0.0),
-                        child: Container(
-                          decoration: BoxDecoration(),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.all(15.0),
-                                child: Text(
-                                  valueOrDefault<String>(
-                                    widget!.node?.description,
-                                    '[description]',
-                                  ),
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Inter',
-                                        color: Colors.white,
-                                        letterSpacing: 0.0,
-                                      ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Align(
-                        alignment: AlignmentDirectional(0.0, 0.0),
-                        child: Container(
-                          decoration: BoxDecoration(),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Padding(
-                                padding: EdgeInsets.all(15.0),
-                                child: Text(
-                                  '${valueOrDefault<String>(
-                                    formatNumber(
-                                      widget!.node?.virtualPosition?.offsetX,
-                                      formatType: FormatType.custom,
-                                      format: '##.##',
-                                      locale: '',
-                                    ),
-                                    '##.##',
-                                  )}, ${valueOrDefault<String>(
-                                    formatNumber(
-                                      widget!.node?.virtualPosition?.offsetY,
-                                      formatType: FormatType.custom,
-                                      format: '##.##',
-                                      locale: '',
-                                    ),
-                                    '##.###',
-                                  )}',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Inter',
-                                        color: Colors.white,
-                                        letterSpacing: 0.0,
-                                      ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
+                child: Visibility(
+                  visible: widget!.child != null,
+                  child: Builder(builder: (_) {
+                    return widget.child!();
+                  }),
                 ),
               ),
             ),
