@@ -19,6 +19,11 @@ import 'dart:ui';
 
 import 'index.dart'; // Imports other custom widgets
 
+import 'dart:math';
+import 'dart:ui';
+
+import 'index.dart'; // Imports other custom widgets
+
 // Imports other custom widgets
 
 class CurvedLoopPainter extends CustomPainter {
