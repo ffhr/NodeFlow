@@ -73,7 +73,7 @@ class _EdgeComponentWidgetState extends State<EdgeComponentWidget> {
                         FFAppState().Nodes.toList(),
                         FFAppState().ViewportCenter,
                         FFAppState().ZoomFactor)!
-                    .positionX -
+                    .positionX +
                 100)) {
           return Visibility(
             visible: true,
