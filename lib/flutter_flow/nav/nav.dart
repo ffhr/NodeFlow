@@ -42,12 +42,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
       navigatorKey: appNavigatorKey,
-      errorBuilder: (context, state) => HomePageWidget(),
+      errorBuilder: (context, state) => ZoomableHomePageWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
-          builder: (context, _) => HomePageWidget(),
+          builder: (context, _) => ZoomableHomePageWidget(),
         ),
         FFRoute(
           name: 'HomePage',
@@ -60,14 +60,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => PlaygroundMSWidget(),
         ),
         FFRoute(
-          name: 'PlaygroundIS',
-          path: '/playgroundIS',
-          builder: (context, params) => PlaygroundISWidget(),
-        ),
-        FFRoute(
-          name: 'LayoutZoomable',
-          path: '/layoutZoomable',
-          builder: (context, params) => LayoutZoomableWidget(),
+          name: 'ZoomableHomePage',
+          path: '/zoomableHomePage',
+          builder: (context, params) => ZoomableHomePageWidget(),
         ),
         FFRoute(
           name: 'SocketLegend',

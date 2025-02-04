@@ -1,4 +1,4 @@
-import '/components/playground_i_s_stack_widget.dart';
+import '/components/n_f_diagram_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -6,25 +6,25 @@ import '/custom_code/widgets/index.dart' as custom_widgets;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'playground_i_s_model.dart';
-export 'playground_i_s_model.dart';
+import 'zoomable_home_page_model.dart';
+export 'zoomable_home_page_model.dart';
 
-class PlaygroundISWidget extends StatefulWidget {
-  const PlaygroundISWidget({super.key});
+class ZoomableHomePageWidget extends StatefulWidget {
+  const ZoomableHomePageWidget({super.key});
 
   @override
-  State<PlaygroundISWidget> createState() => _PlaygroundISWidgetState();
+  State<ZoomableHomePageWidget> createState() => _ZoomableHomePageWidgetState();
 }
 
-class _PlaygroundISWidgetState extends State<PlaygroundISWidget> {
-  late PlaygroundISModel _model;
+class _ZoomableHomePageWidgetState extends State<ZoomableHomePageWidget> {
+  late ZoomableHomePageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => PlaygroundISModel());
+    _model = createModel(context, () => ZoomableHomePageModel());
 
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
@@ -54,7 +54,7 @@ class _PlaygroundISWidgetState extends State<PlaygroundISWidget> {
             child: custom_widgets.ZoomableStack(
               width: double.infinity,
               height: double.infinity,
-              stackComponent: () => PlaygroundISStackWidget(),
+              stackComponent: () => NFDiagramWidget(),
             ),
           ),
         ),
