@@ -72,7 +72,7 @@ class _NFDiagramWidgetState extends State<NFDiagramWidget> {
       },
       child: Container(
         decoration: BoxDecoration(
-          color: FlutterFlowTheme.of(context).secondaryText,
+          color: Colors.transparent,
         ),
         child: Stack(
           children: [
