@@ -1,7 +1,4 @@
 // Automatic FlutterFlow imports
-import 'dart:math';
-import 'dart:ui';
-
 import '/backend/schema/structs/index.dart';
 import '/backend/schema/enums/enums.dart';
 import '/actions/actions.dart' as action_blocks;
@@ -19,11 +16,6 @@ import 'dart:ui';
 
 import 'index.dart'; // Imports other custom widgets
 
-import 'dart:math';
-import 'dart:ui';
-
-import 'index.dart'; // Imports other custom widgets
-
 // Imports other custom widgets
 
 class CurvedLoopPainter extends CustomPainter {
@@ -32,20 +24,41 @@ class CurvedLoopPainter extends CustomPainter {
   final NFSizeStruct sourceNodeSize;
   final CurvedLoopType curvedLoopType;
   final NFOffsetStruct sourceNodeAbsolutePosition;
+  final NFLineType lineType;
 
   CurvedLoopPainter(this.start, this.end, this.sourceNodeSize,
-      this.curvedLoopType, this.sourceNodeAbsolutePosition);
+      this.curvedLoopType, this.sourceNodeAbsolutePosition, this.lineType);
 
   @override
   void paint(Canvas canvas, Size size) {
     // // Draw the path on the canvas
-    final paint = Paint()
-      ..color = Colors.white
-      ..strokeWidth = 2
-      ..style = PaintingStyle.stroke;
-
     var path = getPath();
-    canvas.drawPath(path, paint);
+    if (lineType == NFLineType.solid) {
+      final paint = Paint()
+        ..color = Colors.white
+        ..strokeWidth = 2
+        ..style = PaintingStyle.stroke;
+
+      canvas.drawPath(path, paint);
+    }
+    if (lineType == NFLineType.dotted) {
+      final paint = Paint()
+        ..color = Colors.white
+        ..strokeWidth = 2
+        ..style = PaintingStyle.stroke
+        ..strokeCap = StrokeCap.round;
+
+      // Create dotted effect
+      final PathMetrics pathMetrics = path.computeMetrics();
+      for (PathMetric metric in pathMetrics) {
+        for (double i = 0; i < metric.length; i += 10) {
+          canvas.drawPath(
+              metric.extractPath(i, i + 5), paint); // 5px dot, 5px gap
+        }
+      }
+    }
+
+    // Only for debugging purposes
     // final topRightNodeCorner = Offset(
     //     sourceNodeAbsolutePosition.offsetX + sourceNodeSize.width / 2,
     //     sourceNodeAbsolutePosition.offsetY - sourceNodeSize.height / 2);
@@ -105,7 +118,7 @@ class CurvedLoopPainter extends CustomPainter {
 
     path.cubicTo(
       start.dx + 2 * (topRight.dx - center.dx).abs(),
-      start.dy - 1.55 * (topRight.dy - center.dy).abs(), // Control point 1
+      start.dy - 2 * (topRight.dy - center.dy).abs(), // Control point 1
       middleEnd.dx,
       middleEnd.dy, // Control point 2
       middleEnd.dx,
@@ -145,7 +158,7 @@ class CurvedLoopPainter extends CustomPainter {
 
     path.cubicTo(
       start.dx + 2 * (bottomRight.dx - center.dx).abs(),
-      start.dy + 2.25 * (bottomRight.dy - center.dy).abs(), // Control point 1
+      start.dy + 2 * (bottomRight.dy - center.dy).abs(), // Control point 1
       middleEnd.dx,
       middleEnd.dy, // Control point 2
       middleEnd.dx,
@@ -270,7 +283,8 @@ class _CurvedLoopState extends State<CurvedLoop> {
       const Offset(0, 0),
       NFSizeStruct(width: 0, height: 0),
       CurvedLoopType.topToBottom,
-      NFOffsetStruct(offsetX: 0, offsetY: 0));
+      NFOffsetStruct(offsetX: 0, offsetY: 0),
+      NFLineType.solid);
 
   @override
   void initState() {
@@ -279,7 +293,8 @@ class _CurvedLoopState extends State<CurvedLoop> {
         Offset(widget.end.positionX, widget.end.positionY),
         widget.sourceNodeSize,
         widget.curvedLoopType,
-        widget.sourceNodeAbsolutePosition);
+        widget.sourceNodeAbsolutePosition,
+        widget.lineType);
     super.initState();
   }
 
@@ -291,7 +306,8 @@ class _CurvedLoopState extends State<CurvedLoop> {
         Offset(widget.end.positionX, widget.end.positionY),
         widget.sourceNodeSize,
         widget.curvedLoopType,
-        widget.sourceNodeAbsolutePosition);
+        widget.sourceNodeAbsolutePosition,
+        widget.lineType);
   }
 
   @override

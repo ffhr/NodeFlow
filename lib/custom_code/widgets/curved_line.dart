@@ -1,13 +1,9 @@
 // Automatic FlutterFlow imports
-import 'dart:math';
-import 'dart:ui';
-
 import '/backend/schema/structs/index.dart';
 import '/backend/schema/enums/enums.dart';
 import '/actions/actions.dart' as action_blocks;
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import 'index.dart'; // Imports other custom widgets
 import '/custom_code/actions/index.dart'; // Imports custom actions
 import '/flutter_flow/custom_functions.dart'; // Imports custom functions
 import 'package:flutter/material.dart';
@@ -26,26 +22,36 @@ enum LineDirection {
 class CurvedLinePainter extends CustomPainter {
   final Offset start;
   final Offset end;
+  final NFLineType lineType;
 
-  CurvedLinePainter(this.start, this.end);
+  CurvedLinePainter(this.start, this.end, this.lineType);
 
   @override
   void paint(Canvas canvas, Size size) {
-    // // Draw the path on the canvas
-    final paint = Paint()
-      ..color = Colors.white
-      ..strokeWidth = 2
-      ..style = PaintingStyle.stroke
-      ..strokeCap = StrokeCap.round;
-
     var path = getPath();
+    if (lineType == NFLineType.solid) {
+      // Draw the path on the canvas
+      final paint = Paint()
+        ..color = Colors.white
+        ..strokeWidth = 2
+        ..style = PaintingStyle.stroke;
 
-    // Create dotted effect
-    final PathMetrics pathMetrics = path.computeMetrics();
-    for (PathMetric metric in pathMetrics) {
-      for (double i = 0; i < metric.length; i += 10) {
-        canvas.drawPath(
-            metric.extractPath(i, i + 5), paint); // 5px dot, 5px gap
+      canvas.drawPath(path, paint);
+    }
+    if (lineType == NFLineType.dotted) {
+      final paint = Paint()
+        ..color = Colors.white
+        ..strokeWidth = 2
+        ..style = PaintingStyle.stroke
+        ..strokeCap = StrokeCap.round;
+
+      // Create dotted effect
+      final PathMetrics pathMetrics = path.computeMetrics();
+      for (PathMetric metric in pathMetrics) {
+        for (double i = 0; i < metric.length; i += 10) {
+          canvas.drawPath(
+              metric.extractPath(i, i + 5), paint); // 5px dot, 5px gap
+        }
       }
     }
     drawArrowHead(canvas, path);
@@ -251,13 +257,15 @@ class CurvedLine extends StatefulWidget {
 }
 
 class _CurvedLineState extends State<CurvedLine> {
-  CurvedLinePainter _painter = CurvedLinePainter(Offset(0, 0), Offset(0, 0));
+  CurvedLinePainter _painter =
+      CurvedLinePainter(Offset(0, 0), Offset(0, 0), NFLineType.solid);
 
   @override
   void initState() {
     _painter = CurvedLinePainter(
         Offset(widget.start.positionX, widget.start.positionY),
-        Offset(widget.end.positionX, widget.end.positionY));
+        Offset(widget.end.positionX, widget.end.positionY),
+        widget.lineType);
     super.initState();
   }
 
@@ -266,7 +274,8 @@ class _CurvedLineState extends State<CurvedLine> {
     super.didUpdateWidget(oldWidget);
     _painter = CurvedLinePainter(
         Offset(widget.start.positionX, widget.start.positionY),
-        Offset(widget.end.positionX, widget.end.positionY));
+        Offset(widget.end.positionX, widget.end.positionY),
+        widget.lineType);
   }
 
   @override
