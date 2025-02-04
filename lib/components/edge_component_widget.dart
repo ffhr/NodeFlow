@@ -65,16 +65,15 @@ class _EdgeComponentWidgetState extends State<EdgeComponentWidget> {
                     FFAppState().ViewportCenter,
                     FFAppState().ZoomFactor)
                 .positionX <=
-            (functions
-                    .calculateEndPointFromEdge(
-                        widget!.edge!,
-                        MediaQuery.sizeOf(context).width,
-                        MediaQuery.sizeOf(context).height,
-                        FFAppState().Nodes.toList(),
-                        FFAppState().ViewportCenter,
-                        FFAppState().ZoomFactor)!
-                    .positionX +
-                100)) {
+            functions
+                .calculateEndPointFromEdge(
+                    widget!.edge!,
+                    MediaQuery.sizeOf(context).width,
+                    MediaQuery.sizeOf(context).height,
+                    FFAppState().Nodes.toList(),
+                    FFAppState().ViewportCenter,
+                    FFAppState().ZoomFactor)!
+                .positionX) {
           return Visibility(
             visible: true,
             child: Container(
