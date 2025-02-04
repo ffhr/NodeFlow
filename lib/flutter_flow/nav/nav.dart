@@ -69,6 +69,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'LayoutZoomable',
           path: '/layoutZoomable',
           builder: (context, params) => LayoutZoomableWidget(),
+        ),
+        FFRoute(
+          name: 'SocketLegend',
+          path: '/socketLegend',
+          builder: (context, params) => SocketLegendWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

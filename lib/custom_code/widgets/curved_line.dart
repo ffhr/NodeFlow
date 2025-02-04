@@ -17,8 +17,6 @@ import 'dart:ui';
 
 import 'index.dart'; // Imports other custom widgets
 
-import 'dart:math';
-
 enum LineDirection {
   leftToRight,
   rightToLeft,
