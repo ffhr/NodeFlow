@@ -140,7 +140,6 @@ class _EdgeComponentWidgetState extends State<EdgeComponentWidget> {
                   )),
               onTap: () async {
                 // Remove from list
-                print("REMOVE");
                 FFAppState().removeFromEdges(widget!.edge!);
                 FFAppState().update(() {});
               },

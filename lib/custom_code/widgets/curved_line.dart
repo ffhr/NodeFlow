@@ -40,6 +40,7 @@ class CurvedLinePainter extends CustomPainter {
 
     var path = getPath();
     canvas.drawPath(path, paint);
+    drawArrowHead(canvas, path);
   }
 
   Path getPath() {
@@ -81,6 +82,57 @@ class CurvedLinePainter extends CustomPainter {
     }
 
     return path;
+  }
+
+  void drawArrowHead(Canvas canvas, Path path) {
+    // Compute the metrics for the path.
+    final metrics = path.computeMetrics().toList();
+    if (metrics.isEmpty) return;
+    final metric = metrics.first;
+    if (metric.length < 30) return; // Too short for our arrow.
+
+    // Instead of positioning the arrow based on its tip,
+    // we choose a point along the path (30 pixels before the end)
+    // that will serve as the arrow's center.
+    final centerOffset = metric.length - 30.0;
+    final centerTangent = metric.getTangentForOffset(centerOffset);
+    if (centerTangent == null) return;
+    final arrowCenter = centerTangent.position;
+    final angle = 2 * pi - centerTangent.angle;
+
+    // Define arrow dimensions.
+    const double arrowLength = 15.0; // full length from tip to base.
+    const double arrowHalfWidth = 6.0; // half of the base width.
+
+    // Calculate the tip and base center relative to the arrow's center.
+    // Here we assume the arrow should be centered on the path:
+    // • The arrow tip is half the arrow length in front of the center.
+    // • The arrow base center is half the arrow length behind the center.
+    final tip = arrowCenter +
+        Offset((arrowLength / 2) * cos(angle), (arrowLength / 2) * sin(angle));
+
+    final baseCenter = arrowCenter -
+        Offset((arrowLength / 2) * cos(angle), (arrowLength / 2) * sin(angle));
+
+    // Compute a perpendicular vector to the path's direction.
+    final perpendicular = Offset(-sin(angle), cos(angle));
+
+    // Compute the left and right corners of the base.
+    final leftBase = baseCenter + perpendicular * arrowHalfWidth;
+    final rightBase = baseCenter - perpendicular * arrowHalfWidth;
+
+    // Create the arrow triangle.
+    final arrowPath = Path()
+      ..moveTo(tip.dx, tip.dy)
+      ..lineTo(leftBase.dx, leftBase.dy)
+      ..lineTo(rightBase.dx, rightBase.dy)
+      ..close();
+
+    // Draw the arrow.
+    final arrowPaint = Paint()
+      ..color = Colors.white
+      ..style = PaintingStyle.fill;
+    canvas.drawPath(arrowPath, arrowPaint);
   }
 
   @override
