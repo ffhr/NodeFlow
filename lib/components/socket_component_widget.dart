@@ -21,8 +21,12 @@ class SocketComponentWidget extends StatefulWidget {
     this.onPanDown,
     this.onPanEnd,
     bool? isConnected,
+    Color? defaultColor,
+    Color? selectedColor,
   })  : this.isClicked = isClicked ?? false,
-        this.isConnected = isConnected ?? false;
+        this.isConnected = isConnected ?? false,
+        this.defaultColor = defaultColor ?? const Color(0xFFFF0000),
+        this.selectedColor = selectedColor ?? const Color(0xFF9100FF);
 
   final Future Function()? renderPan;
   final bool? isHovered;
@@ -33,6 +37,8 @@ class SocketComponentWidget extends StatefulWidget {
   final Future Function(NFPointStruct point)? onPanDown;
   final Future Function(NFPointStruct point)? onPanEnd;
   final bool isConnected;
+  final Color defaultColor;
+  final Color selectedColor;
 
   @override
   State<SocketComponentWidget> createState() => _SocketComponentWidgetState();
@@ -144,7 +150,7 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
                 width: 20.0,
                 height: 20.0,
                 decoration: BoxDecoration(
-                  color: FlutterFlowTheme.of(context).tertiary,
+                  color: widget!.selectedColor,
                   shape: BoxShape.circle,
                   border: Border.all(
                     color: valueOrDefault<Color>(
@@ -231,9 +237,7 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
                 width: 20.0,
                 height: 20.0,
                 decoration: BoxDecoration(
-                  color: widget!.isConnected
-                      ? FlutterFlowTheme.of(context).error
-                      : FlutterFlowTheme.of(context).warning,
+                  color: widget!.defaultColor,
                   shape: BoxShape.circle,
                   border: Border.all(
                     color: valueOrDefault<Color>(
