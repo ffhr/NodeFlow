@@ -71,10 +71,11 @@ class _NFZoomableStackState extends State<NFZoomableStack>
       viewerCenterX = dx;
       viewerCenterY = dy;
 
-      FFAppState().ViewportCenter = NFOffsetStruct(
-        offsetX: viewerCenterX,
-        offsetY: viewerCenterY,
-      );
+      print("SCALE FACTOR: $scale");
+      // FFAppState().ViewportCenter = NFOffsetStruct(
+      //   offsetX: viewerCenterX,
+      //   offsetY: viewerCenterY,
+      // );
     }
   }
 
@@ -260,11 +261,6 @@ class _NFZoomableStackState extends State<NFZoomableStack>
     viewerCenterX = _transformationController.value.row0[3] + halfW;
     viewerCenterY = _transformationController.value.row1[3] + halfH;
 
-    FFAppState().ViewportCenter = NFOffsetStruct(
-      offsetX: viewerCenterX,
-      offsetY: viewerCenterY,
-    );
-
     // print(viewerCenterX);
     // print(viewerCenterY);
     // print('--------------------');
@@ -280,11 +276,18 @@ class _NFZoomableStackState extends State<NFZoomableStack>
     double offsetX = viewerCenterX - centerX;
     double offsetY = viewerCenterY - centerY;
 
-    // print('Offset from center X: $offsetX');
-    // print('Offset from center Y: $offsetY');
+    print('Offset from center X: $offsetX');
+    print('Offset from center Y: $offsetY');
 
     offsetXFromWindowCenter = offsetX;
     offsetYFromWindowCenter = offsetY;
+
+    FFAppState().ViewportCenter = NFOffsetStruct(
+      offsetX: offsetXFromWindowCenter,
+      offsetY: offsetYFromWindowCenter,
+    );
+    print("Zoom: $scale");
+    FFAppState().ZoomFactor = scale;
   }
 }
 
