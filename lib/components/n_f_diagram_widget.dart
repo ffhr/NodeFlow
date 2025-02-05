@@ -112,8 +112,11 @@ class _NFDiagramWidgetState extends State<NFDiagramWidget> {
                                 .virtualToRelative(
                                     nodesListItem.virtualPosition,
                                     nodesListItem.size,
-                                    FFAppState().ViewportCenter,
-                                    FFAppState().ZoomFactor,
+                                    NFOffsetStruct(
+                                      offsetX: 0.0,
+                                      offsetY: 0.0,
+                                    ),
+                                    1.0,
                                     NFSizeStruct(
                                       width: MediaQuery.sizeOf(context).width,
                                       height: MediaQuery.sizeOf(context).height,
@@ -126,8 +129,11 @@ class _NFDiagramWidgetState extends State<NFDiagramWidget> {
                                 .virtualToRelative(
                                     nodesListItem.virtualPosition,
                                     nodesListItem.size,
-                                    FFAppState().ViewportCenter,
-                                    FFAppState().ZoomFactor,
+                                    NFOffsetStruct(
+                                      offsetX: 0.0,
+                                      offsetY: 0.0,
+                                    ),
+                                    1.0,
                                     NFSizeStruct(
                                       width: MediaQuery.sizeOf(context).width,
                                       height: MediaQuery.sizeOf(context).height,
