@@ -33,14 +33,16 @@ class NFZoomableStack extends StatefulWidget {
   State<NFZoomableStack> createState() => _NFZoomableStackState();
 }
 
-const double DEFAULT_SCALE_FACTOR = 1;
+const double DEFAULT_SCALE_FACTOR = 100;
 
 class _NFZoomableStackState extends State<NFZoomableStack>
     with WidgetsBindingObserver {
   double initialScale = DEFAULT_SCALE_FACTOR; // Initial scale factor
   double scale = DEFAULT_SCALE_FACTOR;
-  final double minScale = 0.03125; // Minimum zoom level
-  final double maxScale = 20; // Maximum zoom level
+  // final double minScale = 0.03125; // Minimum zoom level
+  // final double maxScale = 20; // Maximum zoom level
+  final double minScale = 2; // Minimum zoom level
+  final double maxScale = 500; // Maximum zoom level
 
   double viewerCenterX = 0;
   double viewerCenterY = 0;
