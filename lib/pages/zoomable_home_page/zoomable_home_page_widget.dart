@@ -1,4 +1,4 @@
-import '/components/n_f_diagram_widget.dart';
+import '/components/n_f_diagram_min_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -54,7 +54,7 @@ class _ZoomableHomePageWidgetState extends State<ZoomableHomePageWidget> {
             child: custom_widgets.ZoomableStack(
               width: double.infinity,
               height: double.infinity,
-              stackComponent: () => NFDiagramWidget(),
+              stackComponent: () => NFDiagramMinWidget(),
             ),
           ),
         ),
