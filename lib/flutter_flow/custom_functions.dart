@@ -432,3 +432,14 @@ int? getTargetInputIndexFromPoint(
   }
   return null;
 }
+
+NFOffsetStruct virtualToRelativeMinimized(
+  NFOffsetStruct nodePosition,
+  NFSizeStruct nodeSize,
+  NFOffsetStruct viewportCenter,
+  double zoomFactor,
+  NFSizeStruct windowSize,
+  double minFactor,
+) {
+  return NFOffsetStruct();
+}
