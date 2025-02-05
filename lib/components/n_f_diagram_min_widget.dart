@@ -113,7 +113,7 @@ class _NFDiagramMinWidgetState extends State<NFDiagramMinWidget> {
                       alignment: AlignmentDirectional(
                           valueOrDefault<double>(
                             functions
-                                .virtualToRelative(
+                                .virtualToRelativeMinimized(
                                     nodesListItem.virtualPosition,
                                     nodesListItem.size,
                                     NFOffsetStruct(
@@ -124,13 +124,14 @@ class _NFDiagramMinWidgetState extends State<NFDiagramMinWidget> {
                                     NFSizeStruct(
                                       width: MediaQuery.sizeOf(context).width,
                                       height: MediaQuery.sizeOf(context).height,
-                                    ))
+                                    ),
+                                    0.01)
                                 .offsetX,
                             0.0,
                           ),
                           valueOrDefault<double>(
                             functions
-                                .virtualToRelative(
+                                .virtualToRelativeMinimized(
                                     nodesListItem.virtualPosition,
                                     nodesListItem.size,
                                     NFOffsetStruct(
@@ -141,7 +142,8 @@ class _NFDiagramMinWidgetState extends State<NFDiagramMinWidget> {
                                     NFSizeStruct(
                                       width: MediaQuery.sizeOf(context).width,
                                       height: MediaQuery.sizeOf(context).height,
-                                    ))
+                                    ),
+                                    0.01)
                                 .offsetY,
                             0.0,
                           )),
