@@ -87,15 +87,21 @@ class _EdgeComponentWidgetState extends State<EdgeComponentWidget> {
                     MediaQuery.sizeOf(context).width,
                     MediaQuery.sizeOf(context).height,
                     FFAppState().Nodes.toList(),
-                    FFAppState().ViewportCenter,
-                    FFAppState().ZoomFactor),
+                    NFOffsetStruct(
+                      offsetX: 0.0,
+                      offsetY: 0.0,
+                    ),
+                    1.0),
                 end: functions.calculateEndPointFromEdge(
                     widget!.edge!,
                     MediaQuery.sizeOf(context).width,
                     MediaQuery.sizeOf(context).height,
                     FFAppState().Nodes.toList(),
-                    FFAppState().ViewportCenter,
-                    FFAppState().ZoomFactor)!,
+                    NFOffsetStruct(
+                      offsetX: 0.0,
+                      offsetY: 0.0,
+                    ),
+                    1.0)!,
                 lineType: NFLineType.solid,
                 isArrowPointingToStartPoint: false,
                 lineColor: widget!.edge!.color,
@@ -119,15 +125,21 @@ class _EdgeComponentWidgetState extends State<EdgeComponentWidget> {
                   MediaQuery.sizeOf(context).width,
                   MediaQuery.sizeOf(context).height,
                   FFAppState().Nodes.toList(),
-                  FFAppState().ViewportCenter,
-                  FFAppState().ZoomFactor),
+                  NFOffsetStruct(
+                    offsetX: 0.0,
+                    offsetY: 0.0,
+                  ),
+                  1.0),
               end: functions.calculateEndPointFromEdge(
                   widget!.edge!,
                   MediaQuery.sizeOf(context).width,
                   MediaQuery.sizeOf(context).height,
                   FFAppState().Nodes.toList(),
-                  FFAppState().ViewportCenter,
-                  FFAppState().ZoomFactor)!,
+                  NFOffsetStruct(
+                    offsetX: 0.0,
+                    offsetY: 0.0,
+                  ),
+                  1.0)!,
               sourceNodeSize: widget!.sourceNode!.size,
               curvedLoopType: widget!.sourceNode!.virtualPosition.offsetY <
                       widget!.targetNode!.virtualPosition.offsetY
