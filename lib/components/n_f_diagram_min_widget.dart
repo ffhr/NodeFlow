@@ -72,22 +72,22 @@ class _NFDiagramMinWidgetState extends State<NFDiagramMinWidget> {
       },
       child: Container(
         decoration: BoxDecoration(
-          color: Color(0x67000000),
+          color: Color(0xFF0096FC),
         ),
-        child: Transform.scale(
-          scaleX: 0.1,
-          scaleY: 0.1,
-          child: Stack(
-            children: [
-              if (FFAppState().Nodes.isNotEmpty)
-                Builder(
-                  builder: (context) {
-                    final edges = FFAppState().Edges.toList();
+        child: Stack(
+          children: [
+            if (FFAppState().Nodes.isNotEmpty)
+              Builder(
+                builder: (context) {
+                  final edges = FFAppState().Edges.toList();
 
-                    return Stack(
-                      children: List.generate(edges.length, (edgesIndex) {
-                        final edgesItem = edges[edgesIndex];
-                        return EdgeComponentWidget(
+                  return Stack(
+                    children: List.generate(edges.length, (edgesIndex) {
+                      final edgesItem = edges[edgesIndex];
+                      return Transform.scale(
+                        scaleX: 0.01,
+                        scaleY: 0.01,
+                        child: EdgeComponentWidget(
                           key: Key('Keydv6_${edgesIndex}_of_${edges.length}'),
                           edge: edgesItem,
                           sourceNode: functions.getNodeFromId(
@@ -96,56 +96,58 @@ class _NFDiagramMinWidgetState extends State<NFDiagramMinWidget> {
                           targetNode: functions.getNodeFromId(
                               edgesItem.targetNodeId,
                               FFAppState().Nodes.toList()),
-                        );
-                      }),
-                    );
-                  },
-                ),
-              Builder(
-                builder: (context) {
-                  final nodesList = FFAppState().Nodes.toList();
+                        ),
+                      );
+                    }),
+                  );
+                },
+              ),
+            Builder(
+              builder: (context) {
+                final nodesList = FFAppState().Nodes.toList();
 
-                  return Stack(
-                    children: List.generate(nodesList.length, (nodesListIndex) {
-                      final nodesListItem = nodesList[nodesListIndex];
-                      return Align(
-                        alignment: AlignmentDirectional(
-                            valueOrDefault<double>(
-                              functions
-                                  .virtualToRelative(
-                                      nodesListItem.virtualPosition,
-                                      nodesListItem.size,
-                                      NFOffsetStruct(
-                                        offsetX: 0.0,
-                                        offsetY: 0.0,
-                                      ),
-                                      1.0,
-                                      NFSizeStruct(
-                                        width: MediaQuery.sizeOf(context).width,
-                                        height:
-                                            MediaQuery.sizeOf(context).height,
-                                      ))
-                                  .offsetX,
-                              0.0,
-                            ),
-                            valueOrDefault<double>(
-                              functions
-                                  .virtualToRelative(
-                                      nodesListItem.virtualPosition,
-                                      nodesListItem.size,
-                                      NFOffsetStruct(
-                                        offsetX: 0.0,
-                                        offsetY: 0.0,
-                                      ),
-                                      1.0,
-                                      NFSizeStruct(
-                                        width: MediaQuery.sizeOf(context).width,
-                                        height:
-                                            MediaQuery.sizeOf(context).height,
-                                      ))
-                                  .offsetY,
-                              0.0,
-                            )),
+                return Stack(
+                  children: List.generate(nodesList.length, (nodesListIndex) {
+                    final nodesListItem = nodesList[nodesListIndex];
+                    return Align(
+                      alignment: AlignmentDirectional(
+                          valueOrDefault<double>(
+                            functions
+                                .virtualToRelative(
+                                    nodesListItem.virtualPosition,
+                                    nodesListItem.size,
+                                    NFOffsetStruct(
+                                      offsetX: 0.0,
+                                      offsetY: 0.0,
+                                    ),
+                                    1.0,
+                                    NFSizeStruct(
+                                      width: MediaQuery.sizeOf(context).width,
+                                      height: MediaQuery.sizeOf(context).height,
+                                    ))
+                                .offsetX,
+                            0.0,
+                          ),
+                          valueOrDefault<double>(
+                            functions
+                                .virtualToRelative(
+                                    nodesListItem.virtualPosition,
+                                    nodesListItem.size,
+                                    NFOffsetStruct(
+                                      offsetX: 0.0,
+                                      offsetY: 0.0,
+                                    ),
+                                    1.0,
+                                    NFSizeStruct(
+                                      width: MediaQuery.sizeOf(context).width,
+                                      height: MediaQuery.sizeOf(context).height,
+                                    ))
+                                .offsetY,
+                            0.0,
+                          )),
+                      child: Transform.scale(
+                        scaleX: 0.01,
+                        scaleY: 0.01,
                         child: Container(
                           decoration: BoxDecoration(),
                           child: NodeComponentWidget(
@@ -240,33 +242,32 @@ class _NFDiagramMinWidgetState extends State<NFDiagramMinWidget> {
                             child: () => DummyNodeWidget(),
                           ),
                         ),
-                      );
-                    }),
-                  );
-                },
-              ),
-              if ((FFAppState().EdgeDrawing.drawingState ==
-                      DrawingState.started) ||
-                  (FFAppState().EdgeDrawing.drawingState ==
-                      DrawingState.active))
-                Container(
+                      ),
+                    );
+                  }),
+                );
+              },
+            ),
+            if ((FFAppState().EdgeDrawing.drawingState ==
+                    DrawingState.started) ||
+                (FFAppState().EdgeDrawing.drawingState == DrawingState.active))
+              Container(
+                width: double.infinity,
+                height: double.infinity,
+                child: custom_widgets.CurvedLine(
                   width: double.infinity,
                   height: double.infinity,
-                  child: custom_widgets.CurvedLine(
-                    width: double.infinity,
-                    height: double.infinity,
-                    start: FFAppState().EdgeDrawing.drawingStartPoint,
-                    end: FFAppState().EdgeDrawing.drawingEndPoint,
-                    lineType: NFLineType.dotted,
-                    isArrowPointingToStartPoint:
-                        FFAppState().CurrentBuildingEdge.targetNodeId != null &&
-                            FFAppState().CurrentBuildingEdge.targetNodeId != '',
-                    lineColor: FlutterFlowTheme.of(context).primaryText,
-                    onTap: () async {},
-                  ),
+                  start: FFAppState().EdgeDrawing.drawingStartPoint,
+                  end: FFAppState().EdgeDrawing.drawingEndPoint,
+                  lineType: NFLineType.dotted,
+                  isArrowPointingToStartPoint:
+                      FFAppState().CurrentBuildingEdge.targetNodeId != null &&
+                          FFAppState().CurrentBuildingEdge.targetNodeId != '',
+                  lineColor: FlutterFlowTheme.of(context).primaryText,
+                  onTap: () async {},
                 ),
-            ],
-          ),
+              ),
+          ],
         ),
       ),
     );
