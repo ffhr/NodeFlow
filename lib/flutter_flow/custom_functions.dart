@@ -441,5 +441,10 @@ NFOffsetStruct virtualToRelativeMinimized(
   NFSizeStruct windowSize,
   double minFactor,
 ) {
-  return NFOffsetStruct();
+  var relativePosition = virtualToRelative(
+      nodePosition, nodeSize, viewportCenter, zoomFactor, windowSize);
+  relativePosition.offsetX = relativePosition.offsetX * minFactor;
+  relativePosition.offsetY = relativePosition.offsetY * minFactor;
+
+  return relativePosition;
 }
