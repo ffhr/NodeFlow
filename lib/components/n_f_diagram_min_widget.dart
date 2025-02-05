@@ -71,9 +71,7 @@ class _NFDiagramMinWidgetState extends State<NFDiagramMinWidget> {
         safeSetState(() {});
       },
       child: Container(
-        decoration: BoxDecoration(
-            // color: Color(0xFF0096FC),
-            ),
+        decoration: BoxDecoration(),
         child: Stack(
           children: [
             if (FFAppState().Nodes.isNotEmpty)
