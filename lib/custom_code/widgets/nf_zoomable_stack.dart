@@ -284,12 +284,12 @@ class _NFZoomableStackState extends State<NFZoomableStack>
     offsetXFromWindowCenter = offsetX;
     offsetYFromWindowCenter = offsetY;
 
-    FFAppState().ViewportCenter = NFOffsetStruct(
-      offsetX: offsetXFromWindowCenter,
-      offsetY: offsetYFromWindowCenter,
-    );
-    print("Zoom: $scale");
-    FFAppState().ZoomFactor = scale;
+    // FFAppState().ViewportCenter = NFOffsetStruct(
+    //   offsetX: offsetXFromWindowCenter,
+    //   offsetY: offsetYFromWindowCenter,
+    // );
+    // print("Zoom: $scale");
+    // FFAppState().ZoomFactor = scale;
   }
 }
 
