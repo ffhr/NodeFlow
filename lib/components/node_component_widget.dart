@@ -200,7 +200,7 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                               ..targetNodeId = widget!.node?.id
                               ..targetInputSocketIndex = inputsListIndex,
                           );
-                          _model.updatePage(() {});
+                          FFAppState().update(() {});
                           if (FFAppState().CurrentBuildingEdge.hasSourceNodeId() &&
                               FFAppState()
                                   .CurrentBuildingEdge
@@ -214,10 +214,9 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                             // Add building edge to list
                             FFAppState()
                                 .addToEdges(FFAppState().CurrentBuildingEdge);
-                            safeSetState(() {});
+                            FFAppState().update(() {});
                             // Unset
                             FFAppState().CurrentBuildingEdge = NodeEdgeStruct();
-                            _model.updatePage(() {});
                           }
                         } else {
                           // Unset
@@ -226,7 +225,7 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                               ..targetNodeId = null
                               ..targetInputSocketIndex = null,
                           );
-                          _model.updatePage(() {});
+                          FFAppState().update(() {});
                         }
                       },
                       onPanDown: (point) async {
@@ -340,7 +339,7 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                                 ..sourceNodeId = widget!.node?.id
                                 ..sourceOutputSocketIndex = outputsListIndex,
                             );
-                            _model.updatePage(() {});
+                            FFAppState().update(() {});
                             if (FFAppState().CurrentBuildingEdge.hasSourceNodeId() &&
                                 FFAppState()
                                     .CurrentBuildingEdge
@@ -354,11 +353,10 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                               // Add building edge to list
                               FFAppState()
                                   .addToEdges(FFAppState().CurrentBuildingEdge);
-                              safeSetState(() {});
+                              FFAppState().update(() {});
                               // Unset
                               FFAppState().CurrentBuildingEdge =
                                   NodeEdgeStruct();
-                              _model.updatePage(() {});
                             }
                           } else {
                             // Unset
@@ -367,7 +365,7 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                                 ..sourceNodeId = null
                                 ..sourceOutputSocketIndex = null,
                             );
-                            _model.updatePage(() {});
+                            FFAppState().update(() {});
                           }
                         },
                         onPanDown: (point) async {
