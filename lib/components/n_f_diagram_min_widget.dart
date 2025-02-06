@@ -248,25 +248,32 @@ class _NFDiagramMinWidgetState extends State<NFDiagramMinWidget> {
                 );
               },
             ),
-            if ((FFAppState().EdgeDrawing.drawingState ==
-                    DrawingState.started) ||
-                (FFAppState().EdgeDrawing.drawingState == DrawingState.active))
-              Container(
-                width: double.infinity,
-                height: double.infinity,
-                child: custom_widgets.CurvedLine(
+            Transform.scale(
+              scaleX: 0.01,
+              scaleY: 0.01,
+              child: Visibility(
+                visible: (FFAppState().EdgeDrawing.drawingState ==
+                        DrawingState.started) ||
+                    (FFAppState().EdgeDrawing.drawingState ==
+                        DrawingState.active),
+                child: Container(
                   width: double.infinity,
                   height: double.infinity,
-                  start: FFAppState().EdgeDrawing.drawingStartPoint,
-                  end: FFAppState().EdgeDrawing.drawingEndPoint,
-                  lineType: NFLineType.dotted,
-                  isArrowPointingToStartPoint:
-                      FFAppState().CurrentBuildingEdge.targetNodeId != null &&
-                          FFAppState().CurrentBuildingEdge.targetNodeId != '',
-                  lineColor: FlutterFlowTheme.of(context).primaryText,
-                  onTap: () async {},
+                  child: custom_widgets.CurvedLine(
+                    width: double.infinity,
+                    height: double.infinity,
+                    start: FFAppState().EdgeDrawing.drawingStartPoint,
+                    end: FFAppState().EdgeDrawing.drawingEndPoint,
+                    lineType: NFLineType.dotted,
+                    isArrowPointingToStartPoint:
+                        FFAppState().CurrentBuildingEdge.targetNodeId != null &&
+                            FFAppState().CurrentBuildingEdge.targetNodeId != '',
+                    lineColor: FlutterFlowTheme.of(context).primaryText,
+                    onTap: () async {},
+                  ),
                 ),
               ),
+            ),
           ],
         ),
       ),

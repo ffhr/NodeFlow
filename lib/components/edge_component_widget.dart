@@ -147,8 +147,11 @@ class _EdgeComponentWidgetState extends State<EdgeComponentWidget> {
                   : CurvedLoopType.bottomToTop,
               sourceNodeAbsolutePosition: functions.virtualToAbsolute(
                   widget!.sourceNode!.virtualPosition,
-                  FFAppState().ViewportCenter,
-                  FFAppState().ZoomFactor,
+                  NFOffsetStruct(
+                    offsetX: 0.0,
+                    offsetY: 0.0,
+                  ),
+                  1.0,
                   NFSizeStruct(
                     width: MediaQuery.sizeOf(context).width,
                     height: MediaQuery.sizeOf(context).height,
