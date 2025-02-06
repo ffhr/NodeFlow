@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+
 import 'socket_component_model.dart';
 export 'socket_component_model.dart';
 
@@ -81,85 +82,20 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
             return GestureDetector(
               onPanDown: (details) async {
                 // onClicked(false)
-                // await widget.onClicked?.call(
-                //   false,
-                // );
-              },
-              onTapDown: (details) async {
                 await widget.onClicked?.call(
                   false,
                 );
-<<<<<<< HEAD
-              },
-              onPanDown: (details) async {
-                // await widget.onClicked?.call(
-                //   false,
-                // );
-=======
->>>>>>> 0c5d66f002392ec49013108194c0207978403854
                 if ((FFAppState().EdgeDrawing.drawingState ==
                         DrawingState.inactive) ||
                     (FFAppState().EdgeDrawing.drawingState ==
-                        DrawingState.finished)) {
-                  // Set status Drawing.STARTED
-                  // FFAppState().updateEdgeDrawingStruct(
-                  //   (e) => e
-                  //     ..drawingState = DrawingState.started
-                  //     ..drawingStartPoint = NFPointStruct(
-                  //       positionX: details.globalPosition.dx,
-                  //       positionY: details.globalPosition.dy,
-                  //     )
-                  //     ..drawingEndPoint = NFPointStruct(
-                  //       positionX: details.globalPosition.dx,
-                  //       positionY: details.globalPosition.dy,
-                  //     ),
-                  // );
-                  // FFAppState().update(() {});
-                  // // Execute callback
-                  // await widget.onPanDown?.call(
-                  //   NFPointStruct(
-                  //     positionX: details.globalPosition.dx,
-                  //     positionY: details.globalPosition.dy,
-                  //   ),
-                  // );
-                }
+                        DrawingState.finished)) {}
               },
-              onPanEnd: (details) async {
-                // Set status Drawing.FINISHED
-                // FFAppState().updateEdgeDrawingStruct(
-                //   (e) => e..drawingState = DrawingState.finished,
-                // );
-                // FFAppState().update(() {});
-                // // Execute callback
-                // await widget.onPanEnd?.call(
-                //   NFPointStruct(
-                //     positionX: details.globalPosition.dx,
-                //     positionY: details.globalPosition.dy,
-                //   ),
-                // );
-              },
-              onPanUpdate: (details) async {
-                // Set status Drawing.ACTIVE
-                // FFAppState().updateEdgeDrawingStruct(
-                //   (e) => e
-                //     ..drawingState = DrawingState.active
-                //     ..drawingEndPoint = NFPointStruct(
-                //       positionX: details.globalPosition.dx,
-                //       positionY: details.globalPosition.dy,
-                //     ),
-                // );
-                // FFAppState().update(() {});
-              },
-              onTapUp: (details) async {
-                // Set status Drawing.FINISHED
-                // FFAppState().updateEdgeDrawingStruct(
-                //   (e) => e..drawingState = DrawingState.finished,
-                // );
-                // FFAppState().update(() {});
-              },
+              onPanEnd: (details) async {},
+              onPanUpdate: (details) async {},
+              onTapUp: (details) async {},
               child: Container(
-                width: 20.0,
-                height: 20.0,
+                width: 20,
+                height: 20,
                 decoration: BoxDecoration(
                   color: widget!.selectedColor,
                   shape: BoxShape.circle,
@@ -170,86 +106,13 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
                           : FlutterFlowTheme.of(context).warning,
                       Colors.white,
                     ),
-                    width: 3.0,
+                    width: 3,
                   ),
                 ),
               ),
             );
           } else {
             return GestureDetector(
-<<<<<<< HEAD
-              onTapDown: (details) async {
-                await widget.onClicked?.call(
-                  true,
-                );
-              },
-              onTap: () async {
-                // onClicked(true)
-                // await widget.onClicked?.call(
-                //   true,
-                // );
-              },
-              onPanDown: (details) async {
-                // if ((FFAppState().EdgeDrawing.drawingState ==
-                //         DrawingState.inactive) ||
-                //     (FFAppState().EdgeDrawing.drawingState ==
-                //         DrawingState.finished)) {
-                //   // Set status Drawing.STARTED
-                //   FFAppState().updateEdgeDrawingStruct(
-                //     (e) => e
-                //       ..drawingState = DrawingState.started
-                //       ..drawingStartPoint = NFPointStruct(
-                //         positionX: details.globalPosition.dx,
-                //         positionY: details.globalPosition.dy,
-                //       )
-                //       ..drawingEndPoint = NFPointStruct(
-                //         positionX: details.globalPosition.dx,
-                //         positionY: details.globalPosition.dy,
-                //       ),
-                //   );
-                //   FFAppState().update(() {});
-                //   // Execute callback
-                //   await widget.onPanDown?.call(
-                //     NFPointStruct(
-                //       positionX: details.globalPosition.dx,
-                //       positionY: details.globalPosition.dy,
-                //     ),
-                //   );
-                // }
-              },
-              onPanEnd: (details) async {
-                // Set status Drawing.FINISHED
-                // FFAppState().updateEdgeDrawingStruct(
-                //   (e) => e..drawingState = DrawingState.finished,
-                // );
-                // FFAppState().update(() {});
-                // // Execute callback
-                // await widget.onPanEnd?.call(
-                //   NFPointStruct(
-                //     positionX: details.globalPosition.dx,
-                //     positionY: details.globalPosition.dy,
-                //   ),
-                // );
-              },
-              onPanUpdate: (details) async {
-                // Set status Drawing.ACTIVE
-                // FFAppState().updateEdgeDrawingStruct(
-                //   (e) => e
-                //     ..drawingState = DrawingState.active
-                //     ..drawingEndPoint = NFPointStruct(
-                //       positionX: details.globalPosition.dx,
-                //       positionY: details.globalPosition.dy,
-                //     ),
-                // );
-                // FFAppState().update(() {});
-              },
-              onTapUp: (details) async {
-                // Set status Drawing.FINISHED
-                FFAppState().updateEdgeDrawingStruct(
-                  (e) => e..drawingState = DrawingState.finished,
-                );
-                FFAppState().update(() {});
-=======
               onPanDown: (details) async {
                 // onClicked(true)
                 await widget.onClicked?.call(
@@ -259,11 +122,13 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
                         DrawingState.inactive) ||
                     (FFAppState().EdgeDrawing.drawingState ==
                         DrawingState.finished)) {}
->>>>>>> 0c5d66f002392ec49013108194c0207978403854
               },
+              onPanEnd: (details) async {},
+              onPanUpdate: (details) async {},
+              onTapUp: (details) async {},
               child: Container(
-                width: 20.0,
-                height: 20.0,
+                width: 20,
+                height: 20,
                 decoration: BoxDecoration(
                   color: widget!.defaultColor,
                   shape: BoxShape.circle,
@@ -274,7 +139,7 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
                           : FlutterFlowTheme.of(context).warning,
                       Colors.white,
                     ),
-                    width: 3.0,
+                    width: 3,
                   ),
                 ),
               ),
