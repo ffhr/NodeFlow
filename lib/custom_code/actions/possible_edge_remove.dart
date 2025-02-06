@@ -12,7 +12,7 @@ import 'package:flutter/material.dart';
 
 Future possibleEdgeRemove(
   List<NodeEdgeStruct> edges,
-  double sreenWidth,
+  double screenWidth,
   double screenHeight,
 ) async {
   // Add your function code here!
