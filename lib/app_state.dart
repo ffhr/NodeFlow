@@ -111,7 +111,7 @@ class FFAppState extends ChangeNotifier {
 
   List<NodeEdgeStruct> _Edges = [
     NodeEdgeStruct.fromSerializableMap(jsonDecode(
-        '{\"id\":\"e1\",\"source_node_id\":\"000001\",\"target_node_id\":\"000002\",\"source_output_socket_index\":\"1\",\"target_input_socket_index\":\"1\"}'))
+        '{\"id\":\"e1\",\"source_node_id\":\"000001\",\"target_node_id\":\"000002\",\"source_output_socket_index\":\"1\",\"target_input_socket_index\":\"1\",\"color\":\"#000\"}'))
   ];
   List<NodeEdgeStruct> get Edges => _Edges;
   set Edges(List<NodeEdgeStruct> value) {
