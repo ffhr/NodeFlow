@@ -14,6 +14,7 @@ Future possibleEdgeRemove(
   List<NodeEdgeStruct> edges,
   double screenWidth,
   double screenHeight,
+  List<NodeStruct> nodes,
 ) async {
   // Add your function code here!
 }
