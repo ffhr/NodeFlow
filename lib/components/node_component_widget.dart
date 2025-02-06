@@ -211,12 +211,25 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                               FFAppState()
                                   .CurrentBuildingEdge
                                   .hasTargetInputSocketIndex()) {
-                            // Add building edge to list
-                            FFAppState()
-                                .addToEdges(FFAppState().CurrentBuildingEdge);
-                            FFAppState().update(() {});
-                            // Unset
-                            FFAppState().CurrentBuildingEdge = NodeEdgeStruct();
+                            if (functions.edgesContainsEdge(
+                                FFAppState().CurrentBuildingEdge,
+                                FFAppState().Edges.toList())) {
+                              // Remove building edge from list
+                              FFAppState().removeFromEdges(
+                                  FFAppState().CurrentBuildingEdge);
+                              FFAppState().update(() {});
+                              // Unset
+                              FFAppState().CurrentBuildingEdge =
+                                  NodeEdgeStruct();
+                            } else {
+                              // Add building edge to list
+                              FFAppState()
+                                  .addToEdges(FFAppState().CurrentBuildingEdge);
+                              FFAppState().update(() {});
+                              // Unset
+                              FFAppState().CurrentBuildingEdge =
+                                  NodeEdgeStruct();
+                            }
                           }
                         } else {
                           // Unset
@@ -350,13 +363,25 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                                 FFAppState()
                                     .CurrentBuildingEdge
                                     .hasTargetInputSocketIndex()) {
-                              // Add building edge to list
-                              FFAppState()
-                                  .addToEdges(FFAppState().CurrentBuildingEdge);
-                              FFAppState().update(() {});
-                              // Unset
-                              FFAppState().CurrentBuildingEdge =
-                                  NodeEdgeStruct();
+                              if (functions.edgesContainsEdge(
+                                  FFAppState().CurrentBuildingEdge,
+                                  FFAppState().Edges.toList())) {
+                                // Remove building edge from list
+                                FFAppState().removeFromEdges(
+                                    FFAppState().CurrentBuildingEdge);
+                                FFAppState().update(() {});
+                                // Unset
+                                FFAppState().CurrentBuildingEdge =
+                                    NodeEdgeStruct();
+                              } else {
+                                // Add building edge to list
+                                FFAppState().addToEdges(
+                                    FFAppState().CurrentBuildingEdge);
+                                FFAppState().update(() {});
+                                // Unset
+                                FFAppState().CurrentBuildingEdge =
+                                    NodeEdgeStruct();
+                              }
                             }
                           } else {
                             // Unset
