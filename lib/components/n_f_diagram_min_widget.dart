@@ -70,6 +70,8 @@ class _NFDiagramMinWidgetState extends State<NFDiagramMinWidget> {
         // Remove edge if pressed on edge
         await actions.possibleEdgeRemove(
           FFAppState().Edges.toList(),
+          MediaQuery.sizeOf(context).width,
+          MediaQuery.sizeOf(context).height,
         );
       },
       child: Container(

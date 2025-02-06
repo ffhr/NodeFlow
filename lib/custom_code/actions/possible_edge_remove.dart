@@ -10,6 +10,10 @@ import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
-Future possibleEdgeRemove(List<NodeEdgeStruct> edges) async {
+Future possibleEdgeRemove(
+  List<NodeEdgeStruct> edges,
+  double sreenWidth,
+  double screenHeight,
+) async {
   // Add your function code here!
 }
