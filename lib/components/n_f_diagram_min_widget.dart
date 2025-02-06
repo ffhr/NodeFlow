@@ -56,11 +56,7 @@ class _NFDiagramMinWidgetState extends State<NFDiagramMinWidget> {
   Widget build(BuildContext context) {
     context.watch<FFAppState>();
 
-    return InkWell(
-      splashColor: Colors.transparent,
-      focusColor: Colors.transparent,
-      hoverColor: Colors.transparent,
-      highlightColor: Colors.transparent,
+    return GestureDetector(
       onTap: () async {
         // Reset selections
         await actions.resetSelections(
@@ -69,6 +65,12 @@ class _NFDiagramMinWidgetState extends State<NFDiagramMinWidget> {
         // Set selected index
         FFAppState().NodeSelectedIndex = -1;
         safeSetState(() {});
+      },
+      onTapDown: (details) async {
+        // Remove edge if pressed on edge
+        await actions.possibleEdgeRemove(
+          FFAppState().Edges.toList(),
+        );
       },
       child: Container(
         decoration: BoxDecoration(),
