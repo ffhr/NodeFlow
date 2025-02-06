@@ -15,6 +15,7 @@ Future possibleEdgeRemove(
   double screenWidth,
   double screenHeight,
   List<NodeStruct> nodes,
+  NFPointStruct tapPoint,
 ) async {
   // Add your function code here!
   for (var edge in edges) {
