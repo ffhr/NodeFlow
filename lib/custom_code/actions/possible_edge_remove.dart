@@ -16,11 +16,12 @@ Future possibleEdgeRemove(
   double screenHeight,
 ) async {
   // Add your function code here!
-  // var startPoint = calculateStartPointFromEdge(
-  //     edge, screenWidth, screenHeight, nodes, viewportCenter, zoomFactor);
-
-  // var endPoint = calculateEndPointFromEdge(
-  //     edge, screenWidth, screenHeight, nodes, viewportCenter, zoomFactor);
+  for (var edge in edges) {
+    // var startPoint = calculateStartPointFromEdge(
+    //     edge, sc, screenHeight, nodes, viewportCenter, zoomFactor);
+    // var endPoint = calculateEndPointFromEdge(
+    //     edge, screenWidth, screenHeight, nodes, viewportCenter, zoomFactor);
+  }
 
   return;
 }
