@@ -157,6 +157,7 @@ class _NFDiagramMinWidgetState extends State<NFDiagramMinWidget> {
                             onTapDown: () async {},
                             onTapUp: () async {},
                             onPanDown: () async {
+                              print("On Node pan down");
                               // Set selected index
                               FFAppState().NodeSelectedIndex = nodesListIndex;
                               safeSetState(() {});
