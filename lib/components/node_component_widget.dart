@@ -217,7 +217,7 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                               // Remove building edge from list
                               FFAppState().removeFromEdges(
                                   FFAppState().CurrentBuildingEdge);
-                              safeSetState(() {});
+                              FFAppState().update(() {});
                               // Unset
                               FFAppState().CurrentBuildingEdge =
                                   NodeEdgeStruct();
@@ -369,7 +369,7 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                                 // Remove building edge from list
                                 FFAppState().removeFromEdges(
                                     FFAppState().CurrentBuildingEdge);
-                                safeSetState(() {});
+                                FFAppState().update(() {});
                                 // Unset
                                 FFAppState().CurrentBuildingEdge =
                                     NodeEdgeStruct();
