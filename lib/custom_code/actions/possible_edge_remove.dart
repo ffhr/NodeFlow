@@ -18,10 +18,12 @@ Future possibleEdgeRemove(
 ) async {
   // Add your function code here!
   for (var edge in edges) {
-    // var startPoint = calculateStartPointFromEdge(
-    //     edge, screenWidth, screenHeight, nodes, viewportCenter, zoomFactor);
-    // var endPoint = calculateEndPointFromEdge(
-    //     edge, screenWidth, screenHeight, nodes, viewportCenter, zoomFactor);
+    var startPoint = calculateStartPointFromEdge(edge, screenWidth,
+        screenHeight, nodes, NFOffsetStruct(offsetX: 0, offsetY: 0), 1.0);
+    var endPoint = calculateEndPointFromEdge(edge, screenWidth, screenHeight,
+        nodes, NFOffsetStruct(offsetX: 0, offsetY: 0), 1.0);
+
+    // if (startPoint.positionX <= endPoint.positionY) {}
   }
 
   return;
