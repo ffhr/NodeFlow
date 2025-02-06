@@ -79,13 +79,11 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
         builder: (context) {
           if (widget!.isClicked) {
             return GestureDetector(
-              onTap: () async {
+              onPanDown: (details) async {
                 // onClicked(false)
                 await widget.onClicked?.call(
                   false,
                 );
-              },
-              onPanDown: (details) async {
                 if ((FFAppState().EdgeDrawing.drawingState ==
                         DrawingState.inactive) ||
                     (FFAppState().EdgeDrawing.drawingState ==
@@ -114,13 +112,11 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
             );
           } else {
             return GestureDetector(
-              onTap: () async {
+              onPanDown: (details) async {
                 // onClicked(true)
                 await widget.onClicked?.call(
                   true,
                 );
-              },
-              onPanDown: (details) async {
                 if ((FFAppState().EdgeDrawing.drawingState ==
                         DrawingState.inactive) ||
                     (FFAppState().EdgeDrawing.drawingState ==
