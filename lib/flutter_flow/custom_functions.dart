@@ -448,3 +448,10 @@ NFOffsetStruct virtualToRelativeMinimized(
 
   return relativePosition;
 }
+
+bool edgesContainsEdge(
+  NodeEdgeStruct edge,
+  List<NodeEdgeStruct> edges,
+) {
+  return false;
+}
