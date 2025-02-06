@@ -72,6 +72,7 @@ class _NFDiagramMinWidgetState extends State<NFDiagramMinWidget> {
           FFAppState().Edges.toList(),
           MediaQuery.sizeOf(context).width,
           MediaQuery.sizeOf(context).height,
+          FFAppState().Nodes.toList(),
         );
       },
       child: Container(
