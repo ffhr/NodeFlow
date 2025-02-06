@@ -453,5 +453,10 @@ bool edgesContainsEdge(
   NodeEdgeStruct edge,
   List<NodeEdgeStruct> edges,
 ) {
+  for (var it in edges) {
+    if (it == edge) {
+      return true;
+    }
+  }
   return false;
 }
