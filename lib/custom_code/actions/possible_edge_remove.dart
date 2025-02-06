@@ -12,4 +12,11 @@ import 'package:flutter/material.dart';
 
 Future possibleEdgeRemove(List<NodeEdgeStruct> edges) async {
   // Add your function code here!
+  // var startPoint = calculateStartPointFromEdge(
+  //     edge, screenWidth, screenHeight, nodes, viewportCenter, zoomFactor);
+
+  // var endPoint = calculateEndPointFromEdge(
+  //     edge, screenWidth, screenHeight, nodes, viewportCenter, zoomFactor);
+
+  return;
 }
