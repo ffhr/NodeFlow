@@ -34,7 +34,7 @@ class NFDiagramStruct extends BaseStruct {
 
   // "label" field.
   String? _label;
-  String get label => _label ?? '<DIAGRAM>';
+  String get label => _label ?? '<DIAGRAM_TITLE>';
   set label(String? val) => _label = val;
 
   bool hasLabel() => _label != null;
