@@ -18,7 +18,7 @@ Future possibleEdgeRemove(
   // Add your function code here!
   for (var edge in edges) {
     // var startPoint = calculateStartPointFromEdge(
-    //     edge, sc, screenHeight, nodes, viewportCenter, zoomFactor);
+    //     edge, screenWidth, screenHeight, nodes, viewportCenter, zoomFactor);
     // var endPoint = calculateEndPointFromEdge(
     //     edge, screenWidth, screenHeight, nodes, viewportCenter, zoomFactor);
   }
