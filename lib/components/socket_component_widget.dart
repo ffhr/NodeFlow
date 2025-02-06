@@ -79,7 +79,7 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
         builder: (context) {
           if (widget!.isClicked) {
             return GestureDetector(
-              onTap: () async {
+              onPanDown: (details) async {
                 // onClicked(false)
                 // await widget.onClicked?.call(
                 //   false,
@@ -89,11 +89,14 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
                 await widget.onClicked?.call(
                   false,
                 );
+<<<<<<< HEAD
               },
               onPanDown: (details) async {
                 // await widget.onClicked?.call(
                 //   false,
                 // );
+=======
+>>>>>>> 0c5d66f002392ec49013108194c0207978403854
                 if ((FFAppState().EdgeDrawing.drawingState ==
                         DrawingState.inactive) ||
                     (FFAppState().EdgeDrawing.drawingState ==
@@ -174,6 +177,7 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
             );
           } else {
             return GestureDetector(
+<<<<<<< HEAD
               onTapDown: (details) async {
                 await widget.onClicked?.call(
                   true,
@@ -245,6 +249,17 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
                   (e) => e..drawingState = DrawingState.finished,
                 );
                 FFAppState().update(() {});
+=======
+              onPanDown: (details) async {
+                // onClicked(true)
+                await widget.onClicked?.call(
+                  true,
+                );
+                if ((FFAppState().EdgeDrawing.drawingState ==
+                        DrawingState.inactive) ||
+                    (FFAppState().EdgeDrawing.drawingState ==
+                        DrawingState.finished)) {}
+>>>>>>> 0c5d66f002392ec49013108194c0207978403854
               },
               child: Container(
                 width: 20.0,
