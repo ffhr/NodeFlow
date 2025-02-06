@@ -72,7 +72,7 @@ class _EdgeComponentWidgetState extends State<EdgeComponentWidget> {
                     MediaQuery.sizeOf(context).height,
                     FFAppState().Nodes.toList(),
                     FFAppState().ViewportCenter,
-                    FFAppState().ZoomFactor)!
+                    FFAppState().ZoomFactor)
                 .positionX) {
           return Visibility(
             visible: true,
@@ -101,7 +101,7 @@ class _EdgeComponentWidgetState extends State<EdgeComponentWidget> {
                       offsetX: 0.0,
                       offsetY: 0.0,
                     ),
-                    1.0)!,
+                    1.0),
                 lineType: NFLineType.solid,
                 isArrowPointingToStartPoint: false,
                 lineColor: widget!.edge!.color,
@@ -140,7 +140,7 @@ class _EdgeComponentWidgetState extends State<EdgeComponentWidget> {
                     offsetX: 0.0,
                     offsetY: 0.0,
                   ),
-                  1.0)!,
+                  1.0),
               sourceNodeSize: widget!.sourceNode!.size,
               curvedLoopType: widget!.sourceNode!.virtualPosition.offsetY <
                       widget!.targetNode!.virtualPosition.offsetY

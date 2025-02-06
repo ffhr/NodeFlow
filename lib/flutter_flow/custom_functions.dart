@@ -265,7 +265,7 @@ NFPointStruct calculateStartPointFromEdge(
   return convertNFOffsetToNFPoint(startSocketAbsolutePosition);
 }
 
-NFPointStruct? calculateEndPointFromEdge(
+NFPointStruct calculateEndPointFromEdge(
   NodeEdgeStruct edge,
   double screenWidth,
   double screenHeight,
