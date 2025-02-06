@@ -73,6 +73,10 @@ class _NFDiagramMinWidgetState extends State<NFDiagramMinWidget> {
           MediaQuery.sizeOf(context).width,
           MediaQuery.sizeOf(context).height,
           FFAppState().Nodes.toList(),
+          NFPointStruct(
+            positionX: details.globalPosition.dx,
+            positionY: details.globalPosition.dy,
+          ),
         );
       },
       child: Container(
