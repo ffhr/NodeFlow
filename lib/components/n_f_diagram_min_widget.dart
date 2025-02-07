@@ -71,8 +71,8 @@ class _NFDiagramMinWidgetState extends State<NFDiagramMinWidget> {
         await actions.showContextMenu(
           context,
           NFPointStruct(
-            positionX: details.localPosition.dx,
-            positionY: details.localPosition.dy,
+            positionX: details.globalPosition.dx,
+            positionY: details.globalPosition.dy,
           ),
         );
       },
