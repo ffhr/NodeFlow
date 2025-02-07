@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +21,11 @@ void main() async {
   final appState = FFAppState(); // Initialize FFAppState
   await appState.initializePersistedState();
 
+  //LOCAL_START - Disable default context menu on web.
+  if (kIsWeb) {
+    BrowserContextMenu.disableContextMenu();
+  }
+  //LOCAL_END
   runApp(ChangeNotifierProvider(
     create: (context) => appState,
     child: MyApp(),
