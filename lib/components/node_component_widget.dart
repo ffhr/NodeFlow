@@ -23,6 +23,7 @@ class NodeComponentWidget extends StatefulWidget {
     this.onPanUpdate,
     this.renderPanStack,
     required this.child,
+    this.onSecondaryTapUp,
   });
 
   final NodeStruct? node;
@@ -33,6 +34,7 @@ class NodeComponentWidget extends StatefulWidget {
   final Future Function(NFPointStruct deltaPoint)? onPanUpdate;
   final Future Function()? renderPanStack;
   final Widget Function()? child;
+  final Future Function(NFPointStruct deltaPoint)? onSecondaryTapUp;
 
   @override
   State<NodeComponentWidget> createState() => _NodeComponentWidgetState();
@@ -108,6 +110,20 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                         NFPointStruct(
                           positionX: details.delta.dx,
                           positionY: details.delta.dy,
+                        ),
+                      );
+                    }
+                  },
+                  onSecondaryTapUp: (details) async {
+                    if ((FFAppState().EdgeDrawing.drawingState ==
+                            DrawingState.inactive) ||
+                        (FFAppState().EdgeDrawing.drawingState ==
+                            DrawingState.finished)) {
+                      // On secondary tap up
+                      await widget.onSecondaryTapUp?.call(
+                        NFPointStruct(
+                          positionX: details.globalPosition.dx,
+                          positionY: details.globalPosition.dy,
                         ),
                       );
                     }

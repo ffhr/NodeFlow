@@ -269,6 +269,17 @@ class _NFDiagramMinWidgetState extends State<NFDiagramMinWidget> {
                                 );
                                 safeSetState(() {});
                               },
+                              onSecondaryTapUp: (deltaPoint) async {
+                                await actions.showContextMenuRemoveNode(
+                                  context,
+                                  deltaPoint,
+                                  () async {
+                                    // Remove from list
+                                    FFAppState().removeFromNodes(nodesListItem);
+                                    safeSetState(() {});
+                                  },
+                                );
+                              },
                               child: () => NodeChildWidget(
                                 node: nodesListItem,
                               ),

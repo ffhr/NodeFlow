@@ -230,6 +230,7 @@ class _NFDiagramWidgetState extends State<NFDiagramWidget> {
                             );
                             safeSetState(() {});
                           },
+                          onSecondaryTapUp: (deltaPoint) async {},
                           child: () => DummyNodeWidget(),
                         ),
                       ),
