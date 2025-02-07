@@ -460,9 +460,37 @@ bool edgesContainsEdge(
 }
 
 List<NodeInputSocketStruct> createNodeInputs(int count) {
-  return [];
+  List<NodeInputSocketStruct> list = [];
+  for (var i = 0; i < count; i++) {
+    var socket = NodeInputSocketStruct(
+        socket: NodeSocketStruct(
+      id: random_data.randomString(
+        6,
+        6,
+        true,
+        false,
+        false,
+      ),
+    ));
+    list.add(socket);
+  }
+  return list;
 }
 
 List<NodeOutputSocketStruct> createNodeOutputs(int count) {
-  return [];
+  List<NodeOutputSocketStruct> list = [];
+  for (var i = 0; i < count; i++) {
+    var socket = NodeOutputSocketStruct(
+        socket: NodeSocketStruct(
+      id: random_data.randomString(
+        6,
+        6,
+        true,
+        false,
+        false,
+      ),
+    ));
+    list.add(socket);
+  }
+  return list;
 }
