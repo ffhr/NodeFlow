@@ -595,7 +595,7 @@ class _NodeAddFormWidgetState extends State<NodeAddFormWidget> {
                                 _model.heightInputTextController.text),
                           ),
                         ));
-                        safeSetState(() {});
+                        FFAppState().update(() {});
                         // Dismiss dialog
                         Navigator.pop(context);
                       },
