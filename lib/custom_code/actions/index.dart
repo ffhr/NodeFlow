@@ -6,3 +6,4 @@ export 'on_mouse_exit_node_socket.dart' show onMouseExitNodeSocket;
 export 'empty_action.dart' show emptyAction;
 export 'show_context_menu.dart' show showContextMenu;
 export 'show_context_menu_remove_node.dart' show showContextMenuRemoveNode;
+export 'remove_edges_by_node_id.dart' show removeEdgesByNodeId;
