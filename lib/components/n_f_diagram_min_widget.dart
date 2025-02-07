@@ -277,9 +277,9 @@ class _NFDiagramMinWidgetState extends State<NFDiagramMinWidget> {
                                     // Remove node from list
                                     FFAppState().removeFromNodes(nodesListItem);
                                     safeSetState(() {});
+                                    // Remove edges by node id
                                     await actions.removeEdgesByNodeId(
                                       nodesListItem.id,
-                                      FFAppState().Edges.toList(),
                                     );
                                   },
                                 );

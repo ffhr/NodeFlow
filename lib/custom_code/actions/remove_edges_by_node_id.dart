@@ -10,10 +10,8 @@ import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
-Future removeEdgesByNodeId(
-  String nodeId,
-  List<NodeEdgeStruct> edges,
-) async {
+Future removeEdgesByNodeId(String nodeId) async {
   // Add your function code here!
-  //edges.removeWhere((element) => element.s,)
+  FFAppState().Edges.removeWhere((element) => element.sourceNodeId == nodeId);
+  FFAppState().Edges.removeWhere((element) => element.targetNodeId == nodeId);
 }
