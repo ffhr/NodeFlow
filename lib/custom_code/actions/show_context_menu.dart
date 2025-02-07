@@ -13,42 +13,28 @@ import 'package:flutter/material.dart';
 Future showContextMenu(
   BuildContext context,
   NFPointStruct tapPoint,
+  Future Function()? onTapOption1,
 ) async {
   // Add your function code here!
   final RenderBox overlay =
       Overlay.of(context).context.findRenderObject() as RenderBox;
-  showMenu(
-    context: context,
-    position: RelativeRect.fromRect(
-      Offset(tapPoint.positionX, tapPoint.positionY) &
-          const Size(40, 40), // smaller rect, the touch area
-      Offset.zero & overlay.size, // Bigger rect, the entire screen
-    ),
-    items: [
-      PopupMenuItem(
-        child: Text('Option 1'),
-        value: 1,
-      ),
-      PopupMenuItem(
-        child: Text('Option 2'),
-        value: 2,
-      ),
-    ],
-  ).then((value) {
-    if (value != null) {
-      _onContextMenuItemSelected(context, value);
-    }
-  });
-}
 
-void _onContextMenuItemSelected(BuildContext context, int value) {
-  if (value == 1) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Option 1 selected')),
-    );
-  } else if (value == 2) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Option 2 selected')),
-    );
+  var value = await showMenu(
+      context: context,
+      position: RelativeRect.fromRect(
+        Offset(tapPoint.positionX, tapPoint.positionY) &
+            const Size(40, 40), // smaller rect, the touch area
+        Offset.zero & overlay.size, // Bigger rect, the entire screen
+      ),
+      items: [
+        const PopupMenuItem(
+          child: Text('Add node'),
+          value: 1,
+        ),
+      ]);
+  if (value != null) {
+    if (value == 1) {
+      onTapOption1?.call();
+    }
   }
 }

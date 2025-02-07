@@ -460,3 +460,11 @@ bool edgesContainsEdge(
   }
   return false;
 }
+
+List<NodeInputSocketStruct> createNodeInputs(int count) {
+  return [];
+}
+
+List<NodeOutputSocketStruct> createNodeOutputs(int count) {
+  return [];
+}
