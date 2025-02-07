@@ -18,32 +18,95 @@ class NodeAddFormModel extends FlutterFlowModel<NodeAddFormWidget> {
   FocusNode? titleInputFocusNode;
   TextEditingController? titleInputTextController;
   String? Function(BuildContext, String?)? titleInputTextControllerValidator;
+  String? _titleInputTextControllerValidator(
+      BuildContext context, String? val) {
+    if (val == null || val.isEmpty) {
+      return 'Title is required';
+    }
+
+    return null;
+  }
+
   // State field(s) for descriptionInput widget.
   FocusNode? descriptionInputFocusNode;
   TextEditingController? descriptionInputTextController;
   String? Function(BuildContext, String?)?
       descriptionInputTextControllerValidator;
+  String? _descriptionInputTextControllerValidator(
+      BuildContext context, String? val) {
+    if (val == null || val.isEmpty) {
+      return 'Description is required';
+    }
+
+    return null;
+  }
+
   // State field(s) for widthInput widget.
   FocusNode? widthInputFocusNode;
   TextEditingController? widthInputTextController;
   String? Function(BuildContext, String?)? widthInputTextControllerValidator;
+  String? _widthInputTextControllerValidator(
+      BuildContext context, String? val) {
+    if (val == null || val.isEmpty) {
+      return 'Width is required';
+    }
+
+    return null;
+  }
+
   // State field(s) for heightInput widget.
   FocusNode? heightInputFocusNode;
   TextEditingController? heightInputTextController;
   String? Function(BuildContext, String?)? heightInputTextControllerValidator;
+  String? _heightInputTextControllerValidator(
+      BuildContext context, String? val) {
+    if (val == null || val.isEmpty) {
+      return 'Height is required';
+    }
+
+    return null;
+  }
+
   // State field(s) for numberOfInputs widget.
   FocusNode? numberOfInputsFocusNode;
   TextEditingController? numberOfInputsTextController;
   String? Function(BuildContext, String?)?
       numberOfInputsTextControllerValidator;
+  String? _numberOfInputsTextControllerValidator(
+      BuildContext context, String? val) {
+    if (val == null || val.isEmpty) {
+      return 'Number is required';
+    }
+
+    return null;
+  }
+
   // State field(s) for numberOfOutputs widget.
   FocusNode? numberOfOutputsFocusNode;
   TextEditingController? numberOfOutputsTextController;
   String? Function(BuildContext, String?)?
       numberOfOutputsTextControllerValidator;
+  String? _numberOfOutputsTextControllerValidator(
+      BuildContext context, String? val) {
+    if (val == null || val.isEmpty) {
+      return 'Number is required';
+    }
+
+    return null;
+  }
 
   @override
-  void initState(BuildContext context) {}
+  void initState(BuildContext context) {
+    titleInputTextControllerValidator = _titleInputTextControllerValidator;
+    descriptionInputTextControllerValidator =
+        _descriptionInputTextControllerValidator;
+    widthInputTextControllerValidator = _widthInputTextControllerValidator;
+    heightInputTextControllerValidator = _heightInputTextControllerValidator;
+    numberOfInputsTextControllerValidator =
+        _numberOfInputsTextControllerValidator;
+    numberOfOutputsTextControllerValidator =
+        _numberOfOutputsTextControllerValidator;
+  }
 
   @override
   void dispose() {
