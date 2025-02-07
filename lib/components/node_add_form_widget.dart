@@ -76,7 +76,7 @@ class _NodeAddFormWidgetState extends State<NodeAddFormWidget> {
           ),
         ),
         child: Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(20.0, 20.0, 20.0, 20.0),
+          padding: EdgeInsetsDirectional.fromSTEB(40.0, 40.0, 40.0, 40.0),
           child: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.min,
