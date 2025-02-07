@@ -561,6 +561,11 @@ class _NodeAddFormWidgetState extends State<NodeAddFormWidget> {
                         EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
                     child: FFButtonWidget(
                       onPressed: () async {
+                        // Validate form
+                        if (_model.formKey.currentState == null ||
+                            !_model.formKey.currentState!.validate()) {
+                          return;
+                        }
                         // Create node
                         FFAppState().addToNodes(NodeStruct(
                           id: random_data.randomString(
