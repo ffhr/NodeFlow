@@ -1,8 +1,8 @@
 import '/backend/schema/enums/enums.dart';
 import '/backend/schema/structs/index.dart';
-import '/components/dummy_node_widget.dart';
 import '/components/edge_component_widget.dart';
 import '/components/node_add_form_widget.dart';
+import '/components/node_child_widget.dart';
 import '/components/node_component_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -269,7 +269,9 @@ class _NFDiagramMinWidgetState extends State<NFDiagramMinWidget> {
                                 );
                                 safeSetState(() {});
                               },
-                              child: () => DummyNodeWidget(),
+                              child: () => NodeChildWidget(
+                                node: nodesListItem,
+                              ),
                             ),
                           ),
                         ),
