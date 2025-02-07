@@ -140,7 +140,7 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
           Builder(
             builder: (context) {
               final inputsList =
-                  (widget!.node?.inputs?.toList() ?? []).take(3).toList();
+                  (widget!.node?.inputs?.toList() ?? []).take(5).toList();
 
               return Column(
                 mainAxisSize: MainAxisSize.max,
@@ -285,7 +285,7 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
             child: Builder(
               builder: (context) {
                 final outputsList =
-                    (widget!.node?.outputs?.toList() ?? []).take(3).toList();
+                    (widget!.node?.outputs?.toList() ?? []).take(5).toList();
 
                 return Column(
                   mainAxisSize: MainAxisSize.max,
