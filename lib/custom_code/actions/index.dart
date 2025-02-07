@@ -5,3 +5,4 @@ export 'on_mouse_enter_node_socket.dart' show onMouseEnterNodeSocket;
 export 'on_mouse_exit_node_socket.dart' show onMouseExitNodeSocket;
 export 'empty_action.dart' show emptyAction;
 export 'show_context_menu.dart' show showContextMenu;
+export 'show_context_menu_remove_node.dart' show showContextMenuRemoveNode;
