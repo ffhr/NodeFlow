@@ -139,8 +139,7 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
           ),
           Builder(
             builder: (context) {
-              final inputsList =
-                  (widget!.node?.inputs?.toList() ?? []).take(5).toList();
+              final inputsList = widget!.node?.inputs?.toList() ?? [];
 
               return Column(
                 mainAxisSize: MainAxisSize.max,
@@ -284,8 +283,7 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
             alignment: AlignmentDirectional(1.0, 0.0),
             child: Builder(
               builder: (context) {
-                final outputsList =
-                    (widget!.node?.outputs?.toList() ?? []).take(5).toList();
+                final outputsList = widget!.node?.outputs?.toList() ?? [];
 
                 return Column(
                   mainAxisSize: MainAxisSize.max,
