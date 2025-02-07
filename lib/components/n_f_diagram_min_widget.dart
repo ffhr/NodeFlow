@@ -274,9 +274,13 @@ class _NFDiagramMinWidgetState extends State<NFDiagramMinWidget> {
                                   context,
                                   deltaPoint,
                                   () async {
-                                    // Remove from list
+                                    // Remove node from list
                                     FFAppState().removeFromNodes(nodesListItem);
                                     safeSetState(() {});
+                                    await actions.removeEdgesByNodeId(
+                                      nodesListItem.id,
+                                      FFAppState().Edges.toList(),
+                                    );
                                   },
                                 );
                               },
