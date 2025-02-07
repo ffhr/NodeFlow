@@ -596,6 +596,8 @@ class _NodeAddFormWidgetState extends State<NodeAddFormWidget> {
                           ),
                         ));
                         safeSetState(() {});
+                        // Dismiss dialog
+                        Navigator.pop(context);
                       },
                       text: 'Add',
                       options: FFButtonOptions(
