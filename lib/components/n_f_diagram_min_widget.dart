@@ -66,10 +66,14 @@ class _NFDiagramMinWidgetState extends State<NFDiagramMinWidget> {
         FFAppState().NodeSelectedIndex = -1;
         safeSetState(() {});
       },
-      onSecondaryTap: () async {
+      onSecondaryTapUp: (details) async {
         // Show context menu
         await actions.showContextMenu(
           context,
+          NFPointStruct(
+            positionX: details.localPosition.dx,
+            positionY: details.localPosition.dy,
+          ),
         );
       },
       child: Container(
