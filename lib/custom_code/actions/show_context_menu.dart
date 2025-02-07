@@ -10,27 +10,9 @@ import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
-Future showContextMenu(BuildContext context) async {
+Future showContextMenu(
+  BuildContext context,
+  NFPointStruct tapPoint,
+) async {
   // Add your function code here!
-  ContextMenuController().show(
-    context,
-    items: [
-      ContextMenuButtonItem(
-        label: 'Add node',
-        onPressed: () {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Add node tapped')),
-          );
-        },
-      ),
-      ContextMenuButtonItem(
-        label: 'Option 2',
-        onPressed: () {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Option 2 tapped')),
-          );
-        },
-      ),
-    ],
-  );
 }
