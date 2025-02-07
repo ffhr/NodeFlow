@@ -88,7 +88,7 @@ class _NFDiagramMinWidgetState extends State<NFDiagramMinWidget> {
                     alignment: AlignmentDirectional(0.0, 0.0)
                         .resolve(Directionality.of(context)),
                     child: Container(
-                      height: 450.0,
+                      height: 650.0,
                       width: 500.0,
                       child: NodeAddFormWidget(),
                     ),
