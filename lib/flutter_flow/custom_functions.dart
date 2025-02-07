@@ -10,6 +10,7 @@ import 'place.dart';
 import 'uploaded_file.dart';
 import '/backend/schema/structs/index.dart';
 import '/backend/schema/enums/enums.dart';
+import '/flutter_flow/random_data_util.dart' as random_data;
 
 List<NodeStruct> initNodes() {
   var item1 = NodeStruct(
