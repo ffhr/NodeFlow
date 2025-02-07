@@ -68,6 +68,7 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
 
     return Container(
       width: widget!.node?.size?.width,
+      height: widget!.node?.size?.height,
       child: Stack(
         children: [
           Align(
@@ -75,199 +76,115 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
             child: Container(
               width: widget!.node?.size?.width,
               height: widget!.node?.size?.height,
-              child: Stack(
-                children: [
-                  Align(
-                    alignment: AlignmentDirectional(0.0, 0.0),
-                    child: Container(
-                      width: widget!.node?.size?.width,
-                      height: widget!.node?.size?.height,
-                      decoration: BoxDecoration(),
-                      child: Visibility(
-                        visible: widget!.child != null,
-                        child: GestureDetector(
-                          onPanDown: (details) async {
-                            if ((FFAppState().EdgeDrawing.drawingState ==
-                                    DrawingState.inactive) ||
-                                (FFAppState().EdgeDrawing.drawingState ==
-                                    DrawingState.finished)) {
-                              // On pan down
-                              await widget.onPanDown?.call();
-                            }
-                          },
-                          onPanEnd: (details) async {
-                            if ((FFAppState().EdgeDrawing.drawingState ==
-                                    DrawingState.inactive) ||
-                                (FFAppState().EdgeDrawing.drawingState ==
-                                    DrawingState.finished)) {
-                              // On pan end
-                              await widget.onPanEnd?.call();
-                            }
-                          },
-                          onPanUpdate: (details) async {
-                            if ((FFAppState().EdgeDrawing.drawingState ==
-                                    DrawingState.inactive) ||
-                                (FFAppState().EdgeDrawing.drawingState ==
-                                    DrawingState.finished)) {
-                              // On pan update
-                              await widget.onPanUpdate?.call(
-                                NFPointStruct(
-                                  positionX: details.delta.dx,
-                                  positionY: details.delta.dy,
-                                ),
-                              );
-                            }
-                          },
-                          onTapDown: (details) async {
-                            if ((FFAppState().EdgeDrawing.drawingState ==
-                                    DrawingState.inactive) ||
-                                (FFAppState().EdgeDrawing.drawingState ==
-                                    DrawingState.finished)) {
-                              // On tap down
-                              await widget.onTapDown?.call();
-                            }
-                          },
-                          onTapUp: (details) async {
-                            if ((FFAppState().EdgeDrawing.drawingState ==
-                                    DrawingState.inactive) ||
-                                (FFAppState().EdgeDrawing.drawingState ==
-                                    DrawingState.finished)) {
-                              // On tap up
-                              await widget.onTapUp?.call();
-                            }
-                          },
-                          child: Builder(builder: (_) {
-                            return widget.child!();
-                          }),
+              decoration: BoxDecoration(),
+              child: Visibility(
+                visible: widget!.child != null,
+                child: GestureDetector(
+                  onPanDown: (details) async {
+                    if ((FFAppState().EdgeDrawing.drawingState ==
+                            DrawingState.inactive) ||
+                        (FFAppState().EdgeDrawing.drawingState ==
+                            DrawingState.finished)) {
+                      // On pan down
+                      await widget.onPanDown?.call();
+                    }
+                  },
+                  onPanEnd: (details) async {
+                    if ((FFAppState().EdgeDrawing.drawingState ==
+                            DrawingState.inactive) ||
+                        (FFAppState().EdgeDrawing.drawingState ==
+                            DrawingState.finished)) {
+                      // On pan end
+                      await widget.onPanEnd?.call();
+                    }
+                  },
+                  onPanUpdate: (details) async {
+                    if ((FFAppState().EdgeDrawing.drawingState ==
+                            DrawingState.inactive) ||
+                        (FFAppState().EdgeDrawing.drawingState ==
+                            DrawingState.finished)) {
+                      // On pan update
+                      await widget.onPanUpdate?.call(
+                        NFPointStruct(
+                          positionX: details.delta.dx,
+                          positionY: details.delta.dy,
                         ),
-                      ),
-                    ),
-                  ),
-                ],
+                      );
+                    }
+                  },
+                  onTapDown: (details) async {
+                    if ((FFAppState().EdgeDrawing.drawingState ==
+                            DrawingState.inactive) ||
+                        (FFAppState().EdgeDrawing.drawingState ==
+                            DrawingState.finished)) {
+                      // On tap down
+                      await widget.onTapDown?.call();
+                    }
+                  },
+                  onTapUp: (details) async {
+                    if ((FFAppState().EdgeDrawing.drawingState ==
+                            DrawingState.inactive) ||
+                        (FFAppState().EdgeDrawing.drawingState ==
+                            DrawingState.finished)) {
+                      // On tap up
+                      await widget.onTapUp?.call();
+                    }
+                  },
+                  child: Builder(builder: (_) {
+                    return widget.child!();
+                  }),
+                ),
               ),
             ),
           ),
-          Align(
-            alignment: AlignmentDirectional(-1.0, 0.0),
-            child: Builder(
-              builder: (context) {
-                final inputsList = widget!.node?.inputs?.toList() ?? [];
+          Builder(
+            builder: (context) {
+              final inputsList = widget!.node?.inputs?.toList() ?? [];
 
-                return Column(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: List.generate(inputsList.length, (inputsListIndex) {
-                    final inputsListItem = inputsList[inputsListIndex];
-                    return SocketComponentWidget(
-                      key: Key(
-                          'Keyhbf_${inputsListIndex}_of_${inputsList.length}'),
-                      isHovered: inputsListItem.socket.isHover,
-                      isClicked:
-                          (FFAppState().CurrentBuildingEdge.targetNodeId ==
-                                  widget!.node?.id) &&
-                              (FFAppState()
-                                      .CurrentBuildingEdge
-                                      .targetInputSocketIndex ==
-                                  inputsListIndex),
-                      isConnected: false,
-                      defaultColor: Color(0xFF0034FD),
-                      selectedColor: Color(0xFF00007B),
-                      renderPan: () async {
-                        await widget.renderPanStack?.call();
-                      },
-                      mouseEntered: () async {
-                        await actions.onMouseEnterNodeSocket(
-                          inputsListItem.socket,
-                        );
-                        _model.renderNodeVar = _model.renderNodeVar;
-                        safeSetState(() {});
-                      },
-                      mouseExit: () async {
-                        await actions.onMouseExitNodeSocket(
-                          inputsListItem.socket,
-                        );
-                        _model.renderNodeVar = _model.renderNodeVar;
-                        safeSetState(() {});
-                      },
-                      onClicked: (isClicked) async {
-                        if (isClicked) {
-                          // Set node target input socket
-                          FFAppState().updateCurrentBuildingEdgeStruct(
-                            (e) => e
-                              ..targetNodeId = widget!.node?.id
-                              ..targetInputSocketIndex = inputsListIndex,
-                          );
-                          FFAppState().update(() {});
-                          if (FFAppState().CurrentBuildingEdge.hasSourceNodeId() &&
-                              FFAppState()
-                                  .CurrentBuildingEdge
-                                  .hasTargetNodeId() &&
-                              FFAppState()
-                                  .CurrentBuildingEdge
-                                  .hasSourceOutputSocketIndex() &&
-                              FFAppState()
-                                  .CurrentBuildingEdge
-                                  .hasTargetInputSocketIndex()) {
-                            if (functions.edgesContainsEdge(
-                                FFAppState().CurrentBuildingEdge,
-                                FFAppState().Edges.toList())) {
-                              // Remove building edge from list
-                              FFAppState().removeFromEdges(
-                                  FFAppState().CurrentBuildingEdge);
-                              FFAppState().update(() {});
-                              // Unset
-                              FFAppState().CurrentBuildingEdge =
-                                  NodeEdgeStruct();
-                            } else {
-                              // Add building edge to list
-                              FFAppState()
-                                  .addToEdges(FFAppState().CurrentBuildingEdge);
-                              FFAppState().update(() {});
-                              // Unset
-                              FFAppState().CurrentBuildingEdge =
-                                  NodeEdgeStruct();
-                            }
-                          }
-                        } else {
-                          // Unset
-                          FFAppState().updateCurrentBuildingEdgeStruct(
-                            (e) => e
-                              ..targetNodeId = null
-                              ..targetInputSocketIndex = null,
-                          );
-                          FFAppState().update(() {});
-                        }
-                      },
-                      onPanDown: (point) async {
+              return Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: List.generate(inputsList.length, (inputsListIndex) {
+                  final inputsListItem = inputsList[inputsListIndex];
+                  return SocketComponentWidget(
+                    key: Key(
+                        'Keyhbf_${inputsListIndex}_of_${inputsList.length}'),
+                    isHovered: inputsListItem.socket.isHover,
+                    isClicked: (FFAppState().CurrentBuildingEdge.targetNodeId ==
+                            widget!.node?.id) &&
+                        (FFAppState()
+                                .CurrentBuildingEdge
+                                .targetInputSocketIndex ==
+                            inputsListIndex),
+                    isConnected: false,
+                    defaultColor: Color(0xFF0034FD),
+                    selectedColor: Color(0xFF00007B),
+                    renderPan: () async {
+                      await widget.renderPanStack?.call();
+                    },
+                    mouseEntered: () async {
+                      await actions.onMouseEnterNodeSocket(
+                        inputsListItem.socket,
+                      );
+                      _model.renderNodeVar = _model.renderNodeVar;
+                      safeSetState(() {});
+                    },
+                    mouseExit: () async {
+                      await actions.onMouseExitNodeSocket(
+                        inputsListItem.socket,
+                      );
+                      _model.renderNodeVar = _model.renderNodeVar;
+                      safeSetState(() {});
+                    },
+                    onClicked: (isClicked) async {
+                      if (isClicked) {
                         // Set node target input socket
                         FFAppState().updateCurrentBuildingEdgeStruct(
                           (e) => e
                             ..targetNodeId = widget!.node?.id
                             ..targetInputSocketIndex = inputsListIndex,
                         );
-                        _model.updatePage(() {});
-                      },
-                      onPanEnd: (point) async {
-                        // Set node source output socket
-                        FFAppState().updateCurrentBuildingEdgeStruct(
-                          (e) => e
-                            ..sourceNodeId = functions.getSourceNodeIdFromPoint(
-                                point,
-                                FFAppState().Nodes.toList(),
-                                FFAppState().ViewportCenter,
-                                FFAppState().ZoomFactor,
-                                MediaQuery.sizeOf(context).width,
-                                MediaQuery.sizeOf(context).height)
-                            ..sourceOutputSocketIndex =
-                                functions.getSourceOutputIndexFromPoint(
-                                    point,
-                                    FFAppState().Nodes.toList(),
-                                    FFAppState().ViewportCenter,
-                                    FFAppState().ZoomFactor,
-                                    MediaQuery.sizeOf(context).width,
-                                    MediaQuery.sizeOf(context).height),
-                        );
-                        _model.updatePage(() {});
+                        FFAppState().update(() {});
                         if (FFAppState().CurrentBuildingEdge.hasSourceNodeId() &&
                             FFAppState()
                                 .CurrentBuildingEdge
@@ -278,24 +195,89 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                             FFAppState()
                                 .CurrentBuildingEdge
                                 .hasTargetInputSocketIndex()) {
-                          // Add building edge to list
-                          FFAppState()
-                              .addToEdges(FFAppState().CurrentBuildingEdge);
-                          safeSetState(() {});
-                          // Unset
-                          FFAppState().CurrentBuildingEdge = NodeEdgeStruct();
-                          _model.updatePage(() {});
-                        } else {
-                          // Unset
-                          FFAppState().CurrentBuildingEdge = NodeEdgeStruct();
-                          _model.updatePage(() {});
+                          if (functions.edgesContainsEdge(
+                              FFAppState().CurrentBuildingEdge,
+                              FFAppState().Edges.toList())) {
+                            // Remove building edge from list
+                            FFAppState().removeFromEdges(
+                                FFAppState().CurrentBuildingEdge);
+                            FFAppState().update(() {});
+                            // Unset
+                            FFAppState().CurrentBuildingEdge = NodeEdgeStruct();
+                          } else {
+                            // Add building edge to list
+                            FFAppState()
+                                .addToEdges(FFAppState().CurrentBuildingEdge);
+                            FFAppState().update(() {});
+                            // Unset
+                            FFAppState().CurrentBuildingEdge = NodeEdgeStruct();
+                          }
                         }
-                      },
-                    );
-                  }).divide(SizedBox(height: 10.0)),
-                );
-              },
-            ),
+                      } else {
+                        // Unset
+                        FFAppState().updateCurrentBuildingEdgeStruct(
+                          (e) => e
+                            ..targetNodeId = null
+                            ..targetInputSocketIndex = null,
+                        );
+                        FFAppState().update(() {});
+                      }
+                    },
+                    onPanDown: (point) async {
+                      // Set node target input socket
+                      FFAppState().updateCurrentBuildingEdgeStruct(
+                        (e) => e
+                          ..targetNodeId = widget!.node?.id
+                          ..targetInputSocketIndex = inputsListIndex,
+                      );
+                      _model.updatePage(() {});
+                    },
+                    onPanEnd: (point) async {
+                      // Set node source output socket
+                      FFAppState().updateCurrentBuildingEdgeStruct(
+                        (e) => e
+                          ..sourceNodeId = functions.getSourceNodeIdFromPoint(
+                              point,
+                              FFAppState().Nodes.toList(),
+                              FFAppState().ViewportCenter,
+                              FFAppState().ZoomFactor,
+                              MediaQuery.sizeOf(context).width,
+                              MediaQuery.sizeOf(context).height)
+                          ..sourceOutputSocketIndex =
+                              functions.getSourceOutputIndexFromPoint(
+                                  point,
+                                  FFAppState().Nodes.toList(),
+                                  FFAppState().ViewportCenter,
+                                  FFAppState().ZoomFactor,
+                                  MediaQuery.sizeOf(context).width,
+                                  MediaQuery.sizeOf(context).height),
+                      );
+                      _model.updatePage(() {});
+                      if (FFAppState().CurrentBuildingEdge.hasSourceNodeId() &&
+                          FFAppState().CurrentBuildingEdge.hasTargetNodeId() &&
+                          FFAppState()
+                              .CurrentBuildingEdge
+                              .hasSourceOutputSocketIndex() &&
+                          FFAppState()
+                              .CurrentBuildingEdge
+                              .hasTargetInputSocketIndex()) {
+                        // Add building edge to list
+                        FFAppState()
+                            .addToEdges(FFAppState().CurrentBuildingEdge);
+                        safeSetState(() {});
+                        // Unset
+                        FFAppState().CurrentBuildingEdge = NodeEdgeStruct();
+                        _model.updatePage(() {});
+                      } else {
+                        // Unset
+                        FFAppState().CurrentBuildingEdge = NodeEdgeStruct();
+                        _model.updatePage(() {});
+                      }
+                    },
+                  );
+                }).divide(SizedBox(height: 10.0)),
+              );
+            },
           ),
           Align(
             alignment: AlignmentDirectional(1.0, 0.0),
