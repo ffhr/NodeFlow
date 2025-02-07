@@ -19,9 +19,6 @@ Future showContextMenu(
   final RenderBox overlay =
       Overlay.of(context).context.findRenderObject() as RenderBox;
 
-  if (kIsWeb) {
-    BrowserContextMenu.disableContextMenu();
-  }
   var value = await showMenu(
       context: context,
       position: RelativeRect.fromRect(
