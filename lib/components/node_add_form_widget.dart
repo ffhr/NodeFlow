@@ -68,6 +68,12 @@ class _NodeAddFormWidgetState extends State<NodeAddFormWidget> {
       child: Container(
         decoration: BoxDecoration(
           color: Color(0xFF7274EB),
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(10.0),
+            bottomRight: Radius.circular(10.0),
+            topLeft: Radius.circular(10.0),
+            topRight: Radius.circular(10.0),
+          ),
         ),
         child: Padding(
           padding: EdgeInsetsDirectional.fromSTEB(20.0, 20.0, 20.0, 20.0),
@@ -104,7 +110,7 @@ class _NodeAddFormWidgetState extends State<NodeAddFormWidget> {
                                   fontFamily: 'Inter',
                                   letterSpacing: 0.0,
                                 ),
-                        hintText: 'TextField',
+                        hintText: 'Title',
                         hintStyle:
                             FlutterFlowTheme.of(context).labelMedium.override(
                                   fontFamily: 'Inter',
@@ -182,7 +188,7 @@ class _NodeAddFormWidgetState extends State<NodeAddFormWidget> {
                                   fontFamily: 'Inter',
                                   letterSpacing: 0.0,
                                 ),
-                        hintText: 'TextField',
+                        hintText: 'Description',
                         hintStyle:
                             FlutterFlowTheme.of(context).labelMedium.override(
                                   fontFamily: 'Inter',
@@ -260,7 +266,7 @@ class _NodeAddFormWidgetState extends State<NodeAddFormWidget> {
                                   fontFamily: 'Inter',
                                   letterSpacing: 0.0,
                                 ),
-                        hintText: 'TextField',
+                        hintText: 'Width',
                         hintStyle:
                             FlutterFlowTheme.of(context).labelMedium.override(
                                   fontFamily: 'Inter',
@@ -340,7 +346,7 @@ class _NodeAddFormWidgetState extends State<NodeAddFormWidget> {
                                   fontFamily: 'Inter',
                                   letterSpacing: 0.0,
                                 ),
-                        hintText: 'TextField',
+                        hintText: 'Height',
                         hintStyle:
                             FlutterFlowTheme.of(context).labelMedium.override(
                                   fontFamily: 'Inter',
@@ -420,7 +426,7 @@ class _NodeAddFormWidgetState extends State<NodeAddFormWidget> {
                                   fontFamily: 'Inter',
                                   letterSpacing: 0.0,
                                 ),
-                        hintText: 'TextField',
+                        hintText: 'Number',
                         hintStyle:
                             FlutterFlowTheme.of(context).labelMedium.override(
                                   fontFamily: 'Inter',
@@ -499,7 +505,7 @@ class _NodeAddFormWidgetState extends State<NodeAddFormWidget> {
                                   fontFamily: 'Inter',
                                   letterSpacing: 0.0,
                                 ),
-                        hintText: 'TextField',
+                        hintText: 'Number',
                         hintStyle:
                             FlutterFlowTheme.of(context).labelMedium.override(
                                   fontFamily: 'Inter',
@@ -593,7 +599,7 @@ class _NodeAddFormWidgetState extends State<NodeAddFormWidget> {
                             16.0, 0.0, 16.0, 0.0),
                         iconPadding:
                             EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                        color: FlutterFlowTheme.of(context).secondary,
+                        color: FlutterFlowTheme.of(context).primary,
                         textStyle:
                             FlutterFlowTheme.of(context).titleSmall.override(
                                   fontFamily: 'Inter Tight',
