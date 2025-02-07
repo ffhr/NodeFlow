@@ -68,7 +68,6 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
 
     return Container(
       width: widget!.node?.size?.width,
-      height: widget!.node?.size?.height,
       child: Stack(
         children: [
           Align(
@@ -76,64 +75,75 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
             child: Container(
               width: widget!.node?.size?.width,
               height: widget!.node?.size?.height,
-              decoration: BoxDecoration(),
-              child: Visibility(
-                visible: widget!.child != null,
-                child: GestureDetector(
-                  onPanDown: (details) async {
-                    if ((FFAppState().EdgeDrawing.drawingState ==
-                            DrawingState.inactive) ||
-                        (FFAppState().EdgeDrawing.drawingState ==
-                            DrawingState.finished)) {
-                      // On pan down
-                      await widget.onPanDown?.call();
-                    }
-                  },
-                  onPanEnd: (details) async {
-                    if ((FFAppState().EdgeDrawing.drawingState ==
-                            DrawingState.inactive) ||
-                        (FFAppState().EdgeDrawing.drawingState ==
-                            DrawingState.finished)) {
-                      // On pan end
-                      await widget.onPanEnd?.call();
-                    }
-                  },
-                  onPanUpdate: (details) async {
-                    if ((FFAppState().EdgeDrawing.drawingState ==
-                            DrawingState.inactive) ||
-                        (FFAppState().EdgeDrawing.drawingState ==
-                            DrawingState.finished)) {
-                      // On pan update
-                      await widget.onPanUpdate?.call(
-                        NFPointStruct(
-                          positionX: details.delta.dx,
-                          positionY: details.delta.dy,
+              child: Stack(
+                children: [
+                  Align(
+                    alignment: AlignmentDirectional(0.0, 0.0),
+                    child: Container(
+                      width: widget!.node?.size?.width,
+                      height: widget!.node?.size?.height,
+                      decoration: BoxDecoration(),
+                      child: Visibility(
+                        visible: widget!.child != null,
+                        child: GestureDetector(
+                          onPanDown: (details) async {
+                            if ((FFAppState().EdgeDrawing.drawingState ==
+                                    DrawingState.inactive) ||
+                                (FFAppState().EdgeDrawing.drawingState ==
+                                    DrawingState.finished)) {
+                              // On pan down
+                              await widget.onPanDown?.call();
+                            }
+                          },
+                          onPanEnd: (details) async {
+                            if ((FFAppState().EdgeDrawing.drawingState ==
+                                    DrawingState.inactive) ||
+                                (FFAppState().EdgeDrawing.drawingState ==
+                                    DrawingState.finished)) {
+                              // On pan end
+                              await widget.onPanEnd?.call();
+                            }
+                          },
+                          onPanUpdate: (details) async {
+                            if ((FFAppState().EdgeDrawing.drawingState ==
+                                    DrawingState.inactive) ||
+                                (FFAppState().EdgeDrawing.drawingState ==
+                                    DrawingState.finished)) {
+                              // On pan update
+                              await widget.onPanUpdate?.call(
+                                NFPointStruct(
+                                  positionX: details.delta.dx,
+                                  positionY: details.delta.dy,
+                                ),
+                              );
+                            }
+                          },
+                          onTapDown: (details) async {
+                            if ((FFAppState().EdgeDrawing.drawingState ==
+                                    DrawingState.inactive) ||
+                                (FFAppState().EdgeDrawing.drawingState ==
+                                    DrawingState.finished)) {
+                              // On tap down
+                              await widget.onTapDown?.call();
+                            }
+                          },
+                          onTapUp: (details) async {
+                            if ((FFAppState().EdgeDrawing.drawingState ==
+                                    DrawingState.inactive) ||
+                                (FFAppState().EdgeDrawing.drawingState ==
+                                    DrawingState.finished)) {
+                              // On tap up
+                              await widget.onTapUp?.call();
+                            }
+                          },
+                          child: Builder(builder: (_) {
+                            return widget.child!();
+                          }),
                         ),
-                      );
-                    }
-                  },
-                  onTapDown: (details) async {
-                    if ((FFAppState().EdgeDrawing.drawingState ==
-                            DrawingState.inactive) ||
-                        (FFAppState().EdgeDrawing.drawingState ==
-                            DrawingState.finished)) {
-                      // On tap down
-                      await widget.onTapDown?.call();
-                    }
-                  },
-                  onTapUp: (details) async {
-                    if ((FFAppState().EdgeDrawing.drawingState ==
-                            DrawingState.inactive) ||
-                        (FFAppState().EdgeDrawing.drawingState ==
-                            DrawingState.finished)) {
-                      // On tap up
-                      await widget.onTapUp?.call();
-                    }
-                  },
-                  child: Builder(builder: (_) {
-                    return widget.child!();
-                  }),
-                ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
