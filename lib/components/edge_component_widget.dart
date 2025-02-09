@@ -141,7 +141,7 @@ class _EdgeComponentWidgetState extends State<EdgeComponentWidget> {
                   ),
                   1.0),
               sourceNodeSize: widget!.sourceNode!.size,
-              curvedLoopType: widget!.sourceNode!.virtualPosition.offsetY <=
+              curvedLoopType: widget!.sourceNode!.virtualPosition.offsetY <
                       widget!.targetNode!.virtualPosition.offsetY
                   ? CurvedLoopType.topToBottom
                   : CurvedLoopType.bottomToTop,
