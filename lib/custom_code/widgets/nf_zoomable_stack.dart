@@ -190,12 +190,16 @@ class _NFZoomableStackState extends State<NFZoomableStack>
           //     height: scale * 4,
           //     color: Colors.green,
           //   ),
+
           // ),
           Container(
             child: NFInteractiveViewer(
               transformationController: _transformationController,
               minScale: minScale,
               maxScale: maxScale,
+              scaleEnabled: true,
+              panEnabled: true,
+              trackpadScrollCausesScale: true,
               onInteractionUpdate: (details) {
                 setState(() {
                   // print("onInteractionUpdate");
