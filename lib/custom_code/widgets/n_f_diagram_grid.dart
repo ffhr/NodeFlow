@@ -13,6 +13,10 @@ import 'package:flutter/material.dart';
 // Begin custom widget code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
+import 'dart:math';
+
+import 'index.dart'; // Imports other custom widgets
+
 class NFDiagramGrid extends StatefulWidget {
   const NFDiagramGrid({
     super.key,
