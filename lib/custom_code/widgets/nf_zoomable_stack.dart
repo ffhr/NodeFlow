@@ -248,8 +248,15 @@ class _NFZoomableStackState extends State<NFZoomableStack>
   }
 
   void alignToCenterOfViewer(BuildContext context) {
-    double w = MediaQuery.of(context).size.width * scale;
-    double h = MediaQuery.of(context).size.height * scale;
+    // double w = MediaQuery.of(context).size.width * scale;
+    // double h = MediaQuery.of(context).size.height * scale;
+
+    final RenderBox? renderBox = context.findRenderObject() as RenderBox?;
+    if (renderBox == null) return;
+
+    final Size parentSize = renderBox.size;
+    double w = parentSize.width * scale;
+    double h = parentSize.height * scale;
 
     double halfW = w / 2;
     double halfH = h / 2;
@@ -267,12 +274,19 @@ class _NFZoomableStackState extends State<NFZoomableStack>
     // print(viewerCenterY);
     // print('--------------------');
 
-    alignmentX = (viewerCenterX / MediaQuery.of(context).size.width) * 2 - 1;
-    alignmentY = (viewerCenterY / MediaQuery.of(context).size.height) * 2 - 1;
+    // alignmentX = (viewerCenterX / MediaQuery.of(context).size.width) * 2 - 1;
+    // alignmentY = (viewerCenterY / MediaQuery.of(context).size.height) * 2 - 1;
 
-    // Calculate the center of the window
-    double centerX = MediaQuery.of(context).size.width / 2;
-    double centerY = MediaQuery.of(context).size.height / 2;
+    // // Calculate the center of the window
+    // double centerX = MediaQuery.of(context).size.width / 2;
+    // double centerY = MediaQuery.of(context).size.height / 2;
+
+    alignmentX = (viewerCenterX / parentSize.width) * 2 - 1;
+    alignmentY = (viewerCenterY / parentSize.height) * 2 - 1;
+
+    // Calculate the center of the parent container
+    double centerX = parentSize.width / 2;
+    double centerY = parentSize.height / 2;
 
     // Calculate the absolute offsets from the center
     double offsetX = viewerCenterX - centerX;
