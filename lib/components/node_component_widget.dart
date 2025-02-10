@@ -393,6 +393,15 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                             ..sourceOutputSocketIndex = outputsListIndex,
                         );
                         _model.updatePage(() {});
+                        if ((FFAppState().EdgeDrawing.drawingState ==
+                                DrawingState.inactive) ||
+                            (FFAppState().EdgeDrawing.drawingState ==
+                                DrawingState.finished)) {
+                          FFAppState().updateEdgeDrawingStruct(
+                            (e) => e..drawingState = DrawingState.started,
+                          );
+                          safeSetState(() {});
+                        }
                       },
                       onPanEnd: (point) async {
                         // Set node target input socket
