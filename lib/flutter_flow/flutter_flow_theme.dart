@@ -56,6 +56,7 @@ abstract class FlutterFlowTheme {
 
   late Color nFDefaultGridLineColor;
   late Color nFDefaultGridBackgroundColor;
+  late Color nFDefaultAxisColor;
 
   @Deprecated('Use displaySmallFamily instead')
   String get title1Family => displaySmallFamily;
@@ -147,6 +148,7 @@ class LightModeTheme extends FlutterFlowTheme {
 
   late Color nFDefaultGridLineColor = Color(0xFFDADADA);
   late Color nFDefaultGridBackgroundColor = Color(0xFFFFFFFF);
+  late Color nFDefaultAxisColor = Color(0xFF000000);
 }
 
 abstract class Typography {
@@ -321,6 +323,7 @@ class DarkModeTheme extends FlutterFlowTheme {
 
   late Color nFDefaultGridLineColor = Color(0xFF3E3E3E);
   late Color nFDefaultGridBackgroundColor = Color(0xFF1D2428);
+  late Color nFDefaultAxisColor = Color(0xFF372C2C);
 }
 
 extension TextStyleHelper on TextStyle {
