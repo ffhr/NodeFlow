@@ -46,13 +46,6 @@ class _ZoomableHomePageWidgetState extends State<ZoomableHomePageWidget> {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-        appBar: AppBar(
-          backgroundColor: FlutterFlowTheme.of(context).primary,
-          automaticallyImplyLeading: true,
-          actions: [],
-          centerTitle: true,
-          elevation: 0.0,
-        ),
         body: SafeArea(
           top: false,
           left: false,
