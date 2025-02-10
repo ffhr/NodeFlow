@@ -307,44 +307,135 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                   children:
                       List.generate(outputsList.length, (outputsListIndex) {
                     final outputsListItem = outputsList[outputsListIndex];
-                    return SocketComponentWidget(
-                      key: Key(
-                          'Keydt4_${outputsListIndex}_of_${outputsList.length}'),
-                      isHovered: outputsListItem.socket.isHover,
-                      isClicked:
-                          (FFAppState().CurrentBuildingEdge.sourceNodeId ==
-                                  widget!.node?.id) &&
-                              (FFAppState()
-                                      .CurrentBuildingEdge
-                                      .sourceOutputSocketIndex ==
-                                  outputsListIndex),
-                      isConnected: false,
-                      defaultColor: Color(0xFF2EFF00),
-                      selectedColor: Color(0xFF036200),
-                      renderPan: () async {},
-                      mouseEntered: () async {
-                        await actions.onMouseEnterNodeSocket(
-                          outputsListItem.socket,
+                    return GestureDetector(
+                      onPanUpdate: (details) async {
+                        FFAppState().updateEdgeDrawingStruct(
+                          (e) => e
+                            ..drawingEndPoint = NFPointStruct(
+                              positionX: details.globalPosition.dx,
+                              positionY: details.globalPosition.dy,
+                            ),
                         );
-                        _model.renderNodeVar = _model.renderNodeVar;
                         safeSetState(() {});
                       },
-                      mouseExit: () async {
-                        await actions.onMouseExitNodeSocket(
-                          outputsListItem.socket,
-                        );
-                        _model.renderNodeVar = _model.renderNodeVar;
-                        safeSetState(() {});
-                      },
-                      onClicked: (isClicked) async {
-                        if (isClicked) {
-                          // Set edge source output socket
+                      child: SocketComponentWidget(
+                        key: Key(
+                            'Keydt4_${outputsListIndex}_of_${outputsList.length}'),
+                        isHovered: outputsListItem.socket.isHover,
+                        isClicked:
+                            (FFAppState().CurrentBuildingEdge.sourceNodeId ==
+                                    widget!.node?.id) &&
+                                (FFAppState()
+                                        .CurrentBuildingEdge
+                                        .sourceOutputSocketIndex ==
+                                    outputsListIndex),
+                        isConnected: false,
+                        defaultColor: Color(0xFF2EFF00),
+                        selectedColor: Color(0xFF036200),
+                        renderPan: () async {},
+                        mouseEntered: () async {
+                          await actions.onMouseEnterNodeSocket(
+                            outputsListItem.socket,
+                          );
+                          _model.renderNodeVar = _model.renderNodeVar;
+                          safeSetState(() {});
+                        },
+                        mouseExit: () async {
+                          await actions.onMouseExitNodeSocket(
+                            outputsListItem.socket,
+                          );
+                          _model.renderNodeVar = _model.renderNodeVar;
+                          safeSetState(() {});
+                        },
+                        onClicked: (isClicked) async {
+                          if (isClicked) {
+                            // Set edge source output socket
+                            FFAppState().updateCurrentBuildingEdgeStruct(
+                              (e) => e
+                                ..sourceNodeId = widget!.node?.id
+                                ..sourceOutputSocketIndex = outputsListIndex,
+                            );
+                            FFAppState().update(() {});
+                            if (FFAppState().CurrentBuildingEdge.hasSourceNodeId() &&
+                                FFAppState()
+                                    .CurrentBuildingEdge
+                                    .hasTargetNodeId() &&
+                                FFAppState()
+                                    .CurrentBuildingEdge
+                                    .hasSourceOutputSocketIndex() &&
+                                FFAppState()
+                                    .CurrentBuildingEdge
+                                    .hasTargetInputSocketIndex()) {
+                              if (functions.edgesContainsEdge(
+                                  FFAppState().CurrentBuildingEdge,
+                                  FFAppState().Edges.toList())) {
+                                // Remove building edge from list
+                                FFAppState().removeFromEdges(
+                                    FFAppState().CurrentBuildingEdge);
+                                FFAppState().update(() {});
+                                // Unset
+                                FFAppState().CurrentBuildingEdge =
+                                    NodeEdgeStruct();
+                              } else {
+                                // Add building edge to list
+                                FFAppState().addToEdges(
+                                    FFAppState().CurrentBuildingEdge);
+                                FFAppState().update(() {});
+                                // Unset
+                                FFAppState().CurrentBuildingEdge =
+                                    NodeEdgeStruct();
+                              }
+                            }
+                          } else {
+                            // Unset
+                            FFAppState().updateCurrentBuildingEdgeStruct(
+                              (e) => e
+                                ..sourceNodeId = null
+                                ..sourceOutputSocketIndex = null,
+                            );
+                            FFAppState().update(() {});
+                          }
+                        },
+                        onPanDown: (point) async {
+                          // Set node source output socket
                           FFAppState().updateCurrentBuildingEdgeStruct(
                             (e) => e
                               ..sourceNodeId = widget!.node?.id
                               ..sourceOutputSocketIndex = outputsListIndex,
                           );
-                          FFAppState().update(() {});
+                          _model.updatePage(() {});
+                          if ((FFAppState().EdgeDrawing.drawingState ==
+                                  DrawingState.inactive) ||
+                              (FFAppState().EdgeDrawing.drawingState ==
+                                  DrawingState.finished)) {
+                            FFAppState().updateEdgeDrawingStruct(
+                              (e) => e..drawingState = DrawingState.started,
+                            );
+                            FFAppState().update(() {});
+                          }
+                        },
+                        onPanEnd: (point) async {
+                          // Set node target input socket
+                          FFAppState().updateCurrentBuildingEdgeStruct(
+                            (e) => e
+                              ..targetNodeId =
+                                  functions.getTargetNodeIdFromPoint(
+                                      point,
+                                      FFAppState().Nodes.toList(),
+                                      FFAppState().ViewportCenter,
+                                      FFAppState().ZoomFactor,
+                                      MediaQuery.sizeOf(context).width,
+                                      MediaQuery.sizeOf(context).height)
+                              ..targetInputSocketIndex =
+                                  functions.getTargetInputIndexFromPoint(
+                                      point,
+                                      FFAppState().Nodes.toList(),
+                                      FFAppState().ViewportCenter,
+                                      FFAppState().ZoomFactor,
+                                      MediaQuery.sizeOf(context).width,
+                                      MediaQuery.sizeOf(context).height),
+                          );
+                          _model.updatePage(() {});
                           if (FFAppState().CurrentBuildingEdge.hasSourceNodeId() &&
                               FFAppState()
                                   .CurrentBuildingEdge
@@ -355,98 +446,20 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                               FFAppState()
                                   .CurrentBuildingEdge
                                   .hasTargetInputSocketIndex()) {
-                            if (functions.edgesContainsEdge(
-                                FFAppState().CurrentBuildingEdge,
-                                FFAppState().Edges.toList())) {
-                              // Remove building edge from list
-                              FFAppState().removeFromEdges(
-                                  FFAppState().CurrentBuildingEdge);
-                              FFAppState().update(() {});
-                              // Unset
-                              FFAppState().CurrentBuildingEdge =
-                                  NodeEdgeStruct();
-                            } else {
-                              // Add building edge to list
-                              FFAppState()
-                                  .addToEdges(FFAppState().CurrentBuildingEdge);
-                              FFAppState().update(() {});
-                              // Unset
-                              FFAppState().CurrentBuildingEdge =
-                                  NodeEdgeStruct();
-                            }
+                            // Add building edge to list
+                            FFAppState()
+                                .addToEdges(FFAppState().CurrentBuildingEdge);
+                            safeSetState(() {});
+                            // Unset
+                            FFAppState().CurrentBuildingEdge = NodeEdgeStruct();
+                            _model.updatePage(() {});
+                          } else {
+                            // Unset
+                            FFAppState().CurrentBuildingEdge = NodeEdgeStruct();
+                            _model.updatePage(() {});
                           }
-                        } else {
-                          // Unset
-                          FFAppState().updateCurrentBuildingEdgeStruct(
-                            (e) => e
-                              ..sourceNodeId = null
-                              ..sourceOutputSocketIndex = null,
-                          );
-                          FFAppState().update(() {});
-                        }
-                      },
-                      onPanDown: (point) async {
-                        // Set node source output socket
-                        FFAppState().updateCurrentBuildingEdgeStruct(
-                          (e) => e
-                            ..sourceNodeId = widget!.node?.id
-                            ..sourceOutputSocketIndex = outputsListIndex,
-                        );
-                        _model.updatePage(() {});
-                        if ((FFAppState().EdgeDrawing.drawingState ==
-                                DrawingState.inactive) ||
-                            (FFAppState().EdgeDrawing.drawingState ==
-                                DrawingState.finished)) {
-                          FFAppState().updateEdgeDrawingStruct(
-                            (e) => e..drawingState = DrawingState.started,
-                          );
-                          FFAppState().update(() {});
-                        }
-                      },
-                      onPanEnd: (point) async {
-                        // Set node target input socket
-                        FFAppState().updateCurrentBuildingEdgeStruct(
-                          (e) => e
-                            ..targetNodeId = functions.getTargetNodeIdFromPoint(
-                                point,
-                                FFAppState().Nodes.toList(),
-                                FFAppState().ViewportCenter,
-                                FFAppState().ZoomFactor,
-                                MediaQuery.sizeOf(context).width,
-                                MediaQuery.sizeOf(context).height)
-                            ..targetInputSocketIndex =
-                                functions.getTargetInputIndexFromPoint(
-                                    point,
-                                    FFAppState().Nodes.toList(),
-                                    FFAppState().ViewportCenter,
-                                    FFAppState().ZoomFactor,
-                                    MediaQuery.sizeOf(context).width,
-                                    MediaQuery.sizeOf(context).height),
-                        );
-                        _model.updatePage(() {});
-                        if (FFAppState().CurrentBuildingEdge.hasSourceNodeId() &&
-                            FFAppState()
-                                .CurrentBuildingEdge
-                                .hasTargetNodeId() &&
-                            FFAppState()
-                                .CurrentBuildingEdge
-                                .hasSourceOutputSocketIndex() &&
-                            FFAppState()
-                                .CurrentBuildingEdge
-                                .hasTargetInputSocketIndex()) {
-                          // Add building edge to list
-                          FFAppState()
-                              .addToEdges(FFAppState().CurrentBuildingEdge);
-                          safeSetState(() {});
-                          // Unset
-                          FFAppState().CurrentBuildingEdge = NodeEdgeStruct();
-                          _model.updatePage(() {});
-                        } else {
-                          // Unset
-                          FFAppState().CurrentBuildingEdge = NodeEdgeStruct();
-                          _model.updatePage(() {});
-                        }
-                      },
+                        },
+                      ),
                     );
                   }).divide(SizedBox(height: 10.0)),
                 );
