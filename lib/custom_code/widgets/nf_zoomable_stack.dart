@@ -58,13 +58,14 @@ class _NFZoomableStackState extends State<NFZoomableStack>
 
   void _centerAndScale() {
     final RenderBox? renderBox = context.findRenderObject() as RenderBox?;
-    if (renderBox != null) {
-      final Size size = renderBox.size;
-      final double screenWidth = size.width;
-      final double screenHeight = size.height;
 
-      final double dx = screenWidth / 2 * (1 - initialScale);
-      final double dy = screenHeight / 2 * (1 - initialScale);
+    if (renderBox != null) {
+      final Size parentSize = renderBox.size;
+      final double parentWidth = parentSize.width;
+      final double parentHeight = parentSize.height;
+
+      final double dx = parentWidth / 2 * (1 - initialScale);
+      final double dy = parentHeight / 2 * (1 - initialScale);
 
       _transformationController.value = Matrix4.identity()
         ..translate(dx, dy) // Shift the view so scaling is centered
