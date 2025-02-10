@@ -137,7 +137,13 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
                 );
                 FFAppState().update(() {});
               },
-              onTapUp: (details) async {},
+              onTapUp: (details) async {
+                // Set status Drawing.FINISHED
+                FFAppState().updateEdgeDrawingStruct(
+                  (e) => e..drawingState = DrawingState.finished,
+                );
+                FFAppState().update(() {});
+              },
               child: Container(
                 width: 20.0,
                 height: 20.0,
@@ -216,7 +222,13 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
                 );
                 FFAppState().update(() {});
               },
-              onTapUp: (details) async {},
+              onTapUp: (details) async {
+                // Set status Drawing.FINISHED
+                FFAppState().updateEdgeDrawingStruct(
+                  (e) => e..drawingState = DrawingState.finished,
+                );
+                FFAppState().update(() {});
+              },
               child: Container(
                 width: 20.0,
                 height: 20.0,
