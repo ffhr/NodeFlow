@@ -46,17 +46,25 @@ class _ZoomableHomePageWidgetState extends State<ZoomableHomePageWidget> {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-        body: SafeArea(
-          top: true,
-          child: Container(
-            width: double.infinity,
-            height: double.infinity,
-            child: custom_widgets.ZoomableStack(
+        body: Stack(
+          children: [
+            Container(
               width: double.infinity,
               height: double.infinity,
-              stackComponent: () => NFDiagramMinWidget(),
+              child: custom_widgets.ZoomableStack(
+                width: double.infinity,
+                height: double.infinity,
+                stackComponent: () => NFDiagramMinWidget(),
+              ),
             ),
-          ),
+            Container(
+              width: double.infinity,
+              height: 64.0,
+              decoration: BoxDecoration(
+                color: FlutterFlowTheme.of(context).tertiary,
+              ),
+            ),
+          ],
         ),
       ),
     );
