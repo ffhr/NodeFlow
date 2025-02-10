@@ -103,16 +103,12 @@ class _NFDiagramMinWidgetState extends State<NFDiagramMinWidget> {
           child: Stack(
             children: [
               if (true)
-                Transform.scale(
-                  scaleX: _model.transformFactor,
-                  scaleY: _model.transformFactor,
-                  child: Container(
+                Container(
+                  width: double.infinity,
+                  height: double.infinity,
+                  child: custom_widgets.NFDiagramGrid(
                     width: double.infinity,
                     height: double.infinity,
-                    child: custom_widgets.NFDiagramGrid(
-                      width: double.infinity,
-                      height: double.infinity,
-                    ),
                   ),
                 ),
               if (FFAppState().Nodes.isNotEmpty)

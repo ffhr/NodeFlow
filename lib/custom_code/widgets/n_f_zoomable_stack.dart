@@ -79,6 +79,7 @@ class _NFZoomableStackState extends State<NFZoomableStack>
       //   offsetX: viewerCenterX,
       //   offsetY: viewerCenterY,
       // );
+      FFAppState().ZoomFactor = scale;
     }
   }
 
@@ -162,36 +163,6 @@ class _NFZoomableStackState extends State<NFZoomableStack>
       color: Colors.white,
       child: Stack(
         children: [
-          Align(
-            alignment: AlignmentDirectional(0, 0),
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height,
-              child: CustomPaint(
-                size: Size.infinite,
-                painter: NFGridPainter(scale,
-                    offsetX: offsetXFromWindowCenter,
-                    offsetY: offsetYFromWindowCenter),
-              ),
-            ),
-          ),
-          // Align(
-          //   alignment: AlignmentDirectional(alignmentX, alignmentY),
-          //   child: Container(
-          //     width: scale * 4,
-          //     height: double.infinity,
-          //     color: Colors.green,
-          //   ),
-          // ),
-          // Align(
-          //   alignment: AlignmentDirectional(alignmentX, alignmentY),
-          //   child: Container(
-          //     width: double.infinity,
-          //     height: scale * 4,
-          //     color: Colors.green,
-          //   ),
-
-          // ),
           Container(
             child: NFInteractiveViewer(
               transformationController: _transformationController,
@@ -308,66 +279,6 @@ class _NFZoomableStackState extends State<NFZoomableStack>
     //   offsetY: offsetYFromWindowCenter,
     // );
     // print("Zoom: $scale");
-    // FFAppState().ZoomFactor = scale;
+    FFAppState().ZoomFactor = scale;
   }
-}
-
-class NFGridPainter extends CustomPainter {
-  final double zoom;
-  final double offsetX;
-  final double offsetY;
-
-  NFGridPainter(this.zoom, {this.offsetX = 0.0, this.offsetY = 0.0});
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final Paint paint = Paint()
-      ..color = Colors.grey.withOpacity(0.125)
-      ..style = PaintingStyle.stroke;
-
-    double baseSize = 10.0; // Base grid unit
-    double maxZoom = 4.0; // 400%
-    double minZoom = 0.0001; // 0.01%
-    double zoomFactor = max(minZoom, min(zoom, maxZoom));
-
-    int levels = 5;
-    double centerX = (size.width / 2) + offsetX;
-    double centerY = (size.height / 2) + offsetY;
-
-    for (int i = 0; i < levels; i++) {
-      double gridSize = baseSize * pow(5, i) * zoomFactor;
-      if (gridSize < 1.0 || (zoomFactor <= 0.1 && i < 2))
-        continue; // Avoid rendering too small grids at low zoom
-
-      double startX = (centerX % gridSize) - gridSize;
-      double startY = (centerY % gridSize) - gridSize;
-
-      for (double x = startX; x < size.width; x += gridSize) {
-        canvas.drawLine(Offset(x, 0), Offset(x, size.height), paint);
-      }
-      for (double y = startY; y < size.height; y += gridSize) {
-        canvas.drawLine(Offset(0, y), Offset(size.width, y), paint);
-      }
-    }
-
-    // Draw X and Y axes
-    final axisPaint = Paint()
-      ..color = Colors.red
-      ..strokeWidth = 2.0;
-
-    canvas.drawLine(
-      Offset(centerX, 0),
-      Offset(centerX, size.height),
-      axisPaint,
-    ); // Y-Axis
-
-    canvas.drawLine(
-      Offset(0, centerY),
-      Offset(size.width, centerY),
-      axisPaint,
-    ); // X-Axis
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
 }

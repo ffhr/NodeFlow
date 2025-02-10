@@ -1,4 +1,6 @@
 // Automatic FlutterFlow imports
+import 'dart:math';
+
 import '/backend/schema/structs/index.dart';
 import '/backend/schema/enums/enums.dart';
 import '/actions/actions.dart' as action_blocks;
@@ -28,6 +30,71 @@ class NFDiagramGrid extends StatefulWidget {
 class _NFDiagramGridState extends State<NFDiagramGrid> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height,
+      child: CustomPaint(
+        size: Size.infinite,
+        painter:
+            NFGridPainter(FFAppState().ZoomFactor, offsetX: 0.0, offsetY: 0.0),
+      ),
+    );
   }
+}
+
+class NFGridPainter extends CustomPainter {
+  final double zoom;
+  final double offsetX;
+  final double offsetY;
+
+  NFGridPainter(this.zoom, {this.offsetX = 0.0, this.offsetY = 0.0});
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final Paint paint = Paint()
+      ..color = Colors.grey.withOpacity(0.125)
+      ..style = PaintingStyle.stroke;
+
+    double centerX = (size.width / 2) + offsetX;
+    double centerY = (size.height / 2) + offsetY;
+
+    var zoom = FFAppState().ZoomFactor;
+    // print("Zoom $zoom");
+
+    for (var multiplyFactor = 1; multiplyFactor < 100; multiplyFactor *= 4) {
+      double cellSize = size.width / 20000 * multiplyFactor;
+      double startX = (centerX % cellSize) - cellSize;
+      double startY = (centerY % cellSize) - cellSize;
+
+      if (zoom < 60 && multiplyFactor < 4) continue;
+      if (zoom < 30 && multiplyFactor < 16) continue;
+      if (zoom < 10 && multiplyFactor < 64) continue;
+
+      for (double i = startX; i <= size.width; i += cellSize) {
+        canvas.drawLine(Offset(i, 0), Offset(i, size.height), paint);
+      }
+
+      for (double j = startY; j <= size.height; j += cellSize) {
+        canvas.drawLine(Offset(0, j), Offset(size.width, j), paint);
+      }
+    }
+
+    // Draw X and Y axes
+    final axisPaint = Paint()..color = Colors.red;
+
+    canvas.drawLine(
+      Offset(centerX, 0),
+      Offset(centerX, size.height),
+      axisPaint,
+    ); // Y-Axis
+
+    canvas.drawLine(
+      Offset(0, centerY),
+      Offset(size.width, centerY),
+      axisPaint,
+    ); // X-Axis
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
 }
