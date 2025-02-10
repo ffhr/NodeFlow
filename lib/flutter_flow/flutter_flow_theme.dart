@@ -323,7 +323,7 @@ class DarkModeTheme extends FlutterFlowTheme {
 
   late Color nFDefaultGridLineColor = Color(0xFF3E3E3E);
   late Color nFDefaultGridBackgroundColor = Color(0xFF1D2428);
-  late Color nFDefaultAxisColor = Color(0xFF372C2C);
+  late Color nFDefaultAxisColor = Color(0xD2FF0000);
 }
 
 extension TextStyleHelper on TextStyle {
