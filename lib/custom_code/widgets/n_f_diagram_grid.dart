@@ -58,9 +58,6 @@ class NFGridPainter extends CustomPainter {
     double centerX = (size.width / 2) + offsetX;
     double centerY = (size.height / 2) + offsetY;
 
-    var zoom = FFAppState().ZoomFactor;
-    // print("Zoom $zoom");
-
     for (var multiplyFactor = 1; multiplyFactor < 100; multiplyFactor *= 4) {
       double cellSize = size.width / 20000 * multiplyFactor;
       double startX = (centerX % cellSize) - cellSize;
@@ -80,7 +77,7 @@ class NFGridPainter extends CustomPainter {
     }
 
     // Draw X and Y axes
-    final axisPaint = Paint()..color = Colors.red;
+    final axisPaint = Paint()..color = Colors.black;
 
     canvas.drawLine(
       Offset(centerX, 0),
