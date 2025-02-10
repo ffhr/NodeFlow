@@ -312,10 +312,14 @@ class _NFDiagramMinWidgetState extends State<NFDiagramMinWidget> {
               ),
               Align(
                 alignment: AlignmentDirectional(1.0, 0.0),
-                child: wrapWithModel(
-                  model: _model.nFToolboxModel,
-                  updateCallback: () => safeSetState(() {}),
-                  child: NFToolboxWidget(),
+                child: Transform.scale(
+                  scaleX: _model.transformFactor,
+                  scaleY: _model.transformFactor,
+                  child: wrapWithModel(
+                    model: _model.nFToolboxModel,
+                    updateCallback: () => safeSetState(() {}),
+                    child: NFToolboxWidget(),
+                  ),
                 ),
               ),
               if (false)
