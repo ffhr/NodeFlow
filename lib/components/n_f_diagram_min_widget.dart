@@ -102,6 +102,19 @@ class _NFDiagramMinWidgetState extends State<NFDiagramMinWidget> {
           decoration: BoxDecoration(),
           child: Stack(
             children: [
+              if (true)
+                Transform.scale(
+                  scaleX: _model.transformFactor,
+                  scaleY: _model.transformFactor,
+                  child: Container(
+                    width: double.infinity,
+                    height: double.infinity,
+                    child: custom_widgets.NFDiagramGrid(
+                      width: double.infinity,
+                      height: double.infinity,
+                    ),
+                  ),
+                ),
               if (FFAppState().Nodes.isNotEmpty)
                 Builder(
                   builder: (context) {
@@ -111,8 +124,8 @@ class _NFDiagramMinWidgetState extends State<NFDiagramMinWidget> {
                       children: List.generate(edges.length, (edgesIndex) {
                         final edgesItem = edges[edgesIndex];
                         return Transform.scale(
-                          scaleX: 0.01,
-                          scaleY: 0.01,
+                          scaleX: _model.transformFactor,
+                          scaleY: _model.transformFactor,
                           child: EdgeComponentWidget(
                             key: Key('Keydv6_${edgesIndex}_of_${edges.length}'),
                             edge: edgesItem,
@@ -176,8 +189,8 @@ class _NFDiagramMinWidgetState extends State<NFDiagramMinWidget> {
                               0.0,
                             )),
                         child: Transform.scale(
-                          scaleX: 0.01,
-                          scaleY: 0.01,
+                          scaleX: _model.transformFactor,
+                          scaleY: _model.transformFactor,
                           child: Container(
                             decoration: BoxDecoration(),
                             child: NodeComponentWidget(
@@ -295,34 +308,38 @@ class _NFDiagramMinWidgetState extends State<NFDiagramMinWidget> {
                   );
                 },
               ),
-              Transform.scale(
-                scaleX: 0.01,
-                scaleY: 0.01,
-                child: Visibility(
-                  visible: (FFAppState().EdgeDrawing.drawingState ==
-                          DrawingState.started) ||
-                      (FFAppState().EdgeDrawing.drawingState ==
-                          DrawingState.active),
-                  child: Container(
-                    width: double.infinity,
-                    height: double.infinity,
-                    child: custom_widgets.CurvedLine(
+              if (false)
+                Transform.scale(
+                  scaleX: _model.transformFactor,
+                  scaleY: _model.transformFactor,
+                  child:
+                      // TODO: needs refactor to correctly draw in scale different to 1.0
+                      // Nice to heave feature, current workaround by clicking strat and end socket is good enough.
+                      Visibility(
+                    visible: (FFAppState().EdgeDrawing.drawingState ==
+                            DrawingState.started) ||
+                        (FFAppState().EdgeDrawing.drawingState ==
+                            DrawingState.active),
+                    child: Container(
                       width: double.infinity,
                       height: double.infinity,
-                      start: FFAppState().EdgeDrawing.drawingStartPoint,
-                      end: FFAppState().EdgeDrawing.drawingEndPoint,
-                      lineType: NFLineType.dotted,
-                      isArrowPointingToStartPoint: FFAppState()
-                                  .CurrentBuildingEdge
-                                  .targetNodeId !=
-                              null &&
-                          FFAppState().CurrentBuildingEdge.targetNodeId != '',
-                      lineColor: FlutterFlowTheme.of(context).primaryText,
-                      onTap: () async {},
+                      child: custom_widgets.CurvedLine(
+                        width: double.infinity,
+                        height: double.infinity,
+                        start: FFAppState().EdgeDrawing.drawingStartPoint,
+                        end: FFAppState().EdgeDrawing.drawingEndPoint,
+                        lineType: NFLineType.dotted,
+                        isArrowPointingToStartPoint: FFAppState()
+                                    .CurrentBuildingEdge
+                                    .targetNodeId !=
+                                null &&
+                            FFAppState().CurrentBuildingEdge.targetNodeId != '',
+                        lineColor: FlutterFlowTheme.of(context).primaryText,
+                        onTap: () async {},
+                      ),
                     ),
                   ),
                 ),
-              ),
             ],
           ),
         ),
