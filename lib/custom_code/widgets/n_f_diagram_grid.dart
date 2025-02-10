@@ -39,10 +39,12 @@ class _NFDiagramGridState extends State<NFDiagramGrid> {
     return Container(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height,
+      color: widget.backgroundColor,
       child: CustomPaint(
         size: Size.infinite,
-        painter:
-            NFGridPainter(FFAppState().ZoomFactor, offsetX: 0.0, offsetY: 0.0),
+        painter: NFGridPainter(
+            FFAppState().ZoomFactor, widget.lineColor, widget.axisColor,
+            offsetX: 0.0, offsetY: 0.0),
       ),
     );
   }
@@ -52,13 +54,16 @@ class NFGridPainter extends CustomPainter {
   final double zoom;
   final double offsetX;
   final double offsetY;
+  final Color? lineColor;
+  final Color? axisColor;
 
-  NFGridPainter(this.zoom, {this.offsetX = 0.0, this.offsetY = 0.0});
+  NFGridPainter(this.zoom, this.lineColor, this.axisColor,
+      {this.offsetX = 0.0, this.offsetY = 0.0});
 
   @override
   void paint(Canvas canvas, Size size) {
     final Paint paint = Paint()
-      ..color = Colors.grey.withOpacity(0.125)
+      ..color = lineColor ?? Colors.transparent
       ..style = PaintingStyle.stroke;
 
     double centerX = (size.width / 2) + offsetX;
@@ -69,7 +74,7 @@ class NFGridPainter extends CustomPainter {
       double startX = (centerX % cellSize) - cellSize;
       double startY = (centerY % cellSize) - cellSize;
 
-      if (zoom < 60 && multiplyFactor < 4) continue;
+      if (zoom < 80 && multiplyFactor < 4) continue;
       if (zoom < 30 && multiplyFactor < 16) continue;
       if (zoom < 10 && multiplyFactor < 64) continue;
 
@@ -83,7 +88,7 @@ class NFGridPainter extends CustomPainter {
     }
 
     // Draw X and Y axes
-    final axisPaint = Paint()..color = Colors.black;
+    final axisPaint = Paint()..color = axisColor ?? Colors.transparent;
 
     canvas.drawLine(
       Offset(centerX, 0),
