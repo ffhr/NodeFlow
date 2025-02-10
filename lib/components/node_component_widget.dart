@@ -400,7 +400,7 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                           FFAppState().updateEdgeDrawingStruct(
                             (e) => e..drawingState = DrawingState.started,
                           );
-                          safeSetState(() {});
+                          FFAppState().update(() {});
                         }
                       },
                       onPanEnd: (point) async {
