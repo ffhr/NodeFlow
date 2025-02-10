@@ -315,7 +315,7 @@ class _NFDiagramMinWidgetState extends State<NFDiagramMinWidget> {
                 updateCallback: () => safeSetState(() {}),
                 child: NFToolboxWidget(),
               ),
-              if (false)
+              if (true)
                 Transform.scale(
                   scaleX: _model.transformFactor,
                   scaleY: _model.transformFactor,
