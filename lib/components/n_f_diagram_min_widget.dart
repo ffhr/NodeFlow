@@ -1,6 +1,7 @@
 import '/backend/schema/enums/enums.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/edge_component_widget.dart';
+import '/components/n_f_toolbox_widget.dart';
 import '/components/node_add_form_widget.dart';
 import '/components/node_child_widget.dart';
 import '/components/node_component_widget.dart';
@@ -308,6 +309,14 @@ class _NFDiagramMinWidgetState extends State<NFDiagramMinWidget> {
                     }),
                   );
                 },
+              ),
+              Align(
+                alignment: AlignmentDirectional(1.0, 0.0),
+                child: wrapWithModel(
+                  model: _model.nFToolboxModel,
+                  updateCallback: () => safeSetState(() {}),
+                  child: NFToolboxWidget(),
+                ),
               ),
               if (false)
                 Transform.scale(
