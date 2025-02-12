@@ -51,11 +51,11 @@ class _NodeChildWidgetState extends State<NodeChildWidget> {
         Align(
           alignment: AlignmentDirectional(0.0, 0.0),
           child: Container(
-            width: widget!.node!.size.width - 20,
-            height: widget!.node!.size.width - 20,
+            width: widget!.node!.size.width - 40,
+            height: widget!.node!.size.height - 40,
             decoration: BoxDecoration(
               color: FlutterFlowTheme.of(context).accent1,
-              shape: BoxShape.circle,
+              shape: BoxShape.rectangle,
               border: Border.all(
                 color: FlutterFlowTheme.of(context).primary,
                 width: 2.0,

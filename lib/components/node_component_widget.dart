@@ -76,8 +76,6 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
           Align(
             alignment: AlignmentDirectional(0.0, 0.0),
             child: Container(
-              width: widget!.node?.size?.width,
-              height: widget!.node?.size?.height,
               decoration: BoxDecoration(),
               child: Visibility(
                 visible: widget!.child != null,
