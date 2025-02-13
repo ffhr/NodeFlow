@@ -380,9 +380,7 @@ class _NFDiagramMinWidgetState extends State<NFDiagramMinWidget> {
                         FFAppState().ZoomFactor,
                     height: MediaQuery.sizeOf(context).height /
                         FFAppState().ZoomFactor,
-                    decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).secondaryBackground,
-                    ),
+                    decoration: BoxDecoration(),
                     child:
                         // TODO: needs refactor to correctly draw in scale different to 1.0
                         // Nice to heave feature, current workaround by clicking strat and end socket is good enough.
