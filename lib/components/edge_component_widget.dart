@@ -104,7 +104,7 @@ class _EdgeComponentWidgetState extends State<EdgeComponentWidget> {
                     1.0),
                 lineType: NFLineType.solid,
                 isArrowPointingToStartPoint: false,
-                lineColor: widget!.edge!.color,
+                lineColor: FlutterFlowTheme.of(context).nFDefaultEdgeColor,
                 scaleFactor: 1.0,
                 onTap: () async {
                   // Remove from list
@@ -158,7 +158,7 @@ class _EdgeComponentWidgetState extends State<EdgeComponentWidget> {
                     height: MediaQuery.sizeOf(context).height,
                   )),
               lineType: NFLineType.solid,
-              lineColor: widget!.edge!.color,
+              lineColor: FlutterFlowTheme.of(context).nFDefaultEdgeColor,
               onTap: () async {
                 // Remove from list
                 FFAppState().removeFromEdges(widget!.edge!);
