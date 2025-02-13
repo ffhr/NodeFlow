@@ -146,4 +146,10 @@ class FFAppState extends ChangeNotifier {
   set DefaultZoomFactor(double value) {
     _DefaultZoomFactor = value;
   }
+
+  NFGridType? _CurrentGridType = NFGridType.grid;
+  NFGridType? get CurrentGridType => _CurrentGridType;
+  set CurrentGridType(NFGridType? value) {
+    _CurrentGridType = value;
+  }
 }

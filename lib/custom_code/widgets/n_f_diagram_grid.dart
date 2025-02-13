@@ -29,6 +29,7 @@ class NFDiagramGrid extends StatefulWidget {
     this.lineColor,
     this.backgroundColor,
     this.axisColor,
+    this.gridType,
   });
 
   final double? width;
@@ -36,6 +37,7 @@ class NFDiagramGrid extends StatefulWidget {
   final Color? lineColor;
   final Color? backgroundColor;
   final Color? axisColor;
+  final NFGridType? gridType;
 
   @override
   State<NFDiagramGrid> createState() => _NFDiagramGridState();

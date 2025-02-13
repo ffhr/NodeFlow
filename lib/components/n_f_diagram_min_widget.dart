@@ -114,6 +114,7 @@ class _NFDiagramMinWidgetState extends State<NFDiagramMinWidget> {
                     backgroundColor: FlutterFlowTheme.of(context)
                         .nFDefaultGridBackgroundColor,
                     axisColor: FlutterFlowTheme.of(context).nFDefaultAxisColor,
+                    gridType: FFAppState().CurrentGridType,
                   ),
                 ),
               if (FFAppState().Nodes.isNotEmpty)
