@@ -412,6 +412,13 @@ class _NFDiagramMinWidgetState extends State<NFDiagramMinWidget> {
                     ),
                   ),
                 ),
+              Align(
+                alignment: Alignment(0, 0),
+                child: Transform.scale(
+                    scale: 0.04,
+                    child: Text(
+                        "Current building edge ${FFAppState().CurrentBuildingEdge}")),
+              )
             ],
           ),
         ),
