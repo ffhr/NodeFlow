@@ -1,7 +1,6 @@
 import '/backend/schema/enums/enums.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/edge_component_widget.dart';
-import '/components/n_f_toolbox_widget.dart';
 import '/components/node_add_form_widget.dart';
 import '/components/node_child_widget.dart';
 import '/components/node_component_widget.dart';
@@ -25,16 +24,10 @@ class NFDiagramMinModel extends FlutterFlowModel<NFDiagramMinWidget> {
 
   // Stores action output result for [Custom Action - sortByIsSelected] action in NodeComponent widget.
   List<NodeStruct>? sortedNodes;
-  // Model for NFToolbox component.
-  late NFToolboxModel nFToolboxModel;
 
   @override
-  void initState(BuildContext context) {
-    nFToolboxModel = createModel(context, () => NFToolboxModel());
-  }
+  void initState(BuildContext context) {}
 
   @override
-  void dispose() {
-    nFToolboxModel.dispose();
-  }
+  void dispose() {}
 }

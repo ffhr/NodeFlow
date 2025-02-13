@@ -1,4 +1,5 @@
 import '/components/n_f_diagram_min_widget.dart';
+import '/components/n_f_toolbox_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -46,14 +47,23 @@ class _ZoomableHomePageWidgetState extends State<ZoomableHomePageWidget> {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-        body: Container(
-          width: double.infinity,
-          height: double.infinity,
-          child: custom_widgets.NFZoomableStack(
-            width: double.infinity,
-            height: double.infinity,
-            stackComponent: () => NFDiagramMinWidget(),
-          ),
+        body: Stack(
+          children: [
+            Container(
+              width: double.infinity,
+              height: double.infinity,
+              child: custom_widgets.NFZoomableStack(
+                width: double.infinity,
+                height: double.infinity,
+                stackComponent: () => NFDiagramMinWidget(),
+              ),
+            ),
+            wrapWithModel(
+              model: _model.nFToolboxModel,
+              updateCallback: () => safeSetState(() {}),
+              child: NFToolboxWidget(),
+            ),
+          ],
         ),
       ),
     );
