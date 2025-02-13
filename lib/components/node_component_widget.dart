@@ -235,15 +235,7 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                         FFAppState().update(() {});
                       }
                     },
-                    onPanDown: (point) async {
-                      // Set node target input socket
-                      FFAppState().updateCurrentBuildingEdgeStruct(
-                        (e) => e
-                          ..targetNodeId = widget!.node?.id
-                          ..targetInputSocketIndex = inputsListIndex,
-                      );
-                      _model.updatePage(() {});
-                    },
+                    onPanDown: (point) async {},
                     onPanEnd: (point) async {
                       // Set node source output socket
                       FFAppState().updateCurrentBuildingEdgeStruct(
@@ -400,15 +392,7 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                             FFAppState().update(() {});
                           }
                         },
-                        onPanDown: (point) async {
-                          // Set node source output socket
-                          FFAppState().updateCurrentBuildingEdgeStruct(
-                            (e) => e
-                              ..sourceNodeId = widget!.node?.id
-                              ..sourceOutputSocketIndex = outputsListIndex,
-                          );
-                          _model.updatePage(() {});
-                        },
+                        onPanDown: (point) async {},
                         onPanEnd: (point) async {
                           // Set node target input socket
                           FFAppState().updateCurrentBuildingEdgeStruct(
