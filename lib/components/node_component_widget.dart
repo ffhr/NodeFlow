@@ -253,16 +253,26 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                           ..sourceNodeId = functions.getSourceNodeIdFromPoint(
                               point,
                               FFAppState().Nodes.toList(),
-                              FFAppState().ViewportCenter,
-                              FFAppState().ZoomFactor,
+                              NFOffsetStruct(
+                                offsetX: -FFAppState().ViewportCenter.offsetX,
+                                offsetY: -FFAppState().ViewportCenter.offsetY,
+                              ),
+                              FFAppState().ZoomFactor /
+                                  FFAppState().DefaultZoomFactor,
                               MediaQuery.sizeOf(context).width,
                               MediaQuery.sizeOf(context).height)
                           ..sourceOutputSocketIndex =
                               functions.getSourceOutputIndexFromPoint(
                                   point,
                                   FFAppState().Nodes.toList(),
-                                  FFAppState().ViewportCenter,
-                                  FFAppState().ZoomFactor,
+                                  NFOffsetStruct(
+                                    offsetX:
+                                        -FFAppState().ViewportCenter.offsetX,
+                                    offsetY:
+                                        -FFAppState().ViewportCenter.offsetY,
+                                  ),
+                                  FFAppState().ZoomFactor /
+                                      FFAppState().DefaultZoomFactor,
                                   MediaQuery.sizeOf(context).width,
                                   MediaQuery.sizeOf(context).height),
                       );
@@ -411,16 +421,32 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                                   functions.getTargetNodeIdFromPoint(
                                       point,
                                       FFAppState().Nodes.toList(),
-                                      FFAppState().ViewportCenter,
-                                      FFAppState().ZoomFactor,
+                                      NFOffsetStruct(
+                                        offsetX: -FFAppState()
+                                            .ViewportCenter
+                                            .offsetX,
+                                        offsetY: -FFAppState()
+                                            .ViewportCenter
+                                            .offsetY,
+                                      ),
+                                      FFAppState().ZoomFactor /
+                                          FFAppState().DefaultZoomFactor,
                                       MediaQuery.sizeOf(context).width,
                                       MediaQuery.sizeOf(context).height)
                               ..targetInputSocketIndex =
                                   functions.getTargetInputIndexFromPoint(
                                       point,
                                       FFAppState().Nodes.toList(),
-                                      FFAppState().ViewportCenter,
-                                      FFAppState().ZoomFactor,
+                                      NFOffsetStruct(
+                                        offsetX: -FFAppState()
+                                            .ViewportCenter
+                                            .offsetX,
+                                        offsetY: -FFAppState()
+                                            .ViewportCenter
+                                            .offsetY,
+                                      ),
+                                      FFAppState().ZoomFactor /
+                                          FFAppState().DefaultZoomFactor,
                                       MediaQuery.sizeOf(context).width,
                                       MediaQuery.sizeOf(context).height),
                           );

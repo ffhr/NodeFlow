@@ -2,6 +2,7 @@ import '/backend/schema/enums/enums.dart';
 import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -94,12 +95,24 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
                     (e) => e
                       ..drawingState = DrawingState.started
                       ..drawingStartPoint = NFPointStruct(
-                        positionX: details.globalPosition.dx,
-                        positionY: details.globalPosition.dy,
+                        positionX: functions.scaledGlobalPosition(
+                            details.globalPosition.dx,
+                            FFAppState().DefaultZoomFactor,
+                            FFAppState().ZoomFactor),
+                        positionY: functions.scaledGlobalPosition(
+                            details.globalPosition.dy,
+                            FFAppState().DefaultZoomFactor,
+                            FFAppState().ZoomFactor),
                       )
                       ..drawingEndPoint = NFPointStruct(
-                        positionX: details.globalPosition.dx,
-                        positionY: details.globalPosition.dy,
+                        positionX: functions.scaledGlobalPosition(
+                            details.globalPosition.dx,
+                            FFAppState().DefaultZoomFactor,
+                            FFAppState().ZoomFactor),
+                        positionY: functions.scaledGlobalPosition(
+                            details.globalPosition.dy,
+                            FFAppState().DefaultZoomFactor,
+                            FFAppState().ZoomFactor),
                       ),
                   );
                   FFAppState().update(() {});
@@ -132,8 +145,14 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
                   (e) => e
                     ..drawingState = DrawingState.active
                     ..drawingEndPoint = NFPointStruct(
-                      positionX: details.globalPosition.dx,
-                      positionY: details.globalPosition.dy,
+                      positionX: functions.scaledGlobalPosition(
+                          details.globalPosition.dx,
+                          FFAppState().DefaultZoomFactor,
+                          FFAppState().ZoomFactor),
+                      positionY: functions.scaledGlobalPosition(
+                          details.globalPosition.dy,
+                          FFAppState().DefaultZoomFactor,
+                          FFAppState().ZoomFactor),
                     ),
                 );
                 FFAppState().update(() {});
@@ -179,12 +198,24 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
                     (e) => e
                       ..drawingState = DrawingState.started
                       ..drawingStartPoint = NFPointStruct(
-                        positionX: details.globalPosition.dx,
-                        positionY: details.globalPosition.dy,
+                        positionX: functions.scaledGlobalPosition(
+                            details.globalPosition.dx,
+                            FFAppState().DefaultZoomFactor,
+                            FFAppState().ZoomFactor),
+                        positionY: functions.scaledGlobalPosition(
+                            details.globalPosition.dy,
+                            FFAppState().DefaultZoomFactor,
+                            FFAppState().ZoomFactor),
                       )
                       ..drawingEndPoint = NFPointStruct(
-                        positionX: details.globalPosition.dx,
-                        positionY: details.globalPosition.dy,
+                        positionX: functions.scaledGlobalPosition(
+                            details.globalPosition.dx,
+                            FFAppState().DefaultZoomFactor,
+                            FFAppState().ZoomFactor),
+                        positionY: functions.scaledGlobalPosition(
+                            details.globalPosition.dy,
+                            FFAppState().DefaultZoomFactor,
+                            FFAppState().ZoomFactor),
                       ),
                   );
                   FFAppState().update(() {});
@@ -217,8 +248,14 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
                   (e) => e
                     ..drawingState = DrawingState.active
                     ..drawingEndPoint = NFPointStruct(
-                      positionX: details.globalPosition.dx,
-                      positionY: details.globalPosition.dy,
+                      positionX: functions.scaledGlobalPosition(
+                          details.globalPosition.dx,
+                          FFAppState().DefaultZoomFactor,
+                          FFAppState().ZoomFactor),
+                      positionY: functions.scaledGlobalPosition(
+                          details.globalPosition.dy,
+                          FFAppState().DefaultZoomFactor,
+                          FFAppState().ZoomFactor),
                     ),
                 );
                 FFAppState().update(() {});

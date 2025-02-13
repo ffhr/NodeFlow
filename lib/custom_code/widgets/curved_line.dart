@@ -32,6 +32,8 @@ class CurvedLinePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     var path = getPath();
+    canvas.save();
+    canvas.scale(0.01);
     if (lineType == NFLineType.solid) {
       // Draw the path on the canvas
       final paint = Paint()
@@ -65,6 +67,7 @@ class CurvedLinePainter extends CustomPainter {
     }
 
     drawArrowHead(canvas, path);
+    canvas.restore();
   }
 
   Path getPath() {

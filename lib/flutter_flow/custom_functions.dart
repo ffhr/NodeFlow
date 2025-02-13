@@ -157,6 +157,10 @@ NFOffsetStruct virtualToAbsolute(
   double absoluteY = (viewportSize.height / 2) +
       (nodePosition.offsetY - viewportCenter.offsetY) * zoomFactor;
 
+  // Adapt position according to viewport and scale.
+  absoluteX = absoluteX - (1 - zoomFactor) * viewportCenter.offsetX;
+  absoluteY = absoluteY - (1 - zoomFactor) * viewportCenter.offsetY;
+
   return NFOffsetStruct(offsetX: absoluteX, offsetY: absoluteY);
 }
 
@@ -325,12 +329,13 @@ NodeStruct? getNodeFromPoint(
 ) {
   for (var index = nodes.length - 1; index >= 0; index--) {
     var node = nodes[index];
+
     var nodePosition = virtualToAbsolute(node.virtualPosition, viewportCenter,
         zoomFactor, NFSizeStruct(width: screenWidth, height: screenHeight));
 
     var nodeSize = node.size;
-    var nodeWidth = nodeSize.width;
-    var nodeHeight = nodeSize.height;
+    var nodeWidth = nodeSize.width * zoomFactor;
+    var nodeHeight = nodeSize.height * zoomFactor;
 
     var nodeTopLeftX = nodePosition.offsetX - nodeWidth / 2;
     var nodeTopLeftY = nodePosition.offsetY - nodeHeight / 2;
@@ -357,6 +362,7 @@ int? getSourceOutputIndexFromPoint(
 ) {
   var node = getNodeFromPoint(
       point, nodes, viewportCenter, zoomFactor, screenWidth, screenHeight);
+
   if (node != null) {
     for (var index = 0; index < node.outputs.length; index++) {
       var outputSocketPosition = calculateSocketPosition(
@@ -406,6 +412,7 @@ int? getTargetInputIndexFromPoint(
 ) {
   var node = getNodeFromPoint(
       point, nodes, viewportCenter, zoomFactor, screenWidth, screenHeight);
+
   if (node != null) {
     for (var index = 0; index < node.inputs.length; index++) {
       var inputSocketPosition = calculateSocketPosition(
@@ -462,36 +469,44 @@ bool edgesContainsEdge(
 
 List<NodeInputSocketStruct> createNodeInputs(int count) {
   List<NodeInputSocketStruct> list = [];
-  for (var i = 0; i < count; i++) {
-    var socket = NodeInputSocketStruct(
-        socket: NodeSocketStruct(
-      id: random_data.randomString(
-        6,
-        6,
-        true,
-        false,
-        false,
-      ),
-    ));
-    list.add(socket);
-  }
+  // for (var i = 0; i < count; i++) {
+  //   var socket = NodeInputSocketStruct(
+  //       socket: NodeSocketStruct(
+  //     id: random_data.randomString(
+  //       6,
+  //       6,
+  //       true,
+  //       false,
+  //       false,
+  //     ),
+  //   ));
+  //   list.add(socket);
+  // }
   return list;
 }
 
 List<NodeOutputSocketStruct> createNodeOutputs(int count) {
   List<NodeOutputSocketStruct> list = [];
-  for (var i = 0; i < count; i++) {
-    var socket = NodeOutputSocketStruct(
-        socket: NodeSocketStruct(
-      id: random_data.randomString(
-        6,
-        6,
-        true,
-        false,
-        false,
-      ),
-    ));
-    list.add(socket);
-  }
+  // for (var i = 0; i < count; i++) {
+  //   var socket = NodeOutputSocketStruct(
+  //       socket: NodeSocketStruct(
+  //     id: random_data.randomString(
+  //       6,
+  //       6,
+  //       true,
+  //       false,
+  //       false,
+  //     ),
+  //   ));
+  //   list.add(socket);
+  // }
   return list;
+}
+
+double scaledGlobalPosition(
+  double globalPositionCoordinate,
+  double defaultZoomFactor,
+  double zoomFactor,
+) {
+  return globalPositionCoordinate * defaultZoomFactor / zoomFactor;
 }
