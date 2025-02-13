@@ -315,10 +315,18 @@ class _NFDiagramMinWidgetState extends State<NFDiagramMinWidget> {
                 updateCallback: () => safeSetState(() {}),
                 child: NFToolboxWidget(),
               ),
-              if (false)
-                Transform.scale(
-                  scaleX: _model.transformFactor,
-                  scaleY: _model.transformFactor,
+              if ((FFAppState().EdgeDrawing.drawingState ==
+                      DrawingState.started) ||
+                  (FFAppState().EdgeDrawing.drawingState ==
+                      DrawingState.active))
+                Container(
+                  width: MediaQuery.sizeOf(context).width /
+                      FFAppState().ZoomFactor,
+                  height: MediaQuery.sizeOf(context).height /
+                      FFAppState().ZoomFactor,
+                  decoration: BoxDecoration(
+                    color: FlutterFlowTheme.of(context).secondaryBackground,
+                  ),
                   child:
                       // TODO: needs refactor to correctly draw in scale different to 1.0
                       // Nice to heave feature, current workaround by clicking strat and end socket is good enough.
@@ -327,22 +335,86 @@ class _NFDiagramMinWidgetState extends State<NFDiagramMinWidget> {
                             DrawingState.started) ||
                         (FFAppState().EdgeDrawing.drawingState ==
                             DrawingState.active),
-                    child: Container(
-                      width: double.infinity,
-                      height: double.infinity,
-                      child: custom_widgets.CurvedLine(
+                    child: Align(
+                      alignment: AlignmentDirectional(
+                          valueOrDefault<double>(
+                            functions
+                                .virtualToRelativeMinimized(
+                                    NFOffsetStruct(
+                                      offsetX:
+                                          -FFAppState().ViewportCenter.offsetX,
+                                      offsetY:
+                                          -FFAppState().ViewportCenter.offsetY,
+                                    ),
+                                    NFSizeStruct(
+                                      width: MediaQuery.sizeOf(context).width /
+                                          FFAppState().ZoomFactor,
+                                      height:
+                                          MediaQuery.sizeOf(context).height /
+                                              FFAppState().ZoomFactor,
+                                    ),
+                                    NFOffsetStruct(
+                                      offsetX: 0.0,
+                                      offsetY: 0.0,
+                                    ),
+                                    FFAppState().DefaultZoomFactor /
+                                        FFAppState().ZoomFactor,
+                                    NFSizeStruct(
+                                      width: MediaQuery.sizeOf(context).width,
+                                      height: MediaQuery.sizeOf(context).height,
+                                    ),
+                                    0.01)
+                                .offsetX,
+                            0.0,
+                          ),
+                          valueOrDefault<double>(
+                            functions
+                                .virtualToRelativeMinimized(
+                                    NFOffsetStruct(
+                                      offsetX:
+                                          -FFAppState().ViewportCenter.offsetX,
+                                      offsetY:
+                                          -FFAppState().ViewportCenter.offsetY,
+                                    ),
+                                    NFSizeStruct(
+                                      width: MediaQuery.sizeOf(context).width /
+                                          FFAppState().ZoomFactor,
+                                      height:
+                                          MediaQuery.sizeOf(context).height /
+                                              FFAppState().ZoomFactor,
+                                    ),
+                                    NFOffsetStruct(
+                                      offsetX: 0.0,
+                                      offsetY: 0.0,
+                                    ),
+                                    FFAppState().DefaultZoomFactor /
+                                        FFAppState().ZoomFactor,
+                                    NFSizeStruct(
+                                      width: MediaQuery.sizeOf(context).width,
+                                      height: MediaQuery.sizeOf(context).height,
+                                    ),
+                                    0.01)
+                                .offsetY,
+                            0.0,
+                          )),
+                      child: Container(
                         width: double.infinity,
                         height: double.infinity,
-                        start: FFAppState().EdgeDrawing.drawingStartPoint,
-                        end: FFAppState().EdgeDrawing.drawingEndPoint,
-                        lineType: NFLineType.dotted,
-                        isArrowPointingToStartPoint: FFAppState()
-                                    .CurrentBuildingEdge
-                                    .targetNodeId !=
-                                null &&
-                            FFAppState().CurrentBuildingEdge.targetNodeId != '',
-                        lineColor: FlutterFlowTheme.of(context).primaryText,
-                        onTap: () async {},
+                        child: custom_widgets.CurvedLine(
+                          width: double.infinity,
+                          height: double.infinity,
+                          start: FFAppState().EdgeDrawing.drawingStartPoint,
+                          end: FFAppState().EdgeDrawing.drawingEndPoint,
+                          lineType: NFLineType.dotted,
+                          isArrowPointingToStartPoint: FFAppState()
+                                      .CurrentBuildingEdge
+                                      .targetNodeId !=
+                                  null &&
+                              FFAppState().CurrentBuildingEdge.targetNodeId !=
+                                  '',
+                          lineColor: FlutterFlowTheme.of(context).primaryText,
+                          onTap: () async {},
+                        ),
                       ),
                     ),
                   ),

@@ -140,4 +140,10 @@ class FFAppState extends ChangeNotifier {
   void insertAtIndexInEdges(int index, NodeEdgeStruct value) {
     Edges.insert(index, value);
   }
+
+  double _DefaultZoomFactor = 100.0;
+  double get DefaultZoomFactor => _DefaultZoomFactor;
+  set DefaultZoomFactor(double value) {
+    _DefaultZoomFactor = value;
+  }
 }
