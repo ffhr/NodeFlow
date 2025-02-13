@@ -398,7 +398,8 @@ class _NFDiagramMinWidgetState extends State<NFDiagramMinWidget> {
                                   null &&
                               FFAppState().CurrentBuildingEdge.targetNodeId !=
                                   '',
-                          lineColor: FlutterFlowTheme.of(context).primaryText,
+                          lineColor:
+                              FlutterFlowTheme.of(context).nFDefaultEdgeColor,
                           scaleFactor: 0.01,
                           onTap: () async {},
                         ),
