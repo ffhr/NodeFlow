@@ -25,15 +25,18 @@ class CurvedLinePainter extends CustomPainter {
   final NFLineType lineType;
   final bool isArrowPointingToStartPoint;
   final Color lineColor;
+  final double scaleFactor;
 
   CurvedLinePainter(this.start, this.end, this.lineType,
-      this.isArrowPointingToStartPoint, this.lineColor);
+      this.isArrowPointingToStartPoint, this.lineColor, this.scaleFactor);
 
   @override
   void paint(Canvas canvas, Size size) {
     var path = getPath();
     canvas.save();
-    canvas.scale(0.01);
+    if (scaleFactor != 1.0) {
+      canvas.scale(scaleFactor);
+    }
     if (lineType == NFLineType.solid) {
       // Draw the path on the canvas
       final paint = Paint()
@@ -285,11 +288,12 @@ class _CurvedLineState extends State<CurvedLine> {
   @override
   void initState() {
     _painter = CurvedLinePainter(
-        Offset(widget.start.positionX, widget.start.positionY),
-        Offset(widget.end.positionX, widget.end.positionY),
-        widget.lineType,
-        widget.isArrowPointingToStartPoint,
-        widget.lineColor);
+      Offset(widget.start.positionX, widget.start.positionY),
+      Offset(widget.end.positionX, widget.end.positionY),
+      widget.lineType,
+      widget.isArrowPointingToStartPoint,
+      widget.lineColor,
+    );
     super.initState();
   }
 
