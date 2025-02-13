@@ -417,6 +417,7 @@ int? getTargetInputIndexFromPoint(
     for (var index = 0; index < node.inputs.length; index++) {
       var inputSocketPosition = calculateSocketPosition(
           node.virtualPosition, node.size, index, true, node.inputs.length);
+
       var inputSocketAbsolutePosition = virtualToAbsolute(
           inputSocketPosition,
           viewportCenter,
@@ -469,37 +470,37 @@ bool edgesContainsEdge(
 
 List<NodeInputSocketStruct> createNodeInputs(int count) {
   List<NodeInputSocketStruct> list = [];
-  // for (var i = 0; i < count; i++) {
-  //   var socket = NodeInputSocketStruct(
-  //       socket: NodeSocketStruct(
-  //     id: random_data.randomString(
-  //       6,
-  //       6,
-  //       true,
-  //       false,
-  //       false,
-  //     ),
-  //   ));
-  //   list.add(socket);
-  // }
+  for (var i = 0; i < count; i++) {
+    var socket = NodeInputSocketStruct(
+        socket: NodeSocketStruct(
+      id: random_data.randomString(
+        6,
+        6,
+        true,
+        false,
+        false,
+      ),
+    ));
+    list.add(socket);
+  }
   return list;
 }
 
 List<NodeOutputSocketStruct> createNodeOutputs(int count) {
   List<NodeOutputSocketStruct> list = [];
-  // for (var i = 0; i < count; i++) {
-  //   var socket = NodeOutputSocketStruct(
-  //       socket: NodeSocketStruct(
-  //     id: random_data.randomString(
-  //       6,
-  //       6,
-  //       true,
-  //       false,
-  //       false,
-  //     ),
-  //   ));
-  //   list.add(socket);
-  // }
+  for (var i = 0; i < count; i++) {
+    var socket = NodeOutputSocketStruct(
+        socket: NodeSocketStruct(
+      id: random_data.randomString(
+        6,
+        6,
+        true,
+        false,
+        false,
+      ),
+    ));
+    list.add(socket);
+  }
   return list;
 }
 

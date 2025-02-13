@@ -283,7 +283,7 @@ class CurvedLine extends StatefulWidget {
 
 class _CurvedLineState extends State<CurvedLine> {
   CurvedLinePainter _painter = CurvedLinePainter(
-      Offset(0, 0), Offset(0, 0), NFLineType.solid, false, Colors.black);
+      Offset(0, 0), Offset(0, 0), NFLineType.solid, false, Colors.black, 1.0);
 
   @override
   void initState() {
@@ -293,6 +293,7 @@ class _CurvedLineState extends State<CurvedLine> {
       widget.lineType,
       widget.isArrowPointingToStartPoint,
       widget.lineColor,
+      widget.scaleFactor,
     );
     super.initState();
   }
@@ -305,7 +306,8 @@ class _CurvedLineState extends State<CurvedLine> {
         Offset(widget.end.positionX, widget.end.positionY),
         widget.lineType,
         widget.isArrowPointingToStartPoint,
-        widget.lineColor);
+        widget.lineColor,
+        widget.scaleFactor);
   }
 
   @override
