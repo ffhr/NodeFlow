@@ -262,6 +262,7 @@ class CurvedLine extends StatefulWidget {
     required this.lineType,
     required this.isArrowPointingToStartPoint,
     required this.lineColor,
+    this.scaleFactor,
   });
 
   final double? width;
@@ -272,6 +273,7 @@ class CurvedLine extends StatefulWidget {
   final NFLineType lineType;
   final bool isArrowPointingToStartPoint;
   final Color lineColor;
+  final double? scaleFactor;
 
   @override
   State<CurvedLine> createState() => _CurvedLineState();
