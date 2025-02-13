@@ -92,10 +92,12 @@ class CurvedLoopPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant CurvedLoopPainter oldDelegate) {
-    if (oldDelegate.start == start && oldDelegate.end == end) {
-      return false;
-    }
+    // This will trigger changing theme.
     return true;
+    // if (oldDelegate.start == start && oldDelegate.end == end) {
+    //   return false;
+    // }
+    // return true;
   }
 
   Path getPath() {

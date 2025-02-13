@@ -170,12 +170,14 @@ class CurvedLinePainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant CurvedLinePainter oldDelegate) {
-    if (oldDelegate.start == start && oldDelegate.end == end) {
-      //print("shouldRepaint: false");
-      return false;
-    }
-    //print("shouldRepaint: true");
+    // This will trigger changing of theme.
     return true;
+    // if (oldDelegate.start == start && oldDelegate.end == end) {
+    //   //print("shouldRepaint: false");
+    //   return false;
+    // }
+    // //print("shouldRepaint: true");
+    // return true;
   }
 
   LineDirection getLineDirection(Offset start, Offset end) {
