@@ -41,8 +41,6 @@ class _NFToolboxWidgetState extends State<NFToolboxWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return Padding(
       padding: EdgeInsets.all(40.0),
       child: Column(
@@ -66,8 +64,6 @@ class _NFToolboxWidgetState extends State<NFToolboxWidget> {
                 // Set light theme
                 setDarkModeSetting(context, ThemeMode.light);
               }
-              FFAppState().DefaultZoomFactor = FFAppState().DefaultZoomFactor;
-              FFAppState().update(() {});
             },
           ),
         ],
