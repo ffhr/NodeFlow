@@ -52,16 +52,19 @@ class _ZoomableHomePageWidgetState extends State<ZoomableHomePageWidget> {
             Container(
               width: double.infinity,
               height: double.infinity,
-              child: custom_widgets.ZoomableStack(
+              child: custom_widgets.NFZoomableStack(
                 width: double.infinity,
                 height: double.infinity,
                 stackComponent: () => NFDiagramMinWidget(),
               ),
             ),
-            wrapWithModel(
-              model: _model.nFToolboxModel,
-              updateCallback: () => safeSetState(() {}),
-              child: NFToolboxWidget(),
+            Align(
+              alignment: AlignmentDirectional(1.0, 0.0),
+              child: wrapWithModel(
+                model: _model.nFToolboxModel,
+                updateCallback: () => safeSetState(() {}),
+                child: NFToolboxWidget(),
+              ),
             ),
           ],
         ),
