@@ -231,11 +231,7 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                         }
                       } else {
                         // Unset
-                        FFAppState().updateCurrentBuildingEdgeStruct(
-                          (e) => e
-                            ..targetNodeId = null
-                            ..targetInputSocketIndex = null,
-                        );
+                        FFAppState().CurrentBuildingEdge = NodeEdgeStruct();
                         FFAppState().update(() {});
                       }
                     },
@@ -400,11 +396,7 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                             }
                           } else {
                             // Unset
-                            FFAppState().updateCurrentBuildingEdgeStruct(
-                              (e) => e
-                                ..sourceNodeId = null
-                                ..sourceOutputSocketIndex = null,
-                            );
+                            FFAppState().CurrentBuildingEdge = NodeEdgeStruct();
                             FFAppState().update(() {});
                           }
                         },
