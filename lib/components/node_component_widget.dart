@@ -218,6 +218,7 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                             FFAppState().update(() {});
                             // Unset
                             FFAppState().CurrentBuildingEdge = NodeEdgeStruct();
+                            FFAppState().update(() {});
                           } else {
                             // Add building edge to list
                             FFAppState()
@@ -225,6 +226,7 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                             FFAppState().update(() {});
                             // Unset
                             FFAppState().CurrentBuildingEdge = NodeEdgeStruct();
+                            FFAppState().update(() {});
                           }
                         }
                       } else {
@@ -384,6 +386,7 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                                 // Unset
                                 FFAppState().CurrentBuildingEdge =
                                     NodeEdgeStruct();
+                                FFAppState().update(() {});
                               } else {
                                 // Add building edge to list
                                 FFAppState().addToEdges(
@@ -392,6 +395,7 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                                 // Unset
                                 FFAppState().CurrentBuildingEdge =
                                     NodeEdgeStruct();
+                                FFAppState().update(() {});
                               }
                             }
                           } else {
