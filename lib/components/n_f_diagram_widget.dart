@@ -6,7 +6,6 @@ import '/components/node_component_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/custom_code/actions/index.dart' as actions;
-import '/custom_code/widgets/index.dart' as custom_widgets;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -239,25 +238,6 @@ class _NFDiagramWidgetState extends State<NFDiagramWidget> {
                 );
               },
             ),
-            if ((FFAppState().EdgeDrawing.drawingState ==
-                    DrawingState.started) ||
-                (FFAppState().EdgeDrawing.drawingState == DrawingState.active))
-              Container(
-                width: double.infinity,
-                height: double.infinity,
-                child: custom_widgets.CurvedLine(
-                  width: double.infinity,
-                  height: double.infinity,
-                  start: FFAppState().EdgeDrawing.drawingStartPoint,
-                  end: FFAppState().EdgeDrawing.drawingEndPoint,
-                  lineType: NFLineType.dotted,
-                  isArrowPointingToStartPoint:
-                      FFAppState().CurrentBuildingEdge.targetNodeId != null &&
-                          FFAppState().CurrentBuildingEdge.targetNodeId != '',
-                  lineColor: FlutterFlowTheme.of(context).primaryText,
-                  onTap: () async {},
-                ),
-              ),
           ],
         ),
       ),
