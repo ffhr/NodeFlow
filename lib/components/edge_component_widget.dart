@@ -105,6 +105,7 @@ class _EdgeComponentWidgetState extends State<EdgeComponentWidget> {
                 lineType: NFLineType.solid,
                 isArrowPointingToStartPoint: false,
                 lineColor: widget!.edge!.color,
+                scaleFactor: 1.0,
                 onTap: () async {
                   // Remove from list
                   FFAppState().removeFromEdges(widget!.edge!);

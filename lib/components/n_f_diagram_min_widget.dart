@@ -405,6 +405,7 @@ class _NFDiagramMinWidgetState extends State<NFDiagramMinWidget> {
                               FFAppState().CurrentBuildingEdge.targetNodeId !=
                                   '',
                           lineColor: FlutterFlowTheme.of(context).primaryText,
+                          scaleFactor: 0.01,
                           onTap: () async {},
                         ),
                       ),
