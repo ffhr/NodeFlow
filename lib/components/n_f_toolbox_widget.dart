@@ -81,12 +81,12 @@ class _NFToolboxWidgetState extends State<NFToolboxWidget> {
             onPressed: () async {
               if (FFAppState().CurrentGridType == NFGridType.grid) {
                 FFAppState().CurrentGridType = NFGridType.dots;
-                safeSetState(() {});
+                FFAppState().update(() {});
                 return;
               }
               if (FFAppState().CurrentGridType == NFGridType.dots) {
                 FFAppState().CurrentGridType = NFGridType.grid;
-                safeSetState(() {});
+                FFAppState().update(() {});
                 return;
               }
             },
