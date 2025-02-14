@@ -15,10 +15,6 @@ import 'dart:math';
 
 import 'index.dart'; // Imports other custom widgets
 
-import 'dart:math';
-
-import 'index.dart'; // Imports other custom widgets
-
 class NFDiagramGrid extends StatefulWidget {
   const NFDiagramGrid({
     super.key,
@@ -43,16 +39,23 @@ class NFDiagramGrid extends StatefulWidget {
 
 class _NFDiagramGridState extends State<NFDiagramGrid> {
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height,
       color: widget.backgroundColor,
-      child: CustomPaint(
-        size: Size.infinite,
-        painter: NFGridPainter(
-            FFAppState().ZoomFactor, widget.lineColor, widget.axisColor,
-            offsetX: 0.0, offsetY: 0.0),
+      child: RepaintBoundary(
+        child: CustomPaint(
+          size: Size.infinite,
+          painter: NFGridPainter(FFAppState().ZoomFactor, widget.lineColor,
+              widget.axisColor, widget.gridType,
+              offsetX: 0.0, offsetY: 0.0),
+        ),
       ),
     );
   }
@@ -64,18 +67,28 @@ class NFGridPainter extends CustomPainter {
   final double offsetY;
   final Color? lineColor;
   final Color? axisColor;
+  final NFGridType? gridType;
 
-  NFGridPainter(this.zoom, this.lineColor, this.axisColor,
+  NFGridPainter(this.zoom, this.lineColor, this.axisColor, this.gridType,
       {this.offsetX = 0.0, this.offsetY = 0.0});
 
   @override
   void paint(Canvas canvas, Size size) {
+    if (gridType == NFGridType.grid) {
+      _drawGrid(canvas, size);
+    }
+    if (gridType == NFGridType.dots) {
+      _drawDots(canvas, size);
+    }
+  }
+
+  void _drawGrid(Canvas canvas, Size size) {
     final Paint paint = Paint()
       ..color = lineColor ?? Colors.transparent
       ..style = PaintingStyle.stroke;
 
-    double centerX = (size.width / 2) + offsetX;
-    double centerY = (size.height / 2) + offsetY;
+    double centerX = (size.width / 2);
+    double centerY = (size.height / 2);
 
     for (var multiplyFactor = 1; multiplyFactor < 100; multiplyFactor *= 4) {
       double cellSize = size.width / 20000 * multiplyFactor;
@@ -92,6 +105,67 @@ class NFGridPainter extends CustomPainter {
 
       for (double j = startY; j <= size.height; j += cellSize) {
         canvas.drawLine(Offset(0, j), Offset(size.width, j), paint);
+      }
+    }
+
+    // Draw X and Y axes
+    final axisPaint = Paint()..color = axisColor ?? Colors.transparent;
+
+    canvas.drawLine(
+      Offset(centerX, 0),
+      Offset(centerX, size.height),
+      axisPaint,
+    ); // Y-Axis
+
+    canvas.drawLine(
+      Offset(0, centerY),
+      Offset(size.width, centerY),
+      axisPaint,
+    ); // X-Axis
+  }
+
+  void _drawDots(Canvas canvas, Size size) {
+    final Paint paint = Paint()
+      ..color = lineColor ?? Colors.transparent
+      ..style = PaintingStyle.fill;
+
+    double centerX = (size.width / 2);
+    double centerY = (size.height / 2);
+
+    var zoomFactor = FFAppState().ZoomFactor;
+    var viewportOffsetX = FFAppState().ViewportCenter.offsetX;
+    var viewportOffsetY = FFAppState().ViewportCenter.offsetY;
+
+    var visibleStartAbsoluteX =
+        (((size.width * zoomFactor) / 2) - size.width / 2 - viewportOffsetX) /
+            zoomFactor;
+    var visibleEndAbsoluteX =
+        (((size.width * zoomFactor) / 2) + size.width / 2 - viewportOffsetX) /
+            zoomFactor;
+
+    var visibleStartAbsoluteY =
+        (((size.height * zoomFactor) / 2) - size.height / 2 - viewportOffsetY) /
+            zoomFactor;
+    var visibleEndAbsoluteY =
+        (((size.height * zoomFactor) / 2) + size.height / 2 - viewportOffsetY) /
+            zoomFactor;
+
+    double cellSize = size.width / 20000 * 10;
+    double startX = (centerX % cellSize) - cellSize;
+    double startY = (centerY % cellSize) - cellSize;
+
+    for (double i = startX; i <= size.width; i += cellSize) {
+      for (double j = startY; j <= size.height; j += cellSize) {
+        // Draw dots at grid intersections
+        if (i >= visibleStartAbsoluteX && i <= visibleEndAbsoluteX) {
+          if (j >= visibleStartAbsoluteY && j <= visibleEndAbsoluteY) {
+            canvas.drawCircle(
+              Offset(i, j),
+              0.02, // Fixed dot size
+              paint,
+            );
+          }
+        }
       }
     }
 
