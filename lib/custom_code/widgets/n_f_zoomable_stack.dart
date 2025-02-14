@@ -274,6 +274,11 @@ class _NFZoomableStackState extends State<NFZoomableStack>
     offsetXFromWindowCenter = offsetX;
     offsetYFromWindowCenter = offsetY;
 
+    FFAppState().ViewCenter =
+        NFOffsetStruct(offsetX: viewerCenterX, offsetY: viewerCenterY);
+
+    // print('View center x ${FFAppState().ViewCenter.offsetX}');
+    // print('View center y ${FFAppState().ViewCenter.offsetY}');
     FFAppState().ViewportCenter = NFOffsetStruct(
       offsetX: offsetXFromWindowCenter,
       offsetY: offsetYFromWindowCenter,

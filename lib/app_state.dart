@@ -43,6 +43,13 @@ class FFAppState extends ChangeNotifier {
     _ViewportCenter = value;
   }
 
+  NFOffsetStruct _ViewCenter = NFOffsetStruct.fromSerializableMap(
+      jsonDecode('{\"offset_x\":\"0\",\"offset_y\":\"0\"}'));
+  NFOffsetStruct get ViewCenter => _ViewCenter;
+  set ViewCenter(NFOffsetStruct value) {
+    _ViewCenter = value;
+  }
+
   void updateViewportCenterStruct(Function(NFOffsetStruct) updateFn) {
     updateFn(_ViewportCenter);
   }
