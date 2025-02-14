@@ -99,7 +99,9 @@ class _NFDiagramMinWidgetState extends State<NFDiagramMinWidget> {
           );
         },
         child: Container(
-          decoration: BoxDecoration(),
+          decoration: BoxDecoration(
+            color: Color(0x7AEE8B60),
+          ),
           child: Stack(
             children: [
               if (true)
