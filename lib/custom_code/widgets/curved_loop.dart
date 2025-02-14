@@ -70,28 +70,28 @@ class CurvedLoopPainter extends CustomPainter {
     }
 
     // Only for debugging purposes
-    final topRightNodeCorner = Offset(
-        sourceNodeAbsolutePosition.offsetX + sourceNodeSize.width / 2,
-        sourceNodeAbsolutePosition.offsetY - sourceNodeSize.height / 2);
-    final topLeftNodeCorner = Offset(
-        sourceNodeAbsolutePosition.offsetX - sourceNodeSize.width / 2,
-        sourceNodeAbsolutePosition.offsetY - sourceNodeSize.height / 2);
-    final bottomLeftNodeCorner = Offset(
-        sourceNodeAbsolutePosition.offsetX - sourceNodeSize.width / 2,
-        sourceNodeAbsolutePosition.offsetY + sourceNodeSize.height / 2);
-    final bottomRightNodeCorner = Offset(
-        sourceNodeAbsolutePosition.offsetX + sourceNodeSize.width / 2,
-        sourceNodeAbsolutePosition.offsetY + sourceNodeSize.height / 2);
+    // final topRightNodeCorner = Offset(
+    //     sourceNodeAbsolutePosition.offsetX + sourceNodeSize.width / 2,
+    //     sourceNodeAbsolutePosition.offsetY - sourceNodeSize.height / 2);
+    // final topLeftNodeCorner = Offset(
+    //     sourceNodeAbsolutePosition.offsetX - sourceNodeSize.width / 2,
+    //     sourceNodeAbsolutePosition.offsetY - sourceNodeSize.height / 2);
+    // final bottomLeftNodeCorner = Offset(
+    //     sourceNodeAbsolutePosition.offsetX - sourceNodeSize.width / 2,
+    //     sourceNodeAbsolutePosition.offsetY + sourceNodeSize.height / 2);
+    // final bottomRightNodeCorner = Offset(
+    //     sourceNodeAbsolutePosition.offsetX + sourceNodeSize.width / 2,
+    //     sourceNodeAbsolutePosition.offsetY + sourceNodeSize.height / 2);
 
-    final paint = Paint()
-      ..color = lineColor
-      ..strokeWidth = 2
-      ..style = PaintingStyle.stroke;
+    // final paint = Paint()
+    //   ..color = lineColor
+    //   ..strokeWidth = 2
+    //   ..style = PaintingStyle.stroke;
 
-    canvas.drawCircle(topRightNodeCorner, 5, paint);
-    canvas.drawCircle(topLeftNodeCorner, 5, paint);
-    canvas.drawCircle(bottomLeftNodeCorner, 5, paint);
-    canvas.drawCircle(bottomRightNodeCorner, 5, paint);
+    // canvas.drawCircle(topRightNodeCorner, 5, paint);
+    // canvas.drawCircle(topLeftNodeCorner, 5, paint);
+    // canvas.drawCircle(bottomLeftNodeCorner, 5, paint);
+    // canvas.drawCircle(bottomRightNodeCorner, 5, paint);
 
     // Draw the arrowhead 30 pixels before the end of the path
     drawArrowHead(canvas, path);
@@ -157,7 +157,7 @@ class CurvedLoopPainter extends CustomPainter {
     // Control points for self-loop
     final controlPoint1 = Offset(
       start.dx + sourceNodeSize.width,
-      start.dy - 400,
+      start.dy - sourceNodeSize.height - 200,
     );
     final controlPoint2 = Offset(
       start.dx - 600,

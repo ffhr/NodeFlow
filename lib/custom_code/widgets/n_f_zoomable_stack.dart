@@ -191,8 +191,7 @@ class _NFZoomableStackState extends State<NFZoomableStack>
                 //   });
                 // }
               },
-              boundaryMargin:
-                  EdgeInsets.all(double.infinity), // Allows free panning
+              boundaryMargin: EdgeInsets.zero, // Allows free panning
               constrained: true,
               child: Container(
                 decoration: BoxDecoration(
@@ -209,7 +208,7 @@ class _NFZoomableStackState extends State<NFZoomableStack>
                   // width: 1000,
                   // height: 150,
                   child: Container(
-                    // decoration: BoxDecoration(color: Colors.blue),
+                    decoration: BoxDecoration(color: Colors.blue),
                     // height: 5000,
                     key: interactiveViewerKey,
                     child: widget.stackComponent!(),
