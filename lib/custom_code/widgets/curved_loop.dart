@@ -1,4 +1,6 @@
 // Automatic FlutterFlow imports
+import 'package:flutter/foundation.dart';
+
 import '/backend/schema/structs/index.dart';
 import '/backend/schema/enums/enums.dart';
 import '/actions/actions.dart' as action_blocks;
@@ -68,23 +70,28 @@ class CurvedLoopPainter extends CustomPainter {
     }
 
     // Only for debugging purposes
-    // final topRightNodeCorner = Offset(
-    //     sourceNodeAbsolutePosition.offsetX + sourceNodeSize.width / 2,
-    //     sourceNodeAbsolutePosition.offsetY - sourceNodeSize.height / 2);
-    // final topLeftNodeCorner = Offset(
-    //     sourceNodeAbsolutePosition.offsetX - sourceNodeSize.width / 2,
-    //     sourceNodeAbsolutePosition.offsetY - sourceNodeSize.height / 2);
-    // final bottomLeftNodeCorner = Offset(
-    //     sourceNodeAbsolutePosition.offsetX - sourceNodeSize.width / 2,
-    //     sourceNodeAbsolutePosition.offsetY + sourceNodeSize.height / 2);
-    // final bottomRightNodeCorner = Offset(
-    //     sourceNodeAbsolutePosition.offsetX + sourceNodeSize.width / 2,
-    //     sourceNodeAbsolutePosition.offsetY + sourceNodeSize.height / 2);
+    final topRightNodeCorner = Offset(
+        sourceNodeAbsolutePosition.offsetX + sourceNodeSize.width / 2,
+        sourceNodeAbsolutePosition.offsetY - sourceNodeSize.height / 2);
+    final topLeftNodeCorner = Offset(
+        sourceNodeAbsolutePosition.offsetX - sourceNodeSize.width / 2,
+        sourceNodeAbsolutePosition.offsetY - sourceNodeSize.height / 2);
+    final bottomLeftNodeCorner = Offset(
+        sourceNodeAbsolutePosition.offsetX - sourceNodeSize.width / 2,
+        sourceNodeAbsolutePosition.offsetY + sourceNodeSize.height / 2);
+    final bottomRightNodeCorner = Offset(
+        sourceNodeAbsolutePosition.offsetX + sourceNodeSize.width / 2,
+        sourceNodeAbsolutePosition.offsetY + sourceNodeSize.height / 2);
 
-    // canvas.drawCircle(topRightNodeCorner, 5, paint);
-    // canvas.drawCircle(topLeftNodeCorner, 5, paint);
-    // canvas.drawCircle(bottomLeftNodeCorner, 5, paint);
-    // canvas.drawCircle(bottomRightNodeCorner, 5, paint);
+    final paint = Paint()
+      ..color = lineColor
+      ..strokeWidth = 2
+      ..style = PaintingStyle.stroke;
+
+    canvas.drawCircle(topRightNodeCorner, 5, paint);
+    canvas.drawCircle(topLeftNodeCorner, 5, paint);
+    canvas.drawCircle(bottomLeftNodeCorner, 5, paint);
+    canvas.drawCircle(bottomRightNodeCorner, 5, paint);
 
     // Draw the arrowhead 30 pixels before the end of the path
     drawArrowHead(canvas, path);
@@ -111,40 +118,59 @@ class CurvedLoopPainter extends CustomPainter {
 
   Path getTopToBottomPath() {
     final path = Path();
-    final center = Offset(
-        sourceNodeAbsolutePosition.offsetX, sourceNodeAbsolutePosition.offsetY);
+    // final center = Offset(
+    //     sourceNodeAbsolutePosition.offsetX, sourceNodeAbsolutePosition.offsetY);
 
-    final topRight = Offset(
-        sourceNodeAbsolutePosition.offsetX + sourceNodeSize.width / 2,
-        sourceNodeAbsolutePosition.offsetY - sourceNodeSize.height / 2);
-    final topLeft = Offset(
-        sourceNodeAbsolutePosition.offsetX - sourceNodeSize.width / 2,
-        sourceNodeAbsolutePosition.offsetY - sourceNodeSize.height / 2);
+    // final topRight = Offset(
+    //     sourceNodeAbsolutePosition.offsetX + sourceNodeSize.width / 2,
+    //     sourceNodeAbsolutePosition.offsetY - sourceNodeSize.height / 2);
+    // final topLeft = Offset(
+    //     sourceNodeAbsolutePosition.offsetX - sourceNodeSize.width / 2,
+    //     sourceNodeAbsolutePosition.offsetY - sourceNodeSize.height / 2);
 
-    path.moveTo(start.dx, start.dy); // Start point
+    // path.moveTo(start.dx, start.dy); // Start point
 
-    // Draw 1. Curved line
-    var middleEnd = Offset(sourceNodeAbsolutePosition.offsetX,
-        sourceNodeAbsolutePosition.offsetY - sourceNodeSize.height);
+    // // Draw 1. Curved line
+    // var middleEnd = Offset(sourceNodeAbsolutePosition.offsetX,
+    //     sourceNodeAbsolutePosition.offsetY - sourceNodeSize.height);
 
-    path.cubicTo(
-      start.dx + 2 * (topRight.dx - center.dx).abs(),
-      start.dy - 2 * (topRight.dy - center.dy).abs(), // Control point 1
-      middleEnd.dx,
-      middleEnd.dy, // Control point 2
-      middleEnd.dx,
-      middleEnd.dy, // End point
+    // path.cubicTo(
+    //   start.dx + 2 * (topRight.dx - center.dx).abs(),
+    //   start.dy - 2 * (topRight.dy - center.dy).abs(), // Control point 1
+    //   middleEnd.dx,
+    //   middleEnd.dy, // Control point 2
+    //   middleEnd.dx,
+    //   middleEnd.dy, // End point
+    // );
+
+    // // Draw 2. Curved line
+    // var middleStart = middleEnd;
+    // path.cubicTo(
+    //     middleStart.dx - 2 * (topLeft.dx - center.dx).abs(),
+    //     middleStart.dy,
+    //     end.dx - (1.0 * sourceNodeSize.width).abs(),
+    //     end.dy - (1.5 * sourceNodeSize.height).abs(),
+    //     end.dx,
+    //     end.dy);
+    // return path;
+    path.moveTo(start.dx, start.dy);
+    // Control points for self-loop
+    final controlPoint1 = Offset(
+      start.dx + sourceNodeSize.width,
+      start.dy - 400,
     );
-
-    // Draw 2. Curved line
-    var middleStart = middleEnd;
+    final controlPoint2 = Offset(
+      start.dx - 600,
+      start.dy - 400,
+    );
     path.cubicTo(
-        middleStart.dx - 2 * (topLeft.dx - center.dx).abs(),
-        middleStart.dy,
-        end.dx - (1.0 * sourceNodeSize.width).abs(),
-        end.dy - (1.5 * sourceNodeSize.height).abs(),
-        end.dx,
-        end.dy);
+      controlPoint1.dx,
+      controlPoint1.dy,
+      controlPoint2.dx,
+      controlPoint2.dy,
+      end.dx,
+      end.dy,
+    );
     return path;
   }
 
