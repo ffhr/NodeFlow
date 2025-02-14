@@ -113,8 +113,7 @@ class _NFDiagramMinWidgetState extends State<NFDiagramMinWidget> {
                     height: double.infinity,
                     lineColor:
                         FlutterFlowTheme.of(context).nFDefaultGridLineColor,
-                    backgroundColor: FlutterFlowTheme.of(context)
-                        .nFDefaultGridBackgroundColor,
+                    backgroundColor: Color(0x90FFFFFF),
                     axisColor: FlutterFlowTheme.of(context).nFDefaultAxisColor,
                     gridType: FFAppState().CurrentGridType,
                   ),
