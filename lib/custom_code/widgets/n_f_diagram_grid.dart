@@ -132,63 +132,47 @@ class NFGridPainter extends CustomPainter {
     ); // X-Axis
   }
 
-  void _drawDots(Canvas canvas, Size size) async {
-    double dotSpacing = 0.4; // Distance between dots
-    double dotRadius = 0.02; // Radius of each dot
-    Paint paint = Paint()
-      ..color = Colors.grey
+  void _drawDots(Canvas canvas, Size size) {
+    final Paint paint = Paint()
+      ..color = lineColor ?? Colors.transparent
       ..style = PaintingStyle.fill;
 
-    Paint redPaint = Paint()
-      ..color = Colors.red
-      ..style = PaintingStyle.fill;
+    double centerX = (size.width / 2);
+    double centerY = (size.height / 2);
 
-    print("Size width ${size.width}");
-
-    // var zoomFactor = FFAppState().ZoomFactor / FFAppState().DefaultZoomFactor;
     var zoomFactor = FFAppState().ZoomFactor;
     var viewportOffsetX = FFAppState().ViewportCenter.offsetX;
     var viewportOffsetY = FFAppState().ViewportCenter.offsetY;
 
-    var startAbsoluteX =
+    var visibleStartAbsoluteX =
         (((size.width * zoomFactor) / 2) - size.width / 2 - viewportOffsetX) /
             zoomFactor;
-    var endAbsoluteX =
+    var visibleEndAbsoluteX =
         (((size.width * zoomFactor) / 2) + size.width / 2 - viewportOffsetX) /
             zoomFactor;
 
-    var startAbsoluteY =
+    var visibleStartAbsoluteY =
         (((size.height * zoomFactor) / 2) - size.height / 2 - viewportOffsetY) /
             zoomFactor;
-    var endAbsoluteY =
+    var visibleEndAbsoluteY =
         (((size.height * zoomFactor) / 2) + size.height / 2 - viewportOffsetY) /
             zoomFactor;
 
-    var centerX = size.width / 2;
-    var centerY = size.height / 2;
-    var cellSize = dotSpacing + dotRadius;
-
+    double cellSize = size.width / 20000 * 10;
     double startX = (centerX % cellSize) - cellSize;
     double startY = (centerY % cellSize) - cellSize;
-    // startX = 0.0;
-    // startY = 0.0;
 
-    print('Start x ${startX}');
-    print('Start y ${startY}');
-
-    for (double x = startAbsoluteX + startX;
-        x <= endAbsoluteX;
-        x += dotSpacing) {
-      for (double y = startAbsoluteY + startY;
-          y <= endAbsoluteY;
-          y += dotSpacing) {
-        if (x == startAbsoluteX ||
-            x == endAbsoluteX ||
-            y == startAbsoluteY ||
-            y == endAbsoluteY) {
-          canvas.drawCircle(Offset(x, y), dotRadius, redPaint);
-        } else {
-          canvas.drawCircle(Offset(x, y), dotRadius, paint);
+    for (double i = startX; i <= size.width; i += cellSize) {
+      for (double j = startY; j <= size.height; j += cellSize) {
+        // Draw dots at grid intersections
+        if (i >= visibleStartAbsoluteX && i <= visibleEndAbsoluteX) {
+          if (j >= visibleStartAbsoluteY && j <= visibleEndAbsoluteY) {
+            canvas.drawCircle(
+              Offset(i, j),
+              0.02, // Fixed dot size
+              paint,
+            );
+          }
         }
       }
     }
