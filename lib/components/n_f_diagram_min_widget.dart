@@ -100,7 +100,7 @@ class _NFDiagramMinWidgetState extends State<NFDiagramMinWidget> {
         },
         child: Container(
           decoration: BoxDecoration(
-            color: Color(0x7AEE8B60),
+            color: FlutterFlowTheme.of(context).error,
           ),
           child: Stack(
             children: [
