@@ -148,4 +148,16 @@ class FFAppState extends ChangeNotifier {
   set CurrentGridType(NFGridType? value) {
     _CurrentGridType = value;
   }
+
+  /// Absolute center in pixels on NFZoomableStack
+  NFOffsetStruct _NFViewCenter = NFOffsetStruct.fromSerializableMap(
+      jsonDecode('{\"offset_x\":\"0.0\",\"offset_y\":\"0.0\"}'));
+  NFOffsetStruct get NFViewCenter => _NFViewCenter;
+  set NFViewCenter(NFOffsetStruct value) {
+    _NFViewCenter = value;
+  }
+
+  void updateNFViewCenterStruct(Function(NFOffsetStruct) updateFn) {
+    updateFn(_NFViewCenter);
+  }
 }
