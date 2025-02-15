@@ -103,18 +103,32 @@ class _NFDiagramMinWidgetState extends State<NFDiagramMinWidget> {
           child: Stack(
             children: [
               if (true)
-                Container(
-                  width: double.infinity,
-                  height: double.infinity,
-                  child: custom_widgets.NFDiagramGrid(
+                InkWell(
+                  splashColor: Colors.transparent,
+                  focusColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onTap: () async {
+                    // Set status Drawing.INACTIVE
+                    FFAppState().updateEdgeDrawingStruct(
+                      (e) => e..drawingState = DrawingState.inactive,
+                    );
+                    FFAppState().update(() {});
+                  },
+                  child: Container(
                     width: double.infinity,
                     height: double.infinity,
-                    lineColor:
-                        FlutterFlowTheme.of(context).nFDefaultGridLineColor,
-                    backgroundColor: FlutterFlowTheme.of(context)
-                        .nFDefaultGridBackgroundColor,
-                    axisColor: FlutterFlowTheme.of(context).nFDefaultAxisColor,
-                    gridType: FFAppState().CurrentGridType,
+                    child: custom_widgets.NFDiagramGrid(
+                      width: double.infinity,
+                      height: double.infinity,
+                      lineColor:
+                          FlutterFlowTheme.of(context).nFDefaultGridLineColor,
+                      backgroundColor: FlutterFlowTheme.of(context)
+                          .nFDefaultGridBackgroundColor,
+                      axisColor:
+                          FlutterFlowTheme.of(context).nFDefaultAxisColor,
+                      gridType: FFAppState().CurrentGridType,
+                    ),
                   ),
                 ),
               if (FFAppState().Nodes.isNotEmpty)
