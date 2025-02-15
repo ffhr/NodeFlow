@@ -149,7 +149,10 @@ class _NFDiagramMinWidgetState extends State<NFDiagramMinWidget> {
                   return Stack(
                     children: List.generate(nodesList.length, (nodesListIndex) {
                       final nodesListItem = nodesList[nodesListIndex];
-                      return Align(
+                      return /*L - Replace Align widget with OverflowBox*/ OverflowBox(
+                        /*L*/
+                        maxWidth: nodesListItem.size.width,
+                        maxHeight: nodesListItem.size.height,
                         alignment: AlignmentDirectional(
                             valueOrDefault<double>(
                               functions
