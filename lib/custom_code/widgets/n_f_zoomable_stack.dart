@@ -103,7 +103,7 @@ class _NFZoomableStackState extends State<NFZoomableStack>
   @override
   void didChangeMetrics() {
     super.didChangeMetrics();
-
+    print("Window metrics changed");
     _updateWindowSize();
   }
 
@@ -125,14 +125,13 @@ class _NFZoomableStackState extends State<NFZoomableStack>
 
         Future.delayed(Duration(milliseconds: 100), () {
           setState(() {
-            alignToCenterOfViewer(context);
+            // alignToCenterOfViewer(context);
+            _center();
           });
         });
       } else {
         // print("Window resized");
-        setState(() {
-          alignToCenterOfViewer(context);
-        });
+        _center();
       }
     }
 
@@ -163,60 +162,58 @@ class _NFZoomableStackState extends State<NFZoomableStack>
       color: Colors.white,
       child: Stack(
         children: [
-          Container(
-            child: NFInteractiveViewer(
-              transformationController: _transformationController,
-              minScale: minScale,
-              maxScale: maxScale,
-              scaleEnabled: true,
-              panEnabled: true,
-              trackpadScrollCausesScale: true,
-              onInteractionUpdate: (details) {
-                setState(() {
-                  // print("onInteractionUpdate");
-                  // print(_transformationController.value.getMaxScaleOnAxis());
-                  scale = _transformationController.value.getMaxScaleOnAxis();
-                  alignToCenterOfViewer(context);
-                });
-              },
-              onInteractionEnd: (details) {
-                // NOTE: removed HACK with NFInteractiveViewer
-                // HACK to make sure the alignment is updated after the interaction ends, becasue
-                // it is impossible to disable internal Tween animation after Pan is done
-                // for (int delay = 200; delay <= 1000; delay += 100) {
-                //   Future.delayed(Duration(milliseconds: delay), () {
-                //     setState(() {
-                //       alignToCenterOfViewer(context);
-                //     });
-                //   });
-                // }
-              },
-              boundaryMargin: EdgeInsets.zero, // Allows free panning
-              constrained: true,
-              child: Container(
-                decoration: BoxDecoration(
-                    // color: Colors.yellow,
-                    ),
-                constraints: BoxConstraints(
-                    // minWidth: 10000,
-                    // minHeight: 10000, // Ensures minimum height of 6000
-
-                    ),
-                child: SizedBox(
-                  width: MediaQuery.of(context).size.width * maxScale,
-                  height: MediaQuery.of(context).size.height * maxScale,
-                  // width: 1000,
-                  // height: 150,
-                  child: Container(
-                    decoration: BoxDecoration(),
-                    // height: 5000,
-                    key: interactiveViewerKey,
-                    child: widget.stackComponent!(),
+          NFInteractiveViewer(
+            transformationController: _transformationController,
+            minScale: minScale,
+            maxScale: maxScale,
+            scaleEnabled: true,
+            panEnabled: true,
+            trackpadScrollCausesScale: true,
+            onInteractionUpdate: (details) {
+              setState(() {
+                // print("onInteractionUpdate");
+                // print(_transformationController.value.getMaxScaleOnAxis());
+                scale = _transformationController.value.getMaxScaleOnAxis();
+                alignToCenterOfViewer(context);
+              });
+            },
+            onInteractionEnd: (details) {
+              // NOTE: removed HACK with NFInteractiveViewer
+              // HACK to make sure the alignment is updated after the interaction ends, becasue
+              // it is impossible to disable internal Tween animation after Pan is done
+              // for (int delay = 200; delay <= 1000; delay += 100) {
+              //   Future.delayed(Duration(milliseconds: delay), () {
+              //     setState(() {
+              //       alignToCenterOfViewer(context);
+              //     });
+              //   });
+              // }
+            },
+            boundaryMargin: EdgeInsets.zero, // Allows free panning
+            constrained: true,
+            child: Container(
+              decoration: BoxDecoration(
+                  // color: Colors.yellow,
                   ),
+              constraints: BoxConstraints(
+                  // minWidth: 10000,
+                  // minHeight: 10000, // Ensures minimum height of 6000
+
+                  ),
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width * maxScale,
+                height: MediaQuery.of(context).size.height * maxScale,
+                // width: 1000,
+                // height: 150,
+                child: Container(
+                  decoration: BoxDecoration(),
+                  // height: 5000,
+                  key: interactiveViewerKey,
+                  child: widget.stackComponent!(),
                 ),
               ),
             ),
-          )
+          ),
         ],
       ),
     );
@@ -286,5 +283,23 @@ class _NFZoomableStackState extends State<NFZoomableStack>
     FFAppState().ZoomFactor = scale;
 
     // FFAppState().update(() {});
+  }
+
+  void _center() {
+    final RenderBox? renderBox = context.findRenderObject() as RenderBox?;
+
+    if (renderBox != null) {
+      final Size parentSize = renderBox.size;
+      final double parentWidth = parentSize.width;
+      final double parentHeight = parentSize.height;
+
+      final double dx = parentWidth / 2 * (1 - FFAppState().ZoomFactor);
+      final double dy = parentHeight / 2 * (1 - FFAppState().ZoomFactor);
+
+      _transformationController.value = Matrix4.identity()
+        ..translate(dx, dy) // Shift the view so scaling is centered
+        ..scale(FFAppState().ZoomFactor);
+    }
+    alignToCenterOfViewer(context);
   }
 }
