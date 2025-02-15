@@ -284,7 +284,7 @@ class _NFZoomableStackState extends State<NFZoomableStack>
     print("Zoom: $scale");
     FFAppState().ZoomFactor = scale;
 
-    // FFAppState().update(() {});
+    FFAppState().update(() {});
   }
 
   void _center() {
