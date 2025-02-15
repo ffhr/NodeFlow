@@ -509,3 +509,24 @@ double scaledGlobalPosition(
 ) {
   return globalPositionCoordinate * defaultZoomFactor / zoomFactor;
 }
+
+NFOffsetStruct absoluteToVirtual(
+  NFOffsetStruct absolutePosition,
+  NFOffsetStruct viewportCenter,
+  double zoomFactor,
+  NFSizeStruct viewportSize,
+) {
+  double virtualX =
+      (absolutePosition.offsetX - (viewportSize.width / 2)) / zoomFactor +
+          viewportCenter.offsetX;
+
+  double virtualY =
+      (absolutePosition.offsetY - (viewportSize.height / 2)) / zoomFactor +
+          viewportCenter.offsetY;
+
+  // Adapt position according to viewport and scale.
+  virtualX = virtualX + (1 - zoomFactor) * viewportCenter.offsetX;
+  virtualY = virtualY + (1 - zoomFactor) * viewportCenter.offsetY;
+
+  return NFOffsetStruct(offsetX: virtualX, offsetY: virtualY);
+}
