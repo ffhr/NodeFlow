@@ -13,7 +13,7 @@ import 'package:flutter/material.dart';
 Future showContextMenu(
   BuildContext context,
   NFPointStruct tapPoint,
-  Future Function()? onTapOption1,
+  Future Function(NFPointStruct tapPoint)? onTapOption1,
 ) async {
   // Add your function code here!
   final RenderBox overlay =
@@ -34,7 +34,7 @@ Future showContextMenu(
       ]);
   if (value != null) {
     if (value == 1) {
-      onTapOption1?.call();
+      onTapOption1?.call(tapPoint);
     }
   }
 }

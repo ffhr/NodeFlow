@@ -74,6 +74,11 @@ class _NFDiagramWidgetState extends State<NFDiagramWidget> {
           safeSetState(() {});
         },
         onSecondaryTapUp: (details) async {
+          // Save tap point
+          FFAppState().NFNewNodePosition = NFPointStruct(
+            positionX: details.globalPosition.dx,
+            positionY: details.globalPosition.dy,
+          );
           // Show context menu
           await actions.showContextMenu(
             context,
@@ -81,7 +86,7 @@ class _NFDiagramWidgetState extends State<NFDiagramWidget> {
               positionX: details.globalPosition.dx,
               positionY: details.globalPosition.dy,
             ),
-            () async {
+            (tapPoint) async {
               // Show node add form
               await showDialog(
                 context: context,
