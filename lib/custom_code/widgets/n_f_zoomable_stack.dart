@@ -208,7 +208,7 @@ class _NFZoomableStackState extends State<NFZoomableStack>
                   // width: 1000,
                   // height: 150,
                   child: Container(
-                    decoration: BoxDecoration(color: Colors.blue),
+                    decoration: BoxDecoration(),
                     // height: 5000,
                     key: interactiveViewerKey,
                     child: widget.stackComponent!(),
