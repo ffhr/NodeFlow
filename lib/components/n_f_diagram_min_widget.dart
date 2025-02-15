@@ -99,9 +99,7 @@ class _NFDiagramMinWidgetState extends State<NFDiagramMinWidget> {
           );
         },
         child: Container(
-          decoration: BoxDecoration(
-            color: FlutterFlowTheme.of(context).error,
-          ),
+          decoration: BoxDecoration(),
           child: Stack(
             children: [
               if (true)
@@ -191,117 +189,123 @@ class _NFDiagramMinWidgetState extends State<NFDiagramMinWidget> {
                                   .offsetY,
                               0.0,
                             )),
-                        child: Transform.scale(
-                          scaleX: _model.transformFactor,
-                          scaleY: _model.transformFactor,
-                          child: Container(
-                            decoration: BoxDecoration(),
-                            child: NodeComponentWidget(
-                              key: Key(
-                                  'Keygv2_${nodesListIndex}_of_${nodesList.length}'),
-                              node: nodesListItem,
-                              onTapDown: () async {},
-                              onTapUp: () async {},
-                              onPanDown: () async {
-                                // Set selected index
-                                FFAppState().NodeSelectedIndex = nodesListIndex;
-                                safeSetState(() {});
-                                // Reset all isMoveable
-                                await actions.resetMoveables(
-                                  FFAppState().Nodes.toList(),
-                                );
-                                // Is moveable true
-                                FFAppState().updateNodesAtIndex(
-                                  FFAppState().NodeSelectedIndex,
-                                  (e) => e..isMoveable = true,
-                                );
-                                safeSetState(() {});
-                                // Reset selections
-                                await actions.resetSelections(
-                                  FFAppState().Nodes.toList(),
-                                );
-                                // Toggle selected item
-                                FFAppState().updateNodesAtIndex(
-                                  FFAppState().NodeSelectedIndex,
-                                  (e) => e..isSelected = !e.isSelected,
-                                );
-                                safeSetState(() {});
-                                // Bring to front selected item
-                                _model.sortedNodes =
-                                    await actions.sortByIsSelected(
-                                  FFAppState().Nodes.toList(),
-                                );
-                                // Bring to front selected item
-                                FFAppState().Nodes = _model.sortedNodes!
-                                    .toList()
-                                    .cast<NodeStruct>();
-                                safeSetState(() {});
-                                // Set selected index
-                                FFAppState().NodeSelectedIndex =
-                                    FFAppState().Nodes.length - 1;
-                                safeSetState(() {});
-
-                                safeSetState(() {});
-                              },
-                              onPanEnd: () async {
-                                // Reset all isMoveable
-                                await actions.resetMoveables(
-                                  FFAppState().Nodes.toList(),
-                                );
-                                // Is moveable false
-                                FFAppState().updateNodesAtIndex(
-                                  FFAppState().NodeSelectedIndex,
-                                  (e) => e..isMoveable = false,
-                                );
-                                safeSetState(() {});
-                              },
-                              onPanUpdate: (deltaPoint) async {
-                                // Render node movement
-                                FFAppState().updateNodesAtIndex(
-                                  FFAppState().NodeSelectedIndex,
-                                  (e) => e
-                                    ..virtualPosition = NFOffsetStruct(
-                                      offsetX: FFAppState()
-                                              .Nodes
-                                              .elementAtOrNull(FFAppState()
-                                                  .NodeSelectedIndex)!
-                                              .virtualPosition
-                                              .offsetX +
-                                          deltaPoint.positionX,
-                                      offsetY: FFAppState()
-                                              .Nodes
-                                              .elementAtOrNull(FFAppState()
-                                                  .NodeSelectedIndex)!
-                                              .virtualPosition
-                                              .offsetY +
-                                          deltaPoint.positionY,
-                                    ),
-                                );
-                                safeSetState(() {});
-                              },
-                              renderPanStack: () async {
-                                FFAppState().updateEdgeDrawingStruct(
-                                  (e) => e..drawingState = DrawingState.started,
-                                );
-                                safeSetState(() {});
-                              },
-                              onSecondaryTapUp: (deltaPoint) async {
-                                await actions.showContextMenuRemoveNode(
-                                  context,
-                                  deltaPoint,
-                                  () async {
-                                    // Remove node from list
-                                    FFAppState().removeFromNodes(nodesListItem);
-                                    safeSetState(() {});
-                                    // Remove edges by node id
-                                    await actions.removeEdgesByNodeId(
-                                      nodesListItem.id,
-                                    );
-                                  },
-                                );
-                              },
-                              child: () => NodeChildWidget(
+                        child: Container(
+                          decoration: BoxDecoration(),
+                          child: Transform.scale(
+                            scaleX: _model.transformFactor,
+                            scaleY: _model.transformFactor,
+                            child: Container(
+                              decoration: BoxDecoration(),
+                              child: NodeComponentWidget(
+                                key: Key(
+                                    'Keygv2_${nodesListIndex}_of_${nodesList.length}'),
                                 node: nodesListItem,
+                                onTapDown: () async {},
+                                onTapUp: () async {},
+                                onPanDown: () async {
+                                  // Set selected index
+                                  FFAppState().NodeSelectedIndex =
+                                      nodesListIndex;
+                                  safeSetState(() {});
+                                  // Reset all isMoveable
+                                  await actions.resetMoveables(
+                                    FFAppState().Nodes.toList(),
+                                  );
+                                  // Is moveable true
+                                  FFAppState().updateNodesAtIndex(
+                                    FFAppState().NodeSelectedIndex,
+                                    (e) => e..isMoveable = true,
+                                  );
+                                  safeSetState(() {});
+                                  // Reset selections
+                                  await actions.resetSelections(
+                                    FFAppState().Nodes.toList(),
+                                  );
+                                  // Toggle selected item
+                                  FFAppState().updateNodesAtIndex(
+                                    FFAppState().NodeSelectedIndex,
+                                    (e) => e..isSelected = !e.isSelected,
+                                  );
+                                  safeSetState(() {});
+                                  // Bring to front selected item
+                                  _model.sortedNodes =
+                                      await actions.sortByIsSelected(
+                                    FFAppState().Nodes.toList(),
+                                  );
+                                  // Bring to front selected item
+                                  FFAppState().Nodes = _model.sortedNodes!
+                                      .toList()
+                                      .cast<NodeStruct>();
+                                  safeSetState(() {});
+                                  // Set selected index
+                                  FFAppState().NodeSelectedIndex =
+                                      FFAppState().Nodes.length - 1;
+                                  safeSetState(() {});
+
+                                  safeSetState(() {});
+                                },
+                                onPanEnd: () async {
+                                  // Reset all isMoveable
+                                  await actions.resetMoveables(
+                                    FFAppState().Nodes.toList(),
+                                  );
+                                  // Is moveable false
+                                  FFAppState().updateNodesAtIndex(
+                                    FFAppState().NodeSelectedIndex,
+                                    (e) => e..isMoveable = false,
+                                  );
+                                  safeSetState(() {});
+                                },
+                                onPanUpdate: (deltaPoint) async {
+                                  // Render node movement
+                                  FFAppState().updateNodesAtIndex(
+                                    FFAppState().NodeSelectedIndex,
+                                    (e) => e
+                                      ..virtualPosition = NFOffsetStruct(
+                                        offsetX: FFAppState()
+                                                .Nodes
+                                                .elementAtOrNull(FFAppState()
+                                                    .NodeSelectedIndex)!
+                                                .virtualPosition
+                                                .offsetX +
+                                            deltaPoint.positionX,
+                                        offsetY: FFAppState()
+                                                .Nodes
+                                                .elementAtOrNull(FFAppState()
+                                                    .NodeSelectedIndex)!
+                                                .virtualPosition
+                                                .offsetY +
+                                            deltaPoint.positionY,
+                                      ),
+                                  );
+                                  safeSetState(() {});
+                                },
+                                renderPanStack: () async {
+                                  FFAppState().updateEdgeDrawingStruct(
+                                    (e) =>
+                                        e..drawingState = DrawingState.started,
+                                  );
+                                  safeSetState(() {});
+                                },
+                                onSecondaryTapUp: (deltaPoint) async {
+                                  await actions.showContextMenuRemoveNode(
+                                    context,
+                                    deltaPoint,
+                                    () async {
+                                      // Remove node from list
+                                      FFAppState()
+                                          .removeFromNodes(nodesListItem);
+                                      safeSetState(() {});
+                                      // Remove edges by node id
+                                      await actions.removeEdgesByNodeId(
+                                        nodesListItem.id,
+                                      );
+                                    },
+                                  );
+                                },
+                                child: () => NodeChildWidget(
+                                  node: nodesListItem,
+                                ),
                               ),
                             ),
                           ),
