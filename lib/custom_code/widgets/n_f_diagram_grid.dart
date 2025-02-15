@@ -56,7 +56,7 @@ class _NFDiagramGridState extends State<NFDiagramGrid> {
       child: RepaintBoundary(
         child: CustomPaint(
           size: Size.infinite,
-          painter: NFGridPainter(FFAppState().ZoomFactor, widget.lineColor,
+          painter: NFGridPainter(FFAppState().NFZoomFactor, widget.lineColor,
               widget.axisColor, widget.gridType,
               offsetX: 0.0, offsetY: 0.0),
         ),
@@ -136,9 +136,9 @@ class NFGridPainter extends CustomPainter {
     double centerX = (size.width / 2);
     double centerY = (size.height / 2);
 
-    var zoomFactor = FFAppState().ZoomFactor;
-    var viewportOffsetX = FFAppState().ViewportCenter.offsetX;
-    var viewportOffsetY = FFAppState().ViewportCenter.offsetY;
+    var zoomFactor = FFAppState().NFZoomFactor;
+    var viewportOffsetX = FFAppState().NFViewportCenter.offsetX;
+    var viewportOffsetY = FFAppState().NFViewportCenter.offsetY;
 
     var visibleStartAbsoluteX =
         (((size.width * zoomFactor) / 2) - size.width / 2 - viewportOffsetX) /

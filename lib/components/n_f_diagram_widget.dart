@@ -155,7 +155,12 @@ class _NFDiagramWidgetState extends State<NFDiagramWidget> {
                   return Stack(
                     children: List.generate(nodesList.length, (nodesListIndex) {
                       final nodesListItem = nodesList[nodesListIndex];
-                      return Align(
+                      //LOCAL_START
+                      // return Align( //from FlutterFlow
+                      return OverflowBox(
+                        maxWidth: nodesListItem.size.width,
+                        maxHeight: nodesListItem.size.height,
+                        //LOCAL_END
                         alignment: AlignmentDirectional(
                             valueOrDefault<double>(
                               functions

@@ -79,7 +79,7 @@ class _NFZoomableStackState extends State<NFZoomableStack>
       //   offsetX: viewerCenterX,
       //   offsetY: viewerCenterY,
       // );
-      FFAppState().ZoomFactor = scale;
+      FFAppState().NFZoomFactor = scale;
     }
   }
 
@@ -272,17 +272,17 @@ class _NFZoomableStackState extends State<NFZoomableStack>
     offsetXFromWindowCenter = offsetX;
     offsetYFromWindowCenter = offsetY;
 
-    FFAppState().ViewCenter =
+    FFAppState().NFViewCenter =
         NFOffsetStruct(offsetX: viewerCenterX, offsetY: viewerCenterY);
 
     // print('View center x ${FFAppState().ViewCenter.offsetX}');
     // print('View center y ${FFAppState().ViewCenter.offsetY}');
-    FFAppState().ViewportCenter = NFOffsetStruct(
+    FFAppState().NFViewportCenter = NFOffsetStruct(
       offsetX: offsetXFromWindowCenter,
       offsetY: offsetYFromWindowCenter,
     );
     print("Zoom: $scale");
-    FFAppState().ZoomFactor = scale;
+    FFAppState().NFZoomFactor = scale;
 
     FFAppState().update(() {});
   }
@@ -295,12 +295,12 @@ class _NFZoomableStackState extends State<NFZoomableStack>
       final double parentWidth = parentSize.width;
       final double parentHeight = parentSize.height;
 
-      final double dx = parentWidth / 2 * (1 - FFAppState().ZoomFactor);
-      final double dy = parentHeight / 2 * (1 - FFAppState().ZoomFactor);
+      final double dx = parentWidth / 2 * (1 - FFAppState().NFZoomFactor);
+      final double dy = parentHeight / 2 * (1 - FFAppState().NFZoomFactor);
 
       _transformationController.value = Matrix4.identity()
         ..translate(dx, dy) // Shift the view so scaling is centered
-        ..scale(FFAppState().ZoomFactor);
+        ..scale(FFAppState().NFZoomFactor);
     }
     alignToCenterOfViewer(context);
   }
