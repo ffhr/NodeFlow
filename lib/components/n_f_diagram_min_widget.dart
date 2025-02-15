@@ -103,32 +103,18 @@ class _NFDiagramMinWidgetState extends State<NFDiagramMinWidget> {
           child: Stack(
             children: [
               if (true)
-                InkWell(
-                  splashColor: Colors.transparent,
-                  focusColor: Colors.transparent,
-                  hoverColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
-                  onTap: () async {
-                    // Set status Drawing.INACTIVE
-                    FFAppState().updateEdgeDrawingStruct(
-                      (e) => e..drawingState = DrawingState.inactive,
-                    );
-                    FFAppState().update(() {});
-                  },
-                  child: Container(
+                Container(
+                  width: double.infinity,
+                  height: double.infinity,
+                  child: custom_widgets.NFDiagramGrid(
                     width: double.infinity,
                     height: double.infinity,
-                    child: custom_widgets.NFDiagramGrid(
-                      width: double.infinity,
-                      height: double.infinity,
-                      lineColor:
-                          FlutterFlowTheme.of(context).nFDefaultGridLineColor,
-                      backgroundColor: FlutterFlowTheme.of(context)
-                          .nFDefaultGridBackgroundColor,
-                      axisColor:
-                          FlutterFlowTheme.of(context).nFDefaultAxisColor,
-                      gridType: FFAppState().CurrentGridType,
-                    ),
+                    lineColor:
+                        FlutterFlowTheme.of(context).nFDefaultGridLineColor,
+                    backgroundColor: FlutterFlowTheme.of(context)
+                        .nFDefaultGridBackgroundColor,
+                    axisColor: FlutterFlowTheme.of(context).nFDefaultAxisColor,
+                    gridType: FFAppState().CurrentGridType,
                   ),
                 ),
               if (FFAppState().Nodes.isNotEmpty)
@@ -384,39 +370,52 @@ class _NFDiagramMinWidgetState extends State<NFDiagramMinWidget> {
                             .offsetY,
                         0.0,
                       )),
-                  child: Container(
-                    width: MediaQuery.sizeOf(context).width /
-                        FFAppState().ZoomFactor,
-                    height: MediaQuery.sizeOf(context).height /
-                        FFAppState().ZoomFactor,
-                    decoration: BoxDecoration(),
-                    child:
-                        // TODO: needs refactor to correctly draw in scale different to 1.0
-                        // Nice to heave feature, current workaround by clicking strat and end socket is good enough.
-                        Visibility(
-                      visible: (FFAppState().EdgeDrawing.drawingState ==
-                              DrawingState.started) ||
-                          (FFAppState().EdgeDrawing.drawingState ==
-                              DrawingState.active),
-                      child: Container(
-                        width: double.infinity,
-                        height: double.infinity,
-                        child: custom_widgets.CurvedLine(
+                  child: InkWell(
+                    splashColor: Colors.transparent,
+                    focusColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    onTap: () async {
+                      // Set status Drawing.INACTIVE
+                      FFAppState().updateEdgeDrawingStruct(
+                        (e) => e..drawingState = DrawingState.inactive,
+                      );
+                      FFAppState().update(() {});
+                    },
+                    child: Container(
+                      width: MediaQuery.sizeOf(context).width /
+                          FFAppState().ZoomFactor,
+                      height: MediaQuery.sizeOf(context).height /
+                          FFAppState().ZoomFactor,
+                      decoration: BoxDecoration(),
+                      child:
+                          // TODO: needs refactor to correctly draw in scale different to 1.0
+                          // Nice to heave feature, current workaround by clicking strat and end socket is good enough.
+                          Visibility(
+                        visible: (FFAppState().EdgeDrawing.drawingState ==
+                                DrawingState.started) ||
+                            (FFAppState().EdgeDrawing.drawingState ==
+                                DrawingState.active),
+                        child: Container(
                           width: double.infinity,
                           height: double.infinity,
-                          start: FFAppState().EdgeDrawing.drawingStartPoint,
-                          end: FFAppState().EdgeDrawing.drawingEndPoint,
-                          lineType: NFLineType.dotted,
-                          isArrowPointingToStartPoint: FFAppState()
-                                      .CurrentBuildingEdge
-                                      .targetNodeId !=
-                                  null &&
-                              FFAppState().CurrentBuildingEdge.targetNodeId !=
-                                  '',
-                          lineColor:
-                              FlutterFlowTheme.of(context).nFDefaultEdgeColor,
-                          scaleFactor: 0.01,
-                          onTap: () async {},
+                          child: custom_widgets.CurvedLine(
+                            width: double.infinity,
+                            height: double.infinity,
+                            start: FFAppState().EdgeDrawing.drawingStartPoint,
+                            end: FFAppState().EdgeDrawing.drawingEndPoint,
+                            lineType: NFLineType.dotted,
+                            isArrowPointingToStartPoint: FFAppState()
+                                        .CurrentBuildingEdge
+                                        .targetNodeId !=
+                                    null &&
+                                FFAppState().CurrentBuildingEdge.targetNodeId !=
+                                    '',
+                            lineColor:
+                                FlutterFlowTheme.of(context).nFDefaultEdgeColor,
+                            scaleFactor: 0.01,
+                            onTap: () async {},
+                          ),
                         ),
                       ),
                     ),
