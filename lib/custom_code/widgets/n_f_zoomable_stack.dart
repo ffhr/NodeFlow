@@ -41,7 +41,7 @@ class _NFZoomableStackState extends State<NFZoomableStack>
   double scale = DEFAULT_SCALE_FACTOR;
   // final double minScale = 0.03125; // Minimum zoom level
   // final double maxScale = 20; // Maximum zoom level
-  final double minScale = 2; // Minimum zoom level
+  final double minScale = 4; // Minimum zoom level
   final double maxScale = 500; // Maximum zoom level
 
   double viewerCenterX = 0;
@@ -190,6 +190,8 @@ class _NFZoomableStackState extends State<NFZoomableStack>
               // }
             },
             boundaryMargin: EdgeInsets.zero, // Allows free panning
+            // boundaryMargin:
+            //     EdgeInsets.all(double.infinity), // Allows free panning
             constrained: true,
             child: Container(
               decoration: BoxDecoration(
