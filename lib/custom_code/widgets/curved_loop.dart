@@ -118,41 +118,6 @@ class CurvedLoopPainter extends CustomPainter {
 
   Path getTopToBottomPath() {
     final path = Path();
-    // final center = Offset(
-    //     sourceNodeAbsolutePosition.offsetX, sourceNodeAbsolutePosition.offsetY);
-
-    // final topRight = Offset(
-    //     sourceNodeAbsolutePosition.offsetX + sourceNodeSize.width / 2,
-    //     sourceNodeAbsolutePosition.offsetY - sourceNodeSize.height / 2);
-    // final topLeft = Offset(
-    //     sourceNodeAbsolutePosition.offsetX - sourceNodeSize.width / 2,
-    //     sourceNodeAbsolutePosition.offsetY - sourceNodeSize.height / 2);
-
-    // path.moveTo(start.dx, start.dy); // Start point
-
-    // // Draw 1. Curved line
-    // var middleEnd = Offset(sourceNodeAbsolutePosition.offsetX,
-    //     sourceNodeAbsolutePosition.offsetY - sourceNodeSize.height);
-
-    // path.cubicTo(
-    //   start.dx + 2 * (topRight.dx - center.dx).abs(),
-    //   start.dy - 2 * (topRight.dy - center.dy).abs(), // Control point 1
-    //   middleEnd.dx,
-    //   middleEnd.dy, // Control point 2
-    //   middleEnd.dx,
-    //   middleEnd.dy, // End point
-    // );
-
-    // // Draw 2. Curved line
-    // var middleStart = middleEnd;
-    // path.cubicTo(
-    //     middleStart.dx - 2 * (topLeft.dx - center.dx).abs(),
-    //     middleStart.dy,
-    //     end.dx - (1.0 * sourceNodeSize.width).abs(),
-    //     end.dy - (1.5 * sourceNodeSize.height).abs(),
-    //     end.dx,
-    //     end.dy);
-    // return path;
     path.moveTo(start.dx, start.dy);
     // Control points for self-loop
     final controlPoint1 = Offset(
@@ -160,8 +125,8 @@ class CurvedLoopPainter extends CustomPainter {
       start.dy - sourceNodeSize.height - 200,
     );
     final controlPoint2 = Offset(
-      start.dx - 600,
-      start.dy - 400,
+      start.dx - 4 * sourceNodeSize.width,
+      start.dy - sourceNodeSize.height - 200,
     );
     path.cubicTo(
       controlPoint1.dx,
@@ -176,41 +141,24 @@ class CurvedLoopPainter extends CustomPainter {
 
   Path getBottomToTopPath() {
     final path = Path();
-
-    final center = Offset(
-        sourceNodeAbsolutePosition.offsetX, sourceNodeAbsolutePosition.offsetY);
-
-    final bottomLeft = Offset(
-        sourceNodeAbsolutePosition.offsetX - sourceNodeSize.width / 2,
-        sourceNodeAbsolutePosition.offsetY + sourceNodeSize.height / 2);
-    final bottomRight = Offset(
-        sourceNodeAbsolutePosition.offsetX + sourceNodeSize.width / 2,
-        sourceNodeAbsolutePosition.offsetY + sourceNodeSize.height / 2);
-
-    path.moveTo(start.dx, start.dy); // Start point
-
-    // Draw 1. Curved line
-    var middleEnd = Offset(sourceNodeAbsolutePosition.offsetX,
-        sourceNodeAbsolutePosition.offsetY + sourceNodeSize.height);
-
-    path.cubicTo(
-      start.dx + 2 * (bottomRight.dx - center.dx).abs(),
-      start.dy + 2 * (bottomRight.dy - center.dy).abs(), // Control point 1
-      middleEnd.dx,
-      middleEnd.dy, // Control point 2
-      middleEnd.dx,
-      middleEnd.dy, // End point
+    path.moveTo(start.dx, start.dy);
+    // Control points for self-loop
+    final controlPoint1 = Offset(
+      start.dx + sourceNodeSize.width,
+      start.dy + sourceNodeSize.height + 200,
     );
-
-    // Draw 2. Curved line
-    var middleStart = middleEnd;
+    final controlPoint2 = Offset(
+      start.dx - (end.dx - start.dx).abs() * 1.8,
+      start.dy + sourceNodeSize.height + 200,
+    );
     path.cubicTo(
-        middleStart.dx - 2 * (bottomLeft.dx - center.dx).abs(),
-        middleStart.dy,
-        end.dx - (0.5 * sourceNodeSize.width).abs(),
-        end.dy + (0.5 * sourceNodeSize.height).abs(),
-        end.dx,
-        end.dy);
+      controlPoint1.dx,
+      controlPoint1.dy,
+      controlPoint2.dx,
+      controlPoint2.dy,
+      end.dx,
+      end.dy,
+    );
     return path;
   }
 
@@ -354,23 +302,11 @@ class _CurvedLoopState extends State<CurvedLoop> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-        onTapUp: (details) {
-          final RenderBox renderBox = context.findRenderObject() as RenderBox;
-          final Offset localPosition =
-              renderBox.globalToLocal(details.globalPosition);
-          if (_painter.hitTestCurvedLine(localPosition)) {
-            //print('Tapped on rendered part!');
-            widget.onTap.call();
-          } else {
-            //print('Tapped outside rendered part.');
-          }
-        },
-        child: RepaintBoundary(
-          child: CustomPaint(
-            size: MediaQuery.of(context).size,
-            painter: _painter,
-          ),
-        ));
+    return RepaintBoundary(
+      child: CustomPaint(
+        size: MediaQuery.of(context).size,
+        painter: _painter,
+      ),
+    );
   }
 }

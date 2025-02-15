@@ -314,23 +314,11 @@ class _CurvedLineState extends State<CurvedLine> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-        onTapUp: (details) {
-          final RenderBox renderBox = context.findRenderObject() as RenderBox;
-          final Offset localPosition =
-              renderBox.globalToLocal(details.globalPosition);
-          if (_painter.hitTestCurvedLine(localPosition)) {
-            print('Tapped on rendered part!');
-            widget.onTap?.call();
-          } else {
-            print('Tapped outside rendered part.');
-          }
-        },
-        child: RepaintBoundary(
-          child: CustomPaint(
-            size: MediaQuery.of(context).size,
-            painter: _painter,
-          ),
-        ));
+    return RepaintBoundary(
+      child: CustomPaint(
+        size: MediaQuery.of(context).size,
+        painter: _painter,
+      ),
+    );
   }
 }
