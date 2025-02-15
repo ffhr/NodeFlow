@@ -85,33 +85,33 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
                 await widget.onClicked?.call(
                   false,
                 );
-                if ((FFAppState().EdgeDrawing.drawingState ==
-                        DrawingState.inactive) ||
-                    (FFAppState().EdgeDrawing.drawingState ==
-                        DrawingState.finished)) {
+                if ((FFAppState().NFEdgeDrawingState.drawingStateType ==
+                        NFEdgeDrawingStateType.inactive) ||
+                    (FFAppState().NFEdgeDrawingState.drawingStateType ==
+                        NFEdgeDrawingStateType.finished)) {
                   // Set status Drawing.STARTED
-                  FFAppState().updateEdgeDrawingStruct(
+                  FFAppState().updateNFEdgeDrawingStateStruct(
                     (e) => e
-                      ..drawingState = DrawingState.started
+                      ..drawingStateType = NFEdgeDrawingStateType.started
                       ..drawingStartPoint = NFPointStruct(
                         positionX: functions.scaledGlobalPosition(
                             details.globalPosition.dx,
                             FFAppState().DefaultZoomFactor,
-                            FFAppState().ZoomFactor),
+                            FFAppState().NFZoomFactor),
                         positionY: functions.scaledGlobalPosition(
                             details.globalPosition.dy,
                             FFAppState().DefaultZoomFactor,
-                            FFAppState().ZoomFactor),
+                            FFAppState().NFZoomFactor),
                       )
                       ..drawingEndPoint = NFPointStruct(
                         positionX: functions.scaledGlobalPosition(
                             details.globalPosition.dx,
                             FFAppState().DefaultZoomFactor,
-                            FFAppState().ZoomFactor),
+                            FFAppState().NFZoomFactor),
                         positionY: functions.scaledGlobalPosition(
                             details.globalPosition.dy,
                             FFAppState().DefaultZoomFactor,
-                            FFAppState().ZoomFactor),
+                            FFAppState().NFZoomFactor),
                       ),
                   );
                   FFAppState().update(() {});
@@ -126,8 +126,8 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
               },
               onPanEnd: (details) async {
                 // Set status Drawing.FINISHED
-                FFAppState().updateEdgeDrawingStruct(
-                  (e) => e..drawingState = DrawingState.finished,
+                FFAppState().updateNFEdgeDrawingStateStruct(
+                  (e) => e..drawingStateType = NFEdgeDrawingStateType.finished,
                 );
                 FFAppState().update(() {});
                 // Execute callback
@@ -140,26 +140,26 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
               },
               onPanUpdate: (details) async {
                 // Set status Drawing.ACTIVE
-                FFAppState().updateEdgeDrawingStruct(
+                FFAppState().updateNFEdgeDrawingStateStruct(
                   (e) => e
-                    ..drawingState = DrawingState.active
+                    ..drawingStateType = NFEdgeDrawingStateType.active
                     ..drawingEndPoint = NFPointStruct(
                       positionX: functions.scaledGlobalPosition(
                           details.globalPosition.dx,
                           FFAppState().DefaultZoomFactor,
-                          FFAppState().ZoomFactor),
+                          FFAppState().NFZoomFactor),
                       positionY: functions.scaledGlobalPosition(
                           details.globalPosition.dy,
                           FFAppState().DefaultZoomFactor,
-                          FFAppState().ZoomFactor),
+                          FFAppState().NFZoomFactor),
                     ),
                 );
                 FFAppState().update(() {});
               },
               onTapUp: (details) async {
                 // Set status Drawing.FINISHED
-                FFAppState().updateEdgeDrawingStruct(
-                  (e) => e..drawingState = DrawingState.finished,
+                FFAppState().updateNFEdgeDrawingStateStruct(
+                  (e) => e..drawingStateType = NFEdgeDrawingStateType.finished,
                 );
                 FFAppState().update(() {});
               },
@@ -188,33 +188,33 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
                 await widget.onClicked?.call(
                   true,
                 );
-                if ((FFAppState().EdgeDrawing.drawingState ==
-                        DrawingState.inactive) ||
-                    (FFAppState().EdgeDrawing.drawingState ==
-                        DrawingState.finished)) {
+                if ((FFAppState().NFEdgeDrawingState.drawingStateType ==
+                        NFEdgeDrawingStateType.inactive) ||
+                    (FFAppState().NFEdgeDrawingState.drawingStateType ==
+                        NFEdgeDrawingStateType.finished)) {
                   // Set status Drawing.STARTED
-                  FFAppState().updateEdgeDrawingStruct(
+                  FFAppState().updateNFEdgeDrawingStateStruct(
                     (e) => e
-                      ..drawingState = DrawingState.started
+                      ..drawingStateType = NFEdgeDrawingStateType.started
                       ..drawingStartPoint = NFPointStruct(
                         positionX: functions.scaledGlobalPosition(
                             details.globalPosition.dx,
                             FFAppState().DefaultZoomFactor,
-                            FFAppState().ZoomFactor),
+                            FFAppState().NFZoomFactor),
                         positionY: functions.scaledGlobalPosition(
                             details.globalPosition.dy,
                             FFAppState().DefaultZoomFactor,
-                            FFAppState().ZoomFactor),
+                            FFAppState().NFZoomFactor),
                       )
                       ..drawingEndPoint = NFPointStruct(
                         positionX: functions.scaledGlobalPosition(
                             details.globalPosition.dx,
                             FFAppState().DefaultZoomFactor,
-                            FFAppState().ZoomFactor),
+                            FFAppState().NFZoomFactor),
                         positionY: functions.scaledGlobalPosition(
                             details.globalPosition.dy,
                             FFAppState().DefaultZoomFactor,
-                            FFAppState().ZoomFactor),
+                            FFAppState().NFZoomFactor),
                       ),
                   );
                   FFAppState().update(() {});
@@ -229,8 +229,8 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
               },
               onPanEnd: (details) async {
                 // Set status Drawing.FINISHED
-                FFAppState().updateEdgeDrawingStruct(
-                  (e) => e..drawingState = DrawingState.finished,
+                FFAppState().updateNFEdgeDrawingStateStruct(
+                  (e) => e..drawingStateType = NFEdgeDrawingStateType.finished,
                 );
                 FFAppState().update(() {});
                 // Execute callback
@@ -243,26 +243,26 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
               },
               onPanUpdate: (details) async {
                 // Set status Drawing.ACTIVE
-                FFAppState().updateEdgeDrawingStruct(
+                FFAppState().updateNFEdgeDrawingStateStruct(
                   (e) => e
-                    ..drawingState = DrawingState.active
+                    ..drawingStateType = NFEdgeDrawingStateType.active
                     ..drawingEndPoint = NFPointStruct(
                       positionX: functions.scaledGlobalPosition(
                           details.globalPosition.dx,
                           FFAppState().DefaultZoomFactor,
-                          FFAppState().ZoomFactor),
+                          FFAppState().NFZoomFactor),
                       positionY: functions.scaledGlobalPosition(
                           details.globalPosition.dy,
                           FFAppState().DefaultZoomFactor,
-                          FFAppState().ZoomFactor),
+                          FFAppState().NFZoomFactor),
                     ),
                 );
                 FFAppState().update(() {});
               },
               onTapUp: (details) async {
                 // Set status Drawing.FINISHED
-                FFAppState().updateEdgeDrawingStruct(
-                  (e) => e..drawingState = DrawingState.finished,
+                FFAppState().updateNFEdgeDrawingStateStruct(
+                  (e) => e..drawingStateType = NFEdgeDrawingStateType.finished,
                 );
                 FFAppState().update(() {});
               },
@@ -289,15 +289,19 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
       ),
       onEnter: ((event) async {
         safeSetState(() => _model.mouseRegionHovered = true);
-        if (FFAppState().EdgeDrawing.drawingState == DrawingState.inactive) {}
-        if ((FFAppState().EdgeDrawing.drawingState == DrawingState.active) ||
-            (FFAppState().EdgeDrawing.drawingState == DrawingState.finished)) {}
+        if (FFAppState().NFEdgeDrawingState.drawingStateType ==
+            NFEdgeDrawingStateType.inactive) {}
+        if ((FFAppState().NFEdgeDrawingState.drawingStateType ==
+                NFEdgeDrawingStateType.active) ||
+            (FFAppState().NFEdgeDrawingState.drawingStateType ==
+                NFEdgeDrawingStateType.finished)) {}
         // Execute callback
         await widget.mouseEntered?.call();
       }),
       onExit: ((event) async {
         safeSetState(() => _model.mouseRegionHovered = false);
-        if (FFAppState().EdgeDrawing.drawingState == DrawingState.started) {}
+        if (FFAppState().NFEdgeDrawingState.drawingStateType ==
+            NFEdgeDrawingStateType.started) {}
         await widget.mouseExit?.call();
       }),
     );

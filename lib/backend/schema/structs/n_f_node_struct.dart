@@ -42,7 +42,7 @@ class NFNodeStruct extends BaseStruct {
 
   // "label" field.
   String? _label;
-  String get label => _label ?? '<NODE>';
+  String get label => _label ?? '<NODE_TITLE>';
   set label(String? val) => _label = val;
 
   bool hasLabel() => _label != null;

@@ -1,4 +1,5 @@
-import '/components/n_f_diagram_min_widget.dart';
+import '/backend/schema/structs/index.dart';
+import '/components/n_f_diagram_widget.dart';
 import '/components/n_f_toolbox_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';

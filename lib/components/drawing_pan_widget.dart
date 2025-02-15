@@ -44,18 +44,19 @@ class _DrawingPanWidgetState extends State<DrawingPanWidget> {
     context.watch<FFAppState>();
 
     return Visibility(
-      visible:
-          (FFAppState().EdgeDrawing.drawingState == DrawingState.started) ||
-              (FFAppState().EdgeDrawing.drawingState == DrawingState.active),
+      visible: (FFAppState().NFEdgeDrawingState.drawingStateType ==
+              NFEdgeDrawingStateType.started) ||
+          (FFAppState().NFEdgeDrawingState.drawingStateType ==
+              NFEdgeDrawingStateType.active),
       child: GestureDetector(
         onPanDown: (details) async {
-          FFAppState().updateEdgeDrawingStruct(
+          FFAppState().updateNFEdgeDrawingStateStruct(
             (e) => e
               ..drawingStartPoint = NFPointStruct(
                 positionX: details.localPosition.dx,
                 positionY: details.localPosition.dy,
               )
-              ..drawingState = DrawingState.started
+              ..drawingStateType = NFEdgeDrawingStateType.started
               ..drawingEndPoint = NFPointStruct(
                 positionX: details.localPosition.dx,
                 positionY: details.localPosition.dy,
@@ -64,15 +65,15 @@ class _DrawingPanWidgetState extends State<DrawingPanWidget> {
           safeSetState(() {});
         },
         onPanEnd: (details) async {
-          FFAppState().updateEdgeDrawingStruct(
-            (e) => e..drawingState = DrawingState.finished,
+          FFAppState().updateNFEdgeDrawingStateStruct(
+            (e) => e..drawingStateType = NFEdgeDrawingStateType.finished,
           );
           safeSetState(() {});
         },
         onPanUpdate: (details) async {
-          FFAppState().updateEdgeDrawingStruct(
+          FFAppState().updateNFEdgeDrawingStateStruct(
             (e) => e
-              ..drawingState = DrawingState.active
+              ..drawingStateType = NFEdgeDrawingStateType.active
               ..drawingEndPoint = NFPointStruct(
                 positionX: details.localPosition.dx,
                 positionY: details.localPosition.dy,
