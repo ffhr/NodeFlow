@@ -39,6 +39,8 @@ class _ZoomableHomePageWidgetState extends State<ZoomableHomePageWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -64,6 +66,32 @@ class _ZoomableHomePageWidgetState extends State<ZoomableHomePageWidget> {
                 model: _model.nFToolboxModel,
                 updateCallback: () => safeSetState(() {}),
                 child: NFToolboxWidget(),
+              ),
+            ),
+            Align(
+              alignment: AlignmentDirectional(1.0, 1.0),
+              child: Container(
+                width: 100.0,
+                height: 100.0,
+                decoration: BoxDecoration(
+                  color: FlutterFlowTheme.of(context).primary,
+                ),
+                child: Align(
+                  alignment: AlignmentDirectional(0.0, 0.0),
+                  child: Text(
+                    'Zoom: ${formatNumber(
+                      FFAppState().ZoomFactor,
+                      formatType: FormatType.custom,
+                      format: '000',
+                      locale: '',
+                    )}%',
+                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                          fontFamily: 'Inter',
+                          color: Colors.white,
+                          letterSpacing: 0.0,
+                        ),
+                  ),
+                ),
               ),
             ),
           ],
