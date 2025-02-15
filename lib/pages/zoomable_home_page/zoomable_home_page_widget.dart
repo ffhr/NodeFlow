@@ -82,7 +82,7 @@ class _ZoomableHomePageWidgetState extends State<ZoomableHomePageWidget> {
                     'Zoom: ${formatNumber(
                       FFAppState().ZoomFactor,
                       formatType: FormatType.custom,
-                      format: '000',
+                      format: '###',
                       locale: '',
                     )}%',
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
