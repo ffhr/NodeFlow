@@ -379,7 +379,7 @@ int? getSourceOutputIndexFromPoint(
           math.pow(point.positionX - outputSocketAbsolutePositionX, 2) +
               math.pow(point.positionY - outputSocketAbsolutePositionY, 2));
 
-      var socketDiameter = 20;
+      var socketDiameter = 20 * zoomFactor;
       if (distance < socketDiameter) {
         return index;
       }
@@ -429,7 +429,7 @@ int? getTargetInputIndexFromPoint(
           math.pow(point.positionX - inputSocketAbsolutePositionX, 2) +
               math.pow(point.positionY - inputSocketAbsolutePositionY, 2));
 
-      var socketDiameter = 20;
+      var socketDiameter = 20 * zoomFactor;
       if (distance < socketDiameter) {
         return index;
       }

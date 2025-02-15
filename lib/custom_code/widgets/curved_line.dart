@@ -26,15 +26,18 @@ class CurvedLinePainter extends CustomPainter {
   final NFLineType lineType;
   final bool isArrowPointingToStartPoint;
   final Color lineColor;
+  final double scaleFactor;
 
   CurvedLinePainter(this.start, this.end, this.lineType,
-      this.isArrowPointingToStartPoint, this.lineColor);
+      this.isArrowPointingToStartPoint, this.lineColor, this.scaleFactor);
 
   @override
   void paint(Canvas canvas, Size size) {
     var path = getPath();
     canvas.save();
-    canvas.scale(0.01);
+    if (scaleFactor != 1.0) {
+      canvas.scale(scaleFactor);
+    }
     if (lineType == NFLineType.solid) {
       // Draw the path on the canvas
       final paint = Paint()
@@ -168,12 +171,14 @@ class CurvedLinePainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant CurvedLinePainter oldDelegate) {
-    if (oldDelegate.start == start && oldDelegate.end == end) {
-      //print("shouldRepaint: false");
-      return false;
-    }
-    //print("shouldRepaint: true");
+    // This will trigger changing of theme.
     return true;
+    // if (oldDelegate.start == start && oldDelegate.end == end) {
+    //   //print("shouldRepaint: false");
+    //   return false;
+    // }
+    // //print("shouldRepaint: true");
+    // return true;
   }
 
   LineDirection getLineDirection(Offset start, Offset end) {
@@ -281,16 +286,18 @@ class CurvedLine extends StatefulWidget {
 
 class _CurvedLineState extends State<CurvedLine> {
   CurvedLinePainter _painter = CurvedLinePainter(
-      Offset(0, 0), Offset(0, 0), NFLineType.solid, false, Colors.black);
+      Offset(0, 0), Offset(0, 0), NFLineType.solid, false, Colors.black, 1.0);
 
   @override
   void initState() {
     _painter = CurvedLinePainter(
-        Offset(widget.start.positionX, widget.start.positionY),
-        Offset(widget.end.positionX, widget.end.positionY),
-        widget.lineType,
-        widget.isArrowPointingToStartPoint,
-        widget.lineColor);
+      Offset(widget.start.positionX, widget.start.positionY),
+      Offset(widget.end.positionX, widget.end.positionY),
+      widget.lineType,
+      widget.isArrowPointingToStartPoint,
+      widget.lineColor,
+      widget.scaleFactor,
+    );
     super.initState();
   }
 
@@ -302,28 +309,17 @@ class _CurvedLineState extends State<CurvedLine> {
         Offset(widget.end.positionX, widget.end.positionY),
         widget.lineType,
         widget.isArrowPointingToStartPoint,
-        widget.lineColor);
+        widget.lineColor,
+        widget.scaleFactor);
   }
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-        onTapUp: (details) {
-          final RenderBox renderBox = context.findRenderObject() as RenderBox;
-          final Offset localPosition =
-              renderBox.globalToLocal(details.globalPosition);
-          if (_painter.hitTestCurvedLine(localPosition)) {
-            print('Tapped on rendered part!');
-            widget.onTap?.call();
-          } else {
-            print('Tapped outside rendered part.');
-          }
-        },
-        child: RepaintBoundary(
-          child: CustomPaint(
-            size: MediaQuery.of(context).size,
-            painter: _painter,
-          ),
-        ));
+    return RepaintBoundary(
+      child: CustomPaint(
+        size: MediaQuery.of(context).size,
+        painter: _painter,
+      ),
+    );
   }
 }
