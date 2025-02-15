@@ -11,15 +11,19 @@ enum NFEntityTypeShort {
   dg,
   nd,
   ed,
+  ins,
+  ots,
 }
 
 enum NFEntityTypeLong {
   diagram,
   node,
   edge,
+  input_socket,
+  output_socket,
 }
 
-enum DrawingState {
+enum NFEdgeDrawingStateType {
   inactive,
   started,
   active,
@@ -58,8 +62,8 @@ T? deserializeEnum<T>(String? value) {
       return NFEntityTypeShort.values.deserialize(value) as T?;
     case (NFEntityTypeLong):
       return NFEntityTypeLong.values.deserialize(value) as T?;
-    case (DrawingState):
-      return DrawingState.values.deserialize(value) as T?;
+    case (NFEdgeDrawingStateType):
+      return NFEdgeDrawingStateType.values.deserialize(value) as T?;
     case (CurvedLoopType):
       return CurvedLoopType.values.deserialize(value) as T?;
     case (NFLineType):

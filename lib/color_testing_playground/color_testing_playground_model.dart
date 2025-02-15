@@ -1,12 +1,15 @@
+import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import 'home_page_widget.dart' show HomePageWidget;
+import 'dart:ui';
+import 'color_testing_playground_widget.dart' show ColorTestingPlaygroundWidget;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class HomePageModel extends FlutterFlowModel<HomePageWidget> {
+class ColorTestingPlaygroundModel
+    extends FlutterFlowModel<ColorTestingPlaygroundWidget> {
   @override
   void initState(BuildContext context) {}
 

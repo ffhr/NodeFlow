@@ -68,6 +68,18 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'SocketLegend',
           path: '/socketLegend',
           builder: (context, params) => SocketLegendWidget(),
+        ),
+        FFRoute(
+          name: 'ColorTestingPlayground',
+          path: '/colorTestingPlayground',
+          builder: (context, params) => ColorTestingPlaygroundWidget(
+            colorNeki: params.getParam(
+              'colorNeki',
+              ParamType.DataStruct,
+              isList: false,
+              structBuilder: NFColorStruct.fromSerializableMap,
+            ),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

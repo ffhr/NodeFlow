@@ -24,51 +24,38 @@ class FFAppState extends ChangeNotifier {
     notifyListeners();
   }
 
-  double _NodeWidth = 180.0;
-  double get NodeWidth => _NodeWidth;
-  set NodeWidth(double value) {
-    _NodeWidth = value;
-  }
-
-  double _NodeHeight = 150.0;
-  double get NodeHeight => _NodeHeight;
-  set NodeHeight(double value) {
-    _NodeHeight = value;
-  }
-
-  NFOffsetStruct _ViewportCenter = NFOffsetStruct.fromSerializableMap(
+  /// Current position of virtual 0,0 center in rendered NFZoomableStack
+  NFOffsetStruct _NFViewportCenter = NFOffsetStruct.fromSerializableMap(
       jsonDecode('{\"offset_x\":\"0\",\"offset_y\":\"0\"}'));
-  NFOffsetStruct get ViewportCenter => _ViewportCenter;
-  set ViewportCenter(NFOffsetStruct value) {
-    _ViewportCenter = value;
+  NFOffsetStruct get NFViewportCenter => _NFViewportCenter;
+  set NFViewportCenter(NFOffsetStruct value) {
+    _NFViewportCenter = value;
   }
 
-  NFOffsetStruct _ViewCenter = NFOffsetStruct.fromSerializableMap(
-      jsonDecode('{\"offset_x\":\"0\",\"offset_y\":\"0\"}'));
-  NFOffsetStruct get ViewCenter => _ViewCenter;
-  set ViewCenter(NFOffsetStruct value) {
-    _ViewCenter = value;
+  void updateNFViewportCenterStruct(Function(NFOffsetStruct) updateFn) {
+    updateFn(_NFViewportCenter);
   }
 
-  void updateViewportCenterStruct(Function(NFOffsetStruct) updateFn) {
-    updateFn(_ViewportCenter);
+  /// Current zoom/scale factor of currently visible NFDiagram in
+  /// NFZoomableStack
+  double _NFZoomFactor = 1.0;
+  double get NFZoomFactor => _NFZoomFactor;
+  set NFZoomFactor(double value) {
+    _NFZoomFactor = value;
   }
 
-  double _ZoomFactor = 1.0;
-  double get ZoomFactor => _ZoomFactor;
-  set ZoomFactor(double value) {
-    _ZoomFactor = value;
+  /// Current active state of building NFEdge on an active NFDiagram
+  NFEdgeDrawingStateStruct _NFEdgeDrawingState =
+      NFEdgeDrawingStateStruct.fromSerializableMap(jsonDecode(
+          '{\"drawing_start_point\":\"{\\\"position_x\\\":\\\"0\\\",\\\"position_y\\\":\\\"0\\\"}\",\"drawing_end_point\":\"{\\\"position_x\\\":\\\"0\\\",\\\"position_y\\\":\\\"0\\\"}\",\"drawing_state\":\"wmsc1\"}'));
+  NFEdgeDrawingStateStruct get NFEdgeDrawingState => _NFEdgeDrawingState;
+  set NFEdgeDrawingState(NFEdgeDrawingStateStruct value) {
+    _NFEdgeDrawingState = value;
   }
 
-  EdgeDrawingStruct _EdgeDrawing = EdgeDrawingStruct.fromSerializableMap(jsonDecode(
-      '{\"drawing_start_point\":\"{\\\"position_x\\\":\\\"0\\\",\\\"position_y\\\":\\\"0\\\"}\",\"drawing_end_point\":\"{\\\"position_x\\\":\\\"0\\\",\\\"position_y\\\":\\\"0\\\"}\",\"drawing_state\":\"inactive\"}'));
-  EdgeDrawingStruct get EdgeDrawing => _EdgeDrawing;
-  set EdgeDrawing(EdgeDrawingStruct value) {
-    _EdgeDrawing = value;
-  }
-
-  void updateEdgeDrawingStruct(Function(EdgeDrawingStruct) updateFn) {
-    updateFn(_EdgeDrawing);
+  void updateNFEdgeDrawingStateStruct(
+      Function(NFEdgeDrawingStateStruct) updateFn) {
+    updateFn(_NFEdgeDrawingState);
   }
 
   List<NodeStruct> _Nodes = [];
@@ -106,14 +93,16 @@ class FFAppState extends ChangeNotifier {
     _NodeSelectedIndex = value;
   }
 
-  NodeEdgeStruct _CurrentBuildingEdge = NodeEdgeStruct();
-  NodeEdgeStruct get CurrentBuildingEdge => _CurrentBuildingEdge;
-  set CurrentBuildingEdge(NodeEdgeStruct value) {
-    _CurrentBuildingEdge = value;
+  /// Temporary edge data with an info between which NFInputSocket and
+  /// NFOutputSocket is NFEdge building in NFDiagram
+  NodeEdgeStruct _NFCurrentBuildingEdge = NodeEdgeStruct();
+  NodeEdgeStruct get NFCurrentBuildingEdge => _NFCurrentBuildingEdge;
+  set NFCurrentBuildingEdge(NodeEdgeStruct value) {
+    _NFCurrentBuildingEdge = value;
   }
 
-  void updateCurrentBuildingEdgeStruct(Function(NodeEdgeStruct) updateFn) {
-    updateFn(_CurrentBuildingEdge);
+  void updateNFCurrentBuildingEdgeStruct(Function(NodeEdgeStruct) updateFn) {
+    updateFn(_NFCurrentBuildingEdge);
   }
 
   List<NodeEdgeStruct> _Edges = [

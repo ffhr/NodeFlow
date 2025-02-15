@@ -6,14 +6,14 @@ import '/backend/schema/enums/enums.dart';
 import 'index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 
-class EdgeDrawingStruct extends BaseStruct {
-  EdgeDrawingStruct({
+class NFEdgeDrawingStateStruct extends BaseStruct {
+  NFEdgeDrawingStateStruct({
     NFPointStruct? drawingStartPoint,
     NFPointStruct? drawingEndPoint,
-    DrawingState? drawingState,
+    NFEdgeDrawingStateType? drawingStateType,
   })  : _drawingStartPoint = drawingStartPoint,
         _drawingEndPoint = drawingEndPoint,
-        _drawingState = drawingState;
+        _drawingStateType = drawingStateType;
 
   // "drawing_start_point" field.
   NFPointStruct? _drawingStartPoint;
@@ -37,34 +37,36 @@ class EdgeDrawingStruct extends BaseStruct {
 
   bool hasDrawingEndPoint() => _drawingEndPoint != null;
 
-  // "drawing_state" field.
-  DrawingState? _drawingState;
-  DrawingState get drawingState => _drawingState ?? DrawingState.inactive;
-  set drawingState(DrawingState? val) => _drawingState = val;
+  // "drawing_state_type" field.
+  NFEdgeDrawingStateType? _drawingStateType;
+  NFEdgeDrawingStateType get drawingStateType =>
+      _drawingStateType ?? NFEdgeDrawingStateType.inactive;
+  set drawingStateType(NFEdgeDrawingStateType? val) => _drawingStateType = val;
 
-  bool hasDrawingState() => _drawingState != null;
+  bool hasDrawingStateType() => _drawingStateType != null;
 
-  static EdgeDrawingStruct fromMap(Map<String, dynamic> data) =>
-      EdgeDrawingStruct(
+  static NFEdgeDrawingStateStruct fromMap(Map<String, dynamic> data) =>
+      NFEdgeDrawingStateStruct(
         drawingStartPoint: data['drawing_start_point'] is NFPointStruct
             ? data['drawing_start_point']
             : NFPointStruct.maybeFromMap(data['drawing_start_point']),
         drawingEndPoint: data['drawing_end_point'] is NFPointStruct
             ? data['drawing_end_point']
             : NFPointStruct.maybeFromMap(data['drawing_end_point']),
-        drawingState: data['drawing_state'] is DrawingState
-            ? data['drawing_state']
-            : deserializeEnum<DrawingState>(data['drawing_state']),
+        drawingStateType: data['drawing_state_type'] is NFEdgeDrawingStateType
+            ? data['drawing_state_type']
+            : deserializeEnum<NFEdgeDrawingStateType>(
+                data['drawing_state_type']),
       );
 
-  static EdgeDrawingStruct? maybeFromMap(dynamic data) => data is Map
-      ? EdgeDrawingStruct.fromMap(data.cast<String, dynamic>())
+  static NFEdgeDrawingStateStruct? maybeFromMap(dynamic data) => data is Map
+      ? NFEdgeDrawingStateStruct.fromMap(data.cast<String, dynamic>())
       : null;
 
   Map<String, dynamic> toMap() => {
         'drawing_start_point': _drawingStartPoint?.toMap(),
         'drawing_end_point': _drawingEndPoint?.toMap(),
-        'drawing_state': _drawingState?.serialize(),
+        'drawing_state_type': _drawingStateType?.serialize(),
       }.withoutNulls;
 
   @override
@@ -77,14 +79,15 @@ class EdgeDrawingStruct extends BaseStruct {
           _drawingEndPoint,
           ParamType.DataStruct,
         ),
-        'drawing_state': serializeParam(
-          _drawingState,
+        'drawing_state_type': serializeParam(
+          _drawingStateType,
           ParamType.Enum,
         ),
       }.withoutNulls;
 
-  static EdgeDrawingStruct fromSerializableMap(Map<String, dynamic> data) =>
-      EdgeDrawingStruct(
+  static NFEdgeDrawingStateStruct fromSerializableMap(
+          Map<String, dynamic> data) =>
+      NFEdgeDrawingStateStruct(
         drawingStartPoint: deserializeStructParam(
           data['drawing_start_point'],
           ParamType.DataStruct,
@@ -97,36 +100,36 @@ class EdgeDrawingStruct extends BaseStruct {
           false,
           structBuilder: NFPointStruct.fromSerializableMap,
         ),
-        drawingState: deserializeParam<DrawingState>(
-          data['drawing_state'],
+        drawingStateType: deserializeParam<NFEdgeDrawingStateType>(
+          data['drawing_state_type'],
           ParamType.Enum,
           false,
         ),
       );
 
   @override
-  String toString() => 'EdgeDrawingStruct(${toMap()})';
+  String toString() => 'NFEdgeDrawingStateStruct(${toMap()})';
 
   @override
   bool operator ==(Object other) {
-    return other is EdgeDrawingStruct &&
+    return other is NFEdgeDrawingStateStruct &&
         drawingStartPoint == other.drawingStartPoint &&
         drawingEndPoint == other.drawingEndPoint &&
-        drawingState == other.drawingState;
+        drawingStateType == other.drawingStateType;
   }
 
   @override
   int get hashCode => const ListEquality()
-      .hash([drawingStartPoint, drawingEndPoint, drawingState]);
+      .hash([drawingStartPoint, drawingEndPoint, drawingStateType]);
 }
 
-EdgeDrawingStruct createEdgeDrawingStruct({
+NFEdgeDrawingStateStruct createNFEdgeDrawingStateStruct({
   NFPointStruct? drawingStartPoint,
   NFPointStruct? drawingEndPoint,
-  DrawingState? drawingState,
+  NFEdgeDrawingStateType? drawingStateType,
 }) =>
-    EdgeDrawingStruct(
+    NFEdgeDrawingStateStruct(
       drawingStartPoint: drawingStartPoint ?? NFPointStruct(),
       drawingEndPoint: drawingEndPoint ?? NFPointStruct(),
-      drawingState: drawingState,
+      drawingStateType: drawingStateType,
     );

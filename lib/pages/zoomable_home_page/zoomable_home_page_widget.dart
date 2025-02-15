@@ -1,4 +1,5 @@
-import '/components/n_f_diagram_min_widget.dart';
+import '/backend/schema/structs/index.dart';
+import '/components/n_f_diagram_widget.dart';
 import '/components/n_f_toolbox_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -57,7 +58,9 @@ class _ZoomableHomePageWidgetState extends State<ZoomableHomePageWidget> {
               child: custom_widgets.NFZoomableStack(
                 width: double.infinity,
                 height: double.infinity,
-                stackComponent: () => NFDiagramMinWidget(),
+                stackComponent: () => NFDiagramWidget(
+                  diagram: NFDiagramStruct(),
+                ),
               ),
             ),
             Align(
@@ -80,7 +83,7 @@ class _ZoomableHomePageWidgetState extends State<ZoomableHomePageWidget> {
                   alignment: AlignmentDirectional(0.0, 0.0),
                   child: Text(
                     'Zoom: ${formatNumber(
-                      FFAppState().ZoomFactor,
+                      FFAppState().NFZoomFactor,
                       formatType: FormatType.custom,
                       format: '###',
                       locale: '',
