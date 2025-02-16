@@ -1,0 +1,320 @@
+// Table Definitions
+
+Table NFSizeStruct {
+  id String [pk, note: 'Primary key for NFSizeStruct']
+  width Double [default: 256.0]
+  height Double [default: 128.0]
+}
+
+Table NFColorStruct {
+  id String [pk, note: 'Primary key for NFColorStruct']
+  light Color [default: 'black']
+  dark Color [default: 'white']
+}
+
+Table NFDiagramIdStruct {
+  id String [pk, note: 'Primary key for NFDiagramIdStruct']
+  entity_type_short Enum [default: "dg"] // enum: dg, nd, ed, ins, ots
+  separator String [default: "_"]
+  // Using the 'id' column for the actual ID field (e.g. "100001")
+}
+
+Table NFDiagramStruct {
+  id String [pk, note: 'Primary key for NFDiagramStruct']
+  diagram_id String [ref: > NFDiagramIdStruct.id]
+  label String [default: "<DIAGRAM_TITLE>"]
+  input_sockets_position Enum [default: "left"] // enum: top, right, bottom, left
+  output_sockets_position Enum [default: "right"]
+  viewport_id String [ref: > NFViewportStruct.id]
+  diagram_theme_id String [ref: > NFDiagramThemeStruct.id]
+}
+
+Table NFDiagramThemeStruct {
+  id String [pk, note: 'Primary key for NFDiagramThemeStruct']
+  input_sockets_default_color_id String [ref: > NFColorStruct.id]
+  output_sockets_default_color_id String [ref: > NFColorStruct.id]
+  nodes_color_id String [ref: > NFColorStruct.id]
+  edges_color_id String [ref: > NFColorStruct.id]
+  axes_color_id String [ref: > NFColorStruct.id]
+  grid_lines_color_id String [ref: > NFColorStruct.id]
+  grid_dots_color_id String [ref: > NFColorStruct.id]
+  grid_background_color_id String [ref: > NFColorStruct.id]
+}
+
+Table NFEdgeCapabilitiesStruct {
+  id String [pk, note: 'Primary key for NFEdgeCapabilitiesStruct']
+  is_animated Boolean [default: false]
+  is_deletable Boolean [default: true]
+  is_selectable Boolean [default: true]
+}
+
+Table NFEdgeDrawingStateStruct [headercolor: #2D6512] {
+  id String [pk, note: 'Primary key for NFEdgeDrawingStateStruct']
+  drawing_start_point_id String [ref: > NFPointStruct.id]
+  drawing_end_point_id String [ref: > NFPointStruct.id]
+  drawing_state_type Enum [default: "inactive"] // enum: inactive, started, active, finished
+}
+
+Table NFEdgeIdStruct {
+  id String [pk, note: 'Primary key for NFEdgeIdStruct']
+  entity_type_short Enum [default: "ed"] // enum: dg, nd, ed, ins, ots
+  separator String [default: "_"]
+}
+
+Table NFEdgeInteractionStateStruct {
+  id String [pk, note: 'Primary key for NFEdgeInteractionStateStruct']
+  is_selected Boolean [default: false]
+  is_animating Boolean [default: false]
+  is_hovered Boolean [default: false]
+}
+
+Table NFEdgeStruct {
+  id String [pk, note: 'Primary key for NFEdgeStruct']
+  edge_id String [ref: > NFEdgeIdStruct.id]
+  label String [default: "<EDGE>"]
+  source_node_reference_id String [ref: > NFNodeReferenceStruct.id]
+  target_node_reference_id String [ref: > NFNodeReferenceStruct.id]
+  edge_capabilities_id String [ref: > NFEdgeCapabilitiesStruct.id]
+  source_output_socket_index Integer [default: 0]
+  target_input_socket_index Integer [default: 0]
+}
+
+Table NFFrameStruct {
+  id String [pk, note: 'Primary key for NFFrameStruct']
+  point_id String [ref: > NFPointStruct.id]
+  size_id String [ref: > NFSizeStruct.id]
+}
+
+Table NFInputSocketIdStruct {
+  id String [pk, note: 'Primary key for NFInputSocketIdStruct']
+  entity_type_short Enum [default: "ins"] // enum: dg, nd, ed, ins, ots
+  separator String [default: "_"]
+}
+
+Table NFInputSocketStruct {
+  id String [pk, note: 'Primary key for NFInputSocketStruct']
+  input_socket_id String [ref: > NFInputSocketIdStruct.id]
+  socket_id String [ref: > NFSocketStruct.id]
+}
+
+Table NFNodeCapabilitiesStruct {
+  id String [pk, note: 'Primary key for NFNodeCapabilitiesStruct']
+  is_selectable Boolean [default: true]
+  is_draggable Boolean [default: true]
+  is_connectable Boolean [default: true]
+  is_deletable Boolean [default: true]
+}
+
+Table NFNodeIdStruct {
+  id String [pk, note: 'Primary key for NFNodeIdStruct']
+  entity_type_short Enum [default: "nd"] // enum: dg, nd, ed, ins, ots
+  separator String [default: "_"]
+}
+
+Table NFNodeInteractionStateStruct {
+  id String [pk, note: 'Primary key for NFNodeInteractionStateStruct']
+  is_selected Boolean [default: false]
+  is_dragging Boolean [default: false]
+  is_connecting Boolean [default: false]
+  is_hovered Boolean [default: false]
+}
+
+Table NFNodeReferenceStruct {
+  id String [pk, note: 'Primary key for NFNodeReferenceStruct']
+  root_to_parent DataType
+  node_id String [ref: > NFNodeIdStruct.id]
+}
+
+Table NFNodeStruct {
+  id String [pk, note: 'Primary key for NFNodeStruct']
+  node_id String [ref: > NFNodeIdStruct.id]
+  label String [default: "<NODE_TITLE>"]
+  virtual_frame_id String [ref: > NFFrameStruct.id]
+  input_sockets DataType
+  output_sockets DataType
+  child_diagram_id String [ref: > NFDiagramIdStruct.id]
+  viewport_frame_id String [ref: > NFFrameStruct.id]
+  node_capabilities_id String [ref: > NFNodeCapabilitiesStruct.id]
+  node_interaction_state_id String [ref: > NFNodeInteractionStateStruct.id]
+  node_visibility_id String [ref: > NFVisibilityStruct.id]
+}
+
+Table NFOffsetStruct {
+  id String [pk, note: 'Primary key for NFOffsetStruct']
+  offset_x Double [default: 0.0]
+  offset_y Double [default: 0.0]
+}
+
+Table NFOutputSocketIdStruct {
+  id String [pk, note: 'Primary key for NFOutputSocketIdStruct']
+  entity_type_short Enum [default: "ots"] // enum: dg, nd, ed, ins, ots
+  separator String [default: "_"]
+}
+
+Table NFOutputSocketStruct {
+  id String [pk, note: 'Primary key for NFOutputSocketStruct']
+  output_socket_id String [ref: > NFOutputSocketIdStruct.id]
+  socket_id String [ref: > NFSocketStruct.id]
+}
+
+Table NFPointStruct {
+  id String [pk, note: 'Primary key for NFPointStruct']
+  position_x Double [default: 0.0]
+  position_y Double [default: 0.0]
+}
+
+Table NFSocketStruct {
+  id String [pk, note: 'Primary key for NFSocketStruct']
+  label String [default: "<SOCKET_TITLE>"]
+  default_color_id String [ref: > NFColorStruct.id]
+  selected_color_id String [ref: > NFColorStruct.id]
+}
+
+Table NFViewportStruct {
+  id String [pk, note: 'Primary key for NFViewportStruct']
+  zoom_factor Double [default: 1.0]
+  virtual_center_id String [ref: > NFPointStruct.id]
+}
+
+Table NFVisibilityStruct {
+  id String [pk, note: 'Primary key for NFVisibilityStruct']
+  is_visible Boolean [default: true]
+  opacity Double [default: 1.0]
+}
+
+// Enum Definitions
+
+Enum NFPosition {
+  top
+  right
+  bottom
+  left
+}
+
+Enum NFEntityTypeShort {
+  dg
+  nd
+  ed
+  ins
+  ots
+}
+
+Enum NFEntityTypeLong {
+  diagram
+  node
+  edge
+  input_socket
+  output_socket
+}
+
+Enum NFEdgeDrawingStateType {
+  inactive
+  started
+  active
+  finished
+}
+
+// ------- Below enums were not used in provided structs
+// Keep previous enums
+Enum CurvedLoopType { 
+  topToBottom
+  bottomToTop
+}
+
+Enum NFLineType {
+  solid
+  dotted
+}
+
+Enum NFGridType {
+  grid
+  dots
+}
+
+// Table Groups
+
+TableGroup "Diagram Structures" [color: #FF5733] {
+  NFDiagramIdStruct
+  NFDiagramStruct
+  NFDiagramThemeStruct
+  NFViewportStruct
+  NFFrameStruct
+
+  Note: '''
+  This group handles diagram-related structures including identification, layout, theming, and viewport management.
+  - NFDiagramIdStruct: Manages unique identifiers for diagrams.
+  - NFDiagramStruct: Contains core diagram properties and configuration.
+  - NFDiagramThemeStruct: Stores theming details for diagram appearance.
+  - NFViewportStruct: Defines viewport properties for diagram visualization.
+  - NFFrameStruct: Represents framing information for diagram elements.
+  '''
+}
+
+TableGroup "Edge Structures" [color: #2D6512] {
+  NFEdgeCapabilitiesStruct
+  NFEdgeDrawingStateStruct
+  NFEdgeIdStruct
+  NFEdgeInteractionStateStruct
+  NFEdgeStruct
+
+  Note: '''
+  This group manages edge-related functionalities including properties, drawing states, and interaction behaviors.
+  - NFEdgeCapabilitiesStruct: Defines capabilities like animation and deletion for edges.
+  - NFEdgeDrawingStateStruct: Tracks the drawing progress and state of edges.
+  - NFEdgeIdStruct: Provides unique identifiers for edges.
+  - NFEdgeInteractionStateStruct: Manages interaction states (selected, animating, hovered) for edges.
+  - NFEdgeStruct: Represents the primary connections linking node sockets.
+  '''
+}
+
+TableGroup "Node Structures" [color: #3357FF] {
+  NFNodeCapabilitiesStruct
+  NFNodeIdStruct
+  NFNodeInteractionStateStruct
+  NFNodeReferenceStruct
+  NFNodeStruct
+
+  Note: '''
+  This group covers node functionalities including unique identification, capability definitions, and interaction management.
+  - NFNodeCapabilitiesStruct: Specifies node abilities such as selectability, dragability, and connectivity.
+  - NFNodeIdStruct: Handles unique identifiers for nodes.
+  - NFNodeInteractionStateStruct: Tracks interaction states like selection, dragging, and hovering for nodes.
+  - NFNodeReferenceStruct: Stores reference details used to relate nodes hierarchically.
+  - NFNodeStruct: Contains comprehensive node details including labels, socket definitions, and child diagram references.
+  '''
+}
+
+TableGroup "Socket Structures" [color: #FF33A6] {
+  NFInputSocketIdStruct
+  NFInputSocketStruct
+  NFOutputSocketIdStruct
+  NFOutputSocketStruct
+  NFSocketStruct
+
+  Note: '''
+  This group focuses on socket-related structures used for establishing node connections.
+  - NFInputSocketIdStruct: Provides unique identifiers for input sockets.
+  - NFInputSocketStruct: Contains configuration details for input sockets.
+  - NFOutputSocketIdStruct: Manages unique identifiers for output sockets.
+  - NFOutputSocketStruct: Stores configuration details for output sockets.
+  - NFSocketStruct: Defines common socket properties such as labels and default color settings.
+  '''
+}
+
+TableGroup "Utility Structures" [color: #A633FF] {
+  NFSizeStruct
+  NFColorStruct
+  NFOffsetStruct
+  NFPointStruct
+  NFVisibilityStruct
+
+  Note: '''
+  This group comprises utility tables that support common functionalities like sizing, color management, positioning, and visibility.
+  - NFSizeStruct: Defines size parameters for diagram elements.
+  - NFColorStruct: Manages color schemes and default color settings.
+  - NFOffsetStruct: Contains offset values for element positioning.
+  - NFPointStruct: Provides coordinate points used in layouts and interactions.
+  - NFVisibilityStruct: Handles visibility and opacity configurations for UI elements.
+  '''
+}
+
