@@ -151,16 +151,26 @@ NFOffsetStruct virtualToAbsolute(
   NFSizeStruct viewportSize,
 ) {
   double absoluteX = (viewportSize.width / 2) +
-      (nodePosition.offsetX - viewportCenter.offsetX) * zoomFactor;
+      (nodePosition.offsetX * zoomFactor) +
+      viewportCenter.offsetX;
 
   double absoluteY = (viewportSize.height / 2) +
-      (nodePosition.offsetY - viewportCenter.offsetY) * zoomFactor;
-
-  // Adapt position according to viewport and scale.
-  absoluteX = absoluteX - (1 - zoomFactor) * viewportCenter.offsetX;
-  absoluteY = absoluteY - (1 - zoomFactor) * viewportCenter.offsetY;
+      (nodePosition.offsetY * zoomFactor) +
+      viewportCenter.offsetY;
 
   return NFOffsetStruct(offsetX: absoluteX, offsetY: absoluteY);
+
+  // double absoluteX = (viewportSize.width / 2) +
+  //     (nodePosition.offsetX - viewportCenter.offsetX) * zoomFactor;
+
+  // double absoluteY = (viewportSize.height / 2) +
+  //     (nodePosition.offsetY - viewportCenter.offsetY) * zoomFactor;
+
+  // // Adapt position according to viewport and scale.
+  // absoluteX = absoluteX - (1 - zoomFactor) * viewportCenter.offsetX;
+  // absoluteY = absoluteY - (1 - zoomFactor) * viewportCenter.offsetY;
+
+  // return NFOffsetStruct(offsetX: absoluteX, offsetY: absoluteY);
 }
 
 NFOffsetStruct absoluteToRelative(
@@ -516,17 +526,15 @@ NFOffsetStruct absoluteToVirtual(
   double zoomFactor,
   NFSizeStruct viewportSize,
 ) {
-  double virtualX =
-      (absolutePosition.offsetX - (viewportSize.width / 2)) / zoomFactor +
-          viewportCenter.offsetX;
+  double virtualX = (absolutePosition.offsetX -
+          (viewportSize.width / 2) -
+          viewportCenter.offsetX) /
+      zoomFactor;
 
-  double virtualY =
-      (absolutePosition.offsetY - (viewportSize.height / 2)) / zoomFactor +
-          viewportCenter.offsetY;
-
-  // Adapt position according to viewport and scale.
-  virtualX = virtualX + (1 - zoomFactor) * viewportCenter.offsetX;
-  virtualY = virtualY + (1 - zoomFactor) * viewportCenter.offsetY;
+  double virtualY = (absolutePosition.offsetY -
+          (viewportSize.height / 2) -
+          viewportCenter.offsetY) /
+      zoomFactor;
 
   return NFOffsetStruct(offsetX: virtualX, offsetY: virtualY);
 }
