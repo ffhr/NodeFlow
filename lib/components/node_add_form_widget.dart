@@ -62,6 +62,8 @@ class _NodeAddFormWidgetState extends State<NodeAddFormWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Form(
       key: _model.formKey,
       autovalidateMode: AutovalidateMode.disabled,
@@ -146,7 +148,7 @@ class _NodeAddFormWidgetState extends State<NodeAddFormWidget> {
                         ),
                         filled: true,
                         fillColor:
-                            FlutterFlowTheme.of(context).secondaryBackground,
+                            FlutterFlowTheme.of(context).primaryBackground,
                       ),
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                             fontFamily: 'Inter',
@@ -224,7 +226,7 @@ class _NodeAddFormWidgetState extends State<NodeAddFormWidget> {
                         ),
                         filled: true,
                         fillColor:
-                            FlutterFlowTheme.of(context).secondaryBackground,
+                            FlutterFlowTheme.of(context).primaryBackground,
                       ),
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                             fontFamily: 'Inter',
@@ -302,7 +304,7 @@ class _NodeAddFormWidgetState extends State<NodeAddFormWidget> {
                         ),
                         filled: true,
                         fillColor:
-                            FlutterFlowTheme.of(context).secondaryBackground,
+                            FlutterFlowTheme.of(context).primaryBackground,
                       ),
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                             fontFamily: 'Inter',
@@ -382,7 +384,7 @@ class _NodeAddFormWidgetState extends State<NodeAddFormWidget> {
                         ),
                         filled: true,
                         fillColor:
-                            FlutterFlowTheme.of(context).secondaryBackground,
+                            FlutterFlowTheme.of(context).primaryBackground,
                       ),
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                             fontFamily: 'Inter',
@@ -462,7 +464,7 @@ class _NodeAddFormWidgetState extends State<NodeAddFormWidget> {
                         ),
                         filled: true,
                         fillColor:
-                            FlutterFlowTheme.of(context).secondaryBackground,
+                            FlutterFlowTheme.of(context).primaryBackground,
                       ),
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                             fontFamily: 'Inter',
@@ -541,7 +543,7 @@ class _NodeAddFormWidgetState extends State<NodeAddFormWidget> {
                         ),
                         filled: true,
                         fillColor:
-                            FlutterFlowTheme.of(context).secondaryBackground,
+                            FlutterFlowTheme.of(context).primaryBackground,
                       ),
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                             fontFamily: 'Inter',
@@ -584,10 +586,8 @@ class _NodeAddFormWidgetState extends State<NodeAddFormWidget> {
                               _model.numberOfInputsTextController.text)),
                           outputs: functions.createNodeOutputs(int.parse(
                               _model.numberOfOutputsTextController.text)),
-                          virtualPosition: NFOffsetStruct(
-                            offsetX: 0.0,
-                            offsetY: 0.0,
-                          ),
+                          virtualPosition: functions.convertNFPointToNFOffset(
+                              FFAppState().NFNewNodePosition),
                           size: NFSizeStruct(
                             width: double.tryParse(
                                 _model.widthInputTextController.text),

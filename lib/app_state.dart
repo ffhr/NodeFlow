@@ -160,4 +160,16 @@ class FFAppState extends ChangeNotifier {
   void updateNFViewCenterStruct(Function(NFOffsetStruct) updateFn) {
     updateFn(_NFViewCenter);
   }
+
+  /// Tap point of context menu
+  NFPointStruct _NFNewNodePosition = NFPointStruct.fromSerializableMap(
+      jsonDecode('{\"position_x\":\"0\",\"position_y\":\"0\"}'));
+  NFPointStruct get NFNewNodePosition => _NFNewNodePosition;
+  set NFNewNodePosition(NFPointStruct value) {
+    _NFNewNodePosition = value;
+  }
+
+  void updateNFNewNodePositionStruct(Function(NFPointStruct) updateFn) {
+    updateFn(_NFNewNodePosition);
+  }
 }

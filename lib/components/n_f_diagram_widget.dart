@@ -74,6 +74,19 @@ class _NFDiagramWidgetState extends State<NFDiagramWidget> {
           safeSetState(() {});
         },
         onSecondaryTapUp: (details) async {
+          // Save tap point
+          FFAppState().NFNewNodePosition =
+              functions.convertNFOffsetToNFPoint(functions.absoluteToVirtual(
+                  NFOffsetStruct(
+                    offsetX: details.globalPosition.dx,
+                    offsetY: details.globalPosition.dy,
+                  ),
+                  FFAppState().NFViewportCenter,
+                  FFAppState().NFZoomFactor,
+                  NFSizeStruct(
+                    width: MediaQuery.sizeOf(context).width,
+                    height: MediaQuery.sizeOf(context).height,
+                  )));
           // Show context menu
           await actions.showContextMenu(
             context,
@@ -81,7 +94,7 @@ class _NFDiagramWidgetState extends State<NFDiagramWidget> {
               positionX: details.globalPosition.dx,
               positionY: details.globalPosition.dy,
             ),
-            () async {
+            (tapPoint) async {
               // Show node add form
               await showDialog(
                 context: context,
