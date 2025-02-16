@@ -55,6 +55,7 @@ class _NodeChildWidgetState extends State<NodeChildWidget> {
             height: double.infinity,
             decoration: BoxDecoration(
               color: FlutterFlowTheme.of(context).accent1,
+              borderRadius: BorderRadius.circular(10.0),
               shape: BoxShape.rectangle,
               border: Border.all(
                 color: FlutterFlowTheme.of(context).primary,
