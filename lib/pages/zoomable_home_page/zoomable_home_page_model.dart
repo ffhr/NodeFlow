@@ -1,6 +1,7 @@
 import '/backend/schema/structs/index.dart';
 import '/components/n_f_diagram_widget.dart';
 import '/components/n_f_toolbox_widget.dart';
+import '/components/n_f_zoom_box_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -15,14 +16,18 @@ class ZoomableHomePageModel extends FlutterFlowModel<ZoomableHomePageWidget> {
 
   // Model for NFToolbox component.
   late NFToolboxModel nFToolboxModel;
+  // Model for NFZoomBox component.
+  late NFZoomBoxModel nFZoomBoxModel;
 
   @override
   void initState(BuildContext context) {
     nFToolboxModel = createModel(context, () => NFToolboxModel());
+    nFZoomBoxModel = createModel(context, () => NFZoomBoxModel());
   }
 
   @override
   void dispose() {
     nFToolboxModel.dispose();
+    nFZoomBoxModel.dispose();
   }
 }

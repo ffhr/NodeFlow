@@ -1,6 +1,7 @@
 import '/backend/schema/structs/index.dart';
 import '/components/n_f_diagram_widget.dart';
 import '/components/n_f_toolbox_widget.dart';
+import '/components/n_f_zoom_box_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -40,8 +41,6 @@ class _ZoomableHomePageWidgetState extends State<ZoomableHomePageWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return GestureDetector(
       onTap: () {
         FocusScope.of(context).unfocus();
@@ -73,32 +72,10 @@ class _ZoomableHomePageWidgetState extends State<ZoomableHomePageWidget> {
             ),
             Align(
               alignment: AlignmentDirectional(1.0, 1.0),
-              child: Padding(
-                padding: EdgeInsets.all(20.0),
-                child: Container(
-                  width: 100.0,
-                  height: 40.0,
-                  decoration: BoxDecoration(
-                    color: FlutterFlowTheme.of(context).primary,
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                  child: Align(
-                    alignment: AlignmentDirectional(0.0, 0.0),
-                    child: Text(
-                      'Zoom: ${formatNumber(
-                        FFAppState().NFZoomFactor,
-                        formatType: FormatType.custom,
-                        format: '###',
-                        locale: '',
-                      )}%',
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily: 'Inter',
-                            color: Colors.white,
-                            letterSpacing: 0.0,
-                          ),
-                    ),
-                  ),
-                ),
+              child: wrapWithModel(
+                model: _model.nFZoomBoxModel,
+                updateCallback: () => safeSetState(() {}),
+                child: NFZoomBoxWidget(),
               ),
             ),
           ],
