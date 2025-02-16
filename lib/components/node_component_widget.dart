@@ -251,10 +251,7 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                           ..sourceNodeId = functions.getSourceNodeIdFromPoint(
                               point,
                               FFAppState().Nodes.toList(),
-                              NFOffsetStruct(
-                                offsetX: -FFAppState().NFViewportCenter.offsetX,
-                                offsetY: -FFAppState().NFViewportCenter.offsetY,
-                              ),
+                              FFAppState().NFViewportCenter,
                               FFAppState().NFZoomFactor /
                                   FFAppState().DefaultZoomFactor,
                               MediaQuery.sizeOf(context).width,
@@ -263,12 +260,7 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                               functions.getSourceOutputIndexFromPoint(
                                   point,
                                   FFAppState().Nodes.toList(),
-                                  NFOffsetStruct(
-                                    offsetX:
-                                        -FFAppState().NFViewportCenter.offsetX,
-                                    offsetY:
-                                        -FFAppState().NFViewportCenter.offsetY,
-                                  ),
+                                  FFAppState().NFViewportCenter,
                                   FFAppState().NFZoomFactor /
                                       FFAppState().DefaultZoomFactor,
                                   MediaQuery.sizeOf(context).width,
@@ -412,14 +404,7 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                                   functions.getTargetNodeIdFromPoint(
                                       point,
                                       FFAppState().Nodes.toList(),
-                                      NFOffsetStruct(
-                                        offsetX: -FFAppState()
-                                            .NFViewportCenter
-                                            .offsetX,
-                                        offsetY: -FFAppState()
-                                            .NFViewportCenter
-                                            .offsetY,
-                                      ),
+                                      FFAppState().NFViewportCenter,
                                       FFAppState().NFZoomFactor /
                                           FFAppState().DefaultZoomFactor,
                                       MediaQuery.sizeOf(context).width,
@@ -428,14 +413,7 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                                   functions.getTargetInputIndexFromPoint(
                                       point,
                                       FFAppState().Nodes.toList(),
-                                      NFOffsetStruct(
-                                        offsetX: -FFAppState()
-                                            .NFViewportCenter
-                                            .offsetX,
-                                        offsetY: -FFAppState()
-                                            .NFViewportCenter
-                                            .offsetY,
-                                      ),
+                                      FFAppState().NFViewportCenter,
                                       FFAppState().NFZoomFactor /
                                           FFAppState().DefaultZoomFactor,
                                       MediaQuery.sizeOf(context).width,

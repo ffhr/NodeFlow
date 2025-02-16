@@ -82,7 +82,7 @@ class _NFDiagramWidgetState extends State<NFDiagramWidget> {
                     offsetY: details.globalPosition.dy,
                   ),
                   FFAppState().NFViewportCenter,
-                  FFAppState().NFZoomFactor,
+                  FFAppState().NFZoomFactor / FFAppState().DefaultZoomFactor,
                   NFSizeStruct(
                     width: MediaQuery.sizeOf(context).width,
                     height: MediaQuery.sizeOf(context).height,
