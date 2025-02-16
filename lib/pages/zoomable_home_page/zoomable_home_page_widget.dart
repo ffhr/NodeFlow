@@ -73,26 +73,30 @@ class _ZoomableHomePageWidgetState extends State<ZoomableHomePageWidget> {
             ),
             Align(
               alignment: AlignmentDirectional(1.0, 1.0),
-              child: Container(
-                width: 100.0,
-                height: 100.0,
-                decoration: BoxDecoration(
-                  color: FlutterFlowTheme.of(context).primary,
-                ),
-                child: Align(
-                  alignment: AlignmentDirectional(0.0, 0.0),
-                  child: Text(
-                    'Zoom: ${formatNumber(
-                      FFAppState().NFZoomFactor,
-                      formatType: FormatType.custom,
-                      format: '###',
-                      locale: '',
-                    )}%',
-                    style: FlutterFlowTheme.of(context).bodyMedium.override(
-                          fontFamily: 'Inter',
-                          color: Colors.white,
-                          letterSpacing: 0.0,
-                        ),
+              child: Padding(
+                padding: EdgeInsets.all(20.0),
+                child: Container(
+                  width: 100.0,
+                  height: 40.0,
+                  decoration: BoxDecoration(
+                    color: FlutterFlowTheme.of(context).primary,
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  child: Align(
+                    alignment: AlignmentDirectional(0.0, 0.0),
+                    child: Text(
+                      'Zoom: ${formatNumber(
+                        FFAppState().NFZoomFactor,
+                        formatType: FormatType.custom,
+                        format: '###',
+                        locale: '',
+                      )}%',
+                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                            fontFamily: 'Inter',
+                            color: Colors.white,
+                            letterSpacing: 0.0,
+                          ),
+                    ),
                   ),
                 ),
               ),
