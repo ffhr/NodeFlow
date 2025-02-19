@@ -11,8 +11,15 @@ import 'flutter_flow/flutter_flow_util.dart';
 import 'flutter_flow/nav/nav.dart';
 import 'index.dart';
 
+//LOCAL_START
+import 'package:flutter/semantics.dart';
+//LOCAL_END
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  //LOCAL_START
+  SemanticsBinding.instance.ensureSemantics();
+  //LOCAL_END
   GoRouter.optionURLReflectsImperativeAPIs = true;
   usePathUrlStrategy();
 
