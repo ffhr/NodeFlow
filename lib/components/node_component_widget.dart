@@ -4,7 +4,6 @@ import '/components/socket_component_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'dart:ui';
-import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -168,7 +167,6 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                   return SocketComponentWidget(
                     key: Key(
                         'Keyhbf_${inputsListIndex}_of_${inputsList.length}'),
-                    isHovered: inputsListItem.socket.isHover,
                     isClicked:
                         (FFAppState().NFCurrentBuildingEdge.targetNodeId ==
                                 widget!.node?.id) &&
@@ -176,26 +174,8 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                                     .NFCurrentBuildingEdge
                                     .targetInputSocketIndex ==
                                 inputsListIndex),
-                    isConnected: false,
                     defaultColor: Color(0xFF0034FD),
                     selectedColor: Color(0xFF00007B),
-                    renderPan: () async {
-                      await widget.renderPanStack?.call();
-                    },
-                    mouseEntered: () async {
-                      await actions.onMouseEnterNodeSocket(
-                        inputsListItem.socket,
-                      );
-                      _model.renderNodeVar = _model.renderNodeVar;
-                      safeSetState(() {});
-                    },
-                    mouseExit: () async {
-                      await actions.onMouseExitNodeSocket(
-                        inputsListItem.socket,
-                      );
-                      _model.renderNodeVar = _model.renderNodeVar;
-                      safeSetState(() {});
-                    },
                     onClicked: (isClicked) async {
                       // On clicked a block
                       await _model.onClickedActionBlock(
@@ -284,7 +264,6 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                       child: SocketComponentWidget(
                         key: Key(
                             'Keydt4_${outputsListIndex}_of_${outputsList.length}'),
-                        isHovered: outputsListItem.socket.isHover,
                         isClicked:
                             (FFAppState().NFCurrentBuildingEdge.sourceNodeId ==
                                     widget!.node?.id) &&
@@ -292,24 +271,8 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                                         .NFCurrentBuildingEdge
                                         .sourceOutputSocketIndex ==
                                     outputsListIndex),
-                        isConnected: false,
                         defaultColor: Color(0xFF2EFF00),
                         selectedColor: Color(0xFF036200),
-                        renderPan: () async {},
-                        mouseEntered: () async {
-                          await actions.onMouseEnterNodeSocket(
-                            outputsListItem.socket,
-                          );
-                          _model.renderNodeVar = _model.renderNodeVar;
-                          safeSetState(() {});
-                        },
-                        mouseExit: () async {
-                          await actions.onMouseExitNodeSocket(
-                            outputsListItem.socket,
-                          );
-                          _model.renderNodeVar = _model.renderNodeVar;
-                          safeSetState(() {});
-                        },
                         onClicked: (isClicked) async {
                           // On clicked action block
                           await _model.onClickedActionBlock(
