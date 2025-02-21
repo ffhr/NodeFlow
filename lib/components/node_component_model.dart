@@ -15,28 +15,16 @@ class NodeComponentModel extends FlutterFlowModel<NodeComponentWidget> {
 
   ///  State fields for stateful widgets in this component.
 
-  // Model for NFSocketsLeft.
-  late NFSocketsModel nFSocketsLeftModel;
-  // Model for NFSocketsTop.
-  late NFSocketsModel nFSocketsTopModel;
-  // Model for NFSocketsRight.
-  late NFSocketsModel nFSocketsRightModel;
-  // Model for NFSocketsBottom.
-  late NFSocketsModel nFSocketsBottomModel;
+  // Model for NFSockets component.
+  late NFSocketsModel nFSocketsModel;
 
   @override
   void initState(BuildContext context) {
-    nFSocketsLeftModel = createModel(context, () => NFSocketsModel());
-    nFSocketsTopModel = createModel(context, () => NFSocketsModel());
-    nFSocketsRightModel = createModel(context, () => NFSocketsModel());
-    nFSocketsBottomModel = createModel(context, () => NFSocketsModel());
+    nFSocketsModel = createModel(context, () => NFSocketsModel());
   }
 
   @override
   void dispose() {
-    nFSocketsLeftModel.dispose();
-    nFSocketsTopModel.dispose();
-    nFSocketsRightModel.dispose();
-    nFSocketsBottomModel.dispose();
+    nFSocketsModel.dispose();
   }
 }
