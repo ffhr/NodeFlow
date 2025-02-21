@@ -135,19 +135,25 @@ class _NFDiagramWidgetState extends State<NFDiagramWidget> {
                     gridType: FFAppState().CurrentGridType,
                   ),
                 ),
-              if (true)
-                Container(
-                  width: double.infinity,
-                  height: double.infinity,
-                  child: custom_widgets.NFEdges(
+              Transform.scale(
+                scaleX: _model.transformFactor,
+                scaleY: _model.transformFactor,
+                child: Visibility(
+                  visible: true,
+                  child: Container(
                     width: double.infinity,
                     height: double.infinity,
-                    edges: FFAppState().Edges,
-                    nodes: FFAppState().Nodes,
-                    diagram: widget!.diagram,
-                    onTapEdge: (index) async {},
+                    child: custom_widgets.NFEdges(
+                      width: double.infinity,
+                      height: double.infinity,
+                      edges: FFAppState().Edges,
+                      nodes: FFAppState().Nodes,
+                      diagram: widget!.diagram,
+                      onTapEdge: (index) async {},
+                    ),
                   ),
                 ),
+              ),
               if (false)
                 Builder(
                   builder: (context) {
