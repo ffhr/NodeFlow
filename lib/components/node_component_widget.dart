@@ -154,37 +154,7 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
             ),
           ),
           wrapWithModel(
-            model: _model.nFSocketsLeftModel,
-            updateCallback: () => safeSetState(() {}),
-            child: NFSocketsWidget(
-              nodeId: widget!.node!.id,
-              inputs: widget!.node!.inputs,
-              outputs: widget!.node!.outputs,
-              diagram: widget!.diagram!,
-            ),
-          ),
-          wrapWithModel(
-            model: _model.nFSocketsTopModel,
-            updateCallback: () => safeSetState(() {}),
-            child: NFSocketsWidget(
-              nodeId: widget!.node!.id,
-              inputs: widget!.node!.inputs,
-              outputs: widget!.node!.outputs,
-              diagram: widget!.diagram!,
-            ),
-          ),
-          wrapWithModel(
-            model: _model.nFSocketsRightModel,
-            updateCallback: () => safeSetState(() {}),
-            child: NFSocketsWidget(
-              nodeId: widget!.node!.id,
-              inputs: widget!.node!.inputs,
-              outputs: widget!.node!.outputs,
-              diagram: widget!.diagram!,
-            ),
-          ),
-          wrapWithModel(
-            model: _model.nFSocketsBottomModel,
+            model: _model.nFSocketsModel,
             updateCallback: () => safeSetState(() {}),
             child: NFSocketsWidget(
               nodeId: widget!.node!.id,
