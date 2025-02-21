@@ -1,20 +1,15 @@
 // Automatic FlutterFlow imports
-
 import 'dart:math';
-
 import '../nf_interactive_viewer.dart';
 import '/backend/schema/structs/index.dart';
 import '/backend/schema/enums/enums.dart';
 import '/actions/actions.dart' as action_blocks;
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import 'index.dart'; // Imports other custom widgets
-import '/custom_code/actions/index.dart'; // Imports custom actions
-import '/flutter_flow/custom_functions.dart'; // Imports custom functions
+import 'index.dart';
+import '/custom_code/actions/index.dart';
+import '/flutter_flow/custom_functions.dart';
 import 'package:flutter/material.dart';
-// Begin custom widget code
-// DO NOT REMOVE OR MODIFY THE CODE ABOVE!
-
 import 'package:flutter/gestures.dart';
 
 class NFZoomableStack extends StatefulWidget {
@@ -39,10 +34,8 @@ class _NFZoomableStackState extends State<NFZoomableStack>
     with WidgetsBindingObserver {
   double initialScale = DEFAULT_SCALE_FACTOR;
   double scale = DEFAULT_SCALE_FACTOR;
-  // final double minScale = 0.03125; // Minimum zoom level
-  // final double maxScale = 20; // Maximum zoom level
-  final double minScale = 4; // Minimum zoom level
-  final double maxScale = 500; // Maximum zoom level
+  final double minScale = 4;
+  final double maxScale = 500;
 
   double viewerCenterX = 0;
   double viewerCenterY = 0;
@@ -65,18 +58,26 @@ class _NFZoomableStackState extends State<NFZoomableStack>
 
     if (renderBox != null) {
       final Size parentSize = renderBox.size;
+      _previousSize = parentSize; // Store initial size
+
       final double dx = parentSize.width / 2 * (1 - initialScale);
       final double dy = parentSize.height / 2 * (1 - initialScale);
 
-      _transformationController.value = Matrix4.identity()
+      final matrix = Matrix4.identity()
         ..translate(dx, dy)
         ..scale(initialScale);
 
+      _transformationController.value = matrix;
+      _previousTransform = matrix.clone();
+
       viewerCenterX = dx;
       viewerCenterY = dy;
+      scale = initialScale;
 
       FFAppState().NFZoomFactor = scale;
-      _previousTransform = _transformationController.value.clone();
+
+      // Ensure initial alignment is calculated
+      alignToCenterOfViewer(context);
     }
   }
 
@@ -87,14 +88,13 @@ class _NFZoomableStackState extends State<NFZoomableStack>
   }
 
   void _handleWindowResize() {
-    if (_previousTransform == null) return;
+    if (_previousTransform == null || _previousSize == null) {
+      _centerAndScale();
+      return;
+    }
 
     final newSize =
         View.of(context).physicalSize / View.of(context).devicePixelRatio;
-    if (_previousSize == null) {
-      _previousSize = newSize;
-      return;
-    }
 
     // Calculate size change ratios
     final double widthRatio = newSize.width / _previousSize!.width;
