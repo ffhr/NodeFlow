@@ -14,31 +14,20 @@ export 'socket_component_model.dart';
 class SocketComponentWidget extends StatefulWidget {
   const SocketComponentWidget({
     super.key,
-    this.renderPan,
-    this.isHovered,
-    this.mouseEntered,
-    this.mouseExit,
     bool? isClicked,
     required this.onClicked,
     this.onPanDown,
     this.onPanEnd,
-    bool? isConnected,
     Color? defaultColor,
     Color? selectedColor,
   })  : this.isClicked = isClicked ?? false,
-        this.isConnected = isConnected ?? false,
         this.defaultColor = defaultColor ?? const Color(0xFFFF0000),
         this.selectedColor = selectedColor ?? const Color(0xFF9100FF);
 
-  final Future Function()? renderPan;
-  final bool? isHovered;
-  final Future Function()? mouseEntered;
-  final Future Function()? mouseExit;
   final bool isClicked;
   final Future Function(bool isClicked)? onClicked;
   final Future Function(NFPointStruct point)? onPanDown;
   final Future Function(NFPointStruct point)? onPanEnd;
-  final bool isConnected;
   final Color defaultColor;
   final Color selectedColor;
 
@@ -172,12 +161,10 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
                   shape: BoxShape.circle,
                   border: Border.all(
                     color: valueOrDefault<Color>(
-                      _model.mouseRegionHovered!
-                          ? Colors.white
-                          : FlutterFlowTheme.of(context).warning,
+                      _model.mouseRegionHovered! ? Colors.white : Colors.white,
                       Colors.white,
                     ),
-                    width: 3,
+                    width: _model.mouseRegionHovered! ? 3.0 : 1.0,
                   ),
                 ),
               ),
@@ -275,12 +262,10 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
                   shape: BoxShape.circle,
                   border: Border.all(
                     color: valueOrDefault<Color>(
-                      _model.mouseRegionHovered!
-                          ? Colors.white
-                          : FlutterFlowTheme.of(context).warning,
+                      _model.mouseRegionHovered! ? Colors.white : Colors.white,
                       Colors.white,
                     ),
-                    width: 3,
+                    width: _model.mouseRegionHovered! ? 3.0 : 1.0,
                   ),
                 ),
               ),
@@ -290,20 +275,9 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
       ),
       onEnter: ((event) async {
         safeSetState(() => _model.mouseRegionHovered = true);
-        if (FFAppState().NFEdgeDrawingState.drawingStateType ==
-            NFEdgeDrawingStateType.inactive) {}
-        if ((FFAppState().NFEdgeDrawingState.drawingStateType ==
-                NFEdgeDrawingStateType.active) ||
-            (FFAppState().NFEdgeDrawingState.drawingStateType ==
-                NFEdgeDrawingStateType.finished)) {}
-        // Execute callback
-        await widget.mouseEntered?.call();
       }),
       onExit: ((event) async {
         safeSetState(() => _model.mouseRegionHovered = false);
-        if (FFAppState().NFEdgeDrawingState.drawingStateType ==
-            NFEdgeDrawingStateType.started) {}
-        await widget.mouseExit?.call();
       }),
     );
   }
