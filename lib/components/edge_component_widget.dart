@@ -16,11 +16,13 @@ class EdgeComponentWidget extends StatefulWidget {
     required this.edge,
     required this.sourceNode,
     required this.targetNode,
+    required this.diagram,
   });
 
   final NodeEdgeStruct? edge;
   final NodeStruct? sourceNode;
   final NodeStruct? targetNode;
+  final NFDiagramStruct? diagram;
 
   @override
   State<EdgeComponentWidget> createState() => _EdgeComponentWidgetState();
