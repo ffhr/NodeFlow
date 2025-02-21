@@ -10,6 +10,9 @@ export 'home_page_model.dart';
 class HomePageWidget extends StatefulWidget {
   const HomePageWidget({super.key});
 
+  static String routeName = 'HomePage';
+  static String routePath = '/home';
+
   @override
   State<HomePageWidget> createState() => _HomePageWidgetState();
 }

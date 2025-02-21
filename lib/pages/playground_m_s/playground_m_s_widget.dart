@@ -10,6 +10,9 @@ export 'playground_m_s_model.dart';
 class PlaygroundMSWidget extends StatefulWidget {
   const PlaygroundMSWidget({super.key});
 
+  static String routeName = 'PlaygroundMS';
+  static String routePath = '/playgroundMS';
+
   @override
   State<PlaygroundMSWidget> createState() => _PlaygroundMSWidgetState();
 }

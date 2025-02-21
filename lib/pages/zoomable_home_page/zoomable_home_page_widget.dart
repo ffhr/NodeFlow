@@ -15,6 +15,9 @@ export 'zoomable_home_page_model.dart';
 class ZoomableHomePageWidget extends StatefulWidget {
   const ZoomableHomePageWidget({super.key});
 
+  static String routeName = 'ZoomableHomePage';
+  static String routePath = '/zoomableHomePage';
+
   @override
   State<ZoomableHomePageWidget> createState() => _ZoomableHomePageWidgetState();
 }
