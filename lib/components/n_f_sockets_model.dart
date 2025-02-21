@@ -13,7 +13,7 @@ import 'package:provider/provider.dart';
 class NFSocketsModel extends FlutterFlowModel<NFSocketsWidget> {
   ///  Local state fields for this component.
 
-  Color? inputsDefaultColor;
+  Color? inputsDefaultColor = Color(4281343478);
 
   Color? inputsSelectedColor = Color(4278190203);
 
