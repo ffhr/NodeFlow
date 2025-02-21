@@ -160,12 +160,10 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
                   shape: BoxShape.circle,
                   border: Border.all(
                     color: valueOrDefault<Color>(
-                      _model.mouseRegionHovered!
-                          ? Colors.white
-                          : FlutterFlowTheme.of(context).warning,
+                      _model.mouseRegionHovered! ? Colors.white : Colors.white,
                       Colors.white,
                     ),
-                    width: 3.0,
+                    width: _model.mouseRegionHovered! ? 3.0 : 1.0,
                   ),
                 ),
               ),
@@ -263,12 +261,10 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
                   shape: BoxShape.circle,
                   border: Border.all(
                     color: valueOrDefault<Color>(
-                      _model.mouseRegionHovered!
-                          ? Colors.white
-                          : FlutterFlowTheme.of(context).warning,
+                      _model.mouseRegionHovered! ? Colors.white : Colors.white,
                       Colors.white,
                     ),
-                    width: 3.0,
+                    width: _model.mouseRegionHovered! ? 3.0 : 1.0,
                   ),
                 ),
               ),
