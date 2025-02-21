@@ -155,6 +155,7 @@ class _NFDiagramWidgetState extends State<NFDiagramWidget> {
                             targetNode: functions.getNodeFromId(
                                 edgesItem.targetNodeId,
                                 FFAppState().Nodes.toList()),
+                            diagram: widget!.diagram!,
                           ),
                         );
                       }),
