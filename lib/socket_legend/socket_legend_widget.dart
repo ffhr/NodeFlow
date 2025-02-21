@@ -11,6 +11,9 @@ export 'socket_legend_model.dart';
 class SocketLegendWidget extends StatefulWidget {
   const SocketLegendWidget({super.key});
 
+  static String routeName = 'SocketLegend';
+  static String routePath = '/socketLegend';
+
   @override
   State<SocketLegendWidget> createState() => _SocketLegendWidgetState();
 }

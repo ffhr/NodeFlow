@@ -17,6 +17,9 @@ class ColorTestingPlaygroundWidget extends StatefulWidget {
 
   final NFColorStruct? colorNeki;
 
+  static String routeName = 'ColorTestingPlayground';
+  static String routePath = '/colorTestingPlayground';
+
   @override
   State<ColorTestingPlaygroundWidget> createState() =>
       _ColorTestingPlaygroundWidgetState();

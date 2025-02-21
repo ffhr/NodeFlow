@@ -377,17 +377,14 @@ void fixStatusBarOniOS16AndBelow(BuildContext context) {
   }
 }
 
-extension ListUniqueExt<T> on Iterable<T> {
-  List<T> unique(dynamic Function(T) getKey) {
-    var distinctSet = <dynamic>{};
-    var distinctList = <T>[];
-    for (var item in this) {
-      if (distinctSet.add(getKey(item))) {
-        distinctList.add(item);
-      }
-    }
-    return distinctList;
-  }
+extension ColorOpacityExt on Color {
+  // Color applyAlpha(double val) => withValues(alpha: val);
+  Color applyAlpha(double val) => Color.fromARGB(
+        (val.clamp(0.0, 1.0) * 255).round(),
+        red,
+        green,
+        blue,
+      );
 }
 
 String roundTo(double value, int decimalPoints) {
@@ -427,5 +424,20 @@ double computeGradientAlignmentY(double evaluatedAngle) {
   return double.parse(roundTo(y, 2));
 }
 
+extension ListUniqueExt<T> on Iterable<T> {
+  List<T> unique(dynamic Function(T) getKey) {
+    var distinctSet = <dynamic>{};
+    var distinctList = <T>[];
+    for (var item in this) {
+      if (distinctSet.add(getKey(item))) {
+        distinctList.add(item);
+      }
+    }
+    return distinctList;
+  }
+}
+
 String getCurrentRoute(BuildContext context) =>
     context.mounted ? MyApp.of(context).getRoute() : '';
+List<String> getCurrentRouteStack(BuildContext context) =>
+    context.mounted ? MyApp.of(context).getRouteStack() : [];

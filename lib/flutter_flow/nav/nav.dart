@@ -8,13 +8,14 @@ import 'package:provider/provider.dart';
 import '/backend/schema/structs/index.dart';
 import '/backend/schema/enums/enums.dart';
 
-import '/index.dart';
 import '/main.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/lat_lng.dart';
 import '/flutter_flow/place.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'serialization_util.dart';
+
+import '/index.dart';
 
 export 'package:go_router/go_router.dart';
 export 'serialization_util.dart';
@@ -50,28 +51,28 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, _) => ZoomableHomePageWidget(),
         ),
         FFRoute(
-          name: 'HomePage',
-          path: '/home',
+          name: HomePageWidget.routeName,
+          path: HomePageWidget.routePath,
           builder: (context, params) => HomePageWidget(),
         ),
         FFRoute(
-          name: 'PlaygroundMS',
-          path: '/playgroundMS',
+          name: PlaygroundMSWidget.routeName,
+          path: PlaygroundMSWidget.routePath,
           builder: (context, params) => PlaygroundMSWidget(),
         ),
         FFRoute(
-          name: 'ZoomableHomePage',
-          path: '/zoomableHomePage',
+          name: ZoomableHomePageWidget.routeName,
+          path: ZoomableHomePageWidget.routePath,
           builder: (context, params) => ZoomableHomePageWidget(),
         ),
         FFRoute(
-          name: 'SocketLegend',
-          path: '/socketLegend',
+          name: SocketLegendWidget.routeName,
+          path: SocketLegendWidget.routePath,
           builder: (context, params) => SocketLegendWidget(),
         ),
         FFRoute(
-          name: 'ColorTestingPlayground',
-          path: '/colorTestingPlayground',
+          name: ColorTestingPlaygroundWidget.routeName,
+          path: ColorTestingPlaygroundWidget.routePath,
           builder: (context, params) => ColorTestingPlaygroundWidget(
             colorNeki: params.getParam(
               'colorNeki',
