@@ -64,18 +64,26 @@ class _NFZoomableStackState extends State<NFZoomableStack>
 
     if (renderBox != null) {
       final Size parentSize = renderBox.size;
+      _previousSize = parentSize; // Store initial size
+
       final double dx = parentSize.width / 2 * (1 - initialScale);
       final double dy = parentSize.height / 2 * (1 - initialScale);
 
-      _transformationController.value = Matrix4.identity()
+      final matrix = Matrix4.identity()
         ..translate(dx, dy)
         ..scale(initialScale);
 
+      _transformationController.value = matrix;
+      _previousTransform = matrix.clone();
+
       viewerCenterX = dx;
       viewerCenterY = dy;
+      scale = initialScale;
 
       FFAppState().NFZoomFactor = scale;
-      _previousTransform = _transformationController.value.clone();
+
+      // Ensure initial alignment is calculated
+      alignToCenterOfViewer(context);
     }
   }
 
@@ -86,14 +94,13 @@ class _NFZoomableStackState extends State<NFZoomableStack>
   }
 
   void _handleWindowResize() {
-    if (_previousTransform == null) return;
+    if (_previousTransform == null || _previousSize == null) {
+      _centerAndScale();
+      return;
+    }
 
     final newSize =
         View.of(context).physicalSize / View.of(context).devicePixelRatio;
-    if (_previousSize == null) {
-      _previousSize = newSize;
-      return;
-    }
 
     // Calculate size change ratios
     final double widthRatio = newSize.width / _previousSize!.width;
