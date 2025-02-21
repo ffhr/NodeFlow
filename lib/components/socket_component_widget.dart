@@ -171,7 +171,7 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
                   shape: BoxShape.circle,
                   border: Border.all(
                     color: valueOrDefault<Color>(
-                      widget!.isHovered!
+                      _model.mouseRegionHovered!
                           ? Colors.white
                           : FlutterFlowTheme.of(context).warning,
                       Colors.white,
@@ -274,7 +274,7 @@ class _SocketComponentWidgetState extends State<SocketComponentWidget> {
                   shape: BoxShape.circle,
                   border: Border.all(
                     color: valueOrDefault<Color>(
-                      widget!.isHovered!
+                      _model.mouseRegionHovered!
                           ? Colors.white
                           : FlutterFlowTheme.of(context).warning,
                       Colors.white,
