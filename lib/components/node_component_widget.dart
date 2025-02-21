@@ -1,5 +1,6 @@
 import '/backend/schema/enums/enums.dart';
 import '/backend/schema/structs/index.dart';
+import '/components/n_f_sockets_widget.dart';
 import '/components/socket_component_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -22,6 +23,7 @@ class NodeComponentWidget extends StatefulWidget {
     this.onPanUpdate,
     required this.child,
     this.onSecondaryTapUp,
+    required this.diagram,
   });
 
   final NodeStruct? node;
@@ -32,6 +34,7 @@ class NodeComponentWidget extends StatefulWidget {
   final Future Function(NFPointStruct deltaPoint)? onPanUpdate;
   final Widget Function()? child;
   final Future Function(NFPointStruct deltaPoint)? onSecondaryTapUp;
+  final NFDiagramStruct? diagram;
 
   @override
   State<NodeComponentWidget> createState() => _NodeComponentWidgetState();
@@ -153,88 +156,16 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
               ),
             ),
           ),
-          Builder(
-            builder: (context) {
-              final inputsList = widget!.node?.inputs?.toList() ?? [];
-
-              return Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: List.generate(inputsList.length, (inputsListIndex) {
-                  final inputsListItem = inputsList[inputsListIndex];
-                  return SocketComponentWidget(
-                    key: Key(
-                        'Keyhbf_${inputsListIndex}_of_${inputsList.length}'),
-                    isClicked:
-                        (FFAppState().NFCurrentBuildingEdge.targetNodeId ==
-                                widget!.node?.id) &&
-                            (FFAppState()
-                                    .NFCurrentBuildingEdge
-                                    .targetInputSocketIndex ==
-                                inputsListIndex),
-                    defaultColor: Color(0xFF0034FD),
-                    selectedColor: Color(0xFF00007B),
-                    onClicked: (isClicked) async {
-                      // On clicked a block
-                      await _model.onClickedActionBlock(
-                        context,
-                        isClicked: isClicked,
-                        nodeId: widget!.node?.id,
-                        nodeIndex: inputsListIndex,
-                        isInput: true,
-                      );
-                    },
-                    onPanDown: (point) async {},
-                    onPanEnd: (point) async {
-                      // Set node source output socket
-                      FFAppState().updateNFCurrentBuildingEdgeStruct(
-                        (e) => e
-                          ..sourceNodeId = functions.getSourceNodeIdFromPoint(
-                              point,
-                              FFAppState().Nodes.toList(),
-                              FFAppState().NFViewportCenter,
-                              FFAppState().NFZoomFactor /
-                                  FFAppState().DefaultZoomFactor,
-                              MediaQuery.sizeOf(context).width,
-                              MediaQuery.sizeOf(context).height)
-                          ..sourceOutputSocketIndex =
-                              functions.getSourceOutputIndexFromPoint(
-                                  point,
-                                  FFAppState().Nodes.toList(),
-                                  FFAppState().NFViewportCenter,
-                                  FFAppState().NFZoomFactor /
-                                      FFAppState().DefaultZoomFactor,
-                                  MediaQuery.sizeOf(context).width,
-                                  MediaQuery.sizeOf(context).height),
-                      );
-                      _model.updatePage(() {});
-                      if (FFAppState().NFCurrentBuildingEdge.hasSourceNodeId() &&
-                          FFAppState()
-                              .NFCurrentBuildingEdge
-                              .hasTargetNodeId() &&
-                          FFAppState()
-                              .NFCurrentBuildingEdge
-                              .hasSourceOutputSocketIndex() &&
-                          FFAppState()
-                              .NFCurrentBuildingEdge
-                              .hasTargetInputSocketIndex()) {
-                        // Add building edge to list
-                        FFAppState()
-                            .addToEdges(FFAppState().NFCurrentBuildingEdge);
-                        safeSetState(() {});
-                        // Unset
-                        FFAppState().NFCurrentBuildingEdge = NodeEdgeStruct();
-                        _model.updatePage(() {});
-                      } else {
-                        // Unset
-                        FFAppState().NFCurrentBuildingEdge = NodeEdgeStruct();
-                        _model.updatePage(() {});
-                      }
-                    },
-                  );
-                }).divide(SizedBox(height: 10.0)),
-              );
-            },
+          wrapWithModel(
+            model: _model.nFSocketsModel,
+            updateCallback: () => safeSetState(() {}),
+            child: NFSocketsWidget(
+              nodeId: widget!.node!.id,
+              inputs: widget!.node!.inputs,
+              outputs: widget!.node!.outputs,
+              diagram: widget!.diagram!,
+              position: NFPosition.left,
+            ),
           ),
           Align(
             alignment: AlignmentDirectional(1.0, 0.0),
@@ -271,16 +202,7 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                                     outputsListIndex),
                         defaultColor: Color(0xFF2EFF00),
                         selectedColor: Color(0xFF036200),
-                        onClicked: (isClicked) async {
-                          // On clicked action block
-                          await _model.onClickedActionBlock(
-                            context,
-                            isClicked: isClicked,
-                            nodeId: widget!.node?.id,
-                            nodeIndex: outputsListIndex,
-                            isInput: false,
-                          );
-                        },
+                        onClicked: (isClicked) async {},
                         onPanDown: (point) async {},
                         onPanEnd: (point) async {
                           // Set node target input socket

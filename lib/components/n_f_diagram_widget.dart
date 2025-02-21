@@ -226,6 +226,7 @@ class _NFDiagramWidgetState extends State<NFDiagramWidget> {
                                 key: Key(
                                     'Keygv2_${nodesListIndex}_of_${nodesList.length}'),
                                 node: nodesListItem,
+                                diagram: widget!.diagram!,
                                 onTapDown: () async {},
                                 onTapUp: () async {},
                                 onPanDown: () async {
