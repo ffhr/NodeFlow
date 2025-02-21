@@ -51,6 +51,12 @@ class _NFEdgesState extends State<NFEdges> {
 
   @override
   Widget build(BuildContext context) {
+    _painter = NFEdgesPainter(
+      context: context,
+      edges: widget.edges,
+      nodes: widget.nodes,
+      diagram: widget.diagram,
+    );
     return RepaintBoundary(
       child: CustomPaint(
         size: MediaQuery.of(context).size,
@@ -87,6 +93,7 @@ class NFEdgesPainter extends CustomPainter {
       ..style = PaintingStyle.stroke;
 
     for (var edge in edges ?? []) {
+      print('Painting edge: ${edge.id}');
       _paintEdge(canvas, size, paint, edge);
     }
   }
@@ -96,7 +103,7 @@ class NFEdgesPainter extends CustomPainter {
       edge,
       size.width,
       size.height,
-      FFAppState().Nodes.toList(),
+      nodes!,
       FFAppState().NFViewportCenter,
       FFAppState().NFZoomFactor,
     );
@@ -104,7 +111,7 @@ class NFEdgesPainter extends CustomPainter {
       edge,
       size.width,
       size.height,
-      FFAppState().Nodes.toList(),
+      nodes!,
       FFAppState().NFViewportCenter,
       FFAppState().NFZoomFactor,
     );
