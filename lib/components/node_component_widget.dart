@@ -197,51 +197,14 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                       safeSetState(() {});
                     },
                     onClicked: (isClicked) async {
-                      if (isClicked) {
-                        // Set node target input socket
-                        FFAppState().updateNFCurrentBuildingEdgeStruct(
-                          (e) => e
-                            ..targetNodeId = widget!.node?.id
-                            ..targetInputSocketIndex = inputsListIndex,
-                        );
-                        FFAppState().update(() {});
-                        if (FFAppState().NFCurrentBuildingEdge.hasSourceNodeId() &&
-                            FFAppState()
-                                .NFCurrentBuildingEdge
-                                .hasTargetNodeId() &&
-                            FFAppState()
-                                .NFCurrentBuildingEdge
-                                .hasSourceOutputSocketIndex() &&
-                            FFAppState()
-                                .NFCurrentBuildingEdge
-                                .hasTargetInputSocketIndex()) {
-                          if (functions.edgesContainsEdge(
-                              FFAppState().NFCurrentBuildingEdge,
-                              FFAppState().Edges.toList())) {
-                            // Remove building edge from list
-                            FFAppState().removeFromEdges(
-                                FFAppState().NFCurrentBuildingEdge);
-                            FFAppState().update(() {});
-                            // Unset
-                            FFAppState().NFCurrentBuildingEdge =
-                                NodeEdgeStruct();
-                            FFAppState().update(() {});
-                          } else {
-                            // Add building edge to list
-                            FFAppState()
-                                .addToEdges(FFAppState().NFCurrentBuildingEdge);
-                            FFAppState().update(() {});
-                            // Unset
-                            FFAppState().NFCurrentBuildingEdge =
-                                NodeEdgeStruct();
-                            FFAppState().update(() {});
-                          }
-                        }
-                      } else {
-                        // Unset
-                        FFAppState().NFCurrentBuildingEdge = NodeEdgeStruct();
-                        FFAppState().update(() {});
-                      }
+                      // On clicked a block
+                      await _model.onClickedActionBlock(
+                        context,
+                        isClicked: isClicked,
+                        nodeId: widget!.node?.id,
+                        nodeIndex: inputsListIndex,
+                        isInput: true,
+                      );
                     },
                     onPanDown: (point) async {},
                     onPanEnd: (point) async {
@@ -348,52 +311,14 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
                           safeSetState(() {});
                         },
                         onClicked: (isClicked) async {
-                          if (isClicked) {
-                            // Set edge source output socket
-                            FFAppState().updateNFCurrentBuildingEdgeStruct(
-                              (e) => e
-                                ..sourceNodeId = widget!.node?.id
-                                ..sourceOutputSocketIndex = outputsListIndex,
-                            );
-                            FFAppState().update(() {});
-                            if (FFAppState().NFCurrentBuildingEdge.hasSourceNodeId() &&
-                                FFAppState()
-                                    .NFCurrentBuildingEdge
-                                    .hasTargetNodeId() &&
-                                FFAppState()
-                                    .NFCurrentBuildingEdge
-                                    .hasSourceOutputSocketIndex() &&
-                                FFAppState()
-                                    .NFCurrentBuildingEdge
-                                    .hasTargetInputSocketIndex()) {
-                              if (functions.edgesContainsEdge(
-                                  FFAppState().NFCurrentBuildingEdge,
-                                  FFAppState().Edges.toList())) {
-                                // Remove building edge from list
-                                FFAppState().removeFromEdges(
-                                    FFAppState().NFCurrentBuildingEdge);
-                                FFAppState().update(() {});
-                                // Unset
-                                FFAppState().NFCurrentBuildingEdge =
-                                    NodeEdgeStruct();
-                                FFAppState().update(() {});
-                              } else {
-                                // Add building edge to list
-                                FFAppState().addToEdges(
-                                    FFAppState().NFCurrentBuildingEdge);
-                                FFAppState().update(() {});
-                                // Unset
-                                FFAppState().NFCurrentBuildingEdge =
-                                    NodeEdgeStruct();
-                                FFAppState().update(() {});
-                              }
-                            }
-                          } else {
-                            // Unset
-                            FFAppState().NFCurrentBuildingEdge =
-                                NodeEdgeStruct();
-                            FFAppState().update(() {});
-                          }
+                          // On clicked action block
+                          await _model.onClickedActionBlock(
+                            context,
+                            isClicked: isClicked,
+                            nodeId: widget!.node?.id,
+                            nodeIndex: outputsListIndex,
+                            isInput: false,
+                          );
                         },
                         onPanDown: (point) async {},
                         onPanEnd: (point) async {
