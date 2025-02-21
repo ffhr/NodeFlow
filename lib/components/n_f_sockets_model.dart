@@ -11,6 +11,16 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class NFSocketsModel extends FlutterFlowModel<NFSocketsWidget> {
+  ///  Local state fields for this component.
+
+  Color? inputsDefaultColor;
+
+  Color? inputsSelectedColor = Color(4278190203);
+
+  Color? outputsDefaultColor = Color(4294909213);
+
+  Color? outputsSelectedColor = Color(4287692800);
+
   @override
   void initState(BuildContext context) {}
 
@@ -69,6 +79,65 @@ class NFSocketsModel extends FlutterFlowModel<NFSocketsWidget> {
       // Unset
       FFAppState().NFCurrentBuildingEdge = NodeEdgeStruct();
       FFAppState().update(() {});
+    }
+  }
+
+  Future onPanEndActionBlock(
+    BuildContext context, {
+    required NFPointStruct? point,
+    required bool? isInput,
+  }) async {
+    if (isInput!) {
+      // Set node source output socket
+      FFAppState().updateNFCurrentBuildingEdgeStruct(
+        (e) => e
+          ..sourceNodeId = functions.getSourceNodeIdFromPoint(
+              point!,
+              FFAppState().Nodes.toList(),
+              FFAppState().NFViewportCenter,
+              FFAppState().NFZoomFactor / FFAppState().DefaultZoomFactor,
+              MediaQuery.sizeOf(context).width,
+              MediaQuery.sizeOf(context).height)
+          ..sourceOutputSocketIndex = functions.getSourceOutputIndexFromPoint(
+              point!,
+              FFAppState().Nodes.toList(),
+              FFAppState().NFViewportCenter,
+              FFAppState().NFZoomFactor / FFAppState().DefaultZoomFactor,
+              MediaQuery.sizeOf(context).width,
+              MediaQuery.sizeOf(context).height),
+      );
+    } else {
+      // Set node target input socket
+      FFAppState().updateNFCurrentBuildingEdgeStruct(
+        (e) => e
+          ..targetNodeId = functions.getTargetNodeIdFromPoint(
+              point!,
+              FFAppState().Nodes.toList(),
+              FFAppState().NFViewportCenter,
+              FFAppState().NFZoomFactor / FFAppState().DefaultZoomFactor,
+              MediaQuery.sizeOf(context).width,
+              MediaQuery.sizeOf(context).height)
+          ..targetInputSocketIndex = functions.getTargetInputIndexFromPoint(
+              point!,
+              FFAppState().Nodes.toList(),
+              FFAppState().NFViewportCenter,
+              FFAppState().NFZoomFactor / FFAppState().DefaultZoomFactor,
+              MediaQuery.sizeOf(context).width,
+              MediaQuery.sizeOf(context).height),
+      );
+    }
+
+    if (FFAppState().NFCurrentBuildingEdge.hasSourceNodeId() &&
+        FFAppState().NFCurrentBuildingEdge.hasTargetNodeId() &&
+        FFAppState().NFCurrentBuildingEdge.hasSourceOutputSocketIndex() &&
+        FFAppState().NFCurrentBuildingEdge.hasTargetInputSocketIndex()) {
+      // Add building edge to list
+      FFAppState().addToEdges(FFAppState().NFCurrentBuildingEdge);
+      // Unset
+      FFAppState().NFCurrentBuildingEdge = NodeEdgeStruct();
+    } else {
+      // Unset
+      FFAppState().NFCurrentBuildingEdge = NodeEdgeStruct();
     }
   }
 }
