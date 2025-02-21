@@ -22,7 +22,7 @@ class NFEdges extends StatefulWidget {
     this.edges,
     this.nodes,
     this.diagram,
-    this.onEdgeTap,
+    this.onTapEdge,
   });
 
   final double? width;
@@ -30,7 +30,7 @@ class NFEdges extends StatefulWidget {
   final List<NodeEdgeStruct>? edges;
   final List<NodeStruct>? nodes;
   final NFDiagramStruct? diagram;
-  final Future Function(int? index)? onEdgeTap;
+  final Future Function(int? index)? onTapEdge;
 
   @override
   State<NFEdges> createState() => _NFEdgesState();
