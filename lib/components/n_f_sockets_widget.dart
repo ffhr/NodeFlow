@@ -398,50 +398,54 @@ class _NFSocketsWidgetState extends State<NFSocketsWidget> {
             ),
           ),
         if (widget!.diagram?.outputSocketsPosition == NFPosition.bottom)
-          Builder(
-            builder: (context) {
-              final outputsList4 = widget!.outputs!.toList();
+          Align(
+            alignment: AlignmentDirectional(0.0, 1.0),
+            child: Builder(
+              builder: (context) {
+                final outputsList4 = widget!.outputs!.toList();
 
-              return Row(
-                mainAxisSize: MainAxisSize.max,
-                children:
-                    List.generate(outputsList4.length, (outputsList4Index) {
-                  final outputsList4Item = outputsList4[outputsList4Index];
-                  return SocketComponentWidget(
-                    key: Key(
-                        'Keybdf_${outputsList4Index}_of_${outputsList4.length}'),
-                    isClicked:
-                        (FFAppState().NFCurrentBuildingEdge.sourceNodeId ==
-                                widget!.nodeId) &&
-                            (FFAppState()
-                                    .NFCurrentBuildingEdge
-                                    .sourceOutputSocketIndex ==
-                                outputsList4Index),
-                    defaultColor: _model.outputsDefaultColor,
-                    selectedColor: _model.outputsSelectedColor,
-                    onClicked: (isClicked) async {
-                      // On clicked a block
-                      await _model.onClickedActionBlock(
-                        context,
-                        isClicked: isClicked,
-                        isInput: false,
-                        nodeId: widget!.nodeId,
-                        socketIndex: outputsList4Index,
-                      );
-                    },
-                    onPanDown: (point) async {},
-                    onPanEnd: (point) async {
-                      // On pan end action block
-                      await _model.onPanEndActionBlock(
-                        context,
-                        point: point,
-                        isInput: false,
-                      );
-                    },
-                  );
-                }),
-              );
-            },
+                return Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children:
+                      List.generate(outputsList4.length, (outputsList4Index) {
+                    final outputsList4Item = outputsList4[outputsList4Index];
+                    return SocketComponentWidget(
+                      key: Key(
+                          'Keybdf_${outputsList4Index}_of_${outputsList4.length}'),
+                      isClicked:
+                          (FFAppState().NFCurrentBuildingEdge.sourceNodeId ==
+                                  widget!.nodeId) &&
+                              (FFAppState()
+                                      .NFCurrentBuildingEdge
+                                      .sourceOutputSocketIndex ==
+                                  outputsList4Index),
+                      defaultColor: _model.outputsDefaultColor,
+                      selectedColor: _model.outputsSelectedColor,
+                      onClicked: (isClicked) async {
+                        // On clicked a block
+                        await _model.onClickedActionBlock(
+                          context,
+                          isClicked: isClicked,
+                          isInput: false,
+                          nodeId: widget!.nodeId,
+                          socketIndex: outputsList4Index,
+                        );
+                      },
+                      onPanDown: (point) async {},
+                      onPanEnd: (point) async {
+                        // On pan end action block
+                        await _model.onPanEndActionBlock(
+                          context,
+                          point: point,
+                          isInput: false,
+                        );
+                      },
+                    );
+                  }).divide(SizedBox(width: 10.0)),
+                );
+              },
+            ),
           ),
       ],
     );
