@@ -1,4 +1,3 @@
-import '/backend/schema/enums/enums.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/n_f_diagram_widget.dart';
 import '/components/n_f_toolbox_widget.dart';
@@ -62,10 +61,7 @@ class _ZoomableHomePageWidgetState extends State<ZoomableHomePageWidget> {
                 width: double.infinity,
                 height: double.infinity,
                 stackComponent: () => NFDiagramWidget(
-                  diagram: NFDiagramStruct(
-                    inputSocketsPosition: NFPosition.top,
-                    outputSocketsPosition: NFPosition.bottom,
-                  ),
+                  diagram: NFDiagramStruct(),
                 ),
               ),
             ),
