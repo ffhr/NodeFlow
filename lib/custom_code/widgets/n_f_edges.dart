@@ -40,16 +40,6 @@ class _NFEdgesState extends State<NFEdges> {
   late NFEdgesPainter _painter;
 
   @override
-  void didUpdateWidget(covariant NFEdges oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    _painter = NFEdgesPainter(
-      context: context,
-      edges: widget.edges,
-      diagram: widget.diagram,
-    );
-  }
-
-  @override
   Widget build(BuildContext context) {
     _painter = NFEdgesPainter(
       context: context,
@@ -104,16 +94,16 @@ class NFEdgesPainter extends CustomPainter {
       size.width,
       size.height,
       nodes!,
-      FFAppState().NFViewportCenter,
-      FFAppState().NFZoomFactor,
+      NFOffsetStruct(offsetX: 0.0, offsetY: 0.0),
+      1.0,
     );
     var endPoint = calculateEndPointFromEdge(
       edge,
       size.width,
       size.height,
       nodes!,
-      FFAppState().NFViewportCenter,
-      FFAppState().NFZoomFactor,
+      NFOffsetStruct(offsetX: 0.0, offsetY: 0.0),
+      1.0,
     );
     if (startPoint.positionX <= endPoint.positionX) {
       // Draw a curved line
