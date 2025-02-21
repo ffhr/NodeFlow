@@ -306,14 +306,6 @@ class _NFDiagramWidgetState extends State<NFDiagramWidget> {
                                   );
                                   safeSetState(() {});
                                 },
-                                renderPanStack: () async {
-                                  FFAppState().updateNFEdgeDrawingStateStruct(
-                                    (e) => e
-                                      ..drawingStateType =
-                                          NFEdgeDrawingStateType.started,
-                                  );
-                                  safeSetState(() {});
-                                },
                                 onSecondaryTapUp: (deltaPoint) async {
                                   await actions.showContextMenuRemoveNode(
                                     context,

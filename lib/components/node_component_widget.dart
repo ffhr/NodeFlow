@@ -20,7 +20,6 @@ class NodeComponentWidget extends StatefulWidget {
     this.onPanDown,
     this.onPanEnd,
     this.onPanUpdate,
-    this.renderPanStack,
     required this.child,
     this.onSecondaryTapUp,
   });
@@ -31,7 +30,6 @@ class NodeComponentWidget extends StatefulWidget {
   final Future Function()? onPanDown;
   final Future Function()? onPanEnd;
   final Future Function(NFPointStruct deltaPoint)? onPanUpdate;
-  final Future Function()? renderPanStack;
   final Widget Function()? child;
   final Future Function(NFPointStruct deltaPoint)? onSecondaryTapUp;
 
