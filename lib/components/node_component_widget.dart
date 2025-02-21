@@ -1,11 +1,8 @@
 import '/backend/schema/enums/enums.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/n_f_sockets_widget.dart';
-import '/components/socket_component_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import 'dart:ui';
-import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -157,107 +154,43 @@ class _NodeComponentWidgetState extends State<NodeComponentWidget> {
             ),
           ),
           wrapWithModel(
-            model: _model.nFSocketsModel,
+            model: _model.nFSocketsLeftModel,
             updateCallback: () => safeSetState(() {}),
             child: NFSocketsWidget(
               nodeId: widget!.node!.id,
               inputs: widget!.node!.inputs,
               outputs: widget!.node!.outputs,
               diagram: widget!.diagram!,
-              position: NFPosition.left,
             ),
           ),
-          Align(
-            alignment: AlignmentDirectional(1.0, 0.0),
-            child: Builder(
-              builder: (context) {
-                final outputsList = widget!.node?.outputs?.toList() ?? [];
-
-                return Column(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children:
-                      List.generate(outputsList.length, (outputsListIndex) {
-                    final outputsListItem = outputsList[outputsListIndex];
-                    return GestureDetector(
-                      onPanUpdate: (details) async {
-                        FFAppState().updateNFEdgeDrawingStateStruct(
-                          (e) => e
-                            ..drawingEndPoint = NFPointStruct(
-                              positionX: details.globalPosition.dx,
-                              positionY: details.globalPosition.dy,
-                            ),
-                        );
-                        safeSetState(() {});
-                      },
-                      child: SocketComponentWidget(
-                        key: Key(
-                            'Keydt4_${outputsListIndex}_of_${outputsList.length}'),
-                        isClicked:
-                            (FFAppState().NFCurrentBuildingEdge.sourceNodeId ==
-                                    widget!.node?.id) &&
-                                (FFAppState()
-                                        .NFCurrentBuildingEdge
-                                        .sourceOutputSocketIndex ==
-                                    outputsListIndex),
-                        defaultColor: Color(0xFF2EFF00),
-                        selectedColor: Color(0xFF036200),
-                        onClicked: (isClicked) async {},
-                        onPanDown: (point) async {},
-                        onPanEnd: (point) async {
-                          // Set node target input socket
-                          FFAppState().updateNFCurrentBuildingEdgeStruct(
-                            (e) => e
-                              ..targetNodeId =
-                                  functions.getTargetNodeIdFromPoint(
-                                      point,
-                                      FFAppState().Nodes.toList(),
-                                      FFAppState().NFViewportCenter,
-                                      FFAppState().NFZoomFactor /
-                                          FFAppState().DefaultZoomFactor,
-                                      MediaQuery.sizeOf(context).width,
-                                      MediaQuery.sizeOf(context).height)
-                              ..targetInputSocketIndex =
-                                  functions.getTargetInputIndexFromPoint(
-                                      point,
-                                      FFAppState().Nodes.toList(),
-                                      FFAppState().NFViewportCenter,
-                                      FFAppState().NFZoomFactor /
-                                          FFAppState().DefaultZoomFactor,
-                                      MediaQuery.sizeOf(context).width,
-                                      MediaQuery.sizeOf(context).height),
-                          );
-                          _model.updatePage(() {});
-                          if (FFAppState().NFCurrentBuildingEdge.hasSourceNodeId() &&
-                              FFAppState()
-                                  .NFCurrentBuildingEdge
-                                  .hasTargetNodeId() &&
-                              FFAppState()
-                                  .NFCurrentBuildingEdge
-                                  .hasSourceOutputSocketIndex() &&
-                              FFAppState()
-                                  .NFCurrentBuildingEdge
-                                  .hasTargetInputSocketIndex()) {
-                            // Add building edge to list
-                            FFAppState()
-                                .addToEdges(FFAppState().NFCurrentBuildingEdge);
-                            safeSetState(() {});
-                            // Unset
-                            FFAppState().NFCurrentBuildingEdge =
-                                NodeEdgeStruct();
-                            _model.updatePage(() {});
-                          } else {
-                            // Unset
-                            FFAppState().NFCurrentBuildingEdge =
-                                NodeEdgeStruct();
-                            _model.updatePage(() {});
-                          }
-                        },
-                      ),
-                    );
-                  }).divide(SizedBox(height: 10.0)),
-                );
-              },
+          wrapWithModel(
+            model: _model.nFSocketsTopModel,
+            updateCallback: () => safeSetState(() {}),
+            child: NFSocketsWidget(
+              nodeId: widget!.node!.id,
+              inputs: widget!.node!.inputs,
+              outputs: widget!.node!.outputs,
+              diagram: widget!.diagram!,
+            ),
+          ),
+          wrapWithModel(
+            model: _model.nFSocketsRightModel,
+            updateCallback: () => safeSetState(() {}),
+            child: NFSocketsWidget(
+              nodeId: widget!.node!.id,
+              inputs: widget!.node!.inputs,
+              outputs: widget!.node!.outputs,
+              diagram: widget!.diagram!,
+            ),
+          ),
+          wrapWithModel(
+            model: _model.nFSocketsBottomModel,
+            updateCallback: () => safeSetState(() {}),
+            child: NFSocketsWidget(
+              nodeId: widget!.node!.id,
+              inputs: widget!.node!.inputs,
+              outputs: widget!.node!.outputs,
+              diagram: widget!.diagram!,
             ),
           ),
         ],
