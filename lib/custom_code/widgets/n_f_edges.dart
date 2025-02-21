@@ -116,15 +116,16 @@ class NFEdgesPainter extends CustomPainter {
 
   void _paintCurvedEdge(NFPointStruct startPoint, NFPointStruct endPoint,
       Canvas canvas, Paint paint) {
-    var path = CurvedLinePainter(
-            Offset(startPoint.positionX, startPoint.positionY),
-            Offset(endPoint.positionX, endPoint.positionY),
-            NFLineType.solid,
-            false,
-            paint.color,
-            1.0)
-        .getPath();
+    var painter = CurvedLinePainter(
+        Offset(startPoint.positionX, startPoint.positionY),
+        Offset(endPoint.positionX, endPoint.positionY),
+        NFLineType.solid,
+        false,
+        paint.color,
+        1.0);
+    var path = painter.getPath();
     canvas.drawPath(path, paint);
+    painter.drawArrowHead(canvas, path);
   }
 
   void _paintCurvedLoopEdge(NFPointStruct startPoint, NFPointStruct endPoint,
@@ -136,16 +137,17 @@ class NFEdgesPainter extends CustomPainter {
     var sourceNodeAbsPos = _getSourceNodeAbsolutePosition(
         sourceNode.virtualPosition, sourceNode.size);
 
-    var path = CurvedLoopPainter(
-            Offset(startPoint.positionX, startPoint.positionY),
-            Offset(endPoint.positionX, endPoint.positionY),
-            sourceNode.size,
-            loopType,
-            sourceNodeAbsPos,
-            NFLineType.solid,
-            paint.color)
-        .getPath();
+    var painter = CurvedLoopPainter(
+        Offset(startPoint.positionX, startPoint.positionY),
+        Offset(endPoint.positionX, endPoint.positionY),
+        sourceNode.size,
+        loopType,
+        sourceNodeAbsPos,
+        NFLineType.solid,
+        paint.color);
+    var path = painter.getPath();
     canvas.drawPath(path, paint);
+    painter.drawArrowHead(canvas, path);
   }
 
   CurvedLoopType _getCurvedLoopType(
