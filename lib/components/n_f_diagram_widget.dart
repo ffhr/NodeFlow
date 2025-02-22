@@ -1,6 +1,5 @@
 import '/backend/schema/enums/enums.dart';
 import '/backend/schema/structs/index.dart';
-import '/components/edge_component_widget.dart';
 import '/components/node_add_form_widget.dart';
 import '/components/node_child_widget.dart';
 import '/components/node_component_widget.dart';
@@ -158,33 +157,6 @@ class _NFDiagramWidgetState extends State<NFDiagramWidget> {
                   ),
                 ),
               ),
-              if (false)
-                Builder(
-                  builder: (context) {
-                    final edges = FFAppState().Edges.toList();
-
-                    return Stack(
-                      children: List.generate(edges.length, (edgesIndex) {
-                        final edgesItem = edges[edgesIndex];
-                        return Transform.scale(
-                          scaleX: _model.transformFactor,
-                          scaleY: _model.transformFactor,
-                          child: EdgeComponentWidget(
-                            key: Key('Keydv6_${edgesIndex}_of_${edges.length}'),
-                            edge: edgesItem,
-                            sourceNode: functions.getNodeFromId(
-                                edgesItem.sourceNodeId,
-                                FFAppState().Nodes.toList()),
-                            targetNode: functions.getNodeFromId(
-                                edgesItem.targetNodeId,
-                                FFAppState().Nodes.toList()),
-                            diagram: widget!.diagram!,
-                          ),
-                        );
-                      }),
-                    );
-                  },
-                ),
               Align(
                 alignment: AlignmentDirectional(0.0, 0.0),
                 child: Builder(
