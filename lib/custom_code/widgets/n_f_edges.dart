@@ -1,4 +1,6 @@
 // Automatic FlutterFlow imports
+import 'dart:ui';
+
 import 'package:node_flow/custom_code/widgets/curved_line.dart';
 import 'package:node_flow/custom_code/widgets/curved_loop.dart';
 
@@ -47,10 +49,18 @@ class _NFEdgesState extends State<NFEdges> {
       nodes: widget.nodes,
       diagram: widget.diagram,
     );
-    return RepaintBoundary(
-      child: CustomPaint(
-        size: MediaQuery.of(context).size,
-        painter: _painter,
+    return GestureDetector(
+      onTapUp: (details) {
+        var index = _painter.handleOnTapEdge(details.globalPosition);
+        if (index != -1) {
+          widget.onTapEdge?.call(index);
+        }
+      },
+      child: RepaintBoundary(
+        child: CustomPaint(
+          size: MediaQuery.of(context).size,
+          painter: _painter,
+        ),
       ),
     );
   }
@@ -89,22 +99,8 @@ class NFEdgesPainter extends CustomPainter {
   }
 
   void _paintEdge(Canvas canvas, Size size, Paint paint, NodeEdgeStruct edge) {
-    var startPoint = calculateStartPointFromEdge(
-      edge,
-      size.width,
-      size.height,
-      nodes!,
-      NFOffsetStruct(offsetX: 0.0, offsetY: 0.0),
-      1.0,
-    );
-    var endPoint = calculateEndPointFromEdge(
-      edge,
-      size.width,
-      size.height,
-      nodes!,
-      NFOffsetStruct(offsetX: 0.0, offsetY: 0.0),
-      1.0,
-    );
+    var startPoint = _getStartPointFromEdge(edge);
+    var endPoint = _getEndPointFromEdge(edge);
     if (startPoint.positionX <= endPoint.positionX) {
       // Draw a curved line
       _paintCurvedEdge(startPoint, endPoint, canvas, paint);
@@ -116,13 +112,8 @@ class NFEdgesPainter extends CustomPainter {
 
   void _paintCurvedEdge(NFPointStruct startPoint, NFPointStruct endPoint,
       Canvas canvas, Paint paint) {
-    var painter = CurvedLinePainter(
-        Offset(startPoint.positionX, startPoint.positionY),
-        Offset(endPoint.positionX, endPoint.positionY),
-        NFLineType.solid,
-        false,
-        paint.color,
-        1.0);
+    var painter = _getCurvedLinePainter(
+        startPoint, endPoint, NFLineType.solid, false, paint.color);
     var path = painter.getPath();
     canvas.drawPath(path, paint);
     painter.drawArrowHead(canvas, path);
@@ -133,6 +124,35 @@ class NFEdgesPainter extends CustomPainter {
     if (nodes == null) return;
     var sourceNode = getNodeFromId(edge.sourceNodeId, nodes!);
     var targetNode = getNodeFromId(edge.targetNodeId, nodes!);
+    var painter = _getCurvedLoopPainter(
+        startPoint, endPoint, size, sourceNode, targetNode, paint);
+    var path = painter.getPath();
+    canvas.drawPath(path, paint);
+    painter.drawArrowHead(canvas, path);
+  }
+
+  CurvedLinePainter _getCurvedLinePainter(
+      NFPointStruct startPoint,
+      NFPointStruct endPoint,
+      NFLineType lineType,
+      bool isArrowPointingToStartPoint,
+      Color lineColor) {
+    return CurvedLinePainter(
+        Offset(startPoint.positionX, startPoint.positionY),
+        Offset(endPoint.positionX, endPoint.positionY),
+        lineType,
+        isArrowPointingToStartPoint,
+        lineColor,
+        1.0);
+  }
+
+  CurvedLoopPainter _getCurvedLoopPainter(
+      NFPointStruct startPoint,
+      NFPointStruct endPoint,
+      Size size,
+      NodeStruct sourceNode,
+      NodeStruct targetNode,
+      Paint paint) {
     var loopType = _getCurvedLoopType(sourceNode, targetNode);
     var sourceNodeAbsPos = _getSourceNodeAbsolutePosition(
         sourceNode.virtualPosition, sourceNode.size);
@@ -145,9 +165,7 @@ class NFEdgesPainter extends CustomPainter {
         sourceNodeAbsPos,
         NFLineType.solid,
         paint.color);
-    var path = painter.getPath();
-    canvas.drawPath(path, paint);
-    painter.drawArrowHead(canvas, path);
+    return painter;
   }
 
   CurvedLoopType _getCurvedLoopType(
@@ -162,6 +180,74 @@ class NFEdgesPainter extends CustomPainter {
       NFOffsetStruct virtualPosition, NFSizeStruct size) {
     return virtualToAbsolute(
         virtualPosition, NFOffsetStruct(offsetX: 0, offsetY: 0), 1.0, size);
+  }
+
+  NFPointStruct _getStartPointFromEdge(NodeEdgeStruct edge) {
+    var startPoint = calculateStartPointFromEdge(
+        edge,
+        MediaQuery.of(context).size.width,
+        MediaQuery.of(context).size.height,
+        nodes!,
+        NFOffsetStruct(offsetX: 0.0, offsetY: 0.0),
+        1.0);
+    return startPoint;
+  }
+
+  NFPointStruct _getEndPointFromEdge(NodeEdgeStruct edge) {
+    var endPoint = calculateEndPointFromEdge(
+      edge,
+      MediaQuery.of(context).size.width,
+      MediaQuery.of(context).size.height,
+      nodes!,
+      NFOffsetStruct(offsetX: 0.0, offsetY: 0.0),
+      1.0,
+    );
+    return endPoint;
+  }
+
+  bool hitTestPath(Offset point, Path path) {
+    PathMetrics pathMetrics = path.computeMetrics();
+    for (PathMetric pathMetric in pathMetrics) {
+      for (double distance = 0.0;
+          distance < pathMetric.length;
+          distance += 1.0) {
+        Tangent? tangent = pathMetric.getTangentForOffset(distance);
+
+        if (tangent != null) {
+          Rect rect = Rect.fromCircle(center: tangent.position, radius: 10.0);
+          if (rect.contains(point)) {
+            return true;
+          }
+        }
+      }
+    }
+    return false;
+  }
+
+  int handleOnTapEdge(Offset point) {
+    for (var i = 0; i < (edges?.length ?? 00); i++) {
+      var edge = edges![i];
+      var startPoint = _getStartPointFromEdge(edge);
+      var endPoint = _getEndPointFromEdge(edge);
+      Path path;
+      if (startPoint.positionX <= endPoint.positionX) {
+        // Check a curved line hit
+        var painter = _getCurvedLinePainter(
+            startPoint, endPoint, NFLineType.solid, false, Colors.black);
+        path = painter.getPath();
+      } else {
+        // Check a curved loop hit
+        var sourceNode = getNodeFromId(edge.sourceNodeId, nodes!);
+        var targetNode = getNodeFromId(edge.targetNodeId, nodes!);
+        var painter = _getCurvedLoopPainter(startPoint, endPoint,
+            MediaQuery.of(context).size, sourceNode, targetNode, Paint());
+        path = painter.getPath();
+      }
+      if (hitTestPath(point, path)) {
+        return i;
+      }
+    }
+    return -1;
   }
 
   @override
