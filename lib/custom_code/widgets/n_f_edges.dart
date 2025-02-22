@@ -251,5 +251,7 @@ class NFEdgesPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
+  bool shouldRepaint(covariant NFEdgesPainter oldDelegate) {
+    return true;
+  }
 }

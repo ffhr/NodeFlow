@@ -356,8 +356,8 @@ class _NFDiagramWidgetState extends State<NFDiagramWidget> {
                                   offsetX: 0.0,
                                   offsetY: 0.0,
                                 ),
-                                FFAppState().DefaultZoomFactor /
-                                    FFAppState().NFZoomFactor,
+                                FFAppState().NFZoomFactor /
+                                    FFAppState().DefaultZoomFactor,
                                 NFSizeStruct(
                                   width: MediaQuery.sizeOf(context).width,
                                   height: MediaQuery.sizeOf(context).height,
@@ -385,8 +385,8 @@ class _NFDiagramWidgetState extends State<NFDiagramWidget> {
                                   offsetX: 0.0,
                                   offsetY: 0.0,
                                 ),
-                                FFAppState().DefaultZoomFactor /
-                                    FFAppState().NFZoomFactor,
+                                FFAppState().NFZoomFactor /
+                                    FFAppState().DefaultZoomFactor,
                                 NFSizeStruct(
                                   width: MediaQuery.sizeOf(context).width,
                                   height: MediaQuery.sizeOf(context).height,
