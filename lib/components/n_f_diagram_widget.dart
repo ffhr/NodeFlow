@@ -149,7 +149,11 @@ class _NFDiagramWidgetState extends State<NFDiagramWidget> {
                       edges: FFAppState().Edges,
                       nodes: FFAppState().Nodes,
                       diagram: widget!.diagram,
-                      onTapEdge: (index) async {},
+                      onTapEdge: (index) async {
+                        // Remove edge from list
+                        FFAppState().removeAtIndexFromEdges(index!);
+                        safeSetState(() {});
+                      },
                     ),
                   ),
                 ),
