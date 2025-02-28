@@ -196,19 +196,20 @@ class NFEdgesPainter extends CustomPainter {
         MediaQuery.of(context).size.height,
         nodes!,
         NFOffsetStruct(offsetX: 0.0, offsetY: 0.0),
-        1.0);
+        1.0,
+        diagram!);
     return startPoint;
   }
 
   NFPointStruct _getEndPointFromEdge(NodeEdgeStruct edge) {
     var endPoint = calculateEndPointFromEdge(
-      edge,
-      MediaQuery.of(context).size.width,
-      MediaQuery.of(context).size.height,
-      nodes!,
-      NFOffsetStruct(offsetX: 0.0, offsetY: 0.0),
-      1.0,
-    );
+        edge,
+        MediaQuery.of(context).size.width,
+        MediaQuery.of(context).size.height,
+        nodes!,
+        NFOffsetStruct(offsetX: 0.0, offsetY: 0.0),
+        1.0,
+        diagram!);
     return endPoint;
   }
 
