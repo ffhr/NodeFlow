@@ -258,6 +258,7 @@ NFPointStruct calculateStartPointFromEdge(
   List<NodeStruct> nodes,
   NFOffsetStruct viewportCenter,
   double zoomFactor,
+  NFDiagramStruct diagram,
 ) {
   var startNode = getNodeFromId(edge.sourceNodeId, nodes);
 
@@ -284,6 +285,7 @@ NFPointStruct calculateEndPointFromEdge(
   List<NodeStruct> nodes,
   NFOffsetStruct viewportCenter,
   double zoomFactor,
+  NFDiagramStruct diagram,
 ) {
   var startNode = getNodeFromId(edge.targetNodeId, nodes);
 

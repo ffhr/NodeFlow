@@ -65,7 +65,8 @@ class _EdgeComponentWidgetState extends State<EdgeComponentWidget> {
                     MediaQuery.sizeOf(context).height,
                     FFAppState().Nodes.toList(),
                     FFAppState().NFViewportCenter,
-                    FFAppState().NFZoomFactor)
+                    FFAppState().NFZoomFactor,
+                    widget!.diagram!)
                 .positionX <=
             functions
                 .calculateEndPointFromEdge(
@@ -74,7 +75,8 @@ class _EdgeComponentWidgetState extends State<EdgeComponentWidget> {
                     MediaQuery.sizeOf(context).height,
                     FFAppState().Nodes.toList(),
                     FFAppState().NFViewportCenter,
-                    FFAppState().NFZoomFactor)
+                    FFAppState().NFZoomFactor,
+                    widget!.diagram!)
                 .positionX) {
           return Visibility(
             visible: true,
@@ -93,7 +95,8 @@ class _EdgeComponentWidgetState extends State<EdgeComponentWidget> {
                       offsetX: 0.0,
                       offsetY: 0.0,
                     ),
-                    1.0),
+                    1.0,
+                    widget!.diagram!),
                 end: functions.calculateEndPointFromEdge(
                     widget!.edge!,
                     MediaQuery.sizeOf(context).width,
@@ -103,7 +106,8 @@ class _EdgeComponentWidgetState extends State<EdgeComponentWidget> {
                       offsetX: 0.0,
                       offsetY: 0.0,
                     ),
-                    1.0),
+                    1.0,
+                    NFDiagramStruct()),
                 lineType: NFLineType.solid,
                 isArrowPointingToStartPoint: false,
                 lineColor: FlutterFlowTheme.of(context).nFDefaultEdgeColor,
@@ -132,7 +136,8 @@ class _EdgeComponentWidgetState extends State<EdgeComponentWidget> {
                     offsetX: 0.0,
                     offsetY: 0.0,
                   ),
-                  1.0),
+                  1.0,
+                  widget!.diagram!),
               end: functions.calculateEndPointFromEdge(
                   widget!.edge!,
                   MediaQuery.sizeOf(context).width,
@@ -142,7 +147,8 @@ class _EdgeComponentWidgetState extends State<EdgeComponentWidget> {
                     offsetX: 0.0,
                     offsetY: 0.0,
                   ),
-                  1.0),
+                  1.0,
+                  widget!.diagram!),
               sourceNodeSize: widget!.sourceNode!.size,
               curvedLoopType: widget!.sourceNode!.virtualPosition.offsetY <
                       widget!.targetNode!.virtualPosition.offsetY
