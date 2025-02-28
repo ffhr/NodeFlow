@@ -93,7 +93,7 @@ class NFEdgesPainter extends CustomPainter {
       ..style = PaintingStyle.stroke;
 
     for (var edge in edges ?? []) {
-      print('Painting edge: ${edge.id}');
+      //print('Painting edge: ${edge.id}');
       _paintEdge(canvas, size, paint, edge);
     }
   }
